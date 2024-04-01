@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj",
+      "projectUniqueName": "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj",
       "projectName": "Fire-Emblem-View",
-      "projectPath": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj",
+      "projectPath": "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj",
       "packagesPath": "/Users/anibal/.nuget/packages/",
-      "outputPath": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/obj/",
+      "outputPath": "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/anibal/.nuget/NuGet/NuGet.Config"
