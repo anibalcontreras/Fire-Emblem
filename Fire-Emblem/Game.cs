@@ -1,7 +1,6 @@
 ﻿using Fire_Emblem_View;
 using Fire_Emblem.TeamManagment;
-using Fire_Emblem.Controller;
-using Fire_Emblem.SkillManagment;
+using Fire_Emblem.Loader;
 
 namespace Fire_Emblem;
 
@@ -10,27 +9,27 @@ public class Game
 {
     private View _view;
     private string _teamsFolder;
-    private InitGameController _gameController;
+    private TeamBuilder _teamBuilder;
     
     public Game(View view, string teamsFolder)
     {
         _view = view;
         _teamsFolder = teamsFolder;
-        _gameController = new InitGameController();
+        _teamBuilder = new TeamBuilder();
     }
 
     public void Play()
-    {
-     StartGame();   
+    { 
+        StartGame();   
     }
 
     private void StartGame()
     {
-        TeamValidator teamValidator = new TeamValidator(_gameController);
+        TeamBuilder teamBuilder = new TeamBuilder();
         string[] files = DisplayFiles();
         string selectedOption = AskUserToSelectAnOption(files);
         string fileContent = File.ReadAllText(selectedOption);
-        List<Team> buildedTeams = teamValidator.BuildTeams(fileContent);
+        List<Team> buildedTeams = teamBuilder.BuildTeams(fileContent);
         // Esta forma de validar esta curiosa (PENSAR)
         if (buildedTeams.All(team => team.IsValidTeam()))
         {

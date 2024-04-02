@@ -69,9 +69,9 @@ public class Unit
     
     public int CalculateDamage(Unit opponent)
     {
-        int defenseValue = this.Weapon is Magic ? Convert.ToInt32(opponent.Res) : Convert.ToInt32(opponent.Def);
+        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.Res) : Convert.ToInt32(opponent.Def);
         
-        double damage = (Convert.ToDouble(this.Atk) * Convert.ToDouble(this.Weapon.GetWTB(opponent.Weapon))) - defenseValue;
+        double damage = (Convert.ToDouble(Atk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
 
         // Apply the damage to the currentHP of the opponent
         opponent.CurrentHP -= (int)Math.Max(0, Math.Truncate(damage));

@@ -1,11 +1,9 @@
+using Fire_Emblem.SkillManagment;
+
 namespace Fire_Emblem.TeamManagment;
-
-using Fire_Emblem.UnitManagment;
-
 public class Team
 {
     public List<UnitLoadout> UnitsLoadout { get; set; } = new List<UnitLoadout>();
-    
     public string Name { get; private set; }
     
     
@@ -38,10 +36,28 @@ public class Team
     {
         foreach (UnitLoadout unitLoadout in UnitsLoadout)
         {
-            if (unitLoadout.EquippedSkills.Count > 2 || unitLoadout.EquippedSkills.Count != unitLoadout.EquippedSkills.Distinct().Count())
+            if (!HasValidNumberOfSkills(unitLoadout) || !HasUniqueSkills(unitLoadout))
+            {
                 return false;
+            }
         }
         return true;
+    }
+
+    private bool HasValidNumberOfSkills(UnitLoadout unitLoadout)
+    {
+        return unitLoadout.EquippedSkills.Count <= 2;
+    }
+
+    private bool HasUniqueSkills(UnitLoadout unitLoadout)
+    {
+        var uniqueSkillNames = GetUniqueSkillNames(unitLoadout.EquippedSkills);
+        return uniqueSkillNames.Count() == unitLoadout.EquippedSkills.Count;
+    }
+    
+    private IEnumerable<string> GetUniqueSkillNames(IEnumerable<Skill> equippedSkills)
+    {
+        return equippedSkills.Select(skill => skill.Name).Distinct();
     }
     
     // Tiene que ser privado (PENSAR)
