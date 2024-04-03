@@ -1,6 +1,5 @@
 ﻿using Fire_Emblem_View;
 using Fire_Emblem.TeamManagment;
-using Fire_Emblem.Loader;
 
 namespace Fire_Emblem;
 
@@ -30,7 +29,6 @@ public class Game
         string selectedOption = AskUserToSelectAnOption(files);
         string fileContent = File.ReadAllText(selectedOption);
         List<Team> buildedTeams = teamBuilder.BuildTeams(fileContent);
-        // Esta forma de validar esta curiosa (PENSAR)
         if (buildedTeams.All(team => team.IsValidTeam()))
         {
             StartCombatPhase(buildedTeams);
@@ -38,124 +36,136 @@ public class Game
         else
             ShowMessageForInvalidTeam();
     }
-
-
+    
     private void StartCombatPhase(List<Team> teams)
     {
         int currentPlayer = 0;
-        
         int round = 1;
-        while (teams[0].UnitsLoadout.Any(u => u.Unit.CurrentHP > 0) && teams[1].UnitsLoadout.Any(u => u.Unit.CurrentHP > 0))
+        
+        while (IsCombatContinuing(teams))
         {
-            // Imprime la cantidad de unidades disponibles en ambos equipos
-            // Console.WriteLine($"Player 1: {teams[0].UnitsLoadout.Count(u => u.Unit.CurrentHP > 0)} unidades disponibles");
-            // Console.WriteLine($"Player 2: {teams[1].UnitsLoadout.Count(u => u.Unit.CurrentHP > 0)} unidades disponibles");
+            Team activeTeam = teams[currentPlayer];
+            Team opponentTeam = teams[(currentPlayer + 1) % 2];
+
+            UnitLoadout activeUnit = SelectUnit(activeTeam, $"Player {currentPlayer + 1} selecciona una opción");
+            UnitLoadout opponentUnit = SelectUnit(opponentTeam, $"Player {(currentPlayer + 1) % 2 + 1} selecciona una opción");
             
-            _view.WriteLine($"Player {currentPlayer + 1} selecciona una opción");
-            var activeTeam = teams[currentPlayer];
-            for (int i = 0; i < activeTeam.UnitsLoadout.Count; i++)
-            {
-                if (activeTeam.UnitsLoadout[i].Unit.CurrentHP > 0)
-                {
-                    _view.WriteLine($"{i}: {activeTeam.UnitsLoadout[i].Unit.Name}");
-                }
-            }
+            ExecuteRound(activeUnit, opponentUnit, round++, currentPlayer);
 
-            int selectedOption = AskUserToSelectNumber(0, activeTeam.UnitsLoadout.Count - 1);
-            // while (activeTeam.UnitsLoadout[selectedOption].Unit.CurrentHP <= 0)
-            // {
-            //     _view.WriteLine("Unidad no disponible, elige otra.");
-            //     selectedOption = AskUserToSelectNumber(0, activeTeam.UnitsLoadout.Count - 1);
-            // }
-
-            var opponentTeam = teams[(currentPlayer + 1) % 2];
-            _view.WriteLine($"Player {(currentPlayer + 1) % 2 + 1} selecciona una opción");
-            for (int i = 0; i < opponentTeam.UnitsLoadout.Count; i++)
-            {
-                if (opponentTeam.UnitsLoadout[i].Unit.CurrentHP > 0)
-                {
-                    _view.WriteLine($"{i}: {opponentTeam.UnitsLoadout[i].Unit.Name}");
-                }
-            }
-
-            int opponentSelectedOption = AskUserToSelectNumber(0, opponentTeam.UnitsLoadout.Count - 1);
-            // while (opponentTeam.UnitsLoadout[opponentSelectedOption].Unit.CurrentHP <= 0)
-            // {
-            //     _view.WriteLine("Unidad no disponible, elige otra.");
-            //     opponentSelectedOption = AskUserToSelectNumber(0, opponentTeam.UnitsLoadout.Count - 1);
-            // }
-            
-            _view.WriteLine($"Round {round++}: {activeTeam.UnitsLoadout[selectedOption].Unit.Name} (Player {currentPlayer + 1}) comienza");
-            RoundCombats(activeTeam.UnitsLoadout[selectedOption], opponentTeam.UnitsLoadout[opponentSelectedOption]);
-            teams[0].RemoveDefeatedUnits();
-            teams[1].RemoveDefeatedUnits();
+            RemoveDefeatedUnits(teams);
             currentPlayer = (currentPlayer + 1) % 2;
         }
 
+        AnnounceWinner(teams);
+    }
+
+    private UnitLoadout SelectUnit(Team team, string prompt)
+    {
+        _view.WriteLine(prompt);
+        ShowUnitOptions(team);
+        int selectedOption = AskUserToSelectNumber(0, team.UnitsLoadout.Count - 1);
+        return team.UnitsLoadout[selectedOption];
+    }
+
+    private void ShowUnitOptions(Team team)
+    {
+        for (int i = 0; i < team.UnitsLoadout.Count; i++)
+        {
+            if (team.UnitsLoadout[i].Unit.CurrentHP > 0)
+            {
+                _view.WriteLine($"{i}: {team.UnitsLoadout[i].Unit.Name}");
+            }
+        }
+    }
+
+    private void ExecuteRound(UnitLoadout activeUnit, UnitLoadout opponentUnit, int round, int currentPlayer)
+    {
+        _view.WriteLine($"Round {round}: {activeUnit.Unit.Name} (Player {currentPlayer + 1}) comienza");
+        RoundCombats(activeUnit, opponentUnit);
+    }
+
+    private bool IsCombatContinuing(List<Team> teams)
+    {
+        return teams.All(team => team.UnitsLoadout.Any(u => u.Unit.CurrentHP > 0));
+    }
+
+    private void RemoveDefeatedUnits(List<Team> teams)
+    {
+        foreach (var team in teams)
+        {
+            team.RemoveDefeatedUnits();
+        }
+    }
+
+    private void AnnounceWinner(List<Team> teams)
+    {
         bool team1HasLivingUnits = teams[0].UnitsLoadout.Any(u => u.Unit.CurrentHP > 0);
         bool team2HasLivingUnits = teams[1].UnitsLoadout.Any(u => u.Unit.CurrentHP > 0);
 
         if (team1HasLivingUnits && !team2HasLivingUnits)
         {
-            // El equipo 1 es el ganador
-            _view.WriteLine($"Player 1 ganó");
+            _view.WriteLine("Player 1 ganó");
         }
         else if (!team1HasLivingUnits && team2HasLivingUnits)
         {
-            // El equipo 2 es el ganador
-            _view.WriteLine($"Player 2 ganó");
+            _view.WriteLine("Player 2 ganó");
         }
     }
-
-
+    
     private void RoundCombats(UnitLoadout attacker, UnitLoadout defender)
     {
-        // Anunciar quien tiene ventaja
-        (double wtb, string message) = attacker.Unit.Weapon.CalculateAdvantage(attacker.Unit, defender.Unit);
-        _view.WriteLine(message);
-        
-        int damage = attacker.Unit.CalculateDamage(defender.Unit);
-        _view.WriteLine($"{attacker.Unit.Name} ataca a {defender.Unit.Name} con {damage} de daño");
+        AnnounceAdvantage(attacker, defender);
+        PerformAttack(attacker, defender);
+
         if (defender.Unit.CurrentHP <= 0)
         {
-            ShowCurrentHealth(attacker, defender); // Mostrar la salud actual
-            return; // Salir de la función
-        }
-        
-        int damage2 = defender.Unit.CalculateDamage(attacker.Unit);
-        _view.WriteLine($"{defender.Unit.Name} ataca a {attacker.Unit.Name} con {damage2} de daño");
-        if (attacker.Unit.CurrentHP <= 0)
-        {
-            ShowCurrentHealth(attacker, defender); // Mostrar la salud actual
-            return; // Salir de la función
+            ShowCurrentHealth(attacker, defender);
+            return;
         }
 
-        
-        if (attacker.Unit.Spd - defender.Unit.Spd >= 5)
+        PerformAttack(defender, attacker);
+
+        if (attacker.Unit.CurrentHP <= 0)
         {
-            damage = attacker.Unit.CalculateDamage(defender.Unit);
-            _view.WriteLine($"{attacker.Unit.Name} ataca a {defender.Unit.Name} con {damage} de daño");
-            if (defender.Unit.CurrentHP <= 0)
-            {
-                ShowCurrentHealth(attacker, defender); // Mostrar la salud actual
-                return; // Salir de la función
-            }
+            ShowCurrentHealth(attacker, defender);
+            return;
         }
-        else if (defender.Unit.Spd - attacker.Unit.Spd >= 5)
+
+        HandleFollowUp(attacker, defender);
+        ShowCurrentHealth(attacker, defender);
+    }
+
+    private void AnnounceAdvantage(UnitLoadout attacker, UnitLoadout defender)
+    {
+        string message = attacker.Unit.Weapon.CalculateAdvantage(attacker.Unit, defender.Unit);
+        _view.WriteLine(message);
+    }
+
+    private void PerformAttack(UnitLoadout attacker, UnitLoadout defender)
+    {
+        int damage = attacker.Unit.CalculateDamage(defender.Unit);
+        _view.WriteLine($"{attacker.Unit.Name} ataca a {defender.Unit.Name} con {damage} de daño");
+    }
+
+    private void HandleFollowUp(UnitLoadout attacker, UnitLoadout defender)
+    {
+        if (CanPerformFollowUp(attacker, defender))
         {
-            damage2 = defender.Unit.CalculateDamage(attacker.Unit);
-            _view.WriteLine($"{defender.Unit.Name} ataca a {attacker.Unit.Name} con {damage2} de daño");
-            if (attacker.Unit.CurrentHP <= 0)
-            {
-                ShowCurrentHealth(attacker, defender); // Mostrar la salud actual
-                return; // Salir de la función
-            }
+            PerformAttack(attacker, defender);
+        }
+        else if (CanPerformFollowUp(defender, attacker))
+        {
+            PerformAttack(defender, attacker);
         }
         else
         {
             _view.WriteLine("Ninguna unidad puede hacer un follow up");
         }
-        ShowCurrentHealth(attacker, defender);
+    }
+
+    private bool CanPerformFollowUp(UnitLoadout attacker, UnitLoadout defender)
+    {
+        return attacker.Unit.Spd - defender.Unit.Spd >= 5;
     }
     
     private void ShowCurrentHealth(UnitLoadout attacker, UnitLoadout defender)

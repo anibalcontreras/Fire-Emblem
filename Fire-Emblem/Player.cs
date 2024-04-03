@@ -1,7 +1,6 @@
-namespace Fire_Emblem;
-
 using Fire_Emblem.TeamManagment;
 
+namespace Fire_Emblem;
 public class Player
 {
     public string Name { get; set; }

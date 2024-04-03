@@ -13,7 +13,7 @@ public class Team
     }
     
     public void AddUnitLoadout(UnitLoadout unitLoadout)
-      =>UnitsLoadout.Add(unitLoadout);
+        =>UnitsLoadout.Add(unitLoadout);
     
 
     public bool IsValidTeam()
@@ -60,10 +60,8 @@ public class Team
         return equippedSkills.Select(skill => skill.Name).Distinct();
     }
     
-    // Tiene que ser privado (PENSAR)
     public void RemoveDefeatedUnits()
     {
         UnitsLoadout.RemoveAll(unitLoadout => unitLoadout.Unit.CurrentHP <= 0);
     }
-    
 }
