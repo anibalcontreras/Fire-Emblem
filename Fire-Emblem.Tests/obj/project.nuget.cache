@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y/TaVQrDWE7WzF+OsNWM78lRbv/pzmJYfXxvQh6MRcMjUN66MsttRu6sfXit6VoHAkVTd7Z0lorqcIAmMRkuJA==",
+  "dgSpecHash": "EvyV6bV9VQEazXs0h11bSBL4qwMKUc5uDAhcc3lEopaAeW3fdeZ06EGPoPYRVJ+jwSqSVGByZqhDV7oxmM8T0A==",
   "success": true,
-  "projectFilePath": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem.Tests/Fire-Emblem.Tests.csproj",
+  "projectFilePath": "/Users/anibal/code/Fire-Emblem/Fire-Emblem.Tests/Fire-Emblem.Tests.csproj",
   "expectedPackageFiles": [
     "/Users/anibal/.nuget/packages/coverlet.collector/6.0.0/coverlet.collector.6.0.0.nupkg.sha512",
     "/Users/anibal/.nuget/packages/microsoft.codecoverage/17.8.0/microsoft.codecoverage.17.8.0.nupkg.sha512",

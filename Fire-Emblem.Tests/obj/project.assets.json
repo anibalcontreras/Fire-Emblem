@@ -5548,11 +5548,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem.Tests/Fire-Emblem.Tests.csproj",
+      "projectUniqueName": "/Users/anibal/code/Fire-Emblem/Fire-Emblem.Tests/Fire-Emblem.Tests.csproj",
       "projectName": "Fire-Emblem.Tests",
-      "projectPath": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem.Tests/Fire-Emblem.Tests.csproj",
+      "projectPath": "/Users/anibal/code/Fire-Emblem/Fire-Emblem.Tests/Fire-Emblem.Tests.csproj",
       "packagesPath": "/Users/anibal/.nuget/packages/",
-      "outputPath": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem.Tests/obj/",
+      "outputPath": "/Users/anibal/code/Fire-Emblem/Fire-Emblem.Tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/anibal/.nuget/NuGet/NuGet.Config"
@@ -5567,11 +5567,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj": {
-              "projectPath": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj"
+            "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj": {
+              "projectPath": "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj"
             },
-            "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem/Fire-Emblem.csproj": {
-              "projectPath": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem/Fire-Emblem.csproj"
+            "/Users/anibal/code/Fire-Emblem/Fire-Emblem/Fire-Emblem.csproj": {
+              "projectPath": "/Users/anibal/code/Fire-Emblem/Fire-Emblem/Fire-Emblem.csproj"
             }
           }
         }

@@ -9,3 +9,15 @@
 /Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/refint/Fire-Emblem-View.dll
 /Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.pdb
 /Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/ref/Fire-Emblem-View.dll
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/bin/Debug/net8.0/Fire-Emblem-View.deps.json
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/bin/Debug/net8.0/Fire-Emblem-View.dll
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/bin/Debug/net8.0/Fire-Emblem-View.pdb
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.GeneratedMSBuildEditorConfig.editorconfig
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.AssemblyInfoInputs.cache
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.AssemblyInfo.cs
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.csproj.CoreCompileInputs.cache
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.sourcelink.json
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.dll
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/refint/Fire-Emblem-View.dll
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.pdb
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/ref/Fire-Emblem-View.dll
