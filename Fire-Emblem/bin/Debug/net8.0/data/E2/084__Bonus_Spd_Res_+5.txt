@@ -1,7 +1,7 @@
 Player 1 Team
-Ike
-Sigurd
+Soren (Spd/Res +5)
+Chrom (Spd/Res +5)
 Player 2 Team
-Alm
-Dimitri
-Veronica
+Seliph
+Camilla (Spd/Res +5)
+Robin (Spd/Res +5)

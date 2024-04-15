@@ -1,3 +1,5 @@
+using Fire_Emblem.Condition;
+using Fire_Emblem.Effect;
 using Fire_Emblem.Loader;
 
 namespace Fire_Emblem.TeamManagment;
@@ -59,9 +61,7 @@ public class TeamBuilder
     private void AddUnitToCurrentPlayer(string line, ref Player currentPlayer)
     {
         if (string.IsNullOrWhiteSpace(line) || currentPlayer == null)
-        {
-            return; // Salida temprana si la línea está vacía o no hay un jugador actual
-        }
+            return;
 
         string unitName = ExtractUnitName(line);
         Unit originalUnit = FindUnitByName(unitName);
@@ -99,19 +99,20 @@ public class TeamBuilder
     private void AddUnitToPlayer(Unit clonedUnit, string line, ref Player currentPlayer)
     {
         clonedUnit.InitializeCurrentHP();
-        UnitLoadout unitLoadout = new UnitLoadout(clonedUnit);
-        ProcessUnitSkills(line.Split('('), unitLoadout);
-        currentPlayer.Team.AddUnitLoadout(unitLoadout);
+        Unit unit = clonedUnit;
+        
+        ProcessUnitSkills(line.Split('('), unit);
+        currentPlayer.Team.AddUnit(unit);
     }
     
-    private void ProcessUnitSkills(string[] parts, UnitLoadout unitLoadout)
+    private void ProcessUnitSkills(string[] parts, Unit unit)
     {
         if (parts.Length <= 1) return;
 
         IEnumerable<string> skillNames = ExtractSkillNames(parts[1]);
         foreach (string skillName in skillNames)
         {
-            EquipSkillByName(skillName, unitLoadout);
+            EquipSkillByName(skillName, unit);
         }
     }
 
@@ -121,12 +122,20 @@ public class TeamBuilder
         return cleanSkills.Split(',').Select(skillName => skillName.Trim());
     }
 
-    private void EquipSkillByName(string skillName, UnitLoadout unitLoadout)
+    private void EquipSkillByName(string skillName, Unit unit)
     {
-        Skill skill = FindSkillByName(skillName);
+        // TODO: Acá se tiene este parche mientras no están todas las skills programadas y tenga que pasar los primeros tests
+        Skill skill = null;
+        try
+        {
+            skill = SkillFactory.CreateSkill(skillName);
+        }
+        catch (ArgumentException)
+        {
+            skill = FindSkillByName(skillName);
+        }
         Skill clonedSkill = CloneSkill(skill);
-        
-        unitLoadout.EquipSkill(clonedSkill);
+        unit.AddSkill(clonedSkill);
     }
 
     private Skill FindSkillByName(string skillName)
@@ -136,6 +145,16 @@ public class TeamBuilder
 
     private Skill CloneSkill(Skill originalSkill)
     {
-        return new Skill(originalSkill.Name, originalSkill.Description);
+        Skill clonedSkill = new Skill(originalSkill.Name, originalSkill.Description);
+        foreach (IEffect effect in originalSkill.Effects)
+        {
+            clonedSkill.AddEffect(effect.Clone());
+        }
+        foreach (ICondition condition in originalSkill.Conditions)
+        {
+            clonedSkill.AddCondition(condition.Clone());
+        }
+
+        return clonedSkill;
     }
 }

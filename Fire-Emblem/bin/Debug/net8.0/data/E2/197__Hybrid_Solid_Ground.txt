@@ -1,5 +1,6 @@
 Player 1 Team
-Alm (Solid Ground)
-Claude
+Leif
+Tiki (Solid Ground)
 Player 2 Team
-Ike (Solid Ground)
+Alm (Solid Ground)
+Celica

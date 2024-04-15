@@ -1,4 +1,6 @@
 Player 1 Team
-Ike
+Camilla (Attack +6)
+Leif (Attack +6)
 Player 2 Team
-Alear (Attack +6)
+Robin
+Shez

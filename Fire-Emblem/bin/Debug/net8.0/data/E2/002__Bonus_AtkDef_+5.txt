@@ -1,8 +1,5 @@
 Player 1 Team
-Ephraim
-Veronica
-Camilla (Atk/Def +5)
+Alm (Atk/Def +5)
 Player 2 Team
-Veronica
-Claude
-Sigurd (Atk/Def +5)
+Roy
+Seliph

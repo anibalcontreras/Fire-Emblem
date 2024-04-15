@@ -1,7 +1,7 @@
 Player 1 Team
-Corrin (Resistance +5)
-Edelgard (Resistance +5)
-Seliph
+Robin
+Eliwood (Resistance +5)
+Tiki (Resistance +5)
 Player 2 Team
-Camilla (Resistance +5)
-Seliph
+Celica (Resistance +5)
+Eirika

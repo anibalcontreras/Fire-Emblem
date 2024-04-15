@@ -1,6 +1,5 @@
 Player 1 Team
-Camilla
-Shez
-Ephraim
+Micaiah
+Chrom
 Player 2 Team
 Edelgard (Distant Def)

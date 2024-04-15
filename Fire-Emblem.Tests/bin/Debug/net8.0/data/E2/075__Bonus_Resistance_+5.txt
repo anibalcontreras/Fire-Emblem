@@ -1,4 +1,6 @@
 Player 1 Team
-Alm (Resistance +5)
+Lyn (Resistance +5)
+Lucina (Resistance +5)
+Micaiah (Resistance +5)
 Player 2 Team
-Claude (Resistance +5)
+Marth (Resistance +5)

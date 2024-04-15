@@ -1,5 +1,5 @@
 Player 1 Team
-Eliwood
-Seliph (Life and Death)
+Marth (Life and Death)
+Shez (Life and Death)
 Player 2 Team
-Celica
+Chrom (Life and Death)

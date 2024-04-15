@@ -1,21 +1,21 @@
 using Fire_Emblem.SkillManagment;
+using Fire_Emblem.UnitManagment;
 
 namespace Fire_Emblem.TeamManagment;
 public class Team
 {
-    public List<UnitLoadout> UnitsLoadout { get; set; } = new List<UnitLoadout>();
+    public List<Unit> Units { get; } = new List<Unit>();
     public string Name { get; private set; }
-    
+    // public bool IsAttacker { get; private set; }
     
     public Team(string name)
     {
         Name = name;
     }
     
-    public void AddUnitLoadout(UnitLoadout unitLoadout)
-        =>UnitsLoadout.Add(unitLoadout);
+    public void AddUnit(Unit unit)
+        =>Units.Add(unit);
     
-
     public bool IsValidTeam()
     {
         return HasValidUnitCount() && HasUniqueUnits() && UnitsHaveValidSkills();
@@ -23,20 +23,20 @@ public class Team
     
     private bool HasValidUnitCount()
     {
-        return UnitsLoadout.Count >= 1 && UnitsLoadout.Count <= 3;
+        return Units.Count >= 1 && Units.Count <= 3;
     }
     
     private bool HasUniqueUnits()
     {
-        IEnumerable<string> unitNames = UnitsLoadout.Select(unitLoadout => unitLoadout.Unit.Name);
+        IEnumerable<string> unitNames = Units.Select(unit => unit.Name);
         return unitNames.Distinct().Count() == unitNames.Count();
     }
     
     private bool UnitsHaveValidSkills()
     {
-        foreach (UnitLoadout unitLoadout in UnitsLoadout)
+        foreach (Unit unit in Units)
         {
-            if (!HasValidNumberOfSkills(unitLoadout) || !HasUniqueSkills(unitLoadout))
+            if (!HasValidNumberOfSkills(unit) || !HasUniqueSkills(unit))
             {
                 return false;
             }
@@ -44,15 +44,15 @@ public class Team
         return true;
     }
 
-    private bool HasValidNumberOfSkills(UnitLoadout unitLoadout)
+    private bool HasValidNumberOfSkills(Unit unit)
     {
-        return unitLoadout.EquippedSkills.Count <= 2;
+        return unit.Skills.Count() <= 2;
     }
 
-    private bool HasUniqueSkills(UnitLoadout unitLoadout)
+    private bool HasUniqueSkills(Unit unit)
     {
-        var uniqueSkillNames = GetUniqueSkillNames(unitLoadout.EquippedSkills);
-        return uniqueSkillNames.Count() == unitLoadout.EquippedSkills.Count;
+        var uniqueSkillNames = GetUniqueSkillNames(unit.Skills);
+        return uniqueSkillNames.Count() == unit.Skills.Count();
     }
     
     private IEnumerable<string> GetUniqueSkillNames(IEnumerable<Skill> equippedSkills)
@@ -62,6 +62,11 @@ public class Team
     
     public void RemoveDefeatedUnits()
     {
-        UnitsLoadout.RemoveAll(unitLoadout => unitLoadout.Unit.CurrentHP <= 0);
+        Units.RemoveAll(unit => unit.CurrentHP <= 0);
+    }
+    
+    public bool HasLivingUnits()
+    {
+        return Units.Any(unit => unit.CurrentHP > 0);
     }
 }

@@ -1,7 +1,5 @@
 Player 1 Team
-Dimitri
-Leif (Defense +5)
+Alear (Defense +5)
 Player 2 Team
-Veronica
-Dimitri
-Shez (Defense +5)
+Celica (Defense +5)
+Hector (Defense +5)

@@ -1,7 +1,7 @@
 Player 1 Team
-Alm
-Shez (Solid Ground)
+Chrom
+Micaiah
+Lyn (Solid Ground)
 Player 2 Team
-Seliph (Solid Ground)
-Veronica (Solid Ground)
-Ephraim (Solid Ground)
+Lyn (Solid Ground)
+Tiki

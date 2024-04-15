@@ -1,6 +1,4 @@
 Player 1 Team
-Alm
+Ike
 Player 2 Team
-Tiki
-Lyn (Speed +5)
-Alm (Speed +5)
+Edelgard (Speed +5)

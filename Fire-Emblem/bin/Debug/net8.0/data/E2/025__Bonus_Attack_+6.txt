@@ -1,5 +1,8 @@
 Player 1 Team
-Roy (Attack +6)
+Corrin
+Seliph (Attack +6)
+Leif
 Player 2 Team
+Corrin
 Micaiah
-Ike (Attack +6)
+Chrom (Attack +6)

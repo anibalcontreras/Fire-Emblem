@@ -1,7 +1,7 @@
 Player 1 Team
-Corrin (Fort. Def/Res)
-Edelgard (Fort. Def/Res)
+Byleth (Fort. Def/Res)
+Marth (Fort. Def/Res)
 Player 2 Team
-Eirika
-Micaiah
-Hector (Fort. Def/Res)
+Ephraim (Fort. Def/Res)
+Sigurd (Fort. Def/Res)
+Soren

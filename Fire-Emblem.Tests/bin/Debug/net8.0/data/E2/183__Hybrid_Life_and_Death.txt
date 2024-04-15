@@ -1,5 +1,6 @@
 Player 1 Team
-Eirika
-Ephraim (Life and Death)
+Eliwood (Life and Death)
 Player 2 Team
-Corrin (Life and Death)
+Robin (Life and Death)
+Roy (Life and Death)
+Lucina

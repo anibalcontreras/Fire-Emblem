@@ -1,6 +1,6 @@
 Player 1 Team
-Edelgard
+Seliph
 Player 2 Team
-Dimitri
-Micaiah (Attack +6)
-Lyn
+Seliph
+Ephraim (Attack +6)
+Camilla

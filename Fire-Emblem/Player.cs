@@ -3,8 +3,8 @@ using Fire_Emblem.TeamManagment;
 namespace Fire_Emblem;
 public class Player
 {
-    public string Name { get; set; }
-    public Team Team { get; set; }
+    public string Name { get; private set; }
+    public Team Team { get; }
 
     public Player(string name)
     {

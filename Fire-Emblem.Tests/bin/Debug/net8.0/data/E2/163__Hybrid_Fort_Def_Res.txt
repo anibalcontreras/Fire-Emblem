@@ -1,6 +1,7 @@
 Player 1 Team
-Roy (Fort. Def/Res)
-Camilla
-Sigurd
+Chrom (Fort. Def/Res)
+Micaiah
+Eliwood (Fort. Def/Res)
 Player 2 Team
-Camilla
+Tiki (Fort. Def/Res)
+Eirika (Fort. Def/Res)

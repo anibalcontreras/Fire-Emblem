@@ -1,6 +1,8 @@
 Player 1 Team
-Celica (Fort. Def/Res)
 Lyn
+Ike (Fort. Def/Res)
+Eirika (Fort. Def/Res)
 Player 2 Team
-Hector (Fort. Def/Res)
-Marth
+Veronica
+Dimitri
+Lucina (Fort. Def/Res)

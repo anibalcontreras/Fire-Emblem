@@ -1,7 +1,6 @@
 Player 1 Team
-Alm (Resistance +5)
-Eliwood
-Byleth
+Leif (Resistance +5)
 Player 2 Team
 Chrom
-Corrin
+Tiki (Resistance +5)
+Ike (Resistance +5)

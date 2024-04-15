@@ -1,6 +1,6 @@
 Player 1 Team
-Veronica (Defense +5)
-Alear (Defense +5)
+Byleth (Defense +5)
+Lyn
+Veronica
 Player 2 Team
-Soren
-Edelgard (Defense +5)
+Eliwood

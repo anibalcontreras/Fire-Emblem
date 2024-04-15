@@ -1,5 +1,5 @@
 Player 1 Team
-Edelgard (Wrath)
+Marth (Wrath)
 Player 2 Team
-Lyn
-Chrom
+Alear
+Leif

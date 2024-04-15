@@ -1,7 +1,6 @@
 Player 1 Team
-Robin
-Tiki
-Soren (Atk/Res +5)
+Lucina
+Dimitri (Atk/Res +5)
+Soren
 Player 2 Team
-Shez
-Roy
+Dimitri (Atk/Res +5)

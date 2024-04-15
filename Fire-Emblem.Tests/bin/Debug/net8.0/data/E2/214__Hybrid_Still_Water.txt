@@ -1,8 +1,5 @@
 Player 1 Team
-Veronica (Still Water)
-Tiki
-Ephraim
+Ephraim (Still Water)
 Player 2 Team
-Sigurd (Still Water)
-Alear
-Shez
+Marth (Still Water)
+Ephraim

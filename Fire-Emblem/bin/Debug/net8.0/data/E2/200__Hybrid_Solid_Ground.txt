@@ -1,8 +1,5 @@
 Player 1 Team
-Ephraim
-Hector (Solid Ground)
-Eirika (Solid Ground)
+Veronica (Solid Ground)
+Alear
 Player 2 Team
-Micaiah
-Leif
-Robin (Solid Ground)
+Celica

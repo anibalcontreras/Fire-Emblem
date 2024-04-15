@@ -1,7 +1,5 @@
 Player 1 Team
-Hector
-Chrom
-Lucina (Life and Death)
+Eliwood
+Seliph (Life and Death)
 Player 2 Team
-Chrom
-Robin (Life and Death)
+Celica

@@ -1,5 +1,6 @@
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using Fire_Emblem.SkillManagment;
+using Fire_Emblem.Stats;
 
 namespace Fire_Emblem.UnitManagment;
 
@@ -20,18 +21,6 @@ public class Unit
     public int Def { get; set; }
     [JsonIgnore]
     public int Res { get; set; }
-    
-    private int _currentHP;
-    public int CurrentHP
-    {
-        get { return _currentHP; }
-        set { _currentHP = Math.Max(0, value); } // Asegura que CurrentHP no sea negativo
-    }
-    
-    public void InitializeCurrentHP()
-    {
-        _currentHP = HP;
-    }
     
     [JsonPropertyName("HP")]
     public string HPString
@@ -65,19 +54,77 @@ public class Unit
     
     [JsonConverter(typeof(WeaponConverter))]
     public Weapon Weapon { get; set; }
+    
+    private int _currentHP;
+    
+    public int CurrentHP
+    {
+        get { return _currentHP; }
+        set { _currentHP = Math.Max(0, value); } // Asegura que CurrentHP no sea negativo
+    }
+    
+    public void InitializeCurrentHP()
+    {
+        _currentHP = HP;
+    }
+    
+    private List<Skill> _skills = new List<Skill>();
+    private const int MAX_SKILLS = 2;
 
+    public IEnumerable<Skill> Skills
+        => _skills.AsReadOnly();
+
+    public void AddSkill(Skill skill)
+        => _skills.Add(skill);
+        
+    public void RemoveSkill(Skill skill)
+        => _skills.Remove(skill);
+    
+    
     
     public int CalculateDamage(Unit opponent)
     {
         int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.Res) : Convert.ToInt32(opponent.Def);
         
         double damage = (Convert.ToDouble(Atk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
-
-        // Apply the damage to the currentHP of the opponent
+        
         opponent.CurrentHP -= (int)Math.Max(0, Math.Truncate(damage));
-
-        // Esto hay que cambiarlo, porque se tiene que devolver el daño que se hizo
+        
         return (int)Math.Max(0, Math.Truncate(damage));
     }
     
+    public void IncreaseStat(StatType statType, int increaseAmount)
+    {
+        switch (statType)
+        {
+            case StatType.HP:
+                HP += increaseAmount;
+                // TODO: Ver si tiene que ser para el currentHP.
+                // _currentHP = Math.Min(_currentHP + increaseAmount, HP);
+                break;
+            case StatType.Atk:
+                Atk += increaseAmount;
+                break;
+            case StatType.Spd:
+                Spd += increaseAmount;
+                break;
+            case StatType.Def:
+                Console.WriteLine("Defensa del personaje antes: " + Def);
+                Def += increaseAmount;
+                Console.WriteLine("Defensa del personaje despues: " + Def);
+                break;
+            case StatType.Res:
+                Res += increaseAmount;
+                break;
+            default:
+                throw new ArgumentException($"Stat '{statType}' is not recognized.");
+        }
+    }
+    
+    public bool IsAttacker { get; private set; }
+    public bool IsDefender { get; private set;}
+    public void SetAttacker(bool isAttacker)
+        => IsAttacker = isAttacker;
+    public void SetDefender(bool isDefender)
+        => IsDefender = isDefender;
 }
