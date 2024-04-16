@@ -4,7 +4,7 @@ namespace Fire_Emblem.Condition;
 
 public interface ICondition
 {
-    bool IsConditionMet(Unit unit);
+    bool IsConditionMet(Unit unit, Combat combat);
 
     ICondition Clone();
 }

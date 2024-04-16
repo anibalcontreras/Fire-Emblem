@@ -28,10 +28,9 @@ public class Skill
         Conditions.Add(condition);
     }
     
-    // Método para activar efectos si se cumplen las condiciones.
-    public void ActivateEffects(Unit unit, GameView view)
+    public void ActivateEffects(Unit unit, Combat combat, GameView view)
     {
-        if (Conditions.All(condition => condition.IsConditionMet(unit)))
+        if (Conditions.All(condition => condition.IsConditionMet(unit, combat)))
         {
             foreach (var effect in Effects)
             {
@@ -39,11 +38,10 @@ public class Skill
             }
         }
     }
-
-    // Método para revertir efectos si es necesario.
-    public void DeactivateEffects(Unit unit, GameView view)
+    
+    public void DeactivateEffects(Unit unit, Combat combat, GameView view)
     {
-        if (Conditions.All(condition => condition.IsConditionMet(unit)))
+        if (Conditions.All(condition => condition.IsConditionMet(unit, combat)))
         {
             foreach (var effect in Effects)
             {

@@ -11,7 +11,7 @@ public class HpThresholdCondition : ICondition
         _threshold = threshold;
     }
 
-    public bool IsConditionMet(Unit unit)
+    public bool IsConditionMet(Unit unit, Combat combat)
     {
         int thresholdHp = Convert.ToInt32(Math.Floor(unit.HP * _threshold));
         return unit.CurrentHP <= thresholdHp;
