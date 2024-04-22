@@ -21,12 +21,12 @@ public class BonusEffect : IEffect
         view.AnnounceBonusStat(unit.Name, this.ToString());
     }
     
-    public void RevertEffect(Unit unit, GameView view)
+    public virtual void RevertEffect(Unit unit, GameView view)
     {
         unit.IncreaseStat(_statToIncrease, -_amount);
     }
     
-    public IEffect Clone()
+    public virtual IEffect Clone()
     {
         return new BonusEffect(_statToIncrease, _amount);
     }

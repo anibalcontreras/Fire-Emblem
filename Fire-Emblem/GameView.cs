@@ -100,6 +100,10 @@ public class GameView
     
     public void AnnounceAttack(Unit attacker, Unit defender, int damage)
      => _view.WriteLine($"{attacker.Name} ataca a {defender.Name} con {damage} de daño");
+    
+    public void AnnounceCounterattack(Unit defender, Unit attacker, int damage)
+        => _view.WriteLine($"{defender.Name} ataca a {attacker.Name} con {damage} de daño");
+    
 
     public void AnnounceWinner(int winnerTeamNumber)
         => _view.WriteLine($"Player {winnerTeamNumber} ganó");
@@ -114,6 +118,11 @@ public class GameView
         => _view.WriteLine("Ninguna unidad puede hacer un follow up");
     
     public void AnnounceBonusStat(string unitName, string effectDescription)
+    {
+        _view.WriteLine($"{unitName} obtiene {effectDescription}");
+    }
+    
+    public void AnnouncePenaltyStat(string unitName, string effectDescription)
     {
         _view.WriteLine($"{unitName} obtiene {effectDescription}");
     }

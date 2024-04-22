@@ -9,44 +9,31 @@ public class Skill
     public string Name { get; set; }
     public string Description { get; set; }
     
-    public List<IEffect> Effects { get; private set; } = new List<IEffect>();
-    public List<ICondition> Conditions { get; private set; } = new List<ICondition>();
+    public MultiEffect Effect { get; set; }
+    public MultiCondition Condition { get; set; }
     
-    public Skill(string name, string description)
+    public Skill(string name, string description, MultiCondition condition, MultiEffect effect)
     {
         Name = name;
         Description = description;
-    }
-    
-    public void AddEffect(IEffect effect)
-    {
-        Effects.Add(effect);
-    }
-
-    public void AddCondition(ICondition condition)
-    {
-        Conditions.Add(condition);
+        Condition = condition;
+        Effect = effect;
     }
     
     public void ActivateEffects(Unit unit, Combat combat, GameView view)
     {
-        if (Conditions.All(condition => condition.IsConditionMet(unit, combat)))
+        if (Condition.IsConditionMet(combat))
         {
-            foreach (var effect in Effects)
-            {
-                effect.ApplyEffect(unit, view);
-            }
+            Effect.ApplyEffect(unit, view);
         }
     }
     
     public void DeactivateEffects(Unit unit, Combat combat, GameView view)
     {
-        if (Conditions.All(condition => condition.IsConditionMet(unit, combat)))
+        if (Condition.IsConditionMet(combat))
         {
-            foreach (var effect in Effects)
-            {
-                effect.RevertEffect(unit, view);
-            }
+            Effect.RevertEffect(unit, view);
         }
     }
+    
 }

@@ -134,7 +134,9 @@ public class TeamBuilder
         {
             skill = FindSkillByName(skillName);
         }
-        Skill clonedSkill = CloneSkill(skill);
+        
+        Skill clonedSkill = new Skill(skill.Name, skill.Description, skill.Condition, skill.Effect);
+        
         unit.AddSkill(clonedSkill);
     }
 
@@ -142,19 +144,5 @@ public class TeamBuilder
     {
         return _dataLoader.Skills.FirstOrDefault(s => s.Name == skillName);
     }
-
-    private Skill CloneSkill(Skill originalSkill)
-    {
-        Skill clonedSkill = new Skill(originalSkill.Name, originalSkill.Description);
-        foreach (IEffect effect in originalSkill.Effects)
-        {
-            clonedSkill.AddEffect(effect.Clone());
-        }
-        foreach (ICondition condition in originalSkill.Conditions)
-        {
-            clonedSkill.AddCondition(condition.Clone());
-        }
-
-        return clonedSkill;
-    }
+    
 }

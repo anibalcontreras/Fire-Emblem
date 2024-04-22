@@ -69,7 +69,6 @@ public class Unit
     }
     
     private List<Skill> _skills = new List<Skill>();
-    private const int MAX_SKILLS = 2;
 
     public IEnumerable<Skill> Skills
         => _skills.AsReadOnly();
@@ -79,8 +78,6 @@ public class Unit
         
     public void RemoveSkill(Skill skill)
         => _skills.Remove(skill);
-    
-    
     
     public int CalculateDamage(Unit opponent)
     {
@@ -109,9 +106,7 @@ public class Unit
                 Spd += increaseAmount;
                 break;
             case StatType.Def:
-                Console.WriteLine("Defensa del personaje antes: " + Def);
                 Def += increaseAmount;
-                Console.WriteLine("Defensa del personaje despues: " + Def);
                 break;
             case StatType.Res:
                 Res += increaseAmount;
@@ -121,10 +116,10 @@ public class Unit
         }
     }
     
-    public bool IsAttacker { get; private set; }
-    public bool IsDefender { get; private set;}
-    public void SetAttacker(bool isAttacker)
-        => IsAttacker = isAttacker;
-    public void SetDefender(bool isDefender)
-        => IsDefender = isDefender;
+    // public bool IsAttacker { get; private set; }
+    // public bool IsDefender { get; private set;}
+    // public void SetAttacker(bool isAttacker)
+    //     => IsAttacker = isAttacker;
+    // public void SetDefender(bool isDefender)
+    //     => IsDefender = isDefender;
 }

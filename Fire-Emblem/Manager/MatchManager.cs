@@ -2,11 +2,11 @@ using Fire_Emblem.TeamManagment;
 
 namespace Fire_Emblem;
 
-public class GameManager
+public class MatchManager
 {
     private readonly GameView _gameView;
     private readonly CombatManager _combatManager;
-    public GameManager(GameView gameView)
+    public MatchManager(GameView gameView)
     {
         _gameView = gameView;
         _combatManager = new CombatManager(_gameView);
@@ -19,6 +19,7 @@ public class GameManager
 
         while (CheckIfBothTeamsHaveLivingUnits(teams))
         {
+            
             _combatManager.ConductCombat(teams, round++, currentPlayer);
             RemoveDefeatedUnits(teams);
             currentPlayer = (currentPlayer + 1) % 2;

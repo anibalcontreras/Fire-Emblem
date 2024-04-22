@@ -4,11 +4,8 @@ namespace Fire_Emblem.Condition;
 
 public class BeginningOfTheCombatCondition : ICondition
 {
-    public bool IsConditionMet(Unit unit, Combat combat)
+    public bool IsConditionMet(Combat combat)
     {
-        Console.WriteLine("Estamos con la unidad: " + unit.Name);
-        Console.WriteLine("Las skills son: " + unit.Skills.Count());
-        Console.WriteLine("La condicion es: " + (combat.State == CombatState.StartOfCombat));
         return combat.State == CombatState.StartOfCombat;
     }
     

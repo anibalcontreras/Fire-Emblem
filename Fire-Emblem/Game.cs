@@ -9,15 +9,14 @@ public class Game
     private readonly View _view;
     private readonly GameView _gameView;
     private readonly string _teamsFolder;
-    private GameManager _gameManager;
-    
+    private MatchManager _matchManager;
     
     public Game(View view, string teamsFolder)
     {
         _view = view;
         _teamsFolder = teamsFolder;
         _gameView = new GameView(_view, _teamsFolder);
-        _gameManager = new GameManager(_gameView);
+        _matchManager = new MatchManager(_gameView);
     }
 
     public void Play()
@@ -36,7 +35,6 @@ public class Game
         else
             ShowInvalidTeamMessage();
     }
-
     
     private string[] GetFileOptions()
     {
@@ -66,6 +64,5 @@ public class Game
     
     private void ShowInvalidTeamMessage() => _gameView.ShowMessageForInvalidTeam();
     
-    private void StartGameDevelopment(List<Team> teams) => _gameManager.ManageGame(teams);
-    
+    private void StartGameDevelopment(List<Team> teams) => _matchManager.ManageGame(teams);
 }
