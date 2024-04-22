@@ -11,19 +11,19 @@ public class MultiEffect : IEffect
         _effects = new List<IEffect>(effects);
     }
 
-    public void ApplyEffect(Unit unit, GameView view)
+    public void ApplyEffect(GameView view, Unit unit)
     {
         foreach (var effect in _effects)
         {
-            effect.ApplyEffect(unit, view);
+            effect.ApplyEffect(view, unit);
         }
     }
 
-    public void RevertEffect(Unit unit, GameView view)
+    public void RevertEffect(GameView view, Unit unit)
     {
         foreach (var effect in _effects)
         {
-            effect.RevertEffect(unit, view);
+            effect.RevertEffect(view, unit);
         }
     }
 

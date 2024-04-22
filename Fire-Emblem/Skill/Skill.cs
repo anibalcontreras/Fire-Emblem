@@ -11,6 +11,8 @@ public class Skill
     
     public MultiEffect Effect { get; set; }
     public MultiCondition Condition { get; set; }
+    public SkillTarget Target { get; set; }
+    public bool IsActive { get; set; }
     
     public Skill(string name, string description, MultiCondition condition, MultiEffect effect)
     {
@@ -20,20 +22,59 @@ public class Skill
         Effect = effect;
     }
     
-    public void ActivateEffects(Unit unit, Combat combat, GameView view)
+    public void ActivateEffects(Combat combat, GameView view, Unit unit, Unit rival)
     {
-        if (Condition.IsConditionMet(combat))
+        switch (Target)
         {
-            Effect.ApplyEffect(unit, view);
+            case SkillTarget.Self:
+                if (Condition.IsConditionMet(combat, unit, rival))
+                {
+                    Effect.ApplyEffect(view, unit);
+                    IsActive = true;
+                }
+                break;
+            case SkillTarget.Rival:
+                if (Condition.IsConditionMet(combat, rival, unit))
+                {
+                    Effect.ApplyEffect(view, rival);
+                    IsActive = true;
+                }
+                break;
+            case SkillTarget.Allies:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
     
-    public void DeactivateEffects(Unit unit, Combat combat, GameView view)
+    public void DeactivateEffects(Combat combat, GameView view, Unit unit, Unit rival)
     {
-        if (Condition.IsConditionMet(combat))
+        switch (Target)
         {
-            Effect.RevertEffect(unit, view);
+            case SkillTarget.Self:
+                if (IsActive)
+                {
+                    Effect.RevertEffect(view, unit);
+                    IsActive = false;
+                }
+                break;
+            case SkillTarget.Rival:
+                if (IsActive)
+                {
+                    Effect.RevertEffect(view, unit);
+                    IsActive = false;
+                }
+                break;
+            case SkillTarget.Allies:
+                if (IsActive)
+                {
+                    Effect.RevertEffect(view, unit);
+                    IsActive = false;
+                }
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
-    
 }

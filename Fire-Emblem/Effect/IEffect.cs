@@ -4,8 +4,8 @@ namespace Fire_Emblem.Effect;
 
 public interface IEffect
 {
-    void ApplyEffect(Unit unit, GameView view);
-    void RevertEffect(Unit unit, GameView view);
+    void ApplyEffect(GameView view, Unit unit);
+    void RevertEffect(GameView view, Unit unit);
 
     IEffect Clone();
 }

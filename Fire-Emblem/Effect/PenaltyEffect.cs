@@ -14,13 +14,13 @@ public class PenaltyEffect : IEffect
         _amount = amount;
     }
     
-    public virtual void ApplyEffect(Unit unit, GameView view)
+    public virtual void ApplyEffect(GameView view, Unit unit)
     {
         unit.IncreaseStat(_statToDecrease, -_amount);
         view.AnnouncePenaltyStat(unit.Name, this.ToString());
     }
     
-    public virtual void RevertEffect(Unit unit, GameView view)
+    public virtual void RevertEffect(GameView view, Unit unit)
     {
         unit.IncreaseStat(_statToDecrease, +_amount);
     }

@@ -11,14 +11,10 @@ public class UnitHpThresholdCondition : ICondition
         _threshold = threshold;
     }
 
-    public bool IsConditionMet(Combat combat)
+    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
     {
-        int thresholdHp = Convert.ToInt32(Math.Floor(combat.Attacker.HP * _threshold));
-        bool isHpBelowThreshold = combat.Attacker.CurrentHP <= thresholdHp;
-        if (isHpBelowThreshold)
-            return true;
-        return false;
-
+        int thresholdHp = (int)(activator.HP * _threshold);
+        return activator.CurrentHP <= thresholdHp;
     }
 
     public ICondition Clone()

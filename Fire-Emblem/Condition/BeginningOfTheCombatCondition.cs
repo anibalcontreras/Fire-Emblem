@@ -4,7 +4,7 @@ namespace Fire_Emblem.Condition;
 
 public class BeginningOfTheCombatCondition : ICondition
 {
-    public bool IsConditionMet(Combat combat)
+    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
     {
         return combat.State == CombatState.StartOfCombat;
     }

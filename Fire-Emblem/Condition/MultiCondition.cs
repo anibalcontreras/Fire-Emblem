@@ -11,9 +11,9 @@ public class MultiCondition : ICondition
         _conditions = new List<ICondition>(conditions);
     }
 
-    public bool IsConditionMet(Combat combat)
+    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
     {
-        return _conditions.All(condition => condition.IsConditionMet(combat));
+        return _conditions.All(condition => condition.IsConditionMet(combat, activator, opponent));
     }
 
     public ICondition Clone()

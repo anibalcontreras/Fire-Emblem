@@ -5,7 +5,7 @@ namespace Fire_Emblem.Condition;
 
 public class NoCondition : ICondition
 {
-    public bool IsConditionMet(Combat combat)
+    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
     {
         return true;
     }

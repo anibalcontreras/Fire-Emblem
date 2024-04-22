@@ -11,7 +11,7 @@ public class UnitWeaponCondition : ICondition
         _requiredWeaponName = requiredWeaponName;
     }
 
-    public bool IsConditionMet(Combat combat)
+    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
     {
         return combat.Attacker.Weapon.Name == _requiredWeaponName;
     }

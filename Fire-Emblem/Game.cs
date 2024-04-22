@@ -10,6 +10,7 @@ public class Game
     private readonly GameView _gameView;
     private readonly string _teamsFolder;
     private MatchManager _matchManager;
+    private List<Combat> _combats;
     
     public Game(View view, string teamsFolder)
     {
@@ -17,6 +18,7 @@ public class Game
         _teamsFolder = teamsFolder;
         _gameView = new GameView(_view, _teamsFolder);
         _matchManager = new MatchManager(_gameView);
+        _combats = new List<Combat>();
     }
 
     public void Play()
@@ -64,5 +66,5 @@ public class Game
     
     private void ShowInvalidTeamMessage() => _gameView.ShowMessageForInvalidTeam();
     
-    private void StartGameDevelopment(List<Team> teams) => _matchManager.ManageGame(teams);
+    private void StartGameDevelopment(List<Team> teams) => _matchManager.ManageGame(teams, _combats);
 }

@@ -12,7 +12,7 @@ public class MatchManager
         _combatManager = new CombatManager(_gameView);
     }
     
-    public void ManageGame(List<Team> teams)
+    public void ManageGame(List<Team> teams, List<Combat> combats)
     {
         int currentPlayer = 0;
         int round = 1;
@@ -20,8 +20,9 @@ public class MatchManager
         while (CheckIfBothTeamsHaveLivingUnits(teams))
         {
             
-            _combatManager.ConductCombat(teams, round++, currentPlayer);
+            Combat combat = _combatManager.ConductCombat(teams, round++, currentPlayer);
             RemoveDefeatedUnits(teams);
+            combats.Add(combat);
             currentPlayer = (currentPlayer + 1) % 2;
         }
         AnnounceWinner(teams);
