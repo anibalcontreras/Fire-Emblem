@@ -1,5 +1,6 @@
 using Fire_Emblem.Condition;
 using Fire_Emblem.Effect;
+using Fire_Emblem.Exceptions;
 using Fire_Emblem.UnitManagment;
 
 namespace Fire_Emblem.SkillManagment;
@@ -23,26 +24,35 @@ public class Skill
     
     public void ActivateEffects(Combat combat, GameView view, Unit unit, Unit rival)
     {
-        switch (Target)
+        try
         {
-            case SkillTarget.Self:
-                if (Condition.IsConditionMet(combat, unit, rival))
-                {
-                    Effect.ApplyEffect(view, unit, rival);
-                    IsActive = true;
-                }
-                break;
-            case SkillTarget.Rival:
-                if (Condition.IsConditionMet(combat, rival, unit))
-                {
-                    Effect.ApplyEffect(view, rival, unit);
-                    IsActive = true;
-                }
-                break;
-            case SkillTarget.Allies:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            switch (Target)
+            {
+                case SkillTarget.Self:
+                    if (Condition.IsConditionMet(combat, unit, rival))
+                    {
+                        Effect.ApplyEffect(view, unit, rival);
+                        IsActive = true;
+                    }
+
+                    break;
+                case SkillTarget.Rival:
+                    if (Condition.IsConditionMet(combat, rival, unit))
+                    {
+                        Effect.ApplyEffect(view, rival, unit);
+                        IsActive = true;
+                    }
+
+                    break;
+                case SkillTarget.Allies:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        catch (BonusNeutralizationException bnex)
+        {
+            
         }
     }
     

@@ -1,35 +1,52 @@
-
+using Fire_Emblem;
+using Fire_Emblem.Effect;
 using Fire_Emblem.Stats;
-using Fire_Emblem.TeamManagment;
 using Fire_Emblem.UnitManagment;
 
-namespace Fire_Emblem.Effect;
-
-public class WrathBonusEffect : IEffect
+public class WrathBonusEffect : IEffect, IBonusEffect
 {
-    
+    private readonly int _maxBonus;
+
+    public WrathBonusEffect(int maxBonus)
+    {
+        _maxBonus = maxBonus;
+    }
+
     public void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
-        int lostHp = activator.HP - activator.CurrentHP;
-        int boost = Math.Min(lostHp, 30); // Limitar el boost a un máximo de 30
-
-        if (boost == 0) return;
-        activator.IncreaseStat(StatType.Atk, boost);
-        view.AnnounceBonusStat(activator.Name, AtkBoostString(boost));
-        activator.IncreaseStat(StatType.Spd, boost);
-        view.AnnounceBonusStat(activator.Name, SpdBoostString(boost));
-    }
-    
-    public void RevertEffect(GameView view, Unit unit, Unit rival)
-    {
-        int lostHp = unit.HP - unit.CurrentHP;
-        int boost = Math.Min(lostHp, 30);
+        int hpLost = activator.HP - activator.CurrentHP;
+        int bonus = Math.Min(hpLost, _maxBonus);
         
-        if (boost == 0) return;
-        unit.IncreaseStat(StatType.Atk, -boost); // Revertir el efecto después del combate
-        unit.IncreaseStat(StatType.Spd, -boost);
+        activator.AtkBonus = bonus; // Consider using properties to handle state
+        activator.SpdBonus = bonus; // Consider using properties to handle state
+        
+        ApplyBonus(view, activator, opponent);
     }
-    
+
+    public void ApplyBonus(GameView view, Unit activator, Unit opponent)
+    {
+        view.AnnounceBonusStat(activator.Name, $"{AtkBoostString(activator.AtkBonus)}");
+        activator.IncreaseStat(StatType.Atk, activator.AtkBonus);
+        view.AnnounceBonusStat(activator.Name, $"{SpdBoostString(activator.SpdBonus)}");
+        activator.IncreaseStat(StatType.Spd, activator.SpdBonus);
+    }
+
+    public void RevertEffect(GameView view, Unit activator, Unit opponent)
+    {
+        RevertBonus(view, activator, opponent);
+    }
+
+    public void RevertBonus(GameView view, Unit activator, Unit opponent)
+    {
+        activator.IncreaseStat(StatType.Atk, -activator.AtkBonus);
+        activator.IncreaseStat(StatType.Spd, -activator.SpdBonus);
+    }
+
+    public IEffect Clone()
+    {
+        return new WrathBonusEffect(_maxBonus);
+    }
+
     private string AtkBoostString(int boost)
     {
         return $"Atk+{boost}";
@@ -39,9 +56,7 @@ public class WrathBonusEffect : IEffect
     {
         return $"Spd+{boost}";
     }
-    
-    public IEffect Clone()
-    {
-        return new WrathBonusEffect();
-    }
 }
+
+
+

@@ -4,7 +4,7 @@ using Fire_Emblem.UnitManagment;
 
 namespace Fire_Emblem.Effect;
 
-public class BonusEffect : IEffect
+public class BonusEffect : IEffect, IBonusEffect
 {
     private StatType _statToIncrease;
     private int _amount;
@@ -17,11 +17,21 @@ public class BonusEffect : IEffect
     
     public virtual void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
+        ApplyBonus(view, activator, opponent);
+    }
+    
+    public virtual void ApplyBonus(GameView view, Unit activator, Unit opponent)
+    {
         activator.IncreaseStat(_statToIncrease, _amount);
         view.AnnounceBonusStat(activator.Name, this.ToString());
     }
     
     public virtual void RevertEffect(GameView view, Unit unit, Unit rival)
+    {
+        RevertBonus(view, unit, rival);
+    }
+    
+    public virtual void RevertBonus(GameView view, Unit unit, Unit rival)
     {
         unit.IncreaseStat(_statToIncrease, -_amount);
     }

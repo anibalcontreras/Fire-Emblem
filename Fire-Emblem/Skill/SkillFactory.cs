@@ -1,5 +1,6 @@
 using Fire_Emblem.Condition;
 using Fire_Emblem.Effect;
+using Fire_Emblem.Effect.Neutralization;
 using Fire_Emblem.Stats;
 
 namespace Fire_Emblem.SkillManagment;
@@ -104,10 +105,114 @@ public class SkillFactory
                 return CreateSolidGroundSkill();
             case "Still Water":
                 return CreateStillWaterSkill();
+            case "Fair Fight":
+                return CreateFairFightSkill();
+            case "Will to Win":
+                return CreateWillToWinSkill();
+            case "Resolve":
+                return CreateResolveSkill();
+            case "Belief in Love":
+                return CreateBeliefInLoveSkill();
+            case "Beorc's Blessing":
+                return CreateBeorcsBlessingSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }
     }
+
+    private static Skill CreateBeorcsBlessingSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitHasNeutralizationBonus()
+        });
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new NeutralizeBonusEffect()
+        });
+        
+        return new Skill("Beorc's Blessing", multiCondition, multiEffect);
+    }
+
+    private static Skill CreateBeliefInLoveSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new RivalBeginAsAttacker(),
+            new RivalHpThresholdCondition(1)
+        });
+
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new RivalPenaltyEffect(StatType.Atk, 5),
+            new RivalPenaltyEffect(StatType.Def, 5)
+        });
+        
+        return new Skill("Belief in Love", multiCondition, multiEffect);
+    }
+    
+    private static Skill CreateWrathSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new BeginningOfTheCombatCondition(),
+            new UnitHasLostHpCondition()
+        });
+
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new WrathBonusEffect(30)
+        });
+        
+        return new Skill("Wrath", multiCondition, multiEffect);
+    }
+    
+    private static Skill CreateResolveSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitHpThresholdCondition(0.75) // HP al 75% o menos
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Def, 7), // Otorga Def+7
+            new BonusEffect(StatType.Res, 7)  // Otorga Res+7
+        });
+
+        return new Skill("Resolve", multiCondition, multiEffect);
+    }
+
+    
+    private static Skill CreateWillToWinSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new BeginningOfTheCombatCondition(),
+            new UnitHpThresholdCondition(0.50) // HP al 50% o menos
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 8) // Otorga Atk+8
+        });
+
+        return new Skill("Will to Win", multiCondition, multiEffect);
+    }
+    
+    private static Skill CreateFairFightSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitBeginAsAttackerCondition()
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new MutualBonusEffect(StatType.Atk, 6)
+        });
+
+        return new Skill("Fair Fight", multiCondition, multiEffect);
+    }
+
     
     private static Skill CreateFortDefResSkill()
     {
@@ -628,17 +733,6 @@ public class SkillFactory
          });
 
          return new Skill("Chaos Style", multiCondition, multiEffect);
-     }
-     
-     private static Skill CreateWrathSkill()
-     {
-         ICondition atStartOfCombat = new BeginningOfTheCombatCondition();
-         IEffect wrathEffect = new WrathBonusEffect();
-
-         MultiCondition multiCondition = new MultiCondition(new ICondition[] { atStartOfCombat });
-         MultiEffect multiEffect = new MultiEffect(new IEffect[] { wrathEffect });
-
-         return new Skill("Wrath", multiCondition, multiEffect);
      }
      
      private static Skill CreateStunningSmileSkill()

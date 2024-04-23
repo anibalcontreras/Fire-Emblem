@@ -126,4 +126,14 @@ public class GameView
     {
         _view.WriteLine($"{unitName} obtiene {effectDescription}");
     }
+    
+    public void AnnounceBonusNeutralization(string stat, string unitName)
+    {
+        _view.WriteLine($"Los bonus de {stat} de {unitName} fueron neutralizados");
+    }
+    
+    public void AnnouncePenaltyNeutralization(string stat, string unitName)
+    {
+        _view.WriteLine($"Los penalty de {stat} de {unitName} fueron neutralizados");
+    }
 }
