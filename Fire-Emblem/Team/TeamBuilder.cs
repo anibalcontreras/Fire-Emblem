@@ -135,7 +135,7 @@ public class TeamBuilder
             skill = FindSkillByName(skillName);
         }
         
-        Skill clonedSkill = new Skill(skill.Name, skill.Description, skill.Condition, skill.Effect);
+        Skill clonedSkill = new Skill(skill.Name, skill.Condition, skill.Effect);
         
         unit.AddSkill(clonedSkill);
     }

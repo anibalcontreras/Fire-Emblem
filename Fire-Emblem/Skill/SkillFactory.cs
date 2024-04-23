@@ -72,22 +72,237 @@ public class SkillFactory
                 return CreateWaterBoostSkill();
             case "Wrath":
                 return CreateWrathSkill();
-            // case "Stunning Smile":
-            //     return CreateStunningSmileSkill();
-            // case "Disarming Sigh":
-            //     return CreateDisarmingSighSkill();
-            // case "Blinding Flash":
-            //     return CreateBlindingFlashSkill();
+            case "Stunning Smile":
+                return CreateStunningSmileSkill();
+            case "Disarming Sigh":
+                return CreateDisarmingSighSkill();
+            case "Blinding Flash":
+                return CreateBlindingFlashSkill();
+            case "Not *Quite*":
+                return CreateNotQuiteSkill();
+            case "Sword Agility":
+                return CreateSwordAgilitySkill();
+            case "Lance Power":
+                return CreateLancePowerSkill();
+            case "Sword Power":
+                return CreateSwordPowerSkill();
+            case "Bow Focus":
+                return CreateBowFocusSkill();
+            case "Lance Agility":
+                return CreateLanceAgilitySkill();
+            case "Axe Power":
+                return CreateAxePowerSkill();
+            case "Bow Agility":
+                return CreateBowAgilitySkill();
+            case "Sword Focus":
+                return CreateSwordFocusSkill();
+            case "Fort. Def/Res":
+                return CreateFortDefResSkill();
+            case "Life and Death":
+                return CreateLifeAndDeathSkill();
+            case "Solid Ground":
+                return CreateSolidGroundSkill();
+            case "Still Water":
+                return CreateStillWaterSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }
+    }
+    
+    private static Skill CreateFortDefResSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new NoCondition()
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Def, 6),
+            new BonusEffect(StatType.Res, 6),
+            new UnitPenaltyEffect(StatType.Atk, 2)
+        });
+
+        return new Skill("Fort. Def/Res", multiCondition, multiEffect);
+    }
+
+    private static Skill CreateLifeAndDeathSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new NoCondition()
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 6),
+            new BonusEffect(StatType.Spd, 6),
+            new UnitPenaltyEffect(StatType.Def, 5),
+            new UnitPenaltyEffect(StatType.Res, 5)
+        });
+
+        return new Skill("Life and Death", multiCondition, multiEffect);
+    }
+
+    private static Skill CreateSolidGroundSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new NoCondition()
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 6),
+            new BonusEffect(StatType.Def, 6),
+            new UnitPenaltyEffect(StatType.Res, 5)
+        });
+
+        return new Skill("Solid Ground", multiCondition, multiEffect);
+    }
+
+    private static Skill CreateStillWaterSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new NoCondition()
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 6),
+            new BonusEffect(StatType.Res, 6),
+            new UnitPenaltyEffect(StatType.Def, 5)
+        });
+
+        return new Skill("Still Water", multiCondition, multiEffect);
+    }
+
+    
+    private static Skill CreateSwordFocusSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitWeaponCondition("Sword")
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 10),
+            new UnitPenaltyEffect(StatType.Res, 10)
+        });
+        
+        Skill skill = new Skill("Sword Focus", multiCondition, multiEffect);
+        return skill;
+    }
+    
+    private static Skill CreateBowAgilitySkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitWeaponCondition("Bow")
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Spd, 12),
+            new UnitPenaltyEffect(StatType.Atk, 6)
+        });
+        Skill skill = new Skill("Bow Agility", multiCondition, multiEffect);
+        return skill;
+    }
+
+    private static Skill CreateAxePowerSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitWeaponCondition("Axe")
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 10),
+            new UnitPenaltyEffect(StatType.Def, 10)
+        });
+        
+        Skill skill = new Skill("Axe Power", multiCondition, multiEffect);
+        return skill;
+    }
+    private static Skill CreateLanceAgilitySkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitWeaponCondition("Lance")
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Spd, 12),
+            new UnitPenaltyEffect(StatType.Atk, 6)
+        });
+        Skill skill = new Skill("Lance Agility", multiCondition, multiEffect);
+        return skill;
+    }
+    private static Skill CreateBowFocusSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitWeaponCondition("Bow")
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 10),
+            new UnitPenaltyEffect(StatType.Res, 10)
+        });
+        
+        Skill skill = new Skill("Bow Focus", multiCondition, multiEffect);
+        return skill;
+    }
+    
+    private static Skill CreateSwordPowerSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitWeaponCondition("Sword")
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 10),
+            new UnitPenaltyEffect(StatType.Def, 10)
+        });
+        
+        Skill skill = new Skill("Sword Power", multiCondition, multiEffect);
+        return skill;
+    }
+
+    private static Skill CreateLancePowerSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitWeaponCondition("Lance")
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 10),
+            new UnitPenaltyEffect(StatType.Def, 10)
+        });
+        
+        Skill skill = new Skill("Lance Power", multiCondition, multiEffect);
+        return skill;
+    }
+
+    private static Skill CreateSwordAgilitySkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitWeaponCondition("Sword")
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Spd, 12),
+            new UnitPenaltyEffect(StatType.Atk, 6)
+        });
+        Skill skill = new Skill("Sword Agility", multiCondition, multiEffect);
+        return skill;
     }
     
     private static Skill CreateAttackPlus6Skill()
      {
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { new NoCondition() });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Atk, 6) });
-         Skill skill = new Skill("Attack +6", "Otorga Atk+6.", multiCondition, multiEffect);
+         Skill skill = new Skill("Attack +6", multiCondition, multiEffect);
          return skill;
      }
 
@@ -95,15 +310,23 @@ public class SkillFactory
      { 
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { new NoCondition() });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Spd, 5) });
-         Skill skill = new Skill("Speed +5", "Otorga Spd+5.", multiCondition, multiEffect);
+         Skill skill = new Skill("Speed +5", multiCondition, multiEffect);
          return skill;
      }
 
+     // private static Skill CreateLunaSkill()
+     // {
+     //     MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
+     //     MultiEffect multiEffect = new MultiEffect(new IEffect[] { new LunaPenaltyEffect() });
+     //     Skill skill = new Skill("Luna", multiCondition, multiEffect);
+     //     return skill;
+     // }   
+    
      private static Skill CreateDefensePlus5Skill()
      {
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { new NoCondition() });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Def, 5) });
-         Skill skill = new Skill("Defense +5", "Otorga Def+5.", multiCondition, multiEffect);
+         Skill skill = new Skill("Defense +5", multiCondition, multiEffect);
          return skill;
      }
      
@@ -111,7 +334,7 @@ public class SkillFactory
      {
             MultiCondition multiCondition = new MultiCondition(new ICondition[] { new NoCondition() });
             MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Res, 5) });
-            Skill skill = new Skill("Resistance +5", "Otorga Res+5.", multiCondition, multiEffect);
+            Skill skill = new Skill("Resistance +5", multiCondition, multiEffect);
             return skill;
      }
 
@@ -119,7 +342,7 @@ public class SkillFactory
      {
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { new NoCondition() });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Atk, 5), new BonusEffect(StatType.Def, 5) });
-         Skill skill = new Skill("Atk/Def +5", "Otorga Atk+5 y Def+5.", multiCondition, multiEffect);
+         Skill skill = new Skill("Atk/Def +5", multiCondition, multiEffect);
          return skill;
      }
      
@@ -127,7 +350,7 @@ public class SkillFactory
      {
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { new NoCondition() });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Spd, 5), new BonusEffect(StatType.Res, 5) });
-         Skill skill = new Skill("Spd/Res +5", "Otorga Spd+5 y Res+5.", multiCondition, multiEffect);
+         Skill skill = new Skill("Spd/Res +5", multiCondition, multiEffect);
          return skill;
      }
 
@@ -135,7 +358,7 @@ public class SkillFactory
      {
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { new NoCondition() });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Atk, 5), new BonusEffect(StatType.Res, 5) });
-         Skill skill = new Skill("Atk/Res +5", "Otorga Atk+5 y Red+5.", multiCondition, multiEffect);
+         Skill skill = new Skill("Atk/Res +5", multiCondition, multiEffect);
          return skill;
      }
      
@@ -143,7 +366,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Def, 8) });
-        Skill skill = new Skill("Armored Blow", "Si la unidad inicia el combate, otorga Def+8 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Armored Blow", multiCondition, multiEffect);
         return skill;
     }
 
@@ -152,7 +375,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Atk, 8) });
-        Skill skill = new Skill("Death Blow", "Si la unidad inicia el combate, otorga Atk+8 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Death Blow", multiCondition, multiEffect);
         return skill;
     }
     
@@ -160,7 +383,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Spd, 8) });
-        Skill skill = new Skill("Darting Blow", "Si la unidad inicia el combate, otorga Spd+8 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Darting Blow", multiCondition, multiEffect);
         return skill;
     }
 
@@ -168,7 +391,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Res, 8) });
-        Skill skill = new Skill("Warding Blow", "Si la unidad inicia el combate, otorga Res+8 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Warding Blow", multiCondition, multiEffect);
         return skill;
     }
 
@@ -176,7 +399,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Atk, 6), new BonusEffect(StatType.Spd, 6) });
-        Skill skill = new Skill("Swift Sparrow", "Si la unidad inicia el combate, otorga Atk/Spd+6 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Swift Sparrow", multiCondition, multiEffect);
         return skill;
     }
 
@@ -184,7 +407,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Atk, 6), new BonusEffect(StatType.Def, 6) });
-        Skill skill = new Skill("Sturdy Blow", "Si la unidad inicia el combate, otorga Atk/Def+6 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Sturdy Blow", multiCondition, multiEffect);
         return skill;
     }
 
@@ -192,7 +415,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Atk, 6), new BonusEffect(StatType.Res, 6) });
-        Skill skill = new Skill("Mirror Strike", "Si la unidad inicia el combate, otorga Atk/Res+6 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Mirror Strike", multiCondition, multiEffect);
         return skill;
     }
 
@@ -200,7 +423,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Spd, 6), new BonusEffect(StatType.Def, 6) });
-        Skill skill = new Skill("Steady Blow", "Si la unidad inicia el combate, otorga Spd/Def+6 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Steady Blow", multiCondition, multiEffect);
         return skill;
     }
 
@@ -208,7 +431,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Spd, 6), new BonusEffect(StatType.Res, 6) });
-        Skill skill = new Skill("Swift Strike", "Si la unidad inicia el combate, otorga Spd/Res+6 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Swift Strike", multiCondition, multiEffect);
         return skill;
     }
 
@@ -216,7 +439,7 @@ public class SkillFactory
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitBeginAsAttackerCondition() });
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Def, 6), new BonusEffect(StatType.Res, 6) });
-        Skill skill = new Skill("Bracing Blow", "Si la unidad inicia el combate, otorga Def/Res+6 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Bracing Blow", multiCondition, multiEffect);
         return skill;
     }
 
@@ -225,7 +448,7 @@ public class SkillFactory
      {
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { new UnitWeaponCondition("Magic") });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { new BonusEffect(StatType.Atk, 6), new BonusEffect(StatType.Spd, 6) }); 
-         Skill skill = new Skill("Tome Precision", "Otorga Atk/Spd+6 al usar magia.", multiCondition, multiEffect);
+         Skill skill = new Skill("Tome Precision", multiCondition, multiEffect);
          return skill;
      }
      
@@ -241,7 +464,7 @@ public class SkillFactory
              new BonusEffect(StatType.Spd, 10),
              new BonusEffect(StatType.Res, 10)
          });
-         Skill skill = new Skill("Brazen Spd/Res", "Al inicio del combate, si el HP de la unidad ≤ 80 %, otorga Spd/Res+10 durante el combate", multiCondition, multiEffect);
+         Skill skill = new Skill("Brazen Spd/Res", multiCondition, multiEffect);
          return skill;
      }
      
@@ -257,7 +480,7 @@ public class SkillFactory
             new BonusEffect(StatType.Atk, 10),
             new BonusEffect(StatType.Spd, 10)
         });
-        Skill skill = new Skill("Brazen Atk/Spd", "Al inicio del combate, si el HP de la unidad ≤ 80 %, otorga Atk/Spd+10 durante el combate", multiCondition, multiEffect);
+        Skill skill = new Skill("Brazen Atk/Spd", multiCondition, multiEffect);
         return skill;
      }
 
@@ -273,7 +496,7 @@ public class SkillFactory
             new BonusEffect(StatType.Atk, 10),
             new BonusEffect(StatType.Def, 10)
         });
-         Skill skill = new Skill("Brazen Atk/Def", "Al inicio del combate, si el HP de la unidad ≤ 80 %, otorga Atk/Def+10 durante el combate", multiCondition, multiEffect);
+         Skill skill = new Skill("Brazen Atk/Def", multiCondition, multiEffect);
             return skill;
      }
      
@@ -290,7 +513,7 @@ public class SkillFactory
              new BonusEffect(StatType.Atk, 10),
              new BonusEffect(StatType.Res, 10)
          });
-         Skill skill = new Skill("Brazen Atk/Res", "Al inicio del combate, si el HP de la unidad ≤ 80 %, otorga Atk/Res+10 durante el combate", multiCondition, multiEffect);
+         Skill skill = new Skill("Brazen Atk/Res", multiCondition, multiEffect);
          return skill;
      }
      
@@ -306,7 +529,7 @@ public class SkillFactory
              new BonusEffect(StatType.Spd, 10),
              new BonusEffect(StatType.Def, 10)
          });
-         Skill skill = new Skill("Brazen Spd/Def", "Al inicio del combate, si el HP de la unidad ≤ 80 %, otorga Spd/Def+10 durante el combate", multiCondition, multiEffect);
+         Skill skill = new Skill("Brazen Spd/Def", multiCondition, multiEffect);
          return skill;
      }
      
@@ -322,7 +545,7 @@ public class SkillFactory
              new BonusEffect(StatType.Def, 10),
              new BonusEffect(StatType.Res, 10)
          });
-         Skill skill = new Skill("Brazen Def/Res", "Al inicio del combate, si el HP de la unidad ≤ 80 %, otorga Def/Res+10 durante el combate", multiCondition, multiEffect);
+         Skill skill = new Skill("Brazen Def/Res", multiCondition, multiEffect);
          return skill;
      }
 
@@ -338,7 +561,7 @@ public class SkillFactory
              new BonusEffect(StatType.Atk, 8),
              new BonusEffect(StatType.Spd, 8)
          });
-         Skill skill = new Skill("Deadly Blade", "Si la unidad inicia el combate con una espada, otorga Atk/Spd+8 durante el combate.", multiCondition, multiEffect);
+         Skill skill = new Skill("Deadly Blade", multiCondition, multiEffect);
          return skill;
      }
 
@@ -350,10 +573,25 @@ public class SkillFactory
          });
          MultiEffect multiEffect = new MultiEffect(new IEffect[]
          {
-             new PenaltyEffect(StatType.Spd, 4)
+             new RivalPenaltyEffect(StatType.Spd, 4)
          });
-         Skill skill = new Skill("Blinding Flash", "Si la unidad inicia el combate, inflige Spd-4 en el rival durante el combate.", multiCondition, multiEffect);
+         Skill skill = new Skill("Blinding Flash", multiCondition, multiEffect);
          return skill;
+     }
+
+     private static Skill CreateNotQuiteSkill()
+     {
+         MultiCondition multiCondition = new MultiCondition(new ICondition[]
+         {
+             new RivalBeginAsAttacker()
+         });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new RivalPenaltyEffect(StatType.Atk, 4)
+        });
+         
+        Skill skill = new Skill("Not Quite", multiCondition, multiEffect);
+           return skill;
      }
      
      // private static Skill CreateFairFightSkill()
@@ -389,7 +627,7 @@ public class SkillFactory
              new BonusEffect(StatType.Spd, 3)
          });
 
-         return new Skill("Chaos Style", "Si la unidad inicia el combate con un ataque físico contra un rival armado con magia, o viceversa, otorga Spd+3 durante el combate.", multiCondition, multiEffect);
+         return new Skill("Chaos Style", multiCondition, multiEffect);
      }
      
      private static Skill CreateWrathSkill()
@@ -400,30 +638,30 @@ public class SkillFactory
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { atStartOfCombat });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { wrathEffect });
 
-         return new Skill("Wrath", "Al inicio del combate, por cada punto de HP que la unidad ha perdido, otorga Atk/Spd+1 durante el combate. (Max +30)", multiCondition, multiEffect);
+         return new Skill("Wrath", multiCondition, multiEffect);
      }
      
      private static Skill CreateStunningSmileSkill()
      {
          ICondition rivalIsMan = new RivalIsManCondition();
-         IEffect speedPenalty = new PenaltyEffect(StatType.Spd, 8);
+         IEffect speedPenalty = new RivalPenaltyEffect(StatType.Spd, 8);
          
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { rivalIsMan });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { speedPenalty });
 
-         return new Skill("Stunning Smile", "Si el rival es hombre, inflige Spd-8 en ese rival durante el combate.",
+         return new Skill("Stunning Smile",
              multiCondition, multiEffect);
      }
 
      private static Skill CreateDisarmingSighSkill()
      {
          ICondition rivalIsMan = new RivalIsManCondition();
-         IEffect attackPenalty = new PenaltyEffect(StatType.Atk, 8);
+         IEffect attackPenalty = new RivalPenaltyEffect(StatType.Atk, 8);
          
          MultiCondition multiCondition = new MultiCondition(new ICondition[] { rivalIsMan });
          MultiEffect multiEffect = new MultiEffect(new IEffect[] { attackPenalty });
 
-         return new Skill("Disarming Sigh", "Si el rival es hombre, inflige Atk-8 en ese rival durante el combate.",
+         return new Skill("Disarming Sigh",
              multiCondition, multiEffect);
      }
      
@@ -441,7 +679,7 @@ public class SkillFactory
              new BonusEffect(statToBoost, boostAmount)
          });
 
-         return new Skill(name, $"Al inicio del combate, si el HP de la unidad ≥ HP del rival+3, otorga {statToBoost}+{boostAmount} durante el combate.", multiCondition, multiEffect);
+         return new Skill(name, multiCondition, multiEffect);
      }
 
      private static Skill CreateFireBoostSkill()

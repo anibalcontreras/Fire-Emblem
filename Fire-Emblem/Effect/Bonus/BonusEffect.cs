@@ -15,13 +15,13 @@ public class BonusEffect : IEffect
         _amount = amount;
     }
     
-    public virtual void ApplyEffect(GameView view, Unit unit)
+    public virtual void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
-        unit.IncreaseStat(_statToIncrease, _amount);
-        view.AnnounceBonusStat(unit.Name, this.ToString());
+        activator.IncreaseStat(_statToIncrease, _amount);
+        view.AnnounceBonusStat(activator.Name, this.ToString());
     }
     
-    public virtual void RevertEffect(GameView view, Unit unit)
+    public virtual void RevertEffect(GameView view, Unit unit, Unit rival)
     {
         unit.IncreaseStat(_statToIncrease, -_amount);
     }

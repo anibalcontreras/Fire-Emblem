@@ -13,8 +13,9 @@ public class UnitWeaponCondition : ICondition
 
     public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
     {
-        return combat.Attacker.Weapon.Name == _requiredWeaponName;
+        return activator.Weapon.Name == _requiredWeaponName;
     }
+
 
     public ICondition Clone()
     {

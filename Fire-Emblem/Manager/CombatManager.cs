@@ -40,7 +40,6 @@ public class CombatManager
     
     private void ExecuteCombatProcess(Combat combat)
     {
-        
         PerformAttack(combat);
         if (combat.Defender.CurrentHP <= 0)
         {

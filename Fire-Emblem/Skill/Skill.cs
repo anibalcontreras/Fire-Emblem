@@ -14,10 +14,9 @@ public class Skill
     public SkillTarget Target { get; set; }
     private bool IsActive { get; set; }
     
-    public Skill(string name, string description, MultiCondition condition, MultiEffect effect)
+    public Skill(string name, MultiCondition condition, MultiEffect effect)
     {
         Name = name;
-        Description = description;
         Condition = condition;
         Effect = effect;
     }
@@ -29,14 +28,14 @@ public class Skill
             case SkillTarget.Self:
                 if (Condition.IsConditionMet(combat, unit, rival))
                 {
-                    Effect.ApplyEffect(view, unit);
+                    Effect.ApplyEffect(view, unit, rival);
                     IsActive = true;
                 }
                 break;
             case SkillTarget.Rival:
                 if (Condition.IsConditionMet(combat, rival, unit))
                 {
-                    Effect.ApplyEffect(view, rival);
+                    Effect.ApplyEffect(view, rival, unit);
                     IsActive = true;
                 }
                 break;
@@ -54,14 +53,14 @@ public class Skill
             case SkillTarget.Self:
                 if (IsActive)
                 {
-                    Effect.RevertEffect(view, unit);
+                    Effect.RevertEffect(view, unit, rival);
                     IsActive = false;
                 }
                 break;
             case SkillTarget.Rival:
                 if (IsActive)
                 {
-                    Effect.RevertEffect(view, rival);
+                    Effect.RevertEffect(view, rival, unit);
                     IsActive = false;
                 }
                 break;
