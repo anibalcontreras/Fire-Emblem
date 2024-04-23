@@ -20,7 +20,7 @@ public class CombatManager
         combat.UpdateState(CombatState.StartOfCombat);
         _gameView.AnnounceRoundStart(round, combat.Attacker, currentPlayer);
         AnnounceWeaponAdvantage(combat);
-        ActivateUnitsSkills(combat);
+        ActivateSkills(combat);
 
         ExecuteCombatProcess(combat);
         return combat;
@@ -70,7 +70,7 @@ public class CombatManager
         _gameView.AnnounceAdvantage(combat.Attacker, combat.Defender, weaponAdvantage);
     }
 
-    private void ActivateUnitsSkills(Combat combat)
+    private void ActivateSkills(Combat combat)
     {
         ActivateSkills(combat.Attacker, combat.Defender, combat);
         ActivateSkills(combat.Defender, combat.Attacker, combat);

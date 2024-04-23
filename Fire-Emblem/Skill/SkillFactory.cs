@@ -60,8 +60,6 @@ public class SkillFactory
                 return CreateBrazenDefResSkill();
             case "Deadly Blade":
                 return CreateDeadlyBladeSkill();
-            case "Stunning Smile":
-                return CreateStunningSmileSkill();
             case "Chaos Style":
                 return CreateChaosStyleSkill();
             case "Fire Boost":
@@ -72,6 +70,14 @@ public class SkillFactory
                 return CreateEarthBoostSkill();
             case "Water Boost":
                 return CreateWaterBoostSkill();
+            case "Wrath":
+                return CreateWrathSkill();
+            // case "Stunning Smile":
+            //     return CreateStunningSmileSkill();
+            // case "Disarming Sigh":
+            //     return CreateDisarmingSighSkill();
+            // case "Blinding Flash":
+            //     return CreateBlindingFlashSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }
@@ -335,28 +341,42 @@ public class SkillFactory
          Skill skill = new Skill("Deadly Blade", "Si la unidad inicia el combate con una espada, otorga Atk/Spd+8 durante el combate.", multiCondition, multiEffect);
          return skill;
      }
-    
-     private static Skill CreateStunningSmileSkill()
+
+     private static Skill CreateBlindingFlashSkill()
      {
          MultiCondition multiCondition = new MultiCondition(new ICondition[]
          {
-             new RivalIsManCondition()
+             new UnitBeginAsAttackerCondition()
          });
          MultiEffect multiEffect = new MultiEffect(new IEffect[]
          {
-            new PenaltyEffect(StatType.Spd, 8)
+             new PenaltyEffect(StatType.Spd, 4)
          });
-         
-            Skill skill = new Skill("Stunning Smile", "Si el rival es hombre, inflige Spd-8 en ese rival durante el combate.", multiCondition, multiEffect);
-            return skill;
+         Skill skill = new Skill("Blinding Flash", "Si la unidad inicia el combate, inflige Spd-4 en el rival durante el combate.", multiCondition, multiEffect);
+         return skill;
      }
      
+     // private static Skill CreateFairFightSkill()
+     // {
+     //     ICondition beginsAsAttacker = new UnitBeginAsAttackerCondition();
+     //
+     //     IEffect bonusToAttacker = new BonusEffect(StatType.Atk, 6);
+     //     IEffect bonusToDefender = new BonusEffect(StatType.Atk, 6);
+     //
+     //     MultiEffect multiEffect = new MultiEffect(new IEffect[] {
+     //         new ApplyEffectToBoth(bonusToAttacker, bonusToDefender)
+     //     });
+     //
+     //     return new Skill("Fair Fight", "Si la unidad inicia el combate, otorga Atk+6 a la unidad y al rival durante el combate.", beginsAsAttacker, multiEffect);
+     // }
+     
+    
      private static Skill CreateChaosStyleSkill()
      {
          ICondition beginsAsAttacker = new UnitBeginAsAttackerCondition();
          ICondition mixedWeaponCondition = new MixedWeaponCondition(
-             new string[] { "Bow", "Sword", "Lance", "Axe" }, // Ejemplo de armas físicas
-             new string[] { "Magic" } // Ejemplo de arma mágica
+             new string[] { "Bow", "Sword", "Lance", "Axe" },
+             new string[] { "Magic" }
          );
 
          MultiCondition multiCondition = new MultiCondition(new ICondition[] {
@@ -370,6 +390,41 @@ public class SkillFactory
          });
 
          return new Skill("Chaos Style", "Si la unidad inicia el combate con un ataque físico contra un rival armado con magia, o viceversa, otorga Spd+3 durante el combate.", multiCondition, multiEffect);
+     }
+     
+     private static Skill CreateWrathSkill()
+     {
+         ICondition atStartOfCombat = new BeginningOfTheCombatCondition();
+         IEffect wrathEffect = new WrathBonusEffect();
+
+         MultiCondition multiCondition = new MultiCondition(new ICondition[] { atStartOfCombat });
+         MultiEffect multiEffect = new MultiEffect(new IEffect[] { wrathEffect });
+
+         return new Skill("Wrath", "Al inicio del combate, por cada punto de HP que la unidad ha perdido, otorga Atk/Spd+1 durante el combate. (Max +30)", multiCondition, multiEffect);
+     }
+     
+     private static Skill CreateStunningSmileSkill()
+     {
+         ICondition rivalIsMan = new RivalIsManCondition();
+         IEffect speedPenalty = new PenaltyEffect(StatType.Spd, 8);
+         
+         MultiCondition multiCondition = new MultiCondition(new ICondition[] { rivalIsMan });
+         MultiEffect multiEffect = new MultiEffect(new IEffect[] { speedPenalty });
+
+         return new Skill("Stunning Smile", "Si el rival es hombre, inflige Spd-8 en ese rival durante el combate.",
+             multiCondition, multiEffect);
+     }
+
+     private static Skill CreateDisarmingSighSkill()
+     {
+         ICondition rivalIsMan = new RivalIsManCondition();
+         IEffect attackPenalty = new PenaltyEffect(StatType.Atk, 8);
+         
+         MultiCondition multiCondition = new MultiCondition(new ICondition[] { rivalIsMan });
+         MultiEffect multiEffect = new MultiEffect(new IEffect[] { attackPenalty });
+
+         return new Skill("Disarming Sigh", "Si el rival es hombre, inflige Atk-8 en ese rival durante el combate.",
+             multiCondition, multiEffect);
      }
      
      private static Skill CreateBoostSkill(string name, StatType statToBoost, int boostAmount)
@@ -408,6 +463,5 @@ public class SkillFactory
      {
          return CreateBoostSkill("Water Boost", StatType.Res, 6);
      }
-
-    
+     
 }

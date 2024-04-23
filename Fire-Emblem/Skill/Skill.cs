@@ -12,7 +12,7 @@ public class Skill
     public MultiEffect Effect { get; set; }
     public MultiCondition Condition { get; set; }
     public SkillTarget Target { get; set; }
-    public bool IsActive { get; set; }
+    private bool IsActive { get; set; }
     
     public Skill(string name, string description, MultiCondition condition, MultiEffect effect)
     {
@@ -61,17 +61,11 @@ public class Skill
             case SkillTarget.Rival:
                 if (IsActive)
                 {
-                    Effect.RevertEffect(view, unit);
+                    Effect.RevertEffect(view, rival);
                     IsActive = false;
                 }
                 break;
             case SkillTarget.Allies:
-                if (IsActive)
-                {
-                    Effect.RevertEffect(view, unit);
-                    IsActive = false;
-                }
-
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

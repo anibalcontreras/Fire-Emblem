@@ -31,9 +31,4 @@ public class MultiEffect : IEffect
     {
         return new MultiEffect(_effects.Select(effect => effect.Clone()));
     }
-
-    public override string ToString()
-    {
-        return string.Join(" + ", _effects.Select(effect => effect.ToString()));
-    }
 }
