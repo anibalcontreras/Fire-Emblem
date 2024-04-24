@@ -45,29 +45,4 @@ public class Skill
                 throw new ArgumentOutOfRangeException();
         }
     }
-    
-    public void DeactivateEffects(Combat combat, GameView view, Unit unit, Unit rival)
-    {
-        switch (Target)
-        {
-            case SkillTarget.Self:
-                if (IsActive)
-                {
-                    Effect.RevertEffect(view, unit, rival);
-                    IsActive = false;
-                }
-                break;
-            case SkillTarget.Rival:
-                if (IsActive)
-                {
-                    Effect.RevertEffect(view, rival, unit);
-                    IsActive = false;
-                }
-                break;
-            case SkillTarget.Allies:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
 }

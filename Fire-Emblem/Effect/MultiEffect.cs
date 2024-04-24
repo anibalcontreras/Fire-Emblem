@@ -18,14 +18,6 @@ public class MultiEffect : IEffect
             effect.ApplyEffect(view, activator, opponent);
         }
     }
-
-    public void RevertEffect(GameView view, Unit unit, Unit rival)
-    {
-        foreach (IEffect effect in _effects)
-        {
-            effect.RevertEffect(view, unit, rival);
-        }
-    }
     
     public IEffect Clone()
     {

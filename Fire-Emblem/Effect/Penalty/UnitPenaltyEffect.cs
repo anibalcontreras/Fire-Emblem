@@ -20,11 +20,6 @@ public class UnitPenaltyEffect : IEffect
         view.AnnouncePenaltyStat(activator.Name, this.ToString());
     }
     
-    public virtual void RevertEffect(GameView view, Unit unit, Unit rival)
-    {
-        unit.ApplyStatEffect(_statToDecrease, +_amount);
-    }
-    
     public virtual IEffect Clone()
     {
         return new UnitPenaltyEffect(_statToDecrease, _amount);

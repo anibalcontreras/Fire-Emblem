@@ -30,18 +30,6 @@ public class WrathBonusEffect : IEffect, IBonusEffect
         view.AnnounceBonusStat(activator.Name, $"{SpdBoostString(activator.SpdBonus)}");
         activator.ApplyStatEffect(StatType.Spd, activator.SpdBonus);
     }
-
-    public void RevertEffect(GameView view, Unit activator, Unit opponent)
-    {
-        RevertBonus(view, activator, opponent);
-    }
-
-    public void RevertBonus(GameView view, Unit activator, Unit opponent)
-    {
-        activator.ApplyStatEffect(StatType.Atk, -activator.AtkBonus);
-        activator.ApplyStatEffect(StatType.Spd, -activator.SpdBonus);
-    }
-
     public IEffect Clone()
     {
         return new WrathBonusEffect(_maxBonus);
