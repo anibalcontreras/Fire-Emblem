@@ -7,7 +7,7 @@ public class NeutralizeBonusEffect : IEffect, INeutralizationEffect
 {
     public void MarkNeutralization(GameView view, Unit activator, Unit opponent)
     {
-        throw new BonusNeutralizationException("The bonus of the rival will be neutralized");
+        throw new BonusNeutralizationException("The bonus will be neutralized");
     }
  
     public void RevertNeutralization(GameView view, Unit activator, Unit opponent)
@@ -18,7 +18,6 @@ public class NeutralizeBonusEffect : IEffect, INeutralizationEffect
     public void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
         MarkNeutralization(view, activator, opponent);
-        // view.AnnounceBonusNeutralization("Stat", opponent.Name);
     }
     
     public void RevertEffect(GameView view, Unit activator, Unit opponent)

@@ -24,35 +24,46 @@ public class Skill
     
     public void ActivateEffects(Combat combat, GameView view, Unit unit, Unit rival)
     {
-        try
+        switch (Target)
         {
-            switch (Target)
-            {
-                case SkillTarget.Self:
+            case SkillTarget.Self:
+                try
+                {
                     if (Condition.IsConditionMet(combat, unit, rival))
                     {
                         Effect.ApplyEffect(view, unit, rival);
                         IsActive = true;
                     }
-
-                    break;
-                case SkillTarget.Rival:
+                }
+                catch (BonusNeutralizationException e)
+                {
+                    view.AnnounceBonusNeutralization("Atk", rival.Name);
+                    view.AnnounceBonusNeutralization("Spd", rival.Name);
+                    view.AnnounceBonusNeutralization("Def", rival.Name);
+                    view.AnnounceBonusNeutralization("Res", rival.Name);
+                }
+                break;
+            case SkillTarget.Rival:
+                try
+                {
                     if (Condition.IsConditionMet(combat, rival, unit))
                     {
                         Effect.ApplyEffect(view, rival, unit);
                         IsActive = true;
                     }
-
-                    break;
-                case SkillTarget.Allies:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-        catch (BonusNeutralizationException bnex)
-        {
-            
+                }
+                catch (BonusNeutralizationException e)
+                {
+                    view.AnnounceBonusNeutralization("Atk", rival.Name);
+                    view.AnnounceBonusNeutralization("Spd", rival.Name);
+                    view.AnnounceBonusNeutralization("Def", rival.Name);
+                    view.AnnounceBonusNeutralization("Res", rival.Name);
+                }
+                break;
+            case SkillTarget.Allies:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
     

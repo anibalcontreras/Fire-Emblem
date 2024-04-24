@@ -115,8 +115,7 @@ public class Unit
                 throw new ArgumentException($"Stat '{statType}' is not recognized.");
         }
     }
-
-    // Esto es muy específico para el WrathBonusEffect, pero no se me ocurre una mejor forma de hacerlo.
     public int AtkBonus { get; set; } = 0;
     public int SpdBonus { get; set; } = 0;
+    
 }
