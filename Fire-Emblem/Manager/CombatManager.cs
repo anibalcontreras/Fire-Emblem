@@ -88,17 +88,17 @@ public class CombatManager
     
     private void DeactivateSkills(Combat combat)
     {
-        DeactivateUnitsSkills(combat.Attacker, combat.Defender, combat);
-        DeactivateUnitsSkills(combat.Defender, combat.Attacker, combat);
+        combat.Attacker.ResetStatBonuses();
+        combat.Defender.ResetStatBonuses();
     }
     
-    private void DeactivateUnitsSkills(Unit activator, Unit opponent, Combat combat)
-    {
-        foreach (var skill in activator.Skills)
-        {
-            skill.DeactivateEffects(combat, _gameView, activator, opponent);
-        }
-    }
+    // private void DeactivateUnitsSkills(Unit activator, Unit opponent, Combat combat)
+    // {
+    //     foreach (var skill in activator.Skills)
+    //     {
+    //         skill.DeactivateEffects(combat, _gameView, activator, opponent);
+    //     }
+    // }
     
     private void PerformAttack(Combat combat)
     {

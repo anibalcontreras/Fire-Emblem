@@ -21,16 +21,16 @@ public class MutualBonusEffect : IEffect, IBonusEffect
 
     public void ApplyBonus(GameView view, Unit activator, Unit opponent)
     {
-        activator.IncreaseStat(_stat, _amount);
-        opponent.IncreaseStat(_stat, _amount);
+        activator.ApplyStatEffect(_stat, _amount);
+        opponent.ApplyStatEffect(_stat, _amount);
         view.AnnounceBonusStat(activator.Name, $"{_stat}+{_amount}");
         view.AnnounceBonusStat(opponent.Name, $"{_stat}+{_amount}");
     }
 
     public void RevertEffect(GameView view, Unit activator, Unit opponent)
     {
-        activator.IncreaseStat(_stat, -_amount);
-        opponent.IncreaseStat(_stat, -_amount);
+        activator.ApplyStatEffect(_stat, -_amount);
+        opponent.ApplyStatEffect(_stat, -_amount);
     }
 
     public void RevertBonus(GameView view, Unit activator, Unit opponent)

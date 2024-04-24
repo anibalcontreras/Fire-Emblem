@@ -1,6 +1,5 @@
 using Fire_Emblem.Condition;
 using Fire_Emblem.Effect;
-using Fire_Emblem.Exceptions;
 using Fire_Emblem.UnitManagment;
 
 namespace Fire_Emblem.SkillManagment;
@@ -27,37 +26,17 @@ public class Skill
         switch (Target)
         {
             case SkillTarget.Self:
-                try
+                if (Condition.IsConditionMet(combat, unit, rival))
                 {
-                    if (Condition.IsConditionMet(combat, unit, rival))
-                    {
-                        Effect.ApplyEffect(view, unit, rival);
-                        IsActive = true;
-                    }
-                }
-                catch (BonusNeutralizationException e)
-                {
-                    view.AnnounceBonusNeutralization("Atk", rival.Name);
-                    view.AnnounceBonusNeutralization("Spd", rival.Name);
-                    view.AnnounceBonusNeutralization("Def", rival.Name);
-                    view.AnnounceBonusNeutralization("Res", rival.Name);
+                    Effect.ApplyEffect(view, unit, rival);
+                    IsActive = true;
                 }
                 break;
             case SkillTarget.Rival:
-                try
+                if (Condition.IsConditionMet(combat, rival, unit))
                 {
-                    if (Condition.IsConditionMet(combat, rival, unit))
-                    {
-                        Effect.ApplyEffect(view, rival, unit);
-                        IsActive = true;
-                    }
-                }
-                catch (BonusNeutralizationException e)
-                {
-                    view.AnnounceBonusNeutralization("Atk", rival.Name);
-                    view.AnnounceBonusNeutralization("Spd", rival.Name);
-                    view.AnnounceBonusNeutralization("Def", rival.Name);
-                    view.AnnounceBonusNeutralization("Res", rival.Name);
+                    Effect.ApplyEffect(view, rival, unit);
+                    IsActive = true;
                 }
                 break;
             case SkillTarget.Allies:

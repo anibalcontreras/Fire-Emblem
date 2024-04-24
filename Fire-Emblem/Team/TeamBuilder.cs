@@ -77,7 +77,7 @@ public class TeamBuilder
 
     private Unit FindUnitByName(string unitName)
     {
-        return _dataLoader.Units.FirstOrDefault(u => u.Name == unitName);
+        return _dataLoader.Units.FirstOrDefault(u => u.Name.Equals(unitName, StringComparison.OrdinalIgnoreCase));
     }
 
     private Unit CloneUnit(Unit originalUnit)
@@ -87,18 +87,18 @@ public class TeamBuilder
             Name = originalUnit.Name,
             Gender = originalUnit.Gender,
             DeathQuote = originalUnit.DeathQuote,
-            HP = originalUnit.HP,
-            Atk = originalUnit.Atk,
-            Spd = originalUnit.Spd,
-            Def = originalUnit.Def,
-            Res = originalUnit.Res,
+            BaseHp = originalUnit.BaseHp,
+            BaseAtk = originalUnit.BaseAtk,
+            BaseSpd = originalUnit.BaseSpd,
+            BaseDef = originalUnit.BaseDef,
+            BaseRes = originalUnit.BaseRes,
             Weapon = originalUnit.Weapon
         };
     }
 
     private void AddUnitToPlayer(Unit clonedUnit, string line, ref Player currentPlayer)
     {
-        clonedUnit.InitializeCurrentHP();
+        clonedUnit.InitializeCurrentHp();
         Unit unit = clonedUnit;
         
         ProcessUnitSkills(line.Split('('), unit);

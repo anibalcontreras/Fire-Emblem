@@ -1,5 +1,3 @@
-using Fire_Emblem.Exceptions;
-using Fire_Emblem.Stats;
 using Fire_Emblem.UnitManagment;
 
 namespace Fire_Emblem.Effect;

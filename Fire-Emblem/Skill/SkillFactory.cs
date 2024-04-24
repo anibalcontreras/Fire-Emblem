@@ -1,6 +1,5 @@
 using Fire_Emblem.Condition;
 using Fire_Emblem.Effect;
-using Fire_Emblem.Effect.Neutralization;
 using Fire_Emblem.Stats;
 
 namespace Fire_Emblem.SkillManagment;
@@ -113,27 +112,11 @@ public class SkillFactory
                 return CreateResolveSkill();
             case "Belief in Love":
                 return CreateBeliefInLoveSkill();
-            case "Beorc's Blessing":
-                return CreateBeorcsBlessingSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }
     }
-
-    private static Skill CreateBeorcsBlessingSkill()
-    {
-        MultiCondition multiCondition = new MultiCondition(new ICondition[]
-        {
-            new UnitHasNeutralizationBonus()
-        });
-        
-        MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            new NeutralizeBonusEffect()
-        });
-        
-        return new Skill("Beorc's Blessing", multiCondition, multiEffect);
-    }
+    
 
     private static Skill CreateBeliefInLoveSkill()
     {

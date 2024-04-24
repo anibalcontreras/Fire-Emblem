@@ -6,7 +6,6 @@ public class Team
 {
     public List<Unit> Units { get; } = new List<Unit>();
     public string Name { get; private set; }
-    // public bool IsAttacker { get; private set; }
     
     public Team(string name)
     {

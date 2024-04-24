@@ -22,7 +22,7 @@ public class BonusEffect : IEffect, IBonusEffect
     
     public virtual void ApplyBonus(GameView view, Unit activator, Unit opponent)
     {
-        activator.IncreaseStat(_statToIncrease, _amount);
+        activator.ApplyStatEffect(_statToIncrease, _amount);
         view.AnnounceBonusStat(activator.Name, this.ToString());
     }
     
@@ -33,7 +33,7 @@ public class BonusEffect : IEffect, IBonusEffect
     
     public virtual void RevertBonus(GameView view, Unit unit, Unit rival)
     {
-        unit.IncreaseStat(_statToIncrease, -_amount);
+        unit.ApplyStatEffect(_statToIncrease, -_amount);
     }
     
     public virtual IEffect Clone()

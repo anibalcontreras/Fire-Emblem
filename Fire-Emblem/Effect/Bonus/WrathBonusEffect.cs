@@ -14,7 +14,7 @@ public class WrathBonusEffect : IEffect, IBonusEffect
 
     public void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
-        int hpLost = activator.HP - activator.CurrentHP;
+        int hpLost = activator.BaseHp - activator.CurrentHP;
         int bonus = Math.Min(hpLost, _maxBonus);
         
         activator.AtkBonus = bonus; // Consider using properties to handle state
@@ -26,9 +26,9 @@ public class WrathBonusEffect : IEffect, IBonusEffect
     public void ApplyBonus(GameView view, Unit activator, Unit opponent)
     {
         view.AnnounceBonusStat(activator.Name, $"{AtkBoostString(activator.AtkBonus)}");
-        activator.IncreaseStat(StatType.Atk, activator.AtkBonus);
+        activator.ApplyStatEffect(StatType.Atk, activator.AtkBonus);
         view.AnnounceBonusStat(activator.Name, $"{SpdBoostString(activator.SpdBonus)}");
-        activator.IncreaseStat(StatType.Spd, activator.SpdBonus);
+        activator.ApplyStatEffect(StatType.Spd, activator.SpdBonus);
     }
 
     public void RevertEffect(GameView view, Unit activator, Unit opponent)
@@ -38,8 +38,8 @@ public class WrathBonusEffect : IEffect, IBonusEffect
 
     public void RevertBonus(GameView view, Unit activator, Unit opponent)
     {
-        activator.IncreaseStat(StatType.Atk, -activator.AtkBonus);
-        activator.IncreaseStat(StatType.Spd, -activator.SpdBonus);
+        activator.ApplyStatEffect(StatType.Atk, -activator.AtkBonus);
+        activator.ApplyStatEffect(StatType.Spd, -activator.SpdBonus);
     }
 
     public IEffect Clone()

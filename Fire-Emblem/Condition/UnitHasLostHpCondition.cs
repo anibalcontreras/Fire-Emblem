@@ -6,7 +6,7 @@ public class UnitHasLostHpCondition : ICondition
 {
     public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
     {
-        return activator.CurrentHP < activator.HP;
+        return activator.CurrentHP < activator.BaseHp;
     }
 
     public ICondition Clone()

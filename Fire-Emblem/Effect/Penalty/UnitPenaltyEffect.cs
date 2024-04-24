@@ -16,13 +16,13 @@ public class UnitPenaltyEffect : IEffect
     
     public virtual void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
-        activator.IncreaseStat(_statToDecrease, -_amount);
+        activator.ApplyStatEffect(_statToDecrease, -_amount);
         view.AnnouncePenaltyStat(activator.Name, this.ToString());
     }
     
     public virtual void RevertEffect(GameView view, Unit unit, Unit rival)
     {
-        unit.IncreaseStat(_statToDecrease, +_amount);
+        unit.ApplyStatEffect(_statToDecrease, +_amount);
     }
     
     public virtual IEffect Clone()

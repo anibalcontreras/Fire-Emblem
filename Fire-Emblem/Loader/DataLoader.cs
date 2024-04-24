@@ -15,6 +15,11 @@ public class DataLoader
     
     public DataLoader(string unitsJsonFilePath = "characters.json", string skillsJsonFilePath = "skills.json")
     {
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new WeaponConverter() }
+        };
         Units = LoadUnits(unitsJsonFilePath).AsReadOnly();
         Skills = LoadSkills(skillsJsonFilePath).AsReadOnly();
     }
@@ -35,15 +40,22 @@ public class DataLoader
     
     private List<Unit> LoadUnits(string filePath)
     {
-        JsonSerializerOptions options = new JsonSerializerOptions();
-        options.Converters.Add(new WeaponConverter());
-        return LoadFromJson<Unit>(filePath, options);
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        string jsonContent = File.ReadAllText(filePath);
+        var unitFromJsonList = JsonSerializer.Deserialize<List<UnitFromJson>>(jsonContent, options);
+        List<Unit> units = new List<Unit>();
+        foreach (var unitFromJson in unitFromJsonList)
+        {
+            units.Add(unitFromJson.ConvertToUnit());
+        }
+        return units;
     }
-
     private List<Skill> LoadSkills(string filePath)
     {
         JsonSerializerOptions options = new JsonSerializerOptions();
         return LoadFromJson<Skill>(filePath, options);
     }
-
 }

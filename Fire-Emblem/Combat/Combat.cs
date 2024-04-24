@@ -27,11 +27,11 @@ public class Combat
     
     public bool CanAttackerPerformFollowUp()
     {
-        return Attacker.Spd - Defender.Spd >= 5;
+        return Attacker.CurrentSpd - Defender.CurrentSpd >= 5;
     }
 
     public bool CanDefenderPerformFollowUp()
     {
-        return Defender.Spd - Attacker.Spd >= 5;
+        return Defender.CurrentSpd - Attacker.CurrentSpd >= 5;
     }
 }
