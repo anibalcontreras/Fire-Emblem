@@ -1,8 +1,8 @@
-using Fire_Emblem.Condition;
-using Fire_Emblem.Effect;
+using Fire_Emblem.Conditions;
+using Fire_Emblem.Effects;
 using Fire_Emblem.UnitManagment;
 
-namespace Fire_Emblem.SkillManagment;
+namespace Fire_Emblem.Skills;
 
 public class Skill
 {

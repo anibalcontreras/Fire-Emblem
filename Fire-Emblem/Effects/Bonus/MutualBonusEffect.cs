@@ -1,5 +1,5 @@
 using Fire_Emblem;
-using Fire_Emblem.Effect;
+using Fire_Emblem.Effects;
 using Fire_Emblem.Stats;
 using Fire_Emblem.UnitManagment;
 

@@ -1,6 +1,6 @@
 using Fire_Emblem.UnitManagment;
 
-namespace Fire_Emblem.Effect;
+namespace Fire_Emblem.Effects;
 
 public interface IBonusEffect
 {

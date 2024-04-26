@@ -1,5 +1,5 @@
 using Fire_Emblem;
-using Fire_Emblem.Effect;
+using Fire_Emblem.Effects;
 using Fire_Emblem.Stats;
 using Fire_Emblem.UnitManagment;
 
@@ -17,8 +17,8 @@ public class WrathBonusEffect : IEffect, IBonusEffect
         int hpLost = activator.BaseHp - activator.CurrentHP;
         int bonus = Math.Min(hpLost, _maxBonus);
         
-        activator.AtkBonus = bonus; // Consider using properties to handle state
-        activator.SpdBonus = bonus; // Consider using properties to handle state
+        activator.AtkBonus = bonus;
+        activator.SpdBonus = bonus;
         
         ApplyBonus(view, activator, opponent);
     }

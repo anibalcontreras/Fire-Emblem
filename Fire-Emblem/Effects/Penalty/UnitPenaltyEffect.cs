@@ -1,7 +1,7 @@
 using Fire_Emblem.Stats;
 using Fire_Emblem.UnitManagment;
 
-namespace Fire_Emblem.Effect;
+namespace Fire_Emblem.Effects;
 
 public class UnitPenaltyEffect : IEffect
 {

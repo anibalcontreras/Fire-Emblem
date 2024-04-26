@@ -1,11 +1,11 @@
-using Fire_Emblem.Condition;
-using Fire_Emblem.Effect;
+using Fire_Emblem.Conditions;
+using Fire_Emblem.Effects;
 using Fire_Emblem.Loader;
 
 namespace Fire_Emblem.TeamManagment;
 
 using Fire_Emblem.UnitManagment;
-using Fire_Emblem.SkillManagment;
+using Skills;
 
 public class TeamBuilder
 {
@@ -124,11 +124,12 @@ public class TeamBuilder
 
     private void EquipSkillByName(string skillName, Unit unit)
     {
-        // TODO: Acá se tiene este parche mientras no están todas las skills programadas y tenga que pasar los primeros tests
+        // TODO: Parche mientras no tenga todas las skills y tenga que pasar los primeros test cases
         Skill skill = null;
         try
         {
-            skill = SkillFactory.CreateSkill(skillName);
+            SkillFactory skillFactory = new SkillFactory();
+            skill = skillFactory.CreateSkill(skillName);
         }
         catch (ArgumentException)
         {

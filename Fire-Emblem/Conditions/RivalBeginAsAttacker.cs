@@ -1,16 +1,16 @@
 using Fire_Emblem.UnitManagment;
 
-namespace Fire_Emblem.Condition;
+namespace Fire_Emblem.Conditions;
 
-public class UnitHasNeutralizationBonus : ICondition
+public class RivalBeginAsAttacker : ICondition
 {
     public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
     {
-        return true;
+        return combat.Attacker == opponent;
     }
     
     public ICondition Clone()
     {
-        return new UnitHasNeutralizationBonus();
+        return new RivalBeginAsAttacker();
     }
 }

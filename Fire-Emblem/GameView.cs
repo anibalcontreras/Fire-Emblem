@@ -1,6 +1,6 @@
 using Fire_Emblem_View;
-using Fire_Emblem.Effect;
-using Fire_Emblem.SkillManagment;
+using Fire_Emblem.Effects;
+using Fire_Emblem.Skills;
 using Fire_Emblem.TeamManagment;
 using Fire_Emblem.UnitManagment;
 using Fire_Emblem.Weapon;

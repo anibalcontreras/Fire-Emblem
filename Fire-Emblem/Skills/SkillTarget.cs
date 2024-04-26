@@ -1,4 +1,4 @@
-namespace Fire_Emblem.SkillManagment;
+namespace Fire_Emblem.Skills;
 
 public enum SkillTarget
 {

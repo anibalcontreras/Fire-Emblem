@@ -1,7 +1,7 @@
 using Fire_Emblem.TeamManagment;
 using Fire_Emblem.UnitManagment;
 
-namespace Fire_Emblem.Condition;
+namespace Fire_Emblem.Conditions;
 
 public class NoCondition : ICondition
 {

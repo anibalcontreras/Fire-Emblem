@@ -1,20 +1,20 @@
 using Fire_Emblem.UnitManagment;
 
-namespace Fire_Emblem.Condition;
+namespace Fire_Emblem.Conditions;
 
-public class RivalHpThresholdCondition : ICondition
+public class UnitHpThresholdCondition : ICondition
 {
     private readonly double _threshold;
 
-    public RivalHpThresholdCondition(double threshold)
+    public UnitHpThresholdCondition(double threshold)
     {
         _threshold = threshold;
     }
 
     public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
     {
-        int thresholdHp = (int)(opponent.BaseHp * _threshold);
-        return opponent.CurrentHP <= thresholdHp;
+        int thresholdHp = (int)(activator.BaseHp * _threshold);
+        return activator.CurrentHP <= thresholdHp;
     }
 
     public ICondition Clone()

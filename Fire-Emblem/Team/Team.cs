@@ -1,4 +1,4 @@
-using Fire_Emblem.SkillManagment;
+using Fire_Emblem.Skills;
 using Fire_Emblem.UnitManagment;
 
 namespace Fire_Emblem.TeamManagment;

@@ -1,6 +1,6 @@
 using Fire_Emblem.UnitManagment;
 
-namespace Fire_Emblem.Condition;
+namespace Fire_Emblem.Conditions;
 
 public interface ICondition
 {

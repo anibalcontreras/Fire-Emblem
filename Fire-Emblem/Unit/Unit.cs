@@ -1,4 +1,4 @@
-using Fire_Emblem.SkillManagment;
+using Fire_Emblem.Skills;
 using Fire_Emblem.Stats;
 
 namespace Fire_Emblem.UnitManagment;
@@ -18,13 +18,13 @@ public class Unit
     
     public int AtkBonus { get; set; } = 0;
     public int SpdBonus { get; set; } = 0;
-    public int DefBonus { get; set; } = 0;
-    public int ResBonus { get; set; } = 0;
+    private int DefBonus { get; set; } = 0;
+    private int ResBonus { get; set; } = 0;
     
-    public int CurrentAtk => BaseAtk + AtkBonus;
+    private int CurrentAtk => BaseAtk + AtkBonus;
     public int CurrentSpd => BaseSpd + SpdBonus;
-    public int CurrentDef => BaseDef + DefBonus;
-    public int CurrentRes => BaseRes + ResBonus;
+    private int CurrentDef => BaseDef + DefBonus;
+    private int CurrentRes => BaseRes + ResBonus;
     
     public Weapon Weapon { get; set; }
     
@@ -46,7 +46,6 @@ public class Unit
         switch (statType)
         {
             case StatType.HP:
-                // TODO: Ver si tiene que ser para el current o el base
                 BaseHp += effectAmount;
                 break;
             case StatType.Atk:
@@ -81,16 +80,11 @@ public class Unit
 
     public void AddSkill(Skill skill)
         => _skills.Add(skill);
-        
-    public void RemoveSkill(Skill skill)
-        => _skills.Remove(skill);
     
     public int CalculateDamage(Unit opponent)
     {
         int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.CurrentRes) : Convert.ToInt32(opponent.CurrentDef);
-        
         double damage = (Convert.ToDouble(CurrentAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
-        
         opponent.CurrentHP -= (int)Math.Max(0, Math.Truncate(damage));
         
         return (int)Math.Max(0, Math.Truncate(damage));
