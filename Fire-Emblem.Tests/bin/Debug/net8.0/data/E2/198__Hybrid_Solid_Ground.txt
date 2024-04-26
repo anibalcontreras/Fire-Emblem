@@ -1,6 +1,4 @@
 Player 1 Team
-Leif
-Tiki (Solid Ground)
+Marth (Solid Ground)
 Player 2 Team
-Alm (Solid Ground)
-Celica
+Robin (Solid Ground)

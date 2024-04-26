@@ -1,8 +1,4 @@
 Player 1 Team
-Soren (Sandstorm)
 Leif (Sandstorm)
-Hector (Sandstorm)
 Player 2 Team
-Camilla
-Edelgard
-Leif
+Byleth

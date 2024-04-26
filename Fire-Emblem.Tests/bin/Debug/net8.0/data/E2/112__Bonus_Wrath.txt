@@ -2,4 +2,4 @@ Player 1 Team
 Edelgard (Wrath)
 Player 2 Team
 Lyn
-Tiki
+Eliwood

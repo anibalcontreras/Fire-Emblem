@@ -1,6 +1,8 @@
 Player 1 Team
-Seliph (Still Water)
-Ephraim (Still Water)
-Dimitri
+Veronica (Still Water)
+Tiki
+Ephraim
 Player 2 Team
-Byleth (Still Water)
+Sigurd (Still Water)
+Alear
+Shez

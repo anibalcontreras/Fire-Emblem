@@ -1,5 +1,8 @@
 Player 1 Team
-Ephraim (Still Water)
+Camilla (Still Water)
+Lyn (Still Water)
+Soren (Still Water)
 Player 2 Team
-Marth (Still Water)
-Ephraim
+Soren
+Alm (Still Water)
+Leif (Still Water)

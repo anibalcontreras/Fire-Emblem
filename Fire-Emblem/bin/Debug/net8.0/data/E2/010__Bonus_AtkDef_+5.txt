@@ -1,5 +1,7 @@
 Player 1 Team
-Eliwood
+Corrin (Atk/Def +5)
+Byleth (Atk/Def +5)
+Alm
 Player 2 Team
-Lucina
-Eliwood (Atk/Def +5)
+Sigurd (Atk/Def +5)
+Alear

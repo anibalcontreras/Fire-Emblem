@@ -1,6 +1,4 @@
 Player 1 Team
-Micaiah
-Camilla (Spd/Res +5)
-Shez (Spd/Res +5)
+Claude
 Player 2 Team
-Ephraim
+Celica (Spd/Res +5)

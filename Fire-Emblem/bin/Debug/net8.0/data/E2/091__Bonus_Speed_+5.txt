@@ -1,7 +1,6 @@
 Player 1 Team
-Chrom
-Alear (Speed +5)
+Chrom (Speed +5)
+Claude (Speed +5)
 Player 2 Team
-Sigurd (Speed +5)
-Robin
-Eliwood
+Sigurd
+Byleth (Speed +5)

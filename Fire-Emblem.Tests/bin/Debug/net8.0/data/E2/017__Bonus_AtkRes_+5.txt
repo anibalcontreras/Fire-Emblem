@@ -1,6 +1,6 @@
 Player 1 Team
-Edelgard (Atk/Res +5)
-Chrom (Atk/Res +5)
-Alear
+Marth (Atk/Res +5)
+Byleth
+Sigurd
 Player 2 Team
-Lyn
+Alm

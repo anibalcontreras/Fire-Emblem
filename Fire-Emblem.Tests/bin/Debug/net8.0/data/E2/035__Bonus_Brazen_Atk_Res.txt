@@ -1,6 +1,8 @@
 Player 1 Team
-Seliph (Brazen Atk/Res)
-Sigurd
+Ike (Brazen Atk/Res)
+Eliwood
+Camilla (Brazen Atk/Res)
 Player 2 Team
-Shez
-Soren
+Marth
+Ike (Brazen Atk/Res)
+Robin

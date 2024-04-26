@@ -1,8 +1,5 @@
 Player 1 Team
-Sigurd (Atk/Def +5)
-Eirika
-Tiki (Atk/Def +5)
+Eliwood
 Player 2 Team
-Lyn (Atk/Def +5)
-Ike (Atk/Def +5)
-Corrin
+Lucina
+Eliwood (Atk/Def +5)

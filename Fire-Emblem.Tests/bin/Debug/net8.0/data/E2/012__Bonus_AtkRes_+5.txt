@@ -1,8 +1,5 @@
 Player 1 Team
-Leif
-Byleth (Atk/Res +5)
-Edelgard
+Marth
 Player 2 Team
-Lucina
-Soren (Atk/Res +5)
-Roy
+Marth
+Eirika (Atk/Res +5)

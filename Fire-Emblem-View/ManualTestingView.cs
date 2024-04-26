@@ -29,6 +29,9 @@ class ManualTestingView:TestingView
         CheckThatLinesMatchTheExpectedOutput(lines);
     }
 
+    private string GetNormalizedTest(string text)
+        => text.Remove(text.Length-1);
+
     private void CheckThatLinesMatchTheExpectedOutput(string[] lines)
     {
         for (int i = 0; i < lines.Length; i++)
@@ -61,23 +64,27 @@ class ManualTestingView:TestingView
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"[ERROR] el valor esperado acá era: \"{GetExpectedLine()}\"");
     }
-
-    private string GetNormalizedTest(string text)
-        => text.Remove(text.Length-1);
-
+    
     protected override string GetNextInput()
     {
-        if (_isOutputCorrectSoFar)
-            return GetNextInputFromTestFile();
-        return GetNextInputFromUser();
+        try
+        {
+            return TryToGetInputFromTest();
+        }
+        catch (InvalidInputRequestException)
+        {
+            return GetNextInputFromUser();
+        }
     }
 
-    private string GetNextInputFromTestFile()
+    private string TryToGetInputFromTest()
     {
         string nextInput = base.GetNextInput();
+        CheckIfCurrentOutputIsAsExpected($"INPUT: {nextInput} ");
+        if (!_isOutputCorrectSoFar)
+            throw new InvalidInputRequestException("No se debía pedir un input en este momento");
         Console.Write($"[INPUT TEST]: {nextInput}");
         Console.ReadLine();
-        _currentLine++;
         return nextInput;
     }
 

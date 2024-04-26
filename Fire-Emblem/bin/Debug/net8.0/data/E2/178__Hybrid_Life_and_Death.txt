@@ -1,6 +1,6 @@
 Player 1 Team
-Alm
-Edelgard (Life and Death)
+Celica (Life and Death)
+Marth (Life and Death)
+Camilla
 Player 2 Team
-Marth
-Sigurd (Life and Death)
+Dimitri (Life and Death)

@@ -1,5 +1,8 @@
 Player 1 Team
-Marth
+Shez
+Chrom (Atk/Res +5)
+Claude (Atk/Res +5)
 Player 2 Team
-Marth
-Eirika (Atk/Res +5)
+Celica (Atk/Res +5)
+Hector (Atk/Res +5)
+Veronica

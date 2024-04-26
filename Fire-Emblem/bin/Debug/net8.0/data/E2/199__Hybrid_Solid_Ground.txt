@@ -1,4 +1,8 @@
 Player 1 Team
-Marth (Solid Ground)
+Ephraim
+Hector (Solid Ground)
+Eirika (Solid Ground)
 Player 2 Team
+Micaiah
+Leif
 Robin (Solid Ground)

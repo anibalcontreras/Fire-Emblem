@@ -1,6 +1,6 @@
 Player 1 Team
-Lucina
-Dimitri (Atk/Res +5)
-Soren
+Edelgard (Atk/Res +5)
+Chrom (Atk/Res +5)
+Alear
 Player 2 Team
-Dimitri (Atk/Res +5)
+Lyn

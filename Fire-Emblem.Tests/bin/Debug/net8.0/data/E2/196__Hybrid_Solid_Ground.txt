@@ -1,7 +1,5 @@
 Player 1 Team
-Chrom
-Micaiah
-Lyn (Solid Ground)
+Alm (Solid Ground)
+Claude
 Player 2 Team
-Lyn (Solid Ground)
-Tiki
+Ike (Solid Ground)

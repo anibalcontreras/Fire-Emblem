@@ -1,5 +1,6 @@
 Player 1 Team
+Soren
 Marth (Spd/Res +5)
-Micaiah
+Lyn
 Player 2 Team
-Marth (Spd/Res +5)
+Soren

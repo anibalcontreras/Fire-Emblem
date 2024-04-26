@@ -1,4 +1,6 @@
 Player 1 Team
-Ike
+Hector
 Player 2 Team
-Edelgard (Speed +5)
+Alm
+Sigurd
+Chrom

@@ -1,6 +1,5 @@
 Player 1 Team
-Seliph (Speed +5)
+Hector (Speed +5)
+Eirika (Speed +5)
 Player 2 Team
-Sigurd
-Seliph
-Edelgard (Speed +5)
+Eliwood (Speed +5)

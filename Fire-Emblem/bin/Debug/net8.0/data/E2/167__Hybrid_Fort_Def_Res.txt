@@ -1,7 +1,5 @@
 Player 1 Team
-Celica
-Hector (Fort. Def/Res)
+Byleth
+Veronica (Fort. Def/Res)
 Player 2 Team
-Eliwood
-Hector
-Ike (Fort. Def/Res)
+Edelgard (Fort. Def/Res)

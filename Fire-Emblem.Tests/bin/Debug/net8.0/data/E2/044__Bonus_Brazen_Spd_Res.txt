@@ -1,8 +1,0 @@
-Player 1 Team
-Ike (Brazen Spd/Res)
-Eliwood
-Camilla (Brazen Spd/Res)
-Player 2 Team
-Marth
-Ike (Brazen Spd/Res)
-Robin

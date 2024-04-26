@@ -1,6 +1,7 @@
 Player 1 Team
-Marth (Atk/Res +5)
-Byleth
-Sigurd
+Sigurd (Atk/Res +5)
+Lyn
+Eliwood
 Player 2 Team
-Alm
+Byleth (Atk/Res +5)
+Camilla

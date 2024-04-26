@@ -1,4 +1,7 @@
 Player 1 Team
-Sigurd
+Dimitri
+Leif (Defense +5)
 Player 2 Team
-Robin
+Veronica
+Dimitri
+Shez (Defense +5)

@@ -1,6 +1,5 @@
 Player 1 Team
 Leif (Speed +5)
 Player 2 Team
-Hector
-Edelgard
-Tiki
+Eirika (Speed +5)
+Edelgard (Speed +5)
