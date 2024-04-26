@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
-using Fire_Emblem.Weapon;
-namespace Fire_Emblem.UnitManagment;
+using Fire_Emblem.Weapons;
+namespace Fire_Emblem.Units;
 
 public class UnitFromJson
 {
@@ -24,21 +24,21 @@ public class UnitFromJson
     public string ResString { get; set; }
 
     [JsonConverter(typeof(WeaponConverter))]
-    public Weapon.Weapon Weapon { get; set; } // Ahora la propiedad es del tipo Weapon
+    public Weapon Weapon { get; set; }
 
     public Unit ConvertToUnit()
     {
         return new Unit
         {
-            Name = this.Name,
-            Gender = this.Gender,
-            DeathQuote = this.DeathQuote,
+            Name = Name,
+            Gender = Gender,
+            DeathQuote = DeathQuote,
             BaseHp = int.Parse(HPString),
             BaseAtk = int.Parse(AtkString),
             BaseSpd = int.Parse(SpdString),
             BaseDef = int.Parse(DefString),
             BaseRes = int.Parse(ResString),
-            Weapon = this.Weapon
+            Weapon = Weapon
         };
     }
 }

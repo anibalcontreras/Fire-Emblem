@@ -1,4 +1,4 @@
-using Fire_Emblem.UnitManagment;
+using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 

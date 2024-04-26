@@ -1,5 +1,5 @@
 ﻿using Fire_Emblem_View;
-using Fire_Emblem.TeamManagment;
+using Fire_Emblem.Teams;
 
 namespace Fire_Emblem;
 
@@ -28,14 +28,20 @@ public class Game
 
     private void StartGame()
     {
-        string[] files = GetFileOptions();
-        string selectedFile = SelectFile(files);
-        string fileContent = ReadFileContent(selectedFile);
-        List<Team> teams = BuildTeamsFromContent(fileContent);
+        List<Team> teams = BuildTeamsFromScratch();
         if (AreTeamsValid(teams))
             StartGameDevelopment(teams);
         else
             ShowInvalidTeamMessage();
+    }
+    
+    private List<Team> BuildTeamsFromScratch()
+    {
+        string[] files = GetFileOptions();
+        string selectedFile = SelectFile(files);
+        string fileContent = ReadFileContent(selectedFile);
+        List<Team> teams = BuildTeamsFromContent(fileContent);
+        return teams;
     }
     
     private string[] GetFileOptions()
@@ -67,4 +73,5 @@ public class Game
     private void ShowInvalidTeamMessage() => _gameView.ShowMessageForInvalidTeam();
     
     private void StartGameDevelopment(List<Team> teams) => _matchManager.ManageGame(teams, _combats);
+    
 }

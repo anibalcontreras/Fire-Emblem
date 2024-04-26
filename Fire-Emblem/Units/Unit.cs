@@ -1,9 +1,9 @@
 using Fire_Emblem.Skills;
 using Fire_Emblem.Stats;
 
-namespace Fire_Emblem.UnitManagment;
+namespace Fire_Emblem.Units;
 
-using Fire_Emblem.Weapon;
+using Weapons;
 
 public class Unit
 {

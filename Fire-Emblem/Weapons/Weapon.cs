@@ -1,11 +1,11 @@
-using Fire_Emblem.UnitManagment;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Weapon;
+namespace Fire_Emblem.Weapons;
 
 public abstract class Weapon
 {
     public string Name { get; set; }
-    public AdvantageState CalculateAdvantage(Unit attacker, Unit defender)
+    public AdvantageState CalculateAdvantage(Unit defender)
     {
         double wtb = GetWTB(defender.Weapon);
 

@@ -1,5 +1,5 @@
-using Fire_Emblem.TeamManagment;
-using Fire_Emblem.UnitManagment;
+using Fire_Emblem.Teams;
+using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Conditions;
 

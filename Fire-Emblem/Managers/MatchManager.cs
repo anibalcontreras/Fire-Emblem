@@ -1,4 +1,4 @@
-using Fire_Emblem.TeamManagment;
+using Fire_Emblem.Teams;
 
 namespace Fire_Emblem;
 

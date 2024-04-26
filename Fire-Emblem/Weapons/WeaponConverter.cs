@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Fire_Emblem.Weapon;
+namespace Fire_Emblem.Weapons;
 
 public class WeaponConverter : JsonConverter<Weapon>
 {

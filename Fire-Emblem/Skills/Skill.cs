@@ -1,6 +1,6 @@
 using Fire_Emblem.Conditions;
 using Fire_Emblem.Effects;
-using Fire_Emblem.UnitManagment;
+using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Skills;
 

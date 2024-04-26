@@ -1,6 +1,6 @@
-using Fire_Emblem.TeamManagment;
-using Fire_Emblem.UnitManagment;
-using Fire_Emblem.Weapon;
+using Fire_Emblem.Teams;
+using Fire_Emblem.Units;
+using Fire_Emblem.Weapons;
 
 namespace Fire_Emblem;
 
@@ -37,35 +37,9 @@ public class CombatManager
         return combat;
     }
     
-    
-    private void ExecuteCombatProcess(Combat combat)
-    {
-        PerformAttack(combat);
-        if (combat.Defender.CurrentHP <= 0)
-        {
-            _gameView.ShowCurrentHealth(combat.Attacker, combat.Defender);
-            combat.UpdateState(CombatState.EndOfCombat);
-            DeactivateSkills(combat);
-            return;
-        }
-
-        PerformCounterattack(combat);
-        if (combat.Attacker.CurrentHP <= 0)
-        {
-            _gameView.ShowCurrentHealth(combat.Attacker, combat.Defender);
-            combat.UpdateState(CombatState.EndOfCombat);
-            DeactivateSkills(combat);
-            return;
-        }
-        
-        HandleFollowUp(combat);
-        
-        EndCombat(combat);
-    }
-
     private void AnnounceWeaponAdvantage(Combat combat)
     {
-        AdvantageState weaponAdvantage = combat.Attacker.Weapon.CalculateAdvantage(combat.Attacker, combat.Defender);
+        AdvantageState weaponAdvantage = combat.Attacker.Weapon.CalculateAdvantage(combat.Defender);
         _gameView.AnnounceAdvantage(combat.Attacker, combat.Defender, weaponAdvantage);
     }
 
@@ -80,16 +54,30 @@ public class CombatManager
         foreach (var skill in activator.Skills)
         {
             if (skill.Condition.IsConditionMet(combat, activator, opponent))
-            {
                 skill.ActivateEffects(combat, _gameView, activator, opponent);
-            }
         }
     }
     
-    private void DeactivateSkills(Combat combat)
+    private void ExecuteCombatProcess(Combat combat)
     {
-        combat.Attacker.ResetStatBonuses();
-        combat.Defender.ResetStatBonuses();
+        if (HandleAttack(combat)) return;
+        if (HandleCounterattack(combat)) return;
+
+        HandleFollowUp(combat);
+        EndCombat(combat);
+    }
+    
+    private bool HandleAttack(Combat combat)
+    {
+        PerformAttack(combat);
+        if (combat.Defender.CurrentHP <= 0)
+        {
+            _gameView.ShowCurrentHealth(combat.Attacker, combat.Defender);
+            combat.UpdateState(CombatState.EndOfCombat);
+            DeactivateSkills(combat);
+            return true;
+        }
+        return false;
     }
     
     private void PerformAttack(Combat combat)
@@ -98,12 +86,31 @@ public class CombatManager
         int damage = combat.Attacker.CalculateDamage(combat.Defender);
         _gameView.AnnounceAttack(combat.Attacker, combat.Defender, damage);
     }
+
+    private bool HandleCounterattack(Combat combat)
+    {
+        PerformCounterattack(combat);
+        if (combat.Attacker.CurrentHP <= 0)
+        {
+            _gameView.ShowCurrentHealth(combat.Attacker, combat.Defender);
+            combat.UpdateState(CombatState.EndOfCombat);
+            DeactivateSkills(combat);
+            return true;
+        }
+        return false;
+    }
     
     private void PerformCounterattack(Combat combat)
     {
         combat.UpdateState(CombatState.OpponentCounterattacks);
         int damage = combat.Defender.CalculateDamage(combat.Attacker);
         _gameView.AnnounceCounterattack(combat.Defender, combat.Attacker, damage);
+    }
+    
+    private void DeactivateSkills(Combat combat)
+    {
+        combat.Attacker.ResetStatBonuses();
+        combat.Defender.ResetStatBonuses();
     }
     
     private void HandleFollowUp(Combat combat)

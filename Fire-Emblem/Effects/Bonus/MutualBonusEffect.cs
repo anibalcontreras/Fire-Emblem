@@ -1,7 +1,7 @@
 using Fire_Emblem;
 using Fire_Emblem.Effects;
 using Fire_Emblem.Stats;
-using Fire_Emblem.UnitManagment;
+using Fire_Emblem.Units;
 
 public class MutualBonusEffect : IEffect, IBonusEffect
 {

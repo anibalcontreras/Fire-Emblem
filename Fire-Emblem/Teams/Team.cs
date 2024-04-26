@@ -1,7 +1,7 @@
 using Fire_Emblem.Skills;
-using Fire_Emblem.UnitManagment;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.TeamManagment;
+namespace Fire_Emblem.Teams;
 public class Team
 {
     public List<Unit> Units { get; } = new List<Unit>();

@@ -1,8 +1,8 @@
-namespace Fire_Emblem.Weapon;
+namespace Fire_Emblem.Weapons;
 
-public class Bow : Weapon
+public class Magic : Weapon
 {
-    public Bow() { Name = "Bow"; }
+    public Magic() { Name = "Magic"; }
 
     public override double GetWTB(Weapon opponentWeapon)
     {

@@ -1,10 +1,6 @@
-using Fire_Emblem.Conditions;
-using Fire_Emblem.Effects;
-using Fire_Emblem.Loader;
-
-namespace Fire_Emblem.TeamManagment;
-
-using Fire_Emblem.UnitManagment;
+using Fire_Emblem.Loaders;
+namespace Fire_Emblem.Teams;
+using Units;
 using Skills;
 
 public class TeamBuilder
@@ -60,7 +56,7 @@ public class TeamBuilder
     
     private void AddUnitToCurrentPlayer(string line, ref Player currentPlayer)
     {
-        if (string.IsNullOrWhiteSpace(line) || currentPlayer == null)
+        if (string.IsNullOrWhiteSpace(line))
             return;
 
         string unitName = ExtractUnitName(line);
@@ -77,8 +73,14 @@ public class TeamBuilder
 
     private Unit FindUnitByName(string unitName)
     {
-        return _dataLoader.Units.FirstOrDefault(u => u.Name.Equals(unitName, StringComparison.OrdinalIgnoreCase));
+        IEnumerable<Unit> AvailableUnits = _dataLoader.Units;
+        
+        Unit foundUnit = AvailableUnits.FirstOrDefault(unit => 
+            unit.Name.Equals(unitName, StringComparison.OrdinalIgnoreCase));
+        
+        return foundUnit;
     }
+
 
     private Unit CloneUnit(Unit originalUnit)
     {
@@ -145,5 +147,4 @@ public class TeamBuilder
     {
         return _dataLoader.Skills.FirstOrDefault(s => s.Name == skillName);
     }
-    
 }
