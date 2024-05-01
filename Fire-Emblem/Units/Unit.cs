@@ -90,4 +90,20 @@ public class Unit
         return (int)Math.Max(0, Math.Truncate(damage));
     }
     
+    private List<Skill> _activatedSkills = new List<Skill>();
+    public IEnumerable<Skill> ActivatedSkills
+        => _activatedSkills.AsReadOnly();
+
+    public void AddActivatedSkill(Skill skill)
+    {
+        if (!_activatedSkills.Contains(skill))
+            _activatedSkills.Add(skill);
+    }
+    
+    public void RemoveActivatedSkill(Skill skill)
+    {
+        if (_activatedSkills.Contains(skill))
+            _activatedSkills.Remove(skill);
+    }
+    
 }

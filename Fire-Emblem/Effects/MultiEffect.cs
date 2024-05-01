@@ -1,21 +1,24 @@
+using System.Collections;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
-public class MultiEffect : IEffect
+public class MultiEffect : IEnumerable<IEffect>
 {
     private readonly List<IEffect> _effects;
-
+    
     public MultiEffect(IEnumerable<IEffect> effects)
     {
         _effects = new List<IEffect>(effects);
     }
-
-    public void ApplyEffect(GameView view, Unit activator, Unit opponent)
+    
+    public IEnumerator<IEffect> GetEnumerator()
     {
-        foreach (IEffect effect in _effects)
-        {
-            effect.ApplyEffect(view, activator, opponent);
-        }
+        return _effects.GetEnumerator();
+    }
+    
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

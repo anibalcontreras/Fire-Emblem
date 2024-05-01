@@ -66,8 +66,8 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateEarthBoostSkill();
             case "Water Boost":
                 return SkillBuilder.CreateWaterBoostSkill();
-            case "Wrath":
-                return SkillBuilder.CreateWrathSkill();
+            // case "Wrath":
+            //     return SkillBuilder.CreateWrathSkill();
             case "Stunning Smile":
                 return SkillBuilder.CreateStunningSmileSkill();
             case "Disarming Sigh":
@@ -100,8 +100,8 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateSolidGroundSkill();
             case "Still Water":
                 return SkillBuilder.CreateStillWaterSkill();
-            case "Fair Fight":
-                return SkillBuilder.CreateFairFightSkill();
+            // case "Fair Fight":
+            //     return SkillBuilder.CreateFairFightSkill();
             case "Will to Win":
                 return SkillBuilder.CreateWillToWinSkill();
             case "Resolve":

@@ -1,3 +1,5 @@
+using Fire_Emblem.Effects;
+using Fire_Emblem.Skills;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
@@ -45,18 +47,21 @@ public class CombatManager
     
     private void ActivateSkills(Combat combat)
     {
-        ActivateSkills(combat.Attacker, combat.Defender, combat);
-        ActivateSkills(combat.Defender, combat.Attacker, combat);
+        ApplySkills(combat.Attacker, combat.Defender, combat);
+        ApplySkills(combat.Defender, combat.Attacker, combat);
     }
 
-    private void ActivateSkills(Unit activator, Unit opponent, Combat combat)
+    private void ApplySkills(Unit activator, Unit opponent, Combat combat)
     {
         foreach (var skill in activator.Skills)
         {
             if (skill.Condition.IsConditionMet(combat, activator, opponent))
-                skill.ActivateEffects(combat, _gameView, activator, opponent);
+            {
+                skill.ActivateEffects(_gameView, activator, opponent);
+            }
         }
     }
+    
     
     private void ExecuteCombatProcess(Combat combat)
     {

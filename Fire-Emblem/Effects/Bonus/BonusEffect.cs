@@ -4,27 +4,26 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
-public class BonusEffect : IEffect, IBonusEffect
+public class BonusEffect : IEffect
 {
     private readonly StatType _statToIncrease;
     private readonly int _amount;
-
-    public BonusEffect(StatType statToIncrease, int amount)
+    public EffectTarget Target { get; private set; }
+    
+    public BonusEffect(StatType statToIncrease, int amount, EffectTarget target)
     {
         _statToIncrease = statToIncrease;
         _amount = amount;
+        Target = target;
     }
-    
     public void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
-        ApplyBonus(view, activator, opponent);
+        
+        Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
+        targetUnit.ApplyStatBonusAndPenaltyEffect(_statToIncrease, _amount);
+        view.AnnounceBonusStat(targetUnit.Name, this.ToString());
     }
     
-    public void ApplyBonus(GameView view, Unit activator, Unit opponent)
-    {
-        activator.ApplyStatBonusAndPenaltyEffect(_statToIncrease, _amount);
-        view.AnnounceBonusStat(activator.Name, this.ToString());
-    }
     public override string ToString()
     {
         return $"{_statToIncrease}+{_amount}";
