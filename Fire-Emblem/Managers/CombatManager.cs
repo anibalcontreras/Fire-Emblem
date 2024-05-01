@@ -6,7 +6,7 @@ namespace Fire_Emblem;
 
 public class CombatManager
 {
-    private GameView _gameView;
+    private readonly GameView _gameView;
 
     public CombatManager(GameView gameView)
     {
@@ -42,7 +42,7 @@ public class CombatManager
         AdvantageState weaponAdvantage = combat.Attacker.Weapon.CalculateAdvantage(combat.Defender);
         _gameView.AnnounceAdvantage(combat.Attacker, combat.Defender, weaponAdvantage);
     }
-
+    
     private void ActivateSkills(Combat combat)
     {
         ActivateSkills(combat.Attacker, combat.Defender, combat);
@@ -127,7 +127,7 @@ public class CombatManager
     private void EndCombat(Combat combat)
     {
         combat.UpdateState(CombatState.EndOfCombat);
-       _gameView.ShowCurrentHealth(combat.Attacker, combat.Defender); 
+        _gameView.ShowCurrentHealth(combat.Attacker, combat.Defender); 
         DeactivateSkills(combat);
     }
 }

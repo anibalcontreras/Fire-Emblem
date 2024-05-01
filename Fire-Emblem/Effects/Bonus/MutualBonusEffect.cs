@@ -5,8 +5,8 @@ using Fire_Emblem.Units;
 
 public class MutualBonusEffect : IEffect, IBonusEffect
 {
-    private StatType _stat;
-    private int _amount;
+    private readonly StatType _stat;
+    private readonly int _amount;
 
     public MutualBonusEffect(StatType stat, int amount)
     {

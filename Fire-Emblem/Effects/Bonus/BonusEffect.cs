@@ -6,8 +6,8 @@ namespace Fire_Emblem.Effects;
 
 public class BonusEffect : IEffect, IBonusEffect
 {
-    private StatType _statToIncrease;
-    private int _amount;
+    private readonly StatType _statToIncrease;
+    private readonly int _amount;
 
     public BonusEffect(StatType statToIncrease, int amount)
     {
@@ -15,12 +15,12 @@ public class BonusEffect : IEffect, IBonusEffect
         _amount = amount;
     }
     
-    public virtual void ApplyEffect(GameView view, Unit activator, Unit opponent)
+    public void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
         ApplyBonus(view, activator, opponent);
     }
     
-    public virtual void ApplyBonus(GameView view, Unit activator, Unit opponent)
+    public void ApplyBonus(GameView view, Unit activator, Unit opponent)
     {
         activator.ApplyStatBonusAndPenaltyEffect(_statToIncrease, _amount);
         view.AnnounceBonusStat(activator.Name, this.ToString());
