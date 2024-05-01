@@ -22,14 +22,9 @@ public class BonusEffect : IEffect, IBonusEffect
     
     public virtual void ApplyBonus(GameView view, Unit activator, Unit opponent)
     {
-        activator.ApplyStatEffect(_statToIncrease, _amount);
+        activator.ApplyStatBonusAndPenaltyEffect(_statToIncrease, _amount);
         view.AnnounceBonusStat(activator.Name, this.ToString());
     }
-    public virtual IEffect Clone()
-    {
-        return new BonusEffect(_statToIncrease, _amount);
-    }
-    
     public override string ToString()
     {
         return $"{_statToIncrease}+{_amount}";

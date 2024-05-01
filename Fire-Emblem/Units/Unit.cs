@@ -41,7 +41,7 @@ public class Unit
         _currentHP = BaseHp;
     }
     
-    public void ApplyStatEffect(StatType statType, int effectAmount)
+    public void ApplyStatBonusAndPenaltyEffect(StatType statType, int effectAmount)
     {
         switch (statType)
         {

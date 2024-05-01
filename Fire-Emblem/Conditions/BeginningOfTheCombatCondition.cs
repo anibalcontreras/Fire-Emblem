@@ -8,9 +8,4 @@ public class BeginningOfTheCombatCondition : ICondition
     {
         return combat.State == CombatState.StartOfCombat;
     }
-    
-    public ICondition Clone()
-    {
-        return new BeginningOfTheCombatCondition();
-    }
 }

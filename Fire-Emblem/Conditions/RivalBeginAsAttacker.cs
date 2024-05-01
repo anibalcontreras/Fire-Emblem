@@ -8,9 +8,4 @@ public class RivalBeginAsAttacker : ICondition
     {
         return combat.Attacker == opponent;
     }
-    
-    public ICondition Clone()
-    {
-        return new RivalBeginAsAttacker();
-    }
 }

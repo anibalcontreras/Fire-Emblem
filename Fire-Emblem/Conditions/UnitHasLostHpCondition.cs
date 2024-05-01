@@ -8,9 +8,4 @@ public class UnitHasLostHpCondition : ICondition
     {
         return activator.CurrentHP < activator.BaseHp;
     }
-
-    public ICondition Clone()
-    {
-        return new UnitHasLostHpCondition();
-    }
 }

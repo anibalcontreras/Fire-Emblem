@@ -9,9 +9,4 @@ public class NoCondition : ICondition
     {
         return true;
     }
-    
-    public ICondition Clone()
-    {
-        return new NoCondition();
-    }
 }

@@ -8,9 +8,4 @@ public class UnitHasNeutralizationBonus : ICondition
     {
         return true;
     }
-    
-    public ICondition Clone()
-    {
-        return new UnitHasNeutralizationBonus();
-    }
 }

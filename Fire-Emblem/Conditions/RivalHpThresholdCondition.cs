@@ -16,9 +16,4 @@ public class RivalHpThresholdCondition : ICondition
         int thresholdHp = (int)(opponent.BaseHp * _threshold);
         return opponent.CurrentHP <= thresholdHp;
     }
-
-    public ICondition Clone()
-    {
-        return new UnitHpThresholdCondition(_threshold);
-    }
 }

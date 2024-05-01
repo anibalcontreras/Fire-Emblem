@@ -21,13 +21,9 @@ public class MutualBonusEffect : IEffect, IBonusEffect
 
     public void ApplyBonus(GameView view, Unit activator, Unit opponent)
     {
-        activator.ApplyStatEffect(_stat, _amount);
-        opponent.ApplyStatEffect(_stat, _amount);
+        activator.ApplyStatBonusAndPenaltyEffect(_stat, _amount);
+        opponent.ApplyStatBonusAndPenaltyEffect(_stat, _amount);
         view.AnnounceBonusStat(activator.Name, $"{_stat}+{_amount}");
         view.AnnounceBonusStat(opponent.Name, $"{_stat}+{_amount}");
-    }
-    public IEffect Clone()
-    {
-        return new MutualBonusEffect(_stat, _amount);
     }
 }

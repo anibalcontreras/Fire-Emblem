@@ -25,9 +25,4 @@ public class MultiCondition : ICondition
         
         return _conditions.All(condition => condition.IsConditionMet(combat, activator, opponent));
     }
-
-    public ICondition Clone()
-    {
-        return new MultiCondition(_conditions.Select(condition => condition.Clone()));
-    }
 }

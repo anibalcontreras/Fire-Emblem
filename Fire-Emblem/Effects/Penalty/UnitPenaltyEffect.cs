@@ -16,13 +16,8 @@ public class UnitPenaltyEffect : IEffect
     
     public virtual void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
-        activator.ApplyStatEffect(_statToDecrease, -_amount);
+        activator.ApplyStatBonusAndPenaltyEffect(_statToDecrease, -_amount);
         view.AnnouncePenaltyStat(activator.Name, this.ToString());
-    }
-    
-    public virtual IEffect Clone()
-    {
-        return new UnitPenaltyEffect(_statToDecrease, _amount);
     }
     
     public override string ToString()

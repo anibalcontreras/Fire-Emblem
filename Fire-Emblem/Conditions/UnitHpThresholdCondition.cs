@@ -16,9 +16,4 @@ public class UnitHpThresholdCondition : ICondition
         int thresholdHp = (int)(activator.BaseHp * _threshold);
         return activator.CurrentHP <= thresholdHp;
     }
-
-    public ICondition Clone()
-    {
-        return new UnitHpThresholdCondition(_threshold);
-    }
 }

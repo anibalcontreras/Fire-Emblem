@@ -16,12 +16,8 @@ public class RivalPenaltyEffect : IEffect
     
     public virtual void ApplyEffect(GameView view, Unit activator, Unit opponent)
     {
-        opponent.ApplyStatEffect(_statToDecrease, -_amount);
+        opponent.ApplyStatBonusAndPenaltyEffect(_statToDecrease, -_amount);
         view.AnnouncePenaltyStat(opponent.Name, this.ToString());
-    }
-    public virtual IEffect Clone()
-    {
-        return new RivalPenaltyEffect(_statToDecrease, _amount);
     }
     
     public override string ToString()

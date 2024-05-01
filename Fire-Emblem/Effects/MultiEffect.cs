@@ -18,9 +18,4 @@ public class MultiEffect : IEffect
             effect.ApplyEffect(view, activator, opponent);
         }
     }
-    
-    public IEffect Clone()
-    {
-        return new MultiEffect(_effects.Select(effect => effect.Clone()));
-    }
 }

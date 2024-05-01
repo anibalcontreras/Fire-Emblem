@@ -8,9 +8,4 @@ public class UnitBeginAsAttackerCondition : ICondition
     {
         return combat.Attacker == unit;
     }
-
-    public ICondition Clone()
-    {
-        return new UnitBeginAsAttackerCondition();
-    }
 }

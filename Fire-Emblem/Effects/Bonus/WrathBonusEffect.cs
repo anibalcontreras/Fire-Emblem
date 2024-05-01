@@ -26,15 +26,10 @@ public class WrathBonusEffect : IEffect, IBonusEffect
     public void ApplyBonus(GameView view, Unit activator, Unit opponent)
     {
         view.AnnounceBonusStat(activator.Name, $"{AtkBoostString(activator.AtkBonus)}");
-        activator.ApplyStatEffect(StatType.Atk, activator.AtkBonus);
+        activator.ApplyStatBonusAndPenaltyEffect(StatType.Atk, activator.AtkBonus);
         view.AnnounceBonusStat(activator.Name, $"{SpdBoostString(activator.SpdBonus)}");
-        activator.ApplyStatEffect(StatType.Spd, activator.SpdBonus);
+        activator.ApplyStatBonusAndPenaltyEffect(StatType.Spd, activator.SpdBonus);
     }
-    public IEffect Clone()
-    {
-        return new WrathBonusEffect(_maxBonus);
-    }
-
     private string AtkBoostString(int boost)
     {
         return $"Atk+{boost}";
