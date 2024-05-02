@@ -147,6 +147,17 @@ public class GameView
             _view.WriteLine($"Los bonus de Res de {unit.Name} fueron neutralizados");   
         }
     }
+
+    public void AnnounceNeutralizationPenaltyEffect(Unit unit)
+    {
+        if (unit.HasNeutralizationPenalty)
+        {
+            _view.WriteLine($"Los penalty de Atk de {unit.Name} fueron neutralizados");
+            _view.WriteLine($"Los penalty de Spd de {unit.Name} fueron neutralizados");
+            _view.WriteLine($"Los penalty de Def de {unit.Name} fueron neutralizados");
+            _view.WriteLine($"Los penalty de Res de {unit.Name} fueron neutralizados");   
+        }
+    }
     
     private void AnnounceAtkBonusStat(Unit unit)
     {
@@ -204,16 +215,6 @@ public class GameView
         if (unit.HasActivePenalty(StatType.Res)) AnnounceResPenaltyStat(unit);
     }
 
-
-    public void AnnounceBonusNeutralization(string stat, string unitName)
-    {
-        _view.WriteLine($"Los bonus de {stat} de {unitName} fueron neutralizados");
-    }
-    
-    public void AnnouncePenaltyNeutralization(string stat, string unitName)
-    {
-        _view.WriteLine($"Los penalty de {stat} de {unitName} fueron neutralizados");
-    }
     
     public void AnnounceActiveFirstAttackBonusEffects(string unitName, string effectDescription)
     {
@@ -224,13 +225,6 @@ public class GameView
     {
         _view.WriteLine($"{unitName} activa {effectDescription} en su follow up");
     }
-
-    public void AnnounceActiveNeutralizationAllBonusEffects(string unitName)
-    {
-        _view.WriteLine($"Los Bonus de Atk de {unitName} fueron neutralizados");
-        _view.WriteLine($"Los Bonus de Spd de {unitName} fueron neutralizados");
-        _view.WriteLine($"Los Bonus de Def de {unitName} fueron neutralizados");
-        _view.WriteLine($"Los Bonus de Res de {unitName} fueron neutralizados");
-    }
+    
     
 }

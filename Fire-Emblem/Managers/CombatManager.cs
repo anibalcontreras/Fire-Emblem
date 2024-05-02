@@ -93,6 +93,11 @@ public class CombatManager
         {
             effect.ApplyEffect(unit, unit == activator ? opponent : activator);
         }
+        
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is NeutralizationPenaltyEffect))
+        {
+            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+        }
     }
 
     
@@ -101,9 +106,11 @@ public class CombatManager
         _gameView.AnnounceAttackerBonusStat(combat.Attacker, combat.Defender);
         _gameView.AnnounceAttackerPenaltyStat(combat.Attacker, combat.Defender);
         _gameView.AnnounceNeutralizationBonusEffect(combat.Attacker);
+        _gameView.AnnounceNeutralizationPenaltyEffect(combat.Attacker);
         _gameView.AnnounceDefenderBonusEffects(combat.Attacker, combat.Defender);
         _gameView.AnnounceDefenderPenaltyEffects(combat.Attacker, combat.Defender);
         _gameView.AnnounceNeutralizationBonusEffect(combat.Defender);
+        _gameView.AnnounceNeutralizationPenaltyEffect(combat.Defender);
     }
 
     private void ExecuteCombatProcess(Combat combat)

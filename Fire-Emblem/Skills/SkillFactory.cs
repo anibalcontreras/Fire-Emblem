@@ -106,6 +106,8 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateResolveSkill();
             case "Beorc's Blessing":
                 return SkillBuilder.CreateBeorcsBlessingSkill();
+            case "Agnea's Arrow":
+                return SkillBuilder.CreateAgneasArrowSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

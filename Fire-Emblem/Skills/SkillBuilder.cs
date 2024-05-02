@@ -21,6 +21,21 @@ public static class SkillBuilder
 
         return new Skill("Beorc's Blessing", multiCondition, multiEffect);
     }
+
+    public static Skill CreateAgneasArrowSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new TrueCondition()
+        });
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new NeutralizationPenaltyEffect(EffectTarget.Unit)
+        });
+        
+        return new Skill("Agnea's Arrow", multiCondition, multiEffect);
+    }
     
     public static Skill CreateResolveSkill()
     {

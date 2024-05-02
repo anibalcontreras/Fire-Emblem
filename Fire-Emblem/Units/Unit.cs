@@ -30,6 +30,11 @@ public class Unit
     private int DefBonusNeutralization { get; set; } = 0;
     private int ResBonusNeutralization { get; set; } = 0;
     
+    private int AtkPenaltyNeutralization { get; set; } = 0;
+    private int SpdPenaltyNeutralization { get; set; } = 0;
+    private int DefPenaltyNeutralization { get; set; } = 0;
+    private int ResPenaltyNeutralization { get; set; } = 0;
+    
     
     public int AtkPenalty { get; set; } = 0;
     public int SpdPenalty { get; set; } = 0;
@@ -37,10 +42,10 @@ public class Unit
     public int ResPenalty { get; set; } = 0;
     
     
-    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - AtkBonusNeutralization;
-    public int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - SpdBonusNeutralization;
-    private int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization;
-    private int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization;
+    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - AtkBonusNeutralization + AtkPenaltyNeutralization;
+    public int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - SpdBonusNeutralization + SpdPenaltyNeutralization;
+    private int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization + DefPenaltyNeutralization;
+    private int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization + ResPenaltyNeutralization;
     
     
     public Weapon Weapon { get; set; }
@@ -120,6 +125,10 @@ public class Unit
         SpdBonusNeutralization = 0;
         DefBonusNeutralization = 0;
         ResBonusNeutralization = 0;
+        AtkPenaltyNeutralization = 0;
+        SpdPenaltyNeutralization = 0;
+        DefPenaltyNeutralization = 0;
+        ResPenaltyNeutralization = 0;
     }
     
     private List<Skill> _skills = new List<Skill>();
@@ -168,11 +177,24 @@ public class Unit
         get { return _effects.Any(effect => effect is NeutralizationBonusEffect); }
     }
     
+    public bool HasNeutralizationPenalty
+    {
+        get { return _effects.Any(effect => effect is NeutralizationPenaltyEffect); }
+    }
+    
     public void NeutralizeBonus()
     {
         AtkBonusNeutralization = AtkBonus;
         SpdBonusNeutralization = SpdBonus;
         DefBonusNeutralization = DefBonus;
         ResBonusNeutralization = ResBonus;
+    }
+
+    public void NeutralizePenalty()
+    {
+        AtkPenaltyNeutralization = AtkPenalty;
+        SpdPenaltyNeutralization = SpdPenalty;
+        DefPenaltyNeutralization = DefPenalty;
+        ResPenaltyNeutralization = ResPenalty;
     }
 }
