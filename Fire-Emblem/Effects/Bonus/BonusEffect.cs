@@ -21,11 +21,5 @@ public class BonusEffect : IEffect
         
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyStatBonusAndPenaltyEffect(_statToIncrease, _amount);
-        view.AnnounceBonusStat(targetUnit.Name, this.ToString());
-    }
-    
-    public override string ToString()
-    {
-        return $"{_statToIncrease}+{_amount}";
     }
 }

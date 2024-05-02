@@ -1,5 +1,6 @@
 using Fire_Emblem.Effects;
 using Fire_Emblem.Skills;
+using Fire_Emblem.Stats;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
@@ -23,7 +24,7 @@ public class CombatManager
         _gameView.AnnounceRoundStart(round, combat.Attacker, currentPlayer);
         AnnounceWeaponAdvantage(combat);
         ActivateSkills(combat);
-
+        
         ExecuteCombatProcess(combat);
         return combat;
     }
@@ -61,16 +62,20 @@ public class CombatManager
             }
         }
     }
-    
-    
+
     private void ExecuteCombatProcess(Combat combat)
     {
-        if (HandleAttack(combat)) return;
+    _gameView.AnnounceAttackerBonusStat(combat.Attacker, combat.Defender);
+    _gameView.AnnounceAttackerPenaltyStat(combat.Attacker, combat.Defender);
+    _gameView.AnnounceDefenderBonusEffects(combat.Attacker, combat.Defender);
+    _gameView.AnnounceDefenderPenaltyEffects(combat.Attacker, combat.Defender);
+    if (HandleAttack(combat)) return;
         if (HandleCounterattack(combat)) return;
 
         HandleFollowUp(combat);
         EndCombat(combat);
     }
+    
     
     private bool HandleAttack(Combat combat)
     {

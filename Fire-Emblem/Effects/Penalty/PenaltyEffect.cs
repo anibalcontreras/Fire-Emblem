@@ -20,7 +20,6 @@ public class PenaltyEffect : IEffect
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyStatBonusAndPenaltyEffect(_statToDecrease, -_amount);
-        view.AnnouncePenaltyStat(targetUnit.Name, this.ToString());
     }
     
     public override string ToString()

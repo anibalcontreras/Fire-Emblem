@@ -16,15 +16,20 @@ public class Unit
     public int BaseDef { get; set; }
     public int BaseRes { get; set; }
     
-    public int AtkBonus { get; set; } = 0;
-    public int SpdBonus { get; set; } = 0;
-    private int DefBonus { get; set; } = 0;
-    private int ResBonus { get; set; } = 0;
+    public int AtkBonus { get; private set; } = 0;
+    public int SpdBonus { get; private set; } = 0;
+    public int DefBonus { get; private set; } = 0;
+    public int ResBonus { get; private set; } = 0;
     
-    private int CurrentAtk => BaseAtk + AtkBonus;
-    public int CurrentSpd => BaseSpd + SpdBonus;
-    private int CurrentDef => BaseDef + DefBonus;
-    private int CurrentRes => BaseRes + ResBonus;
+    public int AtkPenalty { get; set; } = 0;
+    public int SpdPenalty { get; set; } = 0;
+    public int DefPenalty { get; set; } = 0;
+    public int ResPenalty { get; set; } = 0;
+    
+    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty;
+    public int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty;
+    private int CurrentDef => BaseDef + DefBonus - DefPenalty;
+    private int CurrentRes => BaseRes + ResBonus - ResPenalty;
     
     public Weapon Weapon { get; set; }
     
@@ -65,12 +70,41 @@ public class Unit
         }
     }
     
+    // public int GetStatBonus(StatType statType)
+    // {
+    //     return statType switch
+    //     {
+    //         StatType.Atk => AtkBonus,
+    //         StatType.Spd => SpdBonus,
+    //         StatType.Def => DefBonus,
+    //         StatType.Res => ResBonus,
+    //         _ => throw new ArgumentException("Unsupported stat type.")
+    //     };
+    // }
+    //
+    // public int GetStatPenalty(StatType statType)
+    // {
+    //     return statType switch
+    //     {
+    //         StatType.Atk => AtkPenalty,
+    //         StatType.Spd => SpdPenalty,
+    //         StatType.Def => DefPenalty,
+    //         StatType.Res => ResPenalty,
+    //         _ => throw new ArgumentException("Unsupported stat type.")
+    //     };
+    // }
+
+    
     public void ResetStatBonuses()
     {
         AtkBonus = 0;
         SpdBonus = 0;
         DefBonus = 0;
         ResBonus = 0;
+        AtkPenalty = 0;
+        SpdPenalty = 0;
+        DefPenalty = 0;
+        ResPenalty = 0;
     }
     
     private List<Skill> _skills = new List<Skill>();
@@ -93,17 +127,4 @@ public class Unit
     private List<Skill> _activatedSkills = new List<Skill>();
     public IEnumerable<Skill> ActivatedSkills
         => _activatedSkills.AsReadOnly();
-
-    public void AddActivatedSkill(Skill skill)
-    {
-        if (!_activatedSkills.Contains(skill))
-            _activatedSkills.Add(skill);
-    }
-    
-    public void RemoveActivatedSkill(Skill skill)
-    {
-        if (_activatedSkills.Contains(skill))
-            _activatedSkills.Remove(skill);
-    }
-    
 }

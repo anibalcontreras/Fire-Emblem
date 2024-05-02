@@ -71,19 +71,20 @@ public static class SkillBuilder
         return new Skill("Will to Win", multiCondition, multiEffect);
     }
     
-    // public static Skill CreateFairFightSkill()
-    // {
-    //     MultiCondition multiCondition = new MultiCondition(new ICondition[]
-    //     {
-    //         new UnitBeginAsAttackerCondition()
-    //     });
-    //     MultiEffect multiEffect = new MultiEffect(new IEffect[]
-    //     {
-    //         new MutualBonusEffect(StatType.Atk, 6)
-    //     });
-    //
-    //     return new Skill("Fair Fight", multiCondition, multiEffect);
-    // }
+    public static Skill CreateFairFightSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitBeginAsAttackerCondition()
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 6, EffectTarget.Unit),
+            new BonusEffect(StatType.Atk, 6, EffectTarget.Rival)
+        });
+    
+        return new Skill("Fair Fight", multiCondition, multiEffect);
+    }
 
     
     public static Skill CreateFortDefResSkill()
@@ -608,7 +609,7 @@ public static class SkillBuilder
              multiCondition, multiEffect);
      }
      
-     public static Skill CreateBoostSkill(string name, StatType statToBoost, int boostAmount)
+     private static Skill CreateBoostSkill(string name, StatType statToBoost, int boostAmount)
      {
          ICondition atStartOfCombat = new BeginningOfTheCombatCondition();
          ICondition hpAboveRivalPlusThree = new HpComparisonCondition(3);
