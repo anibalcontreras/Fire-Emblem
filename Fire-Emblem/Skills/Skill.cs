@@ -20,7 +20,7 @@ public class Skill
     {
         foreach (IEffect effect in Effect)
         {
-            effect.ApplyEffect(view, unit, rival);
+            effect.ApplyEffect(unit, rival);
         }
     }
 }

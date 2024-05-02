@@ -119,123 +119,128 @@ public class GameView
     
     public void AnnounceAttackerBonusStat(Unit unit, Unit rival)
     {
-        foreach (var skill in unit.Skills)
-        {
-            foreach (var effect in skill.Effect)
-            {
-                if (effect is BonusEffect bonusEffect)
-                {
-                    if (bonusEffect.Target == EffectTarget.Unit)
-                    {
-                        AnnounceIfPositiveBonus(unit);
-                    }
-                }
-            }
-        }
-        foreach (var skill in rival.Skills)
-        {
-            foreach (var effect in skill.Effect)
-            {
-                if (effect is BonusEffect bonusEffect)
-                {
-                    if (bonusEffect.Target == EffectTarget.Rival)
-                    {
-                        AnnounceIfPositiveBonus(unit);
-                    }
-                }
-            }
-        }
+        AnnounceIfPositiveBonus(unit);
+        // foreach (var skill in unit.Skills)
+        // {
+        //     foreach (var effect in skill.Effect)
+        //     {
+        //         if (effect is BonusEffect bonusEffect)
+        //         {
+        //             if (bonusEffect.Target == EffectTarget.Unit)
+        //             {
+        //                 AnnounceIfPositiveBonus(unit);
+        //             }
+        //         }
+        //     }
+        // }
+        // foreach (var skill in rival.Skills)
+        // {
+        //     foreach (var effect in skill.Effect)
+        //     {
+        //         if (effect is BonusEffect bonusEffect)
+        //         {
+        //             if (bonusEffect.Target == EffectTarget.Rival)
+        //             {
+        //                 AnnounceIfPositiveBonus(unit);
+        //             }
+        //         }
+        //     }
+        // }
     }
     
     public void AnnounceDefenderBonusEffects(Unit unit, Unit rival)
     {
-        foreach (var skill in rival.Skills)
-        {
-            foreach (var effect in skill.Effect)
-            {
-                if (effect is BonusEffect bonusEffect)
-                {
-                    if (bonusEffect.Target == EffectTarget.Unit)
-                    {
-                        AnnounceIfPositiveBonus(rival);
-                    }
-                }
-            }
-        }
-        foreach (var skill in unit.Skills)
-        {
-            foreach (var effect in skill.Effect)
-            {
-                if (effect is BonusEffect bonusEffect)
-                {
-                    if (bonusEffect.Target == EffectTarget.Rival)
-                    {
-                        AnnounceIfPositiveBonus(rival);
-                    }
-                }
-            }
-        }
+        AnnounceIfPositiveBonus(rival);
+    //     foreach (var skill in rival.Skills)
+    //     {
+    //         foreach (var effect in skill.Effect)
+    //         {
+    //             if (effect is BonusEffect bonusEffect)
+    //             {
+    //                 if (bonusEffect.Target == EffectTarget.Unit)
+    //                 {
+    //                     AnnounceIfPositiveBonus(rival);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     foreach (var skill in unit.Skills)
+    //     {
+    //         foreach (var effect in skill.Effect)
+    //         {
+    //             if (effect is BonusEffect bonusEffect)
+    //             {
+    //                 if (bonusEffect.Target == EffectTarget.Rival)
+    //                 {
+    //                     AnnounceIfPositiveBonus(rival);
+    //                 }
+    //             }
+    //         }
+    //     }
     }
     
     public void AnnounceAttackerPenaltyStat(Unit unit, Unit rival)
     {
-        foreach (var skill in unit.Skills)
-        {
-            foreach (var effect in skill.Effect)
-            {
-                if (effect is PenaltyEffect penaltyEffect)
-                {
-                    if (penaltyEffect.Target == EffectTarget.Unit)
-                    {
-                        AnnounceIfPositivePenalty(unit);
-                    }
-                }
-            }
-        }
-        foreach (var skill in rival.Skills)
-        {
-            foreach (var effect in skill.Effect)
-            {
-                if (effect is PenaltyEffect penaltyEffect)
-                {
-                    if (penaltyEffect.Target == EffectTarget.Rival)
-                    {
-                        AnnounceIfPositivePenalty(unit);
-                    }
-                }
-            }
-        }
+        AnnounceIfPositivePenalty(unit);
+        // foreach (var skill in unit.Skills)
+        // {
+        //     foreach (var effect in skill.Effect)
+        //     {
+        //         if (effect is PenaltyEffect penaltyEffect)
+        //         {
+        //             if (penaltyEffect.Target == EffectTarget.Unit)
+        //             {
+        //                 AnnounceIfPositivePenalty(unit);
+        //             }
+        //         }
+        //     }
+        // }
+        // foreach (var skill in rival.Skills)
+        // {
+        //     foreach (var effect in skill.Effect)
+        //     {
+        //         if (effect is PenaltyEffect penaltyEffect)
+        //         {
+        //             if (penaltyEffect.Target == EffectTarget.Rival)
+        //             {
+        //                 AnnounceIfPositivePenalty(unit);
+        //             }
+        //         }
+        //     }
+        // }
     }
-    
+    //
     public void AnnounceDefenderPenaltyEffects(Unit unit, Unit rival)
     {
-        foreach (var skill in rival.Skills)
-        {
-            foreach (var effect in skill.Effect)
-            {
-                if (effect is PenaltyEffect penaltyEffect)
-                {
-                    if (penaltyEffect.Target == EffectTarget.Unit)
-                    {
-                        AnnounceIfPositivePenalty(rival);
-                    }
-                }
-            }
-        }
-        foreach (var skill in unit.Skills)
-        {
-            foreach (var effect in skill.Effect)
-            {
-                if (effect is PenaltyEffect penaltyEffect)
-                {
-                    if (penaltyEffect.Target == EffectTarget.Rival)
-                    {
-                        AnnounceIfPositivePenalty(rival);
-                    }
-                }
-            }
-        }
+        AnnounceIfPositivePenalty(rival);
+    //     foreach (var skill in rival.Skills)
+    //     {
+    //         foreach (var effect in skill.Effect)
+    //         {
+    //             if (effect is PenaltyEffect penaltyEffect)
+    //             {
+    //                 if (penaltyEffect.Target == EffectTarget.Unit)
+    //                 {
+    //                     AnnounceIfPositivePenalty(rival);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     foreach (var skill in unit.Skills)
+    //     {
+    //         foreach (var effect in skill.Effect)
+    //         {
+    //             if (effect is PenaltyEffect penaltyEffect)
+    //             {
+    //                 if (penaltyEffect.Target == EffectTarget.Rival)
+    //                 {
+    //                     AnnounceIfPositivePenalty(rival);
+    //                 }
+    //             }
+    //         }
+    //     }
     }
+
 
     private void AnnounceAtkBonusStat(Unit unit)
     {

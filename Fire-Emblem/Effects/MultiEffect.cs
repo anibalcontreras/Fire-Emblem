@@ -1,5 +1,4 @@
 using System.Collections;
-using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 

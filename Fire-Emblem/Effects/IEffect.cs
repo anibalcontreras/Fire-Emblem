@@ -5,5 +5,5 @@ namespace Fire_Emblem.Effects;
 public interface IEffect
 {
     EffectTarget Target { get; }
-    void ApplyEffect(GameView view, Unit activator, Unit opponent);
+    void ApplyEffect(Unit activator, Unit opponent);
 }

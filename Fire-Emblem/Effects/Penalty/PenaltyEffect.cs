@@ -16,14 +16,9 @@ public class PenaltyEffect : IEffect
         Target = target;
     }
     
-    public virtual void ApplyEffect(GameView view, Unit activator, Unit opponent)
+    public virtual void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyStatBonusAndPenaltyEffect(_statToDecrease, -_amount);
-    }
-    
-    public override string ToString()
-    {
-        return $"{_statToDecrease}-{_amount}";
     }
 }

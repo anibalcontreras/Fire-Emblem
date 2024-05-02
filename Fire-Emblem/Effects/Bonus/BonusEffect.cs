@@ -16,7 +16,7 @@ public class BonusEffect : IEffect
         _amount = amount;
         Target = target;
     }
-    public void ApplyEffect(GameView view, Unit activator, Unit opponent)
+    public void ApplyEffect(Unit activator, Unit opponent)
     {
         
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
