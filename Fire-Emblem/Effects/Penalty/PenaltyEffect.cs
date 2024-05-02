@@ -8,6 +8,8 @@ public class PenaltyEffect : IEffect
     public EffectTarget Target { get; }
     private StatType _statToDecrease;
     private int _amount;
+    public StatType? StatType => _statToDecrease;
+    public int? Amount => _amount;
     
     public PenaltyEffect(StatType statToDecrease, int amount, EffectTarget target)
     {
@@ -19,6 +21,7 @@ public class PenaltyEffect : IEffect
     public virtual void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        targetUnit.ApplyStatBonusAndPenaltyEffect(_statToDecrease, -_amount);
+        targetUnit.ApplyStatPenaltyEffect(_statToDecrease, _amount);
+        targetUnit.AddActiveEffect(this);
     }
 }

@@ -1,5 +1,6 @@
 using Fire_Emblem_View;
 using Fire_Emblem.Effects;
+using Fire_Emblem.Stats;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
@@ -120,128 +121,33 @@ public class GameView
     public void AnnounceAttackerBonusStat(Unit unit, Unit rival)
     {
         AnnounceIfPositiveBonus(unit);
-        // foreach (var skill in unit.Skills)
-        // {
-        //     foreach (var effect in skill.Effect)
-        //     {
-        //         if (effect is BonusEffect bonusEffect)
-        //         {
-        //             if (bonusEffect.Target == EffectTarget.Unit)
-        //             {
-        //                 AnnounceIfPositiveBonus(unit);
-        //             }
-        //         }
-        //     }
-        // }
-        // foreach (var skill in rival.Skills)
-        // {
-        //     foreach (var effect in skill.Effect)
-        //     {
-        //         if (effect is BonusEffect bonusEffect)
-        //         {
-        //             if (bonusEffect.Target == EffectTarget.Rival)
-        //             {
-        //                 AnnounceIfPositiveBonus(unit);
-        //             }
-        //         }
-        //     }
-        // }
     }
     
     public void AnnounceDefenderBonusEffects(Unit unit, Unit rival)
     {
         AnnounceIfPositiveBonus(rival);
-    //     foreach (var skill in rival.Skills)
-    //     {
-    //         foreach (var effect in skill.Effect)
-    //         {
-    //             if (effect is BonusEffect bonusEffect)
-    //             {
-    //                 if (bonusEffect.Target == EffectTarget.Unit)
-    //                 {
-    //                     AnnounceIfPositiveBonus(rival);
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     foreach (var skill in unit.Skills)
-    //     {
-    //         foreach (var effect in skill.Effect)
-    //         {
-    //             if (effect is BonusEffect bonusEffect)
-    //             {
-    //                 if (bonusEffect.Target == EffectTarget.Rival)
-    //                 {
-    //                     AnnounceIfPositiveBonus(rival);
-    //                 }
-    //             }
-    //         }
-    //     }
     }
     
     public void AnnounceAttackerPenaltyStat(Unit unit, Unit rival)
     {
         AnnounceIfPositivePenalty(unit);
-        // foreach (var skill in unit.Skills)
-        // {
-        //     foreach (var effect in skill.Effect)
-        //     {
-        //         if (effect is PenaltyEffect penaltyEffect)
-        //         {
-        //             if (penaltyEffect.Target == EffectTarget.Unit)
-        //             {
-        //                 AnnounceIfPositivePenalty(unit);
-        //             }
-        //         }
-        //     }
-        // }
-        // foreach (var skill in rival.Skills)
-        // {
-        //     foreach (var effect in skill.Effect)
-        //     {
-        //         if (effect is PenaltyEffect penaltyEffect)
-        //         {
-        //             if (penaltyEffect.Target == EffectTarget.Rival)
-        //             {
-        //                 AnnounceIfPositivePenalty(unit);
-        //             }
-        //         }
-        //     }
-        // }
     }
-    //
     public void AnnounceDefenderPenaltyEffects(Unit unit, Unit rival)
     {
         AnnounceIfPositivePenalty(rival);
-    //     foreach (var skill in rival.Skills)
-    //     {
-    //         foreach (var effect in skill.Effect)
-    //         {
-    //             if (effect is PenaltyEffect penaltyEffect)
-    //             {
-    //                 if (penaltyEffect.Target == EffectTarget.Unit)
-    //                 {
-    //                     AnnounceIfPositivePenalty(rival);
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     foreach (var skill in unit.Skills)
-    //     {
-    //         foreach (var effect in skill.Effect)
-    //         {
-    //             if (effect is PenaltyEffect penaltyEffect)
-    //             {
-    //                 if (penaltyEffect.Target == EffectTarget.Rival)
-    //                 {
-    //                     AnnounceIfPositivePenalty(rival);
-    //                 }
-    //             }
-    //         }
-    //     }
     }
 
-
+    public void AnnounceNeutralizationBonusEffect(Unit unit)
+    {
+        if (unit.HasNeutralizationBonus)
+        {
+            _view.WriteLine($"Los bonus de Atk de {unit.Name} fueron neutralizados");
+            _view.WriteLine($"Los bonus de Spd de {unit.Name} fueron neutralizados");
+            _view.WriteLine($"Los bonus de Def de {unit.Name} fueron neutralizados");
+            _view.WriteLine($"Los bonus de Res de {unit.Name} fueron neutralizados");   
+        }
+    }
+    
     private void AnnounceAtkBonusStat(Unit unit)
     {
         _view.WriteLine($"{unit.Name} obtiene Atk+{unit.AtkBonus}");
@@ -284,22 +190,22 @@ public class GameView
     
     private void AnnounceIfPositiveBonus(Unit unit)
     {
-        if (unit.AtkBonus > 0) AnnounceAtkBonusStat(unit);
-        if (unit.SpdBonus > 0) AnnounceSpdBonusStat(unit);
-        if (unit.DefBonus > 0) AnnounceDefBonusStat(unit);
-        if (unit.ResBonus > 0) AnnounceResBonusStat(unit);
+        if (unit.HasActiveBonus(StatType.Atk)) AnnounceAtkBonusStat(unit);
+        if (unit.HasActiveBonus(StatType.Spd)) AnnounceSpdBonusStat(unit);
+        if (unit.HasActiveBonus(StatType.Def)) AnnounceDefBonusStat(unit);
+        if (unit.HasActiveBonus(StatType.Res)) AnnounceResBonusStat(unit);
     }
-    
+
     private void AnnounceIfPositivePenalty(Unit unit)
     {
-        if (unit.AtkPenalty > 0) AnnounceAtkPenaltyStat(unit);
-        if (unit.SpdPenalty > 0) AnnounceSpdPenaltyStat(unit);
-        if (unit.DefPenalty > 0) AnnounceDefPenaltyStat(unit);
-        if (unit.ResPenalty > 0) AnnounceResPenaltyStat(unit);
+        if (unit.HasActivePenalty(StatType.Atk)) AnnounceAtkPenaltyStat(unit);
+        if (unit.HasActivePenalty(StatType.Spd)) AnnounceSpdPenaltyStat(unit);
+        if (unit.HasActivePenalty(StatType.Def)) AnnounceDefPenaltyStat(unit);
+        if (unit.HasActivePenalty(StatType.Res)) AnnounceResPenaltyStat(unit);
     }
 
 
-public void AnnounceBonusNeutralization(string stat, string unitName)
+    public void AnnounceBonusNeutralization(string stat, string unitName)
     {
         _view.WriteLine($"Los bonus de {stat} de {unitName} fueron neutralizados");
     }

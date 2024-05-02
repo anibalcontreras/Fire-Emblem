@@ -66,8 +66,6 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateEarthBoostSkill();
             case "Water Boost":
                 return SkillBuilder.CreateWaterBoostSkill();
-            // case "Wrath":
-            //     return SkillBuilder.CreateWrathSkill();
             case "Stunning Smile":
                 return SkillBuilder.CreateStunningSmileSkill();
             case "Disarming Sigh":
@@ -108,6 +106,8 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateResolveSkill();
             case "Belief in Love":
                 return SkillBuilder.CreateBeliefInLoveSkill();
+            case "Beorc's Blessing":
+                return SkillBuilder.CreateBeorcsBlessingSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

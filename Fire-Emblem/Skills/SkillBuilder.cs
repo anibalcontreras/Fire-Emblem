@@ -1,12 +1,27 @@
 using Fire_Emblem.Conditions;
 using Fire_Emblem.Conditions.LogicalConditions;
 using Fire_Emblem.Effects;
+using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Stats;
 
 namespace Fire_Emblem.Skills;
 
 public static class SkillBuilder
 {
+    public static Skill CreateBeorcsBlessingSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new TrueCondition()
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new NeutralizationBonusEffect(EffectTarget.Rival)
+        });
+
+        return new Skill("Beorc's Blessing", multiCondition, multiEffect);
+    }
+    
     public static Skill CreateBeliefInLoveSkill()
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[]
@@ -23,22 +38,6 @@ public static class SkillBuilder
         
         return new Skill("Belief in Love", multiCondition, multiEffect);
     }
-    
-    // public static Skill CreateWrathSkill()
-    // {
-    //     MultiCondition multiCondition = new MultiCondition(new ICondition[]
-    //     {
-    //         new BeginningOfTheCombatCondition(),
-    //         new UnitHasLostHpCondition()
-    //     });
-    //
-    //     MultiEffect multiEffect = new MultiEffect(new IEffect[]
-    //     {
-    //         new WrathBonusEffect(30)
-    //     });
-    //     
-    //     return new Skill("Wrath", multiCondition, multiEffect);
-    // }
     
     public static Skill CreateResolveSkill()
     {

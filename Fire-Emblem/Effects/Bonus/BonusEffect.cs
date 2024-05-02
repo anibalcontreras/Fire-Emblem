@@ -9,6 +9,8 @@ public class BonusEffect : IEffect
     private readonly StatType _statToIncrease;
     private readonly int _amount;
     public EffectTarget Target { get; private set; }
+    public StatType? StatType => _statToIncrease;
+    public int? Amount => _amount;
     
     public BonusEffect(StatType statToIncrease, int amount, EffectTarget target)
     {
@@ -20,6 +22,7 @@ public class BonusEffect : IEffect
     {
         
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        targetUnit.ApplyStatBonusAndPenaltyEffect(_statToIncrease, _amount);
+        targetUnit.ApplyStatBonusEffect(_statToIncrease, _amount);
+        targetUnit.AddActiveEffect(this);
     }
 }

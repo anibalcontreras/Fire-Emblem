@@ -64,13 +64,14 @@ public class CombatManager
     {
     _gameView.AnnounceAttackerBonusStat(combat.Attacker, combat.Defender);
     _gameView.AnnounceAttackerPenaltyStat(combat.Attacker, combat.Defender);
+    _gameView.AnnounceNeutralizationBonusEffect(combat.Attacker);
     _gameView.AnnounceDefenderBonusEffects(combat.Attacker, combat.Defender);
     _gameView.AnnounceDefenderPenaltyEffects(combat.Attacker, combat.Defender);
+    _gameView.AnnounceNeutralizationBonusEffect(combat.Defender);
     if (HandleAttack(combat)) return;
-        if (HandleCounterattack(combat)) return;
-
-        HandleFollowUp(combat);
-        EndCombat(combat);
+    if (HandleCounterattack(combat)) return;
+    HandleFollowUp(combat);
+    EndCombat(combat);
     }
     
     
@@ -118,6 +119,8 @@ public class CombatManager
     {
         combat.Attacker.ResetStatBonuses();
         combat.Defender.ResetStatBonuses();
+        combat.Attacker.ClearActiveEffects();
+        combat.Defender.ClearActiveEffects();
     }
     
     private void HandleFollowUp(Combat combat)
