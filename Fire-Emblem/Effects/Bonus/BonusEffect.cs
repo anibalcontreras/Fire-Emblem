@@ -20,7 +20,6 @@ public class BonusEffect : IEffect
     }
     public void ApplyEffect(Unit activator, Unit opponent)
     {
-        
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyStatBonusEffect(_statToIncrease, _amount);
         targetUnit.AddActiveEffect(this);

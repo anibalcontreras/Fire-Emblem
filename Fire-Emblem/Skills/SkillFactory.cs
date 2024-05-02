@@ -104,8 +104,6 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateWillToWinSkill();
             case "Resolve":
                 return SkillBuilder.CreateResolveSkill();
-            case "Belief in Love":
-                return SkillBuilder.CreateBeliefInLoveSkill();
             case "Beorc's Blessing":
                 return SkillBuilder.CreateBeorcsBlessingSkill();
             default:

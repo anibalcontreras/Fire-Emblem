@@ -22,23 +22,6 @@ public static class SkillBuilder
         return new Skill("Beorc's Blessing", multiCondition, multiEffect);
     }
     
-    public static Skill CreateBeliefInLoveSkill()
-    {
-        MultiCondition multiCondition = new MultiCondition(new ICondition[]
-        {
-            new RivalBeginAsAttacker(),
-            new RivalHpThresholdCondition(1)
-        });
-
-        MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival),
-            new PenaltyEffect(StatType.Def, 5, EffectTarget.Rival)
-        });
-        
-        return new Skill("Belief in Love", multiCondition, multiEffect);
-    }
-    
     public static Skill CreateResolveSkill()
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[]

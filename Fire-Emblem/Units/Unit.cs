@@ -163,16 +163,16 @@ public class Unit
         return Effects.Any(effect => effect is PenaltyEffect penalty && penalty.StatType == statType && penalty.Amount > 0);
     }
     
+    public bool HasNeutralizationBonus
+    {
+        get { return _effects.Any(effect => effect is NeutralizationBonusEffect); }
+    }
+    
     public void NeutralizeBonus()
     {
         AtkBonusNeutralization = AtkBonus;
         SpdBonusNeutralization = SpdBonus;
         DefBonusNeutralization = DefBonus;
         ResBonusNeutralization = ResBonus;
-    }
-    
-    public bool HasNeutralizationBonus
-    {
-        get { return _effects.Any(effect => effect is NeutralizationBonusEffect); }
     }
 }

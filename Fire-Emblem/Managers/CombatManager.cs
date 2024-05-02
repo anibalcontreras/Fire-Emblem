@@ -1,3 +1,5 @@
+using Fire_Emblem.Effects;
+using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
@@ -21,11 +23,10 @@ public class CombatManager
         _gameView.AnnounceRoundStart(round, combat.Attacker, currentPlayer);
         AnnounceWeaponAdvantage(combat);
         ActivateSkills(combat);
-        
+        AnnounceEffects(combat);
         ExecuteCombatProcess(combat);
         return combat;
     }
-    
     
     private Combat CreateCombat(List<Team> teams, int currentPlayer)
     {
@@ -46,35 +47,74 @@ public class CombatManager
     private void ActivateSkills(Combat combat)
     {
         ApplySkills(combat.Attacker, combat.Defender, combat);
-        ApplySkills(combat.Defender, combat.Attacker, combat);
     }
 
     private void ApplySkills(Unit activator, Unit opponent, Combat combat)
     {
+        var effectsToApply = new List<(Unit, IEffect)>();
+
+        // Recolecta todos los efectos elegibles de ambas unidades.
         foreach (var skill in activator.Skills)
         {
             if (skill.Condition.IsConditionMet(combat, activator, opponent))
             {
-                skill.ActivateEffects(_gameView, activator, opponent);
+                foreach (var effect in skill.Effect)
+                {
+                    effectsToApply.Add((activator, effect));
+                }
             }
         }
+
+        foreach (var skill in opponent.Skills)
+        {
+            if (skill.Condition.IsConditionMet(combat, opponent, activator))
+            {
+                foreach (var effect in skill.Effect)
+                {
+                    effectsToApply.Add((opponent, effect));
+                }
+            }
+        }
+
+        // Aplica todos los Bonus
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is BonusEffect))
+        {
+            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+        }
+
+        // Aplica todos los Penalties
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is PenaltyEffect))
+        {
+            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+        }
+
+        // Aplica todas las Neutralizaciones
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is NeutralizationBonusEffect))
+        {
+            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+        }
+    }
+
+    
+    private void AnnounceEffects(Combat combat)
+    {
+        _gameView.AnnounceAttackerBonusStat(combat.Attacker, combat.Defender);
+        _gameView.AnnounceAttackerPenaltyStat(combat.Attacker, combat.Defender);
+        _gameView.AnnounceNeutralizationBonusEffect(combat.Attacker);
+        _gameView.AnnounceDefenderBonusEffects(combat.Attacker, combat.Defender);
+        _gameView.AnnounceDefenderPenaltyEffects(combat.Attacker, combat.Defender);
+        _gameView.AnnounceNeutralizationBonusEffect(combat.Defender);
     }
 
     private void ExecuteCombatProcess(Combat combat)
     {
-    _gameView.AnnounceAttackerBonusStat(combat.Attacker, combat.Defender);
-    _gameView.AnnounceAttackerPenaltyStat(combat.Attacker, combat.Defender);
-    _gameView.AnnounceNeutralizationBonusEffect(combat.Attacker);
-    _gameView.AnnounceDefenderBonusEffects(combat.Attacker, combat.Defender);
-    _gameView.AnnounceDefenderPenaltyEffects(combat.Attacker, combat.Defender);
-    _gameView.AnnounceNeutralizationBonusEffect(combat.Defender);
     if (HandleAttack(combat)) return;
     if (HandleCounterattack(combat)) return;
     HandleFollowUp(combat);
     EndCombat(combat);
     }
     
-    
+
     private bool HandleAttack(Combat combat)
     {
         PerformAttack(combat);
