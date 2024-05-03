@@ -86,7 +86,7 @@ public class CombatManager
 
     private static void ApplyBonusEffects(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is BonusEffect))
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is IBonusEffect))
         {
             effect.ApplyEffect(unit, unit == activator ? opponent : activator);
         }

@@ -164,7 +164,7 @@ public class Unit
     
     public bool HasActiveBonus(StatType statType)
     {
-        return Effects.Any(effect => effect is BonusEffect bonus && bonus.StatType == statType && bonus.Amount > 0);
+        return Effects.Any(effect => effect is IBonusEffect bonus && bonus.StatType == statType && bonus.Amount > 0);
     }
 
     public bool HasActivePenalty(StatType statType)

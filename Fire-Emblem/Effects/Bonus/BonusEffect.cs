@@ -4,7 +4,7 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
-public class BonusEffect : IEffect
+public class BonusEffect : IEffect, IBonusEffect
 {
     private readonly StatType _statToIncrease;
     private readonly int _amount;

@@ -108,6 +108,14 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateBeorcsBlessingSkill();
             case "Agnea's Arrow":
                 return SkillBuilder.CreateAgneasArrowSkill();
+            case "Belief in Love":
+                return SkillBuilder.CreateBeliefInLoveSkill();
+            case "Close Def":
+                return SkillBuilder.CreateCloseDefSkill();
+            case "Distant Def":
+                return SkillBuilder.CreateDistantDefSkill();
+            case "Wrath":
+                return SkillBuilder.CreateWrathSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

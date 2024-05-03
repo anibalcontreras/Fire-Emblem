@@ -8,6 +8,20 @@ namespace Fire_Emblem.Skills;
 
 public static class SkillBuilder
 {
+    
+    public static Skill CreateWrathSkill()
+    {
+        ICondition startOfCombatCondition = new BeginningOfTheCombatCondition();
+
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new DynamicBonusEffect(StatType.Atk, 30, EffectTarget.Unit),
+            new DynamicBonusEffect(StatType.Spd, 30, EffectTarget.Unit)
+        });
+
+        return new Skill("Wrath", startOfCombatCondition, effects);
+    }
+
     public static Skill CreateBeorcsBlessingSkill()
     {
         MultiCondition multiCondition = new MultiCondition(new ICondition[]
@@ -470,11 +484,10 @@ public static class SkillBuilder
      
      public static Skill CreateBrazenAtkResSkill()
      {
-         MultiCondition multiCondition = new MultiCondition(new ICondition[]
-         {
+         ICondition multiCondition = new AndCondition(
              new BeginningOfTheCombatCondition(),
              new UnitHpThresholdCondition(0.8)
-         });
+         );
          MultiEffect multiEffect = new MultiEffect(new IEffect[]
          {
              new BonusEffect(StatType.Atk, 10, EffectTarget.Unit),
@@ -483,6 +496,63 @@ public static class SkillBuilder
          Skill skill = new Skill("Brazen Atk/Res", multiCondition, multiEffect);
          return skill;
      }
+     
+     public static Skill CreateCloseDefSkill()
+     {
+         ICondition closeWeaponCondition = new AndCondition(
+             new RivalBeginAsAttacker(),
+             new RivalWeaponCondition("Sword", "Lance", "Axe")
+         );
+
+         MultiEffect effects = new MultiEffect(new IEffect[]
+         {
+             new BonusEffect(StatType.Def, 8, EffectTarget.Unit),
+             new BonusEffect(StatType.Res, 8, EffectTarget.Unit),
+             new NeutralizationBonusEffect(EffectTarget.Rival)
+         });
+
+         return new Skill("Close Def", closeWeaponCondition, effects);
+     }
+     
+     public static Skill CreateDistantDefSkill()
+     {
+         ICondition distantWeaponCondition = new AndCondition(
+             new RivalBeginAsAttacker(),
+             new RivalWeaponCondition("Magic", "Bow")
+         );
+
+         MultiEffect effects = new MultiEffect(new IEffect[]
+         {
+             new BonusEffect(StatType.Def, 8, EffectTarget.Unit),
+             new BonusEffect(StatType.Res, 8, EffectTarget.Unit),
+             new NeutralizationBonusEffect(EffectTarget.Rival)
+         });
+
+         return new Skill("Distant Def", distantWeaponCondition, effects);
+     }
+
+
+     
+     public static Skill CreateBeliefInLoveSkill()
+     {
+         // Crear condiciones
+         ICondition rivalInitiatesOrFullHp = new OrCondition(
+             new RivalBeginAsAttacker(),
+             new RivalHpThresholdCondition(1.0) // 100%
+         );
+
+         // Crear efectos
+         MultiEffect effects = new MultiEffect(new IEffect[]
+         {
+             new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival),
+             new PenaltyEffect(StatType.Def, 5, EffectTarget.Rival)
+         });
+
+         // Crear y retornar la habilidad
+         return new Skill("Belief in Love", rivalInitiatesOrFullHp, effects);
+     }
+     
+     
      
      public static Skill CreateBrazenSpdDefSkill()
      {
