@@ -16,25 +16,4 @@ public class Skill
         Condition = condition;
         Effect = effect;
     }
-    
-    public void ActivateEffects(GameView view, Unit unit, Unit rival)
-    {
-        // Filtra y aplica los efectos de Bonus
-        foreach (IEffect effect in Effect.Where(e => e is BonusEffect))
-        {
-            effect.ApplyEffect(unit, rival);
-        }
-
-        // Filtra y aplica los efectos de Penalty
-        foreach (IEffect effect in Effect.Where(e => e is PenaltyEffect))
-        {
-            effect.ApplyEffect(unit, rival);
-        }
-
-        // Filtra y aplica los efectos de Neutralización de Bonos
-        foreach (IEffect effect in Effect.Where(e => e is NeutralizationBonusEffect))
-        {
-            effect.ApplyEffect(unit, rival);
-        }
-    }
 }

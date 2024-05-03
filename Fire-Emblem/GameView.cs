@@ -118,21 +118,21 @@ public class GameView
         => _view.WriteLine("Ninguna unidad puede hacer un follow up");
     
     
-    public void AnnounceAttackerBonusStat(Unit unit, Unit rival)
+    public void AnnounceAttackerBonusStat(Unit unit)
     {
         AnnounceIfPositiveBonus(unit);
     }
     
-    public void AnnounceDefenderBonusEffects(Unit unit, Unit rival)
+    public void AnnounceDefenderBonusEffects(Unit rival)
     {
         AnnounceIfPositiveBonus(rival);
     }
     
-    public void AnnounceAttackerPenaltyStat(Unit unit, Unit rival)
+    public void AnnounceAttackerPenaltyStat(Unit unit)
     {
         AnnounceIfPositivePenalty(unit);
     }
-    public void AnnounceDefenderPenaltyEffects(Unit unit, Unit rival)
+    public void AnnounceDefenderPenaltyEffects(Unit rival)
     {
         AnnounceIfPositivePenalty(rival);
     }
