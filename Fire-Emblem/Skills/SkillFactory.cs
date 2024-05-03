@@ -116,6 +116,22 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateDistantDefSkill();
             case "Wrath":
                 return SkillBuilder.CreateWrathSkill();
+            case "Lull Atk/Spd":
+                return SkillBuilder.CreateLullAtkSpdSkill();
+            case "Lull Atk/Def":
+                return SkillBuilder.CreateLullAtkDefSkill();
+            case "Lull Atk/Res":
+                return SkillBuilder.CreateLullAtkResSkill();
+            case "Lull Spd/Def":
+                return SkillBuilder.CreateLullSpdDefSkill();
+            case "Lull Spd/Res":
+                return SkillBuilder.CreateLullSpdResSkill();
+            case "Lull Def/Res":
+                return SkillBuilder.CreateLullDefResSkill();
+            case "Light and Dark":
+                return SkillBuilder.CreateLightAndDarkSkill();
+            case "Dragonskin":
+                return SkillBuilder.CreateDragonskinSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

@@ -8,7 +8,7 @@ public class PenaltyEffect : IEffect
     public EffectTarget Target { get; }
     private StatType _statToDecrease;
     private int _amount;
-    public StatType? StatType => _statToDecrease;
+    public StatType StatType => _statToDecrease;
     public int? Amount => _amount;
     
     public PenaltyEffect(StatType statToDecrease, int amount, EffectTarget target)

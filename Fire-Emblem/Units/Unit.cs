@@ -46,6 +46,8 @@ public class Unit
     public int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - SpdBonusNeutralization + SpdPenaltyNeutralization;
     private int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization + DefPenaltyNeutralization;
     private int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization + ResPenaltyNeutralization;
+    private int HpBonus { get; set; } = 0;
+    
     
     
     public Weapon Weapon { get; set; }
@@ -54,7 +56,7 @@ public class Unit
     
     public int CurrentHP
     {
-        get { return _currentHP; }
+        get { return _currentHP + HpBonus; }
         set { _currentHP = Math.Max(0, value); }
     }
     
@@ -67,9 +69,6 @@ public class Unit
     {
         switch (statType)
         {
-            case StatType.HP:
-                BaseHp += effectAmount;
-                break;
             case StatType.Atk:
                 AtkBonus += effectAmount;
                 break;
@@ -91,9 +90,6 @@ public class Unit
     {
         switch (statType)
         {
-            case StatType.HP:
-                BaseHp -= effectAmount;
-                break;
             case StatType.Atk:
                 AtkPenalty += effectAmount;
                 break;
@@ -150,7 +146,7 @@ public class Unit
     
     private List<IEffect> _effects = new List<IEffect>();
 
-    public IEnumerable<IEffect> Effects => _effects.AsReadOnly();
+    private IEnumerable<IEffect> Effects => _effects.AsReadOnly();
     
     public void AddActiveEffect(IEffect effect)
     {
@@ -160,6 +156,16 @@ public class Unit
     public void ClearActiveEffects()
     {
         _effects.Clear();
+    }
+    
+    public bool HasActiveNeutralizationPenalty(StatType statType)
+    {
+        return Effects.Any(effect => effect is NeutralizationPenaltyEffect penalty && penalty.StatType == statType);
+    }
+    
+    public bool HasActiveNeutralizationBonus(StatType statType)
+    {
+        return Effects.Any(effect => effect is NeutralizationBonusEffect bonus && bonus.StatType == statType);
     }
     
     public bool HasActiveBonus(StatType statType)
@@ -172,29 +178,41 @@ public class Unit
         return Effects.Any(effect => effect is PenaltyEffect penalty && penalty.StatType == statType && penalty.Amount > 0);
     }
     
-    public bool HasNeutralizationBonus
+    public void NeutralizeBonus(StatType statType)
     {
-        get { return _effects.Any(effect => effect is NeutralizationBonusEffect); }
+        switch (statType)
+        {
+            case StatType.Atk:
+                AtkBonusNeutralization = AtkBonus;
+                break;
+            case StatType.Spd:
+                SpdBonusNeutralization = SpdBonus;
+                break;
+            case StatType.Def:
+                DefBonusNeutralization = DefBonus;
+                break;
+            case StatType.Res:
+                ResBonusNeutralization = ResBonus;
+                break;
+        }
     }
     
-    public bool HasNeutralizationPenalty
+    public void NeutralizePenalty(StatType statType)
     {
-        get { return _effects.Any(effect => effect is NeutralizationPenaltyEffect); }
-    }
-    
-    public void NeutralizeBonus()
-    {
-        AtkBonusNeutralization = AtkBonus;
-        SpdBonusNeutralization = SpdBonus;
-        DefBonusNeutralization = DefBonus;
-        ResBonusNeutralization = ResBonus;
-    }
-
-    public void NeutralizePenalty()
-    {
-        AtkPenaltyNeutralization = AtkPenalty;
-        SpdPenaltyNeutralization = SpdPenalty;
-        DefPenaltyNeutralization = DefPenalty;
-        ResPenaltyNeutralization = ResPenalty;
+        switch (statType)
+        {
+            case StatType.Atk:
+                AtkPenaltyNeutralization = AtkPenalty;
+                break;
+            case StatType.Spd:
+                SpdPenaltyNeutralization = SpdPenalty;
+                break;
+            case StatType.Def:
+                DefPenaltyNeutralization = DefPenalty;
+                break;
+            case StatType.Res:
+                ResPenaltyNeutralization = ResPenalty;
+                break;
+        }
     }
 }

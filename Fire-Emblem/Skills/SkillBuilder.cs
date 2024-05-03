@@ -30,7 +30,10 @@ public static class SkillBuilder
         });
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
-            new NeutralizationBonusEffect(EffectTarget.Rival)
+            new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Atk),
+            new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Spd),
+            new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Def),
+            new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Res)
         });
 
         return new Skill("Beorc's Blessing", multiCondition, multiEffect);
@@ -45,7 +48,10 @@ public static class SkillBuilder
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
-            new NeutralizationPenaltyEffect(EffectTarget.Unit)
+            new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Atk),
+            new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Spd),
+            new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Def),
+            new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Res)
         });
         
         return new Skill("Agnea's Arrow", multiCondition, multiEffect);
@@ -508,7 +514,11 @@ public static class SkillBuilder
          {
              new BonusEffect(StatType.Def, 8, EffectTarget.Unit),
              new BonusEffect(StatType.Res, 8, EffectTarget.Unit),
-             new NeutralizationBonusEffect(EffectTarget.Rival)
+             // new NeutralizationBonusEffect(EffectTarget.Rival)
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Atk),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Spd),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Def),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Res)
          });
 
          return new Skill("Close Def", closeWeaponCondition, effects);
@@ -525,7 +535,11 @@ public static class SkillBuilder
          {
              new BonusEffect(StatType.Def, 8, EffectTarget.Unit),
              new BonusEffect(StatType.Res, 8, EffectTarget.Unit),
-             new NeutralizationBonusEffect(EffectTarget.Rival)
+             // new NeutralizationBonusEffect(EffectTarget.Rival)
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Atk),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Spd),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Def),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Res)
          });
 
          return new Skill("Distant Def", distantWeaponCondition, effects);
@@ -711,5 +725,82 @@ public static class SkillBuilder
      public static Skill CreateWaterBoostSkill()
      {
          return CreateBoostSkill("Water Boost", StatType.Res, 6);
+     }
+     
+     public static Skill CreateLullSkill(string name, StatType stat1, StatType stat2)
+     {
+         MultiCondition multiCondition = new MultiCondition(new ICondition[]
+         {
+             new TrueCondition() // Siempre se activa
+         });
+
+         MultiEffect multiEffect = new MultiEffect(new IEffect[]
+         {
+             new PenaltyEffect(stat1, 3, EffectTarget.Rival),
+             new NeutralizationBonusEffect(EffectTarget.Rival, stat1),
+             new PenaltyEffect(stat2, 3, EffectTarget.Rival),
+             new NeutralizationBonusEffect(EffectTarget.Rival, stat2)
+         });
+
+         return new Skill(name, multiCondition, multiEffect);
+     }
+     
+     public static Skill CreateLullAtkSpdSkill() => CreateLullSkill("Lull Atk/Spd", StatType.Atk, StatType.Spd);
+     public static Skill CreateLullAtkDefSkill() => CreateLullSkill("Lull Atk/Def", StatType.Atk, StatType.Def);
+     public static Skill CreateLullAtkResSkill() => CreateLullSkill("Lull Atk/Res", StatType.Atk, StatType.Res);
+     public static Skill CreateLullSpdDefSkill() => CreateLullSkill("Lull Spd/Def", StatType.Spd, StatType.Def);
+     public static Skill CreateLullSpdResSkill() => CreateLullSkill("Lull Spd/Res", StatType.Spd, StatType.Res);
+     public static Skill CreateLullDefResSkill() => CreateLullSkill("Lull Def/Res", StatType.Def, StatType.Res);
+     
+     public static Skill CreateLightAndDarkSkill()
+     {
+         MultiCondition multiCondition = new MultiCondition(new ICondition[]
+         {
+             new TrueCondition()  // Siempre se activa
+         });
+
+         MultiEffect multiEffect = new MultiEffect(new IEffect[]
+         {
+             new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival),
+             new PenaltyEffect(StatType.Spd, 5, EffectTarget.Rival),
+             new PenaltyEffect(StatType.Def, 5, EffectTarget.Rival),
+             new PenaltyEffect(StatType.Res, 5, EffectTarget.Rival),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Atk),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Spd),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Def),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Res),
+             new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Atk),
+             new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Spd),
+             new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Def),
+             new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Res)
+             
+         });
+
+         return new Skill("Light and Dark", multiCondition, multiEffect);
+     }
+     
+     public static Skill CreateDragonskinSkill()
+     {
+         MultiCondition multiCondition = new MultiCondition(new ICondition[]
+         {
+             new OrCondition(
+                 new RivalBeginAsAttacker(),
+                 new RivalHpAboveThresholdCondition(0.75)
+             )
+         });
+
+         MultiEffect multiEffect = new MultiEffect(new IEffect[]
+         {
+             new BonusEffect(StatType.Atk, 6, EffectTarget.Unit),
+             new BonusEffect(StatType.Spd, 6, EffectTarget.Unit),
+             new BonusEffect(StatType.Def, 6, EffectTarget.Unit),
+             new BonusEffect(StatType.Res, 6, EffectTarget.Unit),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Atk),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Spd),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Def),
+             new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Res)
+         });
+
+         return new Skill("Dragonskin", multiCondition, multiEffect);
      }
 }

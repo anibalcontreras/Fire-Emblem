@@ -59,6 +59,8 @@ public class CombatManager
         ApplyNeutralizationBonusEffect(activator, opponent, effectsToApply);
         ApplyNeutralizationPenaltyBonus(activator, opponent, effectsToApply);
     }
+    
+    
 
     private static void ApplyNeutralizationPenaltyBonus(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
@@ -91,6 +93,7 @@ public class CombatManager
             effect.ApplyEffect(unit, unit == activator ? opponent : activator);
         }
     }
+    
 
     private static void CollectElegibleEffectsFromOpponentUnit(Unit activator, Unit opponent, 
         Combat combat, List<(Unit, IEffect)> effectsToApply)

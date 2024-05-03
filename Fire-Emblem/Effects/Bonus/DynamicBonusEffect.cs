@@ -8,7 +8,7 @@ public class DynamicBonusEffect : IEffect, IBonusEffect
     private readonly StatType _statToIncrease;
     private readonly int _maxAmount;
     public EffectTarget Target { get; private set; }
-    public StatType? StatType => _statToIncrease;
+    public StatType StatType => _statToIncrease;
     private int? _lastCalculatedAmount;
     public int? Amount => _lastCalculatedAmount;
 

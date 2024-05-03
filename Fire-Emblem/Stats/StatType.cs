@@ -5,6 +5,5 @@ public enum StatType
     Atk,
     Def,
     Spd,
-    Res,
-    HP
+    Res
 }

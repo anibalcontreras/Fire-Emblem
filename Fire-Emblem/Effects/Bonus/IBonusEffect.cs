@@ -5,7 +5,7 @@ namespace Fire_Emblem.Effects;
 
 public interface IBonusEffect
 {
-    StatType? StatType { get; }
+    StatType StatType { get; }
     int? Amount { get; }
     EffectTarget Target { get; }
     void ApplyEffect(Unit activator, Unit opponent);

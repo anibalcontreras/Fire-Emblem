@@ -9,7 +9,7 @@ public class BonusEffect : IEffect, IBonusEffect
     private readonly StatType _statToIncrease;
     private readonly int _amount;
     public EffectTarget Target { get; private set; }
-    public StatType? StatType => _statToIncrease;
+    public StatType StatType => _statToIncrease;
     public int? Amount => _amount;
     
     public BonusEffect(StatType statToIncrease, int amount, EffectTarget target)
