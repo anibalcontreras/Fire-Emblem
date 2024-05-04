@@ -514,7 +514,6 @@ public static class SkillBuilder
          {
              new BonusEffect(StatType.Def, 8, EffectTarget.Unit),
              new BonusEffect(StatType.Res, 8, EffectTarget.Unit),
-             // new NeutralizationBonusEffect(EffectTarget.Rival)
              new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Atk),
              new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Spd),
              new NeutralizationBonusEffect(EffectTarget.Rival, StatType.Def),
@@ -549,20 +548,17 @@ public static class SkillBuilder
      
      public static Skill CreateBeliefInLoveSkill()
      {
-         // Crear condiciones
          ICondition rivalInitiatesOrFullHp = new OrCondition(
              new RivalBeginAsAttacker(),
              new RivalHpThresholdCondition(1.0) // 100%
          );
-
-         // Crear efectos
+         
          MultiEffect effects = new MultiEffect(new IEffect[]
          {
              new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival),
              new PenaltyEffect(StatType.Def, 5, EffectTarget.Rival)
          });
-
-         // Crear y retornar la habilidad
+         
          return new Skill("Belief in Love", rivalInitiatesOrFullHp, effects);
      }
      
@@ -802,5 +798,19 @@ public static class SkillBuilder
          });
 
          return new Skill("Dragonskin", multiCondition, multiEffect);
+     }
+
+     public static Skill CreateIgnisSkill()
+     {
+         MultiCondition multiCondition = new MultiCondition(new ICondition[]
+         {
+             new TrueCondition()
+         });
+         MultiEffect multiEffect = new MultiEffect(new IEffect[]
+         {
+             new FirstAttackBonusEffect(StatType.Atk, 50, EffectTarget.Unit)
+         });
+         
+         return new Skill("Ignis", multiCondition, multiEffect);
      }
 }

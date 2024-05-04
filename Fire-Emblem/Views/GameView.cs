@@ -1,11 +1,10 @@
 using Fire_Emblem_View;
-using Fire_Emblem.Effects;
 using Fire_Emblem.Stats;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
 
-namespace Fire_Emblem;
+namespace Fire_Emblem.Views;
 
 public class GameView
 {
@@ -146,29 +145,6 @@ public class GameView
     {
         AnnouncePenaltyNeutralizationStat(unit);
     }
-
-    // public void AnnounceNeutralizationBonusEffect(Unit unit)
-    // {
-    //     if (unit.HasNeutralizationBonus)
-    //     {
-    //         _view.WriteLine($"Los bonus de Atk de {unit.Name} fueron neutralizados");
-    //         _view.WriteLine($"Los bonus de Spd de {unit.Name} fueron neutralizados");
-    //         _view.WriteLine($"Los bonus de Def de {unit.Name} fueron neutralizados");
-    //         _view.WriteLine($"Los bonus de Res de {unit.Name} fueron neutralizados");   
-    //     }
-    // }
-
-    // public void AnnounceNeutralizationPenaltyEffect(Unit unit)
-    // {
-    //     if (unit.HasNeutralizationPenalty)
-    //     {
-    //         _view.WriteLine($"Los penalty de Atk de {unit.Name} fueron neutralizados");
-    //         _view.WriteLine($"Los penalty de Spd de {unit.Name} fueron neutralizados");
-    //         _view.WriteLine($"Los penalty de Def de {unit.Name} fueron neutralizados");
-    //         _view.WriteLine($"Los penalty de Res de {unit.Name} fueron neutralizados");   
-    //     }
-    // }
-    
     
     private void AnnounceNeutralizationAtkPenaltyStat(Unit unit)
     {
@@ -215,6 +191,11 @@ public class GameView
         _view.WriteLine($"{unit.Name} obtiene Atk+{unit.AtkBonus}");
     }
 
+    private void AnnounceFirstAttackAtkBonusStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Atk+{unit.FirstAttackAtkBonus} en su primer ataque");
+    }
+
     private void AnnounceSpdBonusStat(Unit unit)
     {
         _view.WriteLine($"{unit.Name} obtiene Spd+{unit.SpdBonus}");
@@ -256,8 +237,9 @@ public class GameView
         if (unit.HasActiveBonus(StatType.Spd)) AnnounceSpdBonusStat(unit);
         if (unit.HasActiveBonus(StatType.Def)) AnnounceDefBonusStat(unit);
         if (unit.HasActiveBonus(StatType.Res)) AnnounceResBonusStat(unit);
+        // if (unit.HasActiveFirstAttackBonus(StatType.Atk)) AnnounceFirstAttackAtkBonusStat(unit);
     }
-
+    
     private void AnnounceIfPositivePenalty(Unit unit)
     {
         if (unit.HasActivePenalty(StatType.Atk)) AnnounceAtkPenaltyStat(unit);

@@ -12,51 +12,26 @@ public class Unit
     public string Name { get; set; }
     public string Gender { get; set; }
     public string DeathQuote { get; set; }
-    
     public int BaseHp { get; set; }
-    
     public int BaseAtk { get; set; }
     public int BaseSpd { get; set; }
     public int BaseDef { get; set; }
     public int BaseRes { get; set; }
-    
-    public int AtkBonus { get; private set; } = 0;
-    public int SpdBonus { get; private set; } = 0;
-    public int DefBonus { get; private set; } = 0;
-    public int ResBonus { get; private set; } = 0;
-    
-    private int AtkBonusNeutralization { get; set; } = 0;
-    private int SpdBonusNeutralization { get; set; } = 0;
-    private int DefBonusNeutralization { get; set; } = 0;
-    private int ResBonusNeutralization { get; set; } = 0;
-    
-    private int AtkPenaltyNeutralization { get; set; } = 0;
-    private int SpdPenaltyNeutralization { get; set; } = 0;
-    private int DefPenaltyNeutralization { get; set; } = 0;
-    private int ResPenaltyNeutralization { get; set; } = 0;
-    
-    
-    public int AtkPenalty { get; set; } = 0;
-    public int SpdPenalty { get; set; } = 0;
-    public int DefPenalty { get; set; } = 0;
-    public int ResPenalty { get; set; } = 0;
-    
-    
-    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - AtkBonusNeutralization + AtkPenaltyNeutralization;
-    public int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - SpdBonusNeutralization + SpdPenaltyNeutralization;
-    private int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization + DefPenaltyNeutralization;
-    private int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization + ResPenaltyNeutralization;
-    private int HpBonus { get; set; } = 0;
-    
-    
-    
     public Weapon Weapon { get; set; }
+       
+    private List<Skill> _skills = new List<Skill>();
+
+    public IEnumerable<Skill> Skills
+        => _skills.AsReadOnly();
+
+    public void AddSkill(Skill skill)
+        => _skills.Add(skill);
     
     private int _currentHP;
     
     public int CurrentHP
     {
-        get { return _currentHP + HpBonus; }
+        get { return _currentHP; }
         set { _currentHP = Math.Max(0, value); }
     }
     
@@ -64,6 +39,33 @@ public class Unit
     {
         _currentHP = BaseHp;
     }
+
+    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - AtkBonusNeutralization + AtkPenaltyNeutralization;
+    public int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - SpdBonusNeutralization + SpdPenaltyNeutralization;
+    private int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization + DefPenaltyNeutralization;
+    private int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization + ResPenaltyNeutralization;
+    
+    public int AtkBonus { get; private set; }
+    public int SpdBonus { get; private set; }
+    public int DefBonus { get; private set; }
+    public int ResBonus { get; private set; }
+    
+    private int AtkBonusNeutralization { get; set; }
+    private int SpdBonusNeutralization { get; set; }
+    private int DefBonusNeutralization { get; set; }
+    private int ResBonusNeutralization { get; set; }
+    
+    private int AtkPenaltyNeutralization { get; set; }
+    private int SpdPenaltyNeutralization { get; set; }
+    private int DefPenaltyNeutralization { get; set; }
+    private int ResPenaltyNeutralization { get; set; }
+    
+    
+    public int AtkPenalty { get; private set; }
+    public int SpdPenalty { get; private set; }
+    public int DefPenalty { get; private set; }
+    public int ResPenalty { get; private set; }
+    
     
     public void ApplyStatBonusEffect(StatType statType, int effectAmount)
     {
@@ -81,8 +83,18 @@ public class Unit
             case StatType.Res:
                 ResBonus += effectAmount;
                 break;
-            default:
-                throw new ArgumentException($"Stat '{statType}' is not recognized.");
+        }
+    }
+    
+    public int GetBaseStat(StatType statType)
+    {
+        switch (statType)
+        {
+            case StatType.Atk: return BaseAtk;
+            case StatType.Spd: return BaseSpd;
+            case StatType.Def: return BaseDef;
+            case StatType.Res: return BaseRes;
+            default: throw new ArgumentException($"Stat '{statType}' is not recognized.");
         }
     }
     
@@ -101,6 +113,25 @@ public class Unit
                 break;
             case StatType.Res:
                 ResPenalty += effectAmount;
+                break;
+        }
+    }
+    
+    public void ApplyFirstAttackStatBonusEffect(StatType statType, int effectAmount)
+    {
+        switch (statType)
+        {
+            case StatType.Atk:
+                FirstAttackAtkBonus += effectAmount;
+                break;
+            case StatType.Spd:
+                FirstAttackSpdBonus += effectAmount;
+                break;
+            case StatType.Def:
+                FirstAttackDefBonus += effectAmount;
+                break;
+            case StatType.Res:
+                FirstAttackResBonus += effectAmount;
                 break;
             default:
                 throw new ArgumentException($"Stat '{statType}' is not recognized.");
@@ -126,19 +157,76 @@ public class Unit
         DefPenaltyNeutralization = 0;
         ResPenaltyNeutralization = 0;
     }
-    
-    private List<Skill> _skills = new List<Skill>();
 
-    public IEnumerable<Skill> Skills
-        => _skills.AsReadOnly();
-
-    public void AddSkill(Skill skill)
-        => _skills.Add(skill);
+    public int FirstAttackAtkBonus { get; private set; } = 0;
+    private int FirstAttackSpdBonus { get; set; } = 0;
+    private int FirstAttackDefBonus { get; set; } = 0;
+    private int FirstAttackResBonus { get; set; } = 0;
     
-    public int CalculateDamage(Unit opponent)
+    private int FirstAttackAtkPenalty { get; set; } = 0;
+    private int FirstAttackSpdPenalty { get; set; } = 0;
+    private int FirstAttackDefPenalty { get; set; } = 0;
+    private int FirstAttackResPenalty { get; set; } = 0;
+    
+    
+    private int FollowUpAtkBonus { get; set; } = 0;
+    private int FollowUpSpdBonus { get; set; } = 0;
+    private int FollowUpDefBonus { get; set; } = 0;
+    private int FollowUpResBonus { get; set; } = 0;
+    
+    private int FollowUpAtkPenalty { get; set; } = 0;
+    private int FollowUpSpdPenalty { get; set; } = 0;
+    private int FollowUpDefPenalty { get; set; } = 0;
+    private int FollowUpResPenalty { get; set; } = 0;
+    
+    
+    
+    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty;
+    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty;
+    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty;
+    
+    private int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
+    private int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
+    private int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
+    
+
+    public int CalculateFirstAttackDamage(Unit opponent)
     {
-        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.CurrentRes) : Convert.ToInt32(opponent.CurrentDef);
-        double damage = (Convert.ToDouble(CurrentAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
+        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.FirstAttackRes) : Convert.ToInt32(opponent.FirstAttackDef);
+        double damage = (Convert.ToDouble(FirstAttackAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
+        opponent.CurrentHP -= (int)Math.Max(0, Math.Truncate(damage));
+        
+        return (int)Math.Max(0, Math.Truncate(damage));
+    }
+
+    public void ResetFirstAttackStats()
+    {
+        FirstAttackAtkBonus = 0;
+        FirstAttackSpdBonus = 0;
+        FirstAttackDefBonus = 0;
+        FirstAttackResBonus = 0;
+        FirstAttackAtkPenalty = 0;
+        FirstAttackSpdPenalty = 0;
+        FirstAttackDefPenalty = 0;
+        FirstAttackResPenalty = 0;
+    }
+    
+    public void ResetFollowUpStats()
+    {
+        FollowUpAtkBonus = 0;
+        FollowUpSpdBonus = 0;
+        FollowUpDefBonus = 0;
+        FollowUpResBonus = 0;
+        FollowUpAtkPenalty = 0;
+        FollowUpSpdPenalty = 0;
+        FollowUpDefPenalty = 0;
+        FollowUpResPenalty = 0;
+    }
+    
+    public int CalculateFollowUpDamage(Unit opponent)
+    {
+        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.FollowUpRes) : Convert.ToInt32(opponent.FollowUpDef);
+        double damage = (Convert.ToDouble(FollowUpAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
         opponent.CurrentHP -= (int)Math.Max(0, Math.Truncate(damage));
         
         return (int)Math.Max(0, Math.Truncate(damage));
@@ -172,6 +260,11 @@ public class Unit
     {
         return Effects.Any(effect => effect is IBonusEffect bonus && bonus.StatType == statType && bonus.Amount > 0);
     }
+    
+    // public bool HasActiveFirstAttackBonus(StatType statType)
+    // {
+    //     return Effects.Any(effect => effect is FirstAttackBonusEffect bonus && bonus.StatType == statType && bonus.Amount > 0);
+    // }
 
     public bool HasActivePenalty(StatType statType)
     {

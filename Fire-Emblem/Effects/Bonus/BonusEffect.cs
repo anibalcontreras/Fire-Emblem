@@ -1,5 +1,4 @@
 using Fire_Emblem.Stats;
-using Fire_Emblem.Teams;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;

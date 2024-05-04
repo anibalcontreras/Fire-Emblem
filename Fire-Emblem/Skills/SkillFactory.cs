@@ -132,6 +132,8 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateLightAndDarkSkill();
             case "Dragonskin":
                 return SkillBuilder.CreateDragonskinSkill();
+            case "Ignis":
+                return SkillBuilder.CreateIgnisSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }
