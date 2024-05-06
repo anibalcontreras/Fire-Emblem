@@ -847,4 +847,33 @@ public static class SkillBuilder
          
          return new Skill("Perceptive", perceptiveCondition, multiEffect);
      }
+
+     public static Skill CreateLunaSkill()
+     {
+         MultiCondition multiCondition = new MultiCondition(new ICondition[]
+         {
+             new TrueCondition()
+         });
+         MultiEffect multiEffect = new MultiEffect(new IEffect[]
+         {
+             new FirstAttackPenaltyEffect(StatType.Def, 50, EffectTarget.Rival),
+             new FirstAttackPenaltyEffect(StatType.Res, 50, EffectTarget.Rival)
+         });
+         
+         return new Skill("Ignis", multiCondition, multiEffect);
+     }
+    
+    // public static Skill CreateSoulbladeSkill()
+    // {
+    //     MultiCondition multiCondition = new MultiCondition(new ICondition[]
+    //     {
+    //         new UnitWeaponCondition("Sword")
+    //     });
+    //     MultiEffect multiEffect = new MultiEffect(new IEffect[]
+    //     {
+    //         new SoulbladeEffect(EffectTarget.Rival)
+    //     });
+    //     
+    //     return new Skill("Soulblade", multiCondition, multiEffect);
+    // }
 }

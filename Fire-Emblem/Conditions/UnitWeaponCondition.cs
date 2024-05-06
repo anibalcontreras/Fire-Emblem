@@ -16,3 +16,5 @@ public class UnitWeaponCondition : ICondition
         return activator.Weapon.Name == _requiredWeaponName;
     }
 }
+
+

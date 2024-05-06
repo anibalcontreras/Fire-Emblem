@@ -28,6 +28,7 @@ public class SkillManager
         ApplyBonusEffects(activator, opponent, effectsToApply);
         ApplyFirstAttackBonusEffects(activator, opponent, effectsToApply);
         ApplyPenaltyBonus(activator, opponent, effectsToApply);
+        ApplyFirstAttackPenaltyBonus(activator, opponent, effectsToApply);
         ApplyNeutralizationBonusEffect(activator, opponent, effectsToApply);
         ApplyNeutralizationPenaltyBonus(activator, opponent, effectsToApply);
     }
@@ -78,6 +79,14 @@ public class SkillManager
     private static void ApplyPenaltyBonus(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
         foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is PenaltyEffect))
+        {
+            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+        }
+    }
+    
+    private static void ApplyFirstAttackPenaltyBonus(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
+    {
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is FirstAttackPenaltyEffect))
         {
             effect.ApplyEffect(unit, unit == activator ? opponent : activator);
         }

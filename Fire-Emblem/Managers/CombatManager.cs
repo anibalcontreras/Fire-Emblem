@@ -74,7 +74,8 @@ public class CombatManager
     {
         combat.UpdateState(CombatState.UnitAttacks);
         int damage = combat.Attacker.CalculateFirstAttackDamage(combat.Defender);
-        combat.Attacker.ResetFirstAttackStats();
+        combat.Attacker.ResetFirstAttackBonusStats();
+        combat.Defender.ResetFirstAttackPenaltyStats();
         _gameView.AnnounceAttack(combat.Attacker, combat.Defender, damage);
     }
     
@@ -96,8 +97,9 @@ public class CombatManager
     {
         combat.UpdateState(CombatState.OpponentCounterattacks);
         int damage = combat.Defender.CalculateFirstAttackDamage(combat.Attacker);
+        combat.Defender.ResetFirstAttackBonusStats();
+        combat.Attacker.ResetFirstAttackPenaltyStats();
         _gameView.AnnounceCounterattack(combat.Defender, combat.Attacker, damage);
-        combat.Defender.ResetFirstAttackStats();
     }
     
     private void DeactivateSkills(Combat combat)

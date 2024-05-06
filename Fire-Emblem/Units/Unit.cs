@@ -131,14 +131,29 @@ public class Unit
             case StatType.Atk:
                 FirstAttackAtkBonus += effectAmount;
                 break;
-            case StatType.Spd:
-                FirstAttackSpdBonus += effectAmount;
-                break;
             case StatType.Def:
                 FirstAttackDefBonus += effectAmount;
                 break;
             case StatType.Res:
                 FirstAttackResBonus += effectAmount;
+                break;
+            default:
+                throw new ArgumentException($"Stat '{statType}' is not recognized.");
+        }
+    }
+    
+    public void ApplyFirstAttackStatPenaltyEffect(StatType statType, int effectAmount)
+    {
+        switch (statType)
+        {
+            case StatType.Atk:
+                FirstAttackAtkPenalty += effectAmount;
+                break;
+            case StatType.Def:
+                FirstAttackDefPenalty += effectAmount;
+                break;
+            case StatType.Res:
+                FirstAttackResPenalty += effectAmount;
                 break;
             default:
                 throw new ArgumentException($"Stat '{statType}' is not recognized.");
@@ -165,27 +180,22 @@ public class Unit
         ResPenaltyNeutralization = 0;
     }
 
-    public int FirstAttackAtkBonus { get; private set; } = 0;
-    private int FirstAttackSpdBonus { get; set; } = 0;
-    private int FirstAttackDefBonus { get; set; } = 0;
-    private int FirstAttackResBonus { get; set; } = 0;
+    public int FirstAttackAtkBonus { get; private set; }
+    public int FirstAttackDefBonus { get; private set; }
+    public int FirstAttackResBonus { get; private set; }
     
-    private int FirstAttackAtkPenalty { get; set; } = 0;
-    private int FirstAttackSpdPenalty { get; set; } = 0;
-    private int FirstAttackDefPenalty { get; set; } = 0;
-    private int FirstAttackResPenalty { get; set; } = 0;
+    public int FirstAttackAtkPenalty { get; private set; }
+    public int FirstAttackDefPenalty { get; private set; }
+    public int FirstAttackResPenalty { get; private set; }
     
     
-    private int FollowUpAtkBonus { get; set; } = 0;
-    private int FollowUpSpdBonus { get; set; } = 0;
-    private int FollowUpDefBonus { get; set; } = 0;
-    private int FollowUpResBonus { get; set; } = 0;
+    private int FollowUpAtkBonus { get; set; }
+    private int FollowUpDefBonus { get; set; }
+    private int FollowUpResBonus { get; set; }
     
-    private int FollowUpAtkPenalty { get; set; } = 0;
-    private int FollowUpSpdPenalty { get; set; } = 0;
-    private int FollowUpDefPenalty { get; set; } = 0;
-    private int FollowUpResPenalty { get; set; } = 0;
-    
+    private int FollowUpAtkPenalty { get; set; }
+    private int FollowUpDefPenalty { get; set; }
+    private int FollowUpResPenalty { get; set; }
     
     
     private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty;
@@ -206,14 +216,16 @@ public class Unit
         return (int)Math.Max(0, Math.Truncate(damage));
     }
 
-    public void ResetFirstAttackStats()
+    public void ResetFirstAttackBonusStats()
     {
         FirstAttackAtkBonus = 0;
-        FirstAttackSpdBonus = 0;
         FirstAttackDefBonus = 0;
         FirstAttackResBonus = 0;
+        
+    }
+    public void ResetFirstAttackPenaltyStats()
+    {
         FirstAttackAtkPenalty = 0;
-        FirstAttackSpdPenalty = 0;
         FirstAttackDefPenalty = 0;
         FirstAttackResPenalty = 0;
     }
@@ -221,11 +233,9 @@ public class Unit
     public void ResetFollowUpStats()
     {
         FollowUpAtkBonus = 0;
-        FollowUpSpdBonus = 0;
         FollowUpDefBonus = 0;
         FollowUpResBonus = 0;
         FollowUpAtkPenalty = 0;
-        FollowUpSpdPenalty = 0;
         FollowUpDefPenalty = 0;
         FollowUpResPenalty = 0;
     }
@@ -268,10 +278,15 @@ public class Unit
         return Effects.Any(effect => effect is IBonusEffect bonus && bonus.StatType == statType && bonus.Amount > 0);
     }
     
-    // public bool HasActiveFirstAttackBonus(StatType statType)
-    // {
-    //     return Effects.Any(effect => effect is FirstAttackBonusEffect bonus && bonus.StatType == statType && bonus.Amount > 0);
-    // }
+    public bool HasActiveFirstAttackBonus(StatType statType)
+    {
+        return Effects.Any(effect => effect is FirstAttackBonusEffect bonus && bonus.StatType == statType && bonus.Amount > 0);
+    }
+    
+    public bool HasActiveFirstAttackPenalty(StatType statType)
+    {
+        return Effects.Any(effect => effect is FirstAttackPenaltyEffect penalty && penalty.StatType == statType && penalty.Amount > 0);
+    }
 
     public bool HasActivePenalty(StatType statType)
     {

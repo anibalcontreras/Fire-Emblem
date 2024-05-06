@@ -3,11 +3,11 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
-public class FirstAttackBonusEffect : IEffect, IBonusEffect
+public class FirstAttackBonusEffect : IEffect
 {
     private readonly StatType _statToIncrease;
     private readonly int _percentage;
-    public EffectTarget Target { get; private set; }
+    public EffectTarget Target { get; }
 
     private int? _calculatedBonusAmount;
     

@@ -120,20 +120,24 @@ public class GameView
     public void AnnounceAttackerBonusStat(Unit unit)
     {
         AnnounceIfPositiveBonus(unit);
+        AnnounceIfPositiveFirstAttackBonus(unit);
     }
     
     public void AnnounceDefenderBonusEffects(Unit rival)
     {
         AnnounceIfPositiveBonus(rival);
+        AnnounceIfPositiveFirstAttackBonus(rival);
     }
     
     public void AnnounceAttackerPenaltyStat(Unit unit)
     {
         AnnounceIfPositivePenalty(unit);
+        AnnounceIfPositiveFirstAttackPenalty(unit);
     }
     public void AnnounceDefenderPenaltyEffects(Unit rival)
     {
         AnnounceIfPositivePenalty(rival);
+        AnnounceIfPositiveFirstAttackPenalty(rival);
     }
     
     public void AnnounceNeutralizationBonusEffect(Unit unit)
@@ -195,6 +199,31 @@ public class GameView
     {
         _view.WriteLine($"{unit.Name} obtiene Atk+{unit.FirstAttackAtkBonus} en su primer ataque");
     }
+    
+    private void AnnounceFirstAttackDefBonusStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Def+{unit.FirstAttackDefBonus} en su primer ataque");
+    }
+    
+    private void AnnounceFirstAttackResBonusStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Res+{unit.FirstAttackResBonus} en su primer ataque");
+    }
+    
+    private void AnnounceFirstAttackAtkPenaltyStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Atk-{unit.FirstAttackAtkPenalty} en su primer ataque");
+    }
+    
+    private void AnnounceFirstAttackDefPenaltyStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Def-{unit.FirstAttackDefPenalty} en su primer ataque");
+    }
+    
+    private void AnnounceFirstAttackResPenaltyStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Res-{unit.FirstAttackResPenalty} en su primer ataque");
+    }
 
     private void AnnounceSpdBonusStat(Unit unit)
     {
@@ -237,7 +266,13 @@ public class GameView
         if (unit.HasActiveBonus(StatType.Spd)) AnnounceSpdBonusStat(unit);
         if (unit.HasActiveBonus(StatType.Def)) AnnounceDefBonusStat(unit);
         if (unit.HasActiveBonus(StatType.Res)) AnnounceResBonusStat(unit);
-        // if (unit.HasActiveFirstAttackBonus(StatType.Atk)) AnnounceFirstAttackAtkBonusStat(unit);
+    }
+    
+    private void AnnounceIfPositiveFirstAttackBonus(Unit unit)
+    {
+        if (unit.HasActiveFirstAttackBonus(StatType.Atk)) AnnounceFirstAttackAtkBonusStat(unit);
+        if (unit.HasActiveFirstAttackBonus(StatType.Def)) AnnounceFirstAttackDefBonusStat(unit);
+        if (unit.HasActiveFirstAttackBonus(StatType.Res)) AnnounceFirstAttackResBonusStat(unit);
     }
     
     private void AnnounceIfPositivePenalty(Unit unit)
@@ -246,6 +281,13 @@ public class GameView
         if (unit.HasActivePenalty(StatType.Spd)) AnnounceSpdPenaltyStat(unit);
         if (unit.HasActivePenalty(StatType.Def)) AnnounceDefPenaltyStat(unit);
         if (unit.HasActivePenalty(StatType.Res)) AnnounceResPenaltyStat(unit);
+    }
+    
+    private void AnnounceIfPositiveFirstAttackPenalty(Unit unit)
+    {
+        if (unit.HasActiveFirstAttackPenalty(StatType.Atk)) AnnounceFirstAttackAtkPenaltyStat(unit);
+        if (unit.HasActiveFirstAttackPenalty(StatType.Def)) AnnounceFirstAttackDefPenaltyStat(unit);
+        if (unit.HasActiveFirstAttackPenalty(StatType.Res)) AnnounceFirstAttackResPenaltyStat(unit);
     }
 
     private void AnnounceBonusNeutralizationStat(Unit unit)
@@ -263,5 +305,4 @@ public class GameView
         if (unit.HasActiveNeutralizationPenalty(StatType.Def)) AnnounceNeutralizationDefPenaltyStat(unit);
         if (unit.HasActiveNeutralizationPenalty(StatType.Res)) AnnounceNeutralizationResPenaltyStat(unit);
     }
-    
 }
