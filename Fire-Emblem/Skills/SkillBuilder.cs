@@ -813,4 +813,38 @@ public static class SkillBuilder
          
          return new Skill("Ignis", multiCondition, multiEffect);
      }
+
+     public static Skill CreateSingleMindedSkill()
+     {
+         ICondition singleMindedCondition = new RivalIsLastOpponentFaced();
+         MultiEffect multiEffect = new MultiEffect(new IEffect[]
+         {
+             new BonusEffect(StatType.Atk, 8, EffectTarget.Unit),
+         });
+
+         return new Skill("Single Minded", singleMindedCondition, multiEffect);
+     }
+
+     public static Skill CreateCharmerSkill()
+     {
+         ICondition charmerCondition = new RivalIsLastOpponentFaced();
+         MultiEffect multiEffect = new MultiEffect(new IEffect[]
+         {
+             new PenaltyEffect(StatType.Atk, 3, EffectTarget.Rival),
+             new PenaltyEffect(StatType.Spd, 3, EffectTarget.Rival)
+         });
+         
+         return new Skill("Charmer", charmerCondition, multiEffect);
+     }
+     
+     public static Skill CreatePerceptiveSkill()
+     {
+         ICondition perceptiveCondition = new UnitBeginAsAttackerCondition();
+         MultiEffect multiEffect = new MultiEffect(new IEffect[]
+         {
+             new PerceptiveEffect(EffectTarget.Unit)
+         });
+         
+         return new Skill("Perceptive", perceptiveCondition, multiEffect);
+     }
 }

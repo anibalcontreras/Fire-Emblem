@@ -106,6 +106,8 @@ public class CombatManager
         combat.Defender.ResetStatBonuses();
         combat.Attacker.ClearActiveEffects();
         combat.Defender.ClearActiveEffects();
+        combat.Attacker.SetLastUnitFaced(combat.Defender);
+        combat.Defender.SetLastUnitFaced(combat.Attacker);
     }
     
     private void HandleFollowUp(Combat combat)

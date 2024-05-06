@@ -27,6 +27,13 @@ public class Unit
     public void AddSkill(Skill skill)
         => _skills.Add(skill);
     
+    public Unit LastUnitFaced { get; private set; }
+    
+    public void SetLastUnitFaced(Unit unit)
+    {
+        LastUnitFaced = unit;
+    }
+    
     private int _currentHP;
     
     public int CurrentHP
