@@ -197,10 +197,18 @@ public class Unit
     private int FollowUpDefPenalty { get; set; }
     private int FollowUpResPenalty { get; set; }
     
+    private int FirstAttackAtkBonusNeutralization { get; set; }
+    private int FirstAttackDefBonusNeutralization { get; set; }
+    private int FirstAttackResBonusNeutralization { get; set; }
     
-    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty;
-    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty;
-    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty;
+    private int FirstAttackAtkPenaltyNeutralization { get; set; }
+    private int FirstAttackDefPenaltyNeutralization { get; set; }
+    private int FirstAttackResPenaltyNeutralization { get; set; }
+    
+    
+    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
+    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
+    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
     
     private int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
     private int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
@@ -221,13 +229,18 @@ public class Unit
         FirstAttackAtkBonus = 0;
         FirstAttackDefBonus = 0;
         FirstAttackResBonus = 0;
-        
+        FirstAttackAtkBonusNeutralization = 0;
+        FirstAttackDefBonusNeutralization = 0;
+        FirstAttackResBonusNeutralization = 0;
     }
     public void ResetFirstAttackPenaltyStats()
     {
         FirstAttackAtkPenalty = 0;
         FirstAttackDefPenalty = 0;
         FirstAttackResPenalty = 0;
+        FirstAttackAtkPenaltyNeutralization = 0;
+        FirstAttackDefPenaltyNeutralization = 0;
+        FirstAttackResPenaltyNeutralization = 0;
     }
     
     public void ResetFollowUpStats()
@@ -299,15 +312,18 @@ public class Unit
         {
             case StatType.Atk:
                 AtkBonusNeutralization = AtkBonus;
+                FirstAttackAtkBonusNeutralization = FirstAttackAtkBonus;
                 break;
             case StatType.Spd:
                 SpdBonusNeutralization = SpdBonus;
                 break;
             case StatType.Def:
                 DefBonusNeutralization = DefBonus;
+                FirstAttackDefBonusNeutralization = FirstAttackDefBonus;
                 break;
             case StatType.Res:
                 ResBonusNeutralization = ResBonus;
+                FirstAttackResBonusNeutralization = FirstAttackResBonus;
                 break;
         }
     }
@@ -318,15 +334,18 @@ public class Unit
         {
             case StatType.Atk:
                 AtkPenaltyNeutralization = AtkPenalty;
+                FirstAttackAtkPenaltyNeutralization = FirstAttackAtkPenalty;
                 break;
             case StatType.Spd:
                 SpdPenaltyNeutralization = SpdPenalty;
                 break;
             case StatType.Def:
                 DefPenaltyNeutralization = DefPenalty;
+                FirstAttackDefPenaltyNeutralization = FirstAttackDefPenalty;
                 break;
             case StatType.Res:
                 ResPenaltyNeutralization = ResPenalty;
+                FirstAttackResPenaltyNeutralization = FirstAttackResPenalty;
                 break;
         }
     }

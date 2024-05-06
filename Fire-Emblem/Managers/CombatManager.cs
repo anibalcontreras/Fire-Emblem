@@ -106,6 +106,10 @@ public class CombatManager
     {
         combat.Attacker.ResetStatBonuses();
         combat.Defender.ResetStatBonuses();
+        combat.Attacker.ResetFirstAttackBonusStats();
+        combat.Defender.ResetFirstAttackBonusStats();
+        combat.Attacker.ResetFirstAttackPenaltyStats();
+        combat.Defender.ResetFirstAttackPenaltyStats();
         combat.Attacker.ClearActiveEffects();
         combat.Defender.ClearActiveEffects();
         combat.Attacker.SetLastUnitFaced(combat.Defender);
