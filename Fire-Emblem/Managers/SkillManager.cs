@@ -1,4 +1,5 @@
 using Fire_Emblem.Effects;
+using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Units;
 using Fire_Emblem.Views;
@@ -25,6 +26,7 @@ public class SkillManager
         List<(Unit, IEffect)> effectsToApply = new List<(Unit, IEffect)>();
         CollectElegibleEffectsFromActiveUnit(activator, opponent, combat, effectsToApply);
         CollectElegibleEffectsFromOpponentUnit(activator, opponent, combat, effectsToApply);
+        ApplyAlterBaseStatEffects(activator, opponent, effectsToApply);
         ApplyBonusEffects(activator, opponent, effectsToApply);
         ApplyFirstAttackBonusEffects(activator, opponent, effectsToApply);
         ApplyPenaltyBonus(activator, opponent, effectsToApply);
@@ -58,6 +60,14 @@ public class SkillManager
                     effectsToApply.Add((opponent, effect));
                 }
             }
+        }
+    }
+    
+    private static void ApplyAlterBaseStatEffects(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
+    {
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is AlterBaseStatEffect))
+        {
+            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
         }
     }
     private static void ApplyBonusEffects(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)

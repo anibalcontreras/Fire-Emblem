@@ -1,6 +1,7 @@
 using Fire_Emblem.Conditions;
 using Fire_Emblem.Conditions.LogicalConditions;
 using Fire_Emblem.Effects;
+using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Stats;
 
@@ -8,6 +9,16 @@ namespace Fire_Emblem.Skills;
 
 public static class SkillBuilder
 {
+    public static Skill CreateHPPlus15Skill()
+    {
+        ICondition condition = new HasUnitActivatedTheStatAbility();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new AlterBaseStatEffect(StatType.HP, 15, EffectTarget.Unit)
+        });
+        
+        return new Skill("HP +15", condition, effects);
+    }
     
     public static Skill CreateWrathSkill()
     {

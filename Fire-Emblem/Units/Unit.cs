@@ -33,6 +33,13 @@ public class Unit
     {
         LastUnitFaced = unit;
     }
+
+    public bool HasActivatedAlterStatBase { get; private set; } = false;
+    
+    public void SetActivatedAlterStatBase()
+    {
+        HasActivatedAlterStatBase = true;
+    }
     
     private int _currentHP;
     
@@ -89,6 +96,9 @@ public class Unit
                 break;
             case StatType.Res:
                 ResBonus += effectAmount;
+                break;
+            case StatType.HP:
+                _currentHP += effectAmount;
                 break;
         }
     }

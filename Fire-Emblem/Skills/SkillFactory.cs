@@ -144,6 +144,8 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateLunaSkill();
             // case "Soulblade":
             //     return SkillBuilder.CreateSoulbladeSkill();
+            case "HP +15":
+                return SkillBuilder.CreateHPPlus15Skill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

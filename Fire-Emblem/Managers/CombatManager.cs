@@ -4,7 +4,6 @@ using Fire_Emblem.Views;
 using Fire_Emblem.Weapons;
 
 namespace Fire_Emblem;
-
 public class CombatManager
 {
     private readonly GameView _gameView;
