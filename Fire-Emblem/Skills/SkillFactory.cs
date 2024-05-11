@@ -142,10 +142,12 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreatePerceptiveSkill();
             case "Luna":
                 return SkillBuilder.CreateLunaSkill();
-            // case "Soulblade":
-            //     return SkillBuilder.CreateSoulbladeSkill();
             case "HP +15":
                 return SkillBuilder.CreateHPPlus15Skill();
+            // case "Soulblade":
+            //     return SkillBuilder.CreateSoulbladeSkill();
+            // case "Sandstorm":
+            //     return SkillBuilder.CreateSandstormSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }
