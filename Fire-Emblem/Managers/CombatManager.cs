@@ -103,8 +103,8 @@ public class CombatManager
     
     private void DeactivateSkills(Combat combat)
     {
-        combat.Attacker.ResetStatBonuses();
-        combat.Defender.ResetStatBonuses();
+        combat.Attacker.ResetEffects();
+        combat.Defender.ResetEffects();
         combat.Attacker.ResetFirstAttackBonusStats();
         combat.Defender.ResetFirstAttackBonusStats();
         combat.Attacker.ResetFirstAttackPenaltyStats();

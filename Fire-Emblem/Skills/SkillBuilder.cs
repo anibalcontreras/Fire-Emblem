@@ -2,6 +2,8 @@ using Fire_Emblem.Conditions;
 using Fire_Emblem.Conditions.LogicalConditions;
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
+using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
+using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Stats;
 
@@ -915,5 +917,112 @@ public static class SkillBuilder
         });
 
         return new Skill("Ignis", multiCondition, multiEffect);
+    }
+
+    public static Skill CreateBraverySkill()
+    {
+        ICondition condition = new TrueCondition();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new ExtraDamageEffect(5, EffectTarget.Unit)
+        });
+        
+        return new Skill("Bravery", condition, effects);
+    }
+
+    public static Skill CreateGentilitySkill()
+    {
+        ICondition condition = new TrueCondition();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new AbsoluteDamageReductionEffect(5, EffectTarget.Unit)
+        });
+        
+        return new Skill("Gentility", condition, effects);
+    }
+    
+    private static Skill CreateWeaponGuardSkill(string weaponType)
+    {
+        ICondition condition = new RivalWeaponCondition(weaponType);
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new AbsoluteDamageReductionEffect(5, EffectTarget.Unit)
+        });
+        
+        return new Skill("Weapon Guard", condition, effects);
+    }
+    
+    public static Skill CreateBowGuardSkill()
+    {
+        return CreateWeaponGuardSkill("Bow");
+    }
+    
+    public static Skill CreateAxeGuardSkill()
+    {
+        return CreateWeaponGuardSkill("Axe");
+    }
+    
+    public static Skill CreateLanceGuardSkill()
+    {
+        return CreateWeaponGuardSkill("Lance");
+    }
+    
+    public static Skill CreateMagicGuardSkill()
+    {
+        return CreateWeaponGuardSkill("Magic");
+    }
+    
+    public static Skill CreateArmsShieldSkill()
+    {
+        ICondition condition = new UnitWeaponAdvantageCondition();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new AbsoluteDamageReductionEffect(7, EffectTarget.Unit)
+        });
+        
+        return new Skill("Arms Shield", condition, effects);
+    }
+
+    public static Skill CreateSympatheticSkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new RivalBeginAsAttacker(),
+            new UnitHpThresholdCondition(0.5)
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new AbsoluteDamageReductionEffect(5, EffectTarget.Unit)
+        });
+        
+        return new Skill("Sympathetic", multiCondition, multiEffect);
+    }
+
+    public static Skill CreateBlueSkiesSkill()
+    {
+        ICondition condition = new TrueCondition();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new AbsoluteDamageReductionEffect(5, EffectTarget.Unit),
+            new ExtraDamageEffect(5, EffectTarget.Unit)
+        });
+        
+        return new Skill("Blue Skies", condition, effects);
+    }
+
+    public static Skill CreateChivalrySkill()
+    {
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new UnitBeginAsAttackerCondition(),
+            new RivalHpThresholdCondition(1)
+        });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new ExtraDamageEffect(2, EffectTarget.Unit),
+            new AbsoluteDamageReductionEffect(2, EffectTarget.Unit)
+        });
+        
+        return new Skill("Chivalry", multiCondition, multiEffect);
     }
 }

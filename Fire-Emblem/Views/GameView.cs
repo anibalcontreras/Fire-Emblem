@@ -149,6 +149,17 @@ public class GameView
     {
         AnnouncePenaltyNeutralizationStat(unit);
     }
+
+    public void AnnounceExtraDamage(Unit unit)
+    {
+        AnnounceExtraDamageEffect(unit);
+    }
+    
+    public void AnnounceAbsoluteDamageReduction(Unit unit)
+    {
+        AnnounceAbsoluteDamageReductionEffect(unit);
+    }
+    
     
     private void AnnounceNeutralizationAtkPenaltyStat(Unit unit)
     {
@@ -304,5 +315,35 @@ public class GameView
         if (unit.HasActiveNeutralizationPenalty(StatType.Spd)) AnnounceNeutralizationSpdPenaltyStat(unit);
         if (unit.HasActiveNeutralizationPenalty(StatType.Def)) AnnounceNeutralizationDefPenaltyStat(unit);
         if (unit.HasActiveNeutralizationPenalty(StatType.Res)) AnnounceNeutralizationResPenaltyStat(unit);
+    }
+    
+    private void AnnnounceExtraDamageInEachAttack(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
+    }
+    
+    private void AnnounceExtraDamageInFirstAttack(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en su primer ataque");
+    }
+    
+    private void AnnounceExtraDamageInFollowUpAttack(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en su Follow-Up");
+    }
+    
+    private void AnnounceExtraDamageEffect(Unit unit)
+    {
+        if (unit.HasActiveExtraDamageEffect()) AnnnounceExtraDamageInEachAttack(unit);
+    }
+    
+    private void AnnounceAbsoluteDamageReductionEffect(Unit unit)
+    {
+        if (unit.HasActiveAbsoluteDamageReductionEffect()) AnnounceAbsoluteDamageReductionInEachAttack(unit);
+    }
+    
+    private void AnnounceAbsoluteDamageReductionInEachAttack(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} recibirá -{unit.AbsoluteDamageReduction} daño en cada ataque");
     }
 }

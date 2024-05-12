@@ -1,4 +1,6 @@
 using Fire_Emblem.Effects;
+using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
+using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Skills;
 using Fire_Emblem.Stats;
@@ -170,7 +172,7 @@ public class Unit
         }
     }
     
-    public void ResetStatBonuses()
+    public void ResetEffects()
     {
         AtkBonus = 0;
         SpdBonus = 0;
@@ -188,6 +190,8 @@ public class Unit
         SpdPenaltyNeutralization = 0;
         DefPenaltyNeutralization = 0;
         ResPenaltyNeutralization = 0;
+        ExtraDamage = 0;
+        AbsoluteDamageReduction = 0;
     }
 
     public int FirstAttackAtkBonus { get; private set; }
@@ -225,14 +229,7 @@ public class Unit
     private int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
     
 
-    public int CalculateFirstAttackDamage(Unit opponent)
-    {
-        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.FirstAttackRes) : Convert.ToInt32(opponent.FirstAttackDef);
-        double damage = (Convert.ToDouble(FirstAttackAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
-        opponent.CurrentHP -= (int)Math.Max(0, Math.Truncate(damage));
-        
-        return (int)Math.Max(0, Math.Truncate(damage));
-    }
+    
 
     public void ResetFirstAttackBonusStats()
     {
@@ -263,14 +260,6 @@ public class Unit
         FollowUpResPenalty = 0;
     }
     
-    public int CalculateFollowUpDamage(Unit opponent)
-    {
-        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.FollowUpRes) : Convert.ToInt32(opponent.FollowUpDef);
-        double damage = (Convert.ToDouble(FollowUpAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
-        opponent.CurrentHP -= (int)Math.Max(0, Math.Truncate(damage));
-        
-        return (int)Math.Max(0, Math.Truncate(damage));
-    }
     
     private List<IEffect> _effects = new List<IEffect>();
 
@@ -284,6 +273,16 @@ public class Unit
     public void ClearActiveEffects()
     {
         _effects.Clear();
+    }
+    
+    public bool HasActiveExtraDamageEffect()
+    {
+        return Effects.Any(effect => effect is ExtraDamageEffect);
+    }
+    
+    public bool HasActiveAbsoluteDamageReductionEffect()
+    {
+        return Effects.Any(effect => effect is AbsoluteDamageReductionEffect);
     }
     
     public bool HasActiveNeutralizationPenalty(StatType statType)
@@ -358,5 +357,44 @@ public class Unit
                 FirstAttackResPenaltyNeutralization = FirstAttackResPenalty;
                 break;
         }
+    }
+    
+    public int ExtraDamage { get; private set; }
+    
+    public void ApplyExtraDamageEffect(int amount)
+    {
+        ExtraDamage += amount;
+    }
+    
+    private double _damage;
+    
+    public int AbsoluteDamageReduction { get; private set; }
+    
+    public void ApplyAbsoluteDamageReductionEffect(int amount)
+    {
+        AbsoluteDamageReduction += amount;
+    }
+    
+    
+    public int CalculateFirstAttackDamage(Unit opponent)
+    {
+        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.FirstAttackRes) : Convert.ToInt32(opponent.FirstAttackDef);
+        _damage = (Convert.ToDouble(FirstAttackAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
+        int damageAfterExtra = (int)Math.Max(0, Math.Truncate(_damage) + ExtraDamage);
+        int finalDamage = Math.Max(0, damageAfterExtra - opponent.AbsoluteDamageReduction);
+        opponent.CurrentHP -= finalDamage;
+        
+        return finalDamage;
+    }
+    
+    public int CalculateFollowUpDamage(Unit opponent)
+    {
+        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.FollowUpRes) : Convert.ToInt32(opponent.FollowUpDef);
+        _damage = (Convert.ToDouble(FollowUpAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
+        int damageAfterExtra = (int)Math.Max(0, Math.Truncate(_damage) + ExtraDamage);
+        int finalDamage = Math.Max(0, damageAfterExtra - opponent.AbsoluteDamageReduction);
+        opponent.CurrentHP -= finalDamage;
+    
+        return finalDamage;
     }
 }

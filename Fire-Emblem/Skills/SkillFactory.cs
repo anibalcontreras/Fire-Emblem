@@ -148,6 +148,26 @@ public class SkillFactory : ISkillFactory
             //     return SkillBuilder.CreateSoulbladeSkill();
             // case "Sandstorm":
             //     return SkillBuilder.CreateSandstormSkill();
+            case "Bravery":
+                return SkillBuilder.CreateBraverySkill();
+            case "Gentility":
+                return SkillBuilder.CreateGentilitySkill();
+            case "Bow Guard":
+                return SkillBuilder.CreateBowGuardSkill();
+            case "Axe Guard":
+                return SkillBuilder.CreateAxeGuardSkill();
+            case "Magic Guard":
+                return SkillBuilder.CreateMagicGuardSkill();
+            case "Lance Guard":
+                return SkillBuilder.CreateLanceGuardSkill();
+            case "Arms Shield":
+                return SkillBuilder.CreateArmsShieldSkill();
+            case "Sympathetic":
+                return SkillBuilder.CreateSympatheticSkill();
+            case "Blue Skies":
+                return SkillBuilder.CreateBlueSkiesSkill();
+            case "Chivalry":
+                return SkillBuilder.CreateChivalrySkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }
