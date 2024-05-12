@@ -15,9 +15,5 @@ public class HpComparisonCondition : ICondition
     {
         return activator.CurrentHP >= opponent.CurrentHP + _hpDifference;
     }
-
-    public ICondition Clone()
-    {
-        return new HpComparisonCondition(_hpDifference);
-    }
+    
 }

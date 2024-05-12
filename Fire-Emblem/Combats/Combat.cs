@@ -19,7 +19,7 @@ public class Combat
         Attacker = attacker;
         Defender = defender;
     }
-
+    
     public void UpdateState(CombatState newState)
     {
         State = newState;

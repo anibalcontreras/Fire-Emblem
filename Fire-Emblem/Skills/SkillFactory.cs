@@ -1,7 +1,3 @@
-using Fire_Emblem.Conditions;
-using Fire_Emblem.Effects;
-using Fire_Emblem.Stats;
-
 namespace Fire_Emblem.Skills;
 
 public class SkillFactory : ISkillFactory
@@ -70,8 +66,6 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateEarthBoostSkill();
             case "Water Boost":
                 return SkillBuilder.CreateWaterBoostSkill();
-            case "Wrath":
-                return SkillBuilder.CreateWrathSkill();
             case "Stunning Smile":
                 return SkillBuilder.CreateStunningSmileSkill();
             case "Disarming Sigh":
@@ -110,8 +104,50 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateWillToWinSkill();
             case "Resolve":
                 return SkillBuilder.CreateResolveSkill();
+            case "Beorc's Blessing":
+                return SkillBuilder.CreateBeorcsBlessingSkill();
+            case "Agnea's Arrow":
+                return SkillBuilder.CreateAgneasArrowSkill();
             case "Belief in Love":
                 return SkillBuilder.CreateBeliefInLoveSkill();
+            case "Close Def":
+                return SkillBuilder.CreateCloseDefSkill();
+            case "Distant Def":
+                return SkillBuilder.CreateDistantDefSkill();
+            case "Wrath":
+                return SkillBuilder.CreateWrathSkill();
+            case "Lull Atk/Spd":
+                return SkillBuilder.CreateLullAtkSpdSkill();
+            case "Lull Atk/Def":
+                return SkillBuilder.CreateLullAtkDefSkill();
+            case "Lull Atk/Res":
+                return SkillBuilder.CreateLullAtkResSkill();
+            case "Lull Spd/Def":
+                return SkillBuilder.CreateLullSpdDefSkill();
+            case "Lull Spd/Res":
+                return SkillBuilder.CreateLullSpdResSkill();
+            case "Lull Def/Res":
+                return SkillBuilder.CreateLullDefResSkill();
+            case "Light and Dark":
+                return SkillBuilder.CreateLightAndDarkSkill();
+            case "Dragonskin":
+                return SkillBuilder.CreateDragonskinSkill();
+            case "Ignis":
+                return SkillBuilder.CreateIgnisSkill();
+            case "Single-Minded":
+                return SkillBuilder.CreateSingleMindedSkill();
+            case "Charmer":
+                return SkillBuilder.CreateCharmerSkill();
+            case "Perceptive":
+                return SkillBuilder.CreatePerceptiveSkill();
+            case "Luna":
+                return SkillBuilder.CreateLunaSkill();
+            case "HP +15":
+                return SkillBuilder.CreateHPPlus15Skill();
+            // case "Soulblade":
+            //     return SkillBuilder.CreateSoulbladeSkill();
+            // case "Sandstorm":
+            //     return SkillBuilder.CreateSandstormSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

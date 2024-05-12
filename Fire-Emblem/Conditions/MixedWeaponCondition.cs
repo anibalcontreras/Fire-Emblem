@@ -23,9 +23,4 @@ public class MixedWeaponCondition : ICondition
 
         return (activatorUsingPhysical && opponentUsingMagical) || (activatorUsingMagical && opponentUsingPhysical);
     }
-
-    public ICondition Clone()
-    {
-        return new MixedWeaponCondition(_physicalWeapons, _magicWeapons);
-    }
 }

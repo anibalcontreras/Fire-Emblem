@@ -1,9 +1,12 @@
+using Fire_Emblem.Stats;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
 public interface IEffect
 {
-    void ApplyEffect(GameView view, Unit activator, Unit opponent);
-    IEffect Clone();
+    EffectTarget Target { get; }
+    StatType StatType { get; }
+    int? Amount { get; }
+    void ApplyEffect(Unit activator, Unit opponent);
 }

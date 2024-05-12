@@ -15,10 +15,6 @@ public class UnitWeaponCondition : ICondition
     {
         return activator.Weapon.Name == _requiredWeaponName;
     }
-
-
-    public ICondition Clone()
-    {
-        return new UnitWeaponCondition(_requiredWeaponName);
-    }
 }
+
+

@@ -13,9 +13,4 @@ public class RivalIsManCondition: ICondition
         }
         return false;
     }
-    
-    public ICondition Clone()
-    {
-        return new RivalIsManCondition();
-    }
 }
