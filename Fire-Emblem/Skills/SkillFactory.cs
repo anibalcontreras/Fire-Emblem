@@ -199,7 +199,13 @@ public class SkillFactory : ISkillFactory
             case "Golden Lotus":
                 return SkillBuilder.CreateGoldenLotusSkill();
             case "Dragon Wall":
-                return SkillBuilder.CreateDragonWall();
+                return SkillBuilder.CreateDragonWallSkill();
+            case "Dodge":
+                return SkillBuilder.CreateDodgeSkill();
+            case "Back at You":
+                return SkillBuilder.CreateBackAtYouSkill();
+            case "Lunar Brace":
+                return SkillBuilder.CreateLunarBraceSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

@@ -334,7 +334,8 @@ public class GameView
     
     private void AnnounceExtraDamageInEachAttack(Unit unit)
     {
-        _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
+        // Esto está feo
+        if (unit.ExtraDamage > 0)_view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
     }
     
     private void AnnounceExtraDamageInFirstAttack(Unit unit)

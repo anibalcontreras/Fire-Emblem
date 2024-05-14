@@ -223,7 +223,7 @@ public class Unit
     
     public bool HasActiveExtraDamageEffect()
     {
-        return Effects.Any(effect => effect is ExtraDamageEffect);
+        return Effects.Any(effect => effect is IExtraDamageEffect); 
     }
 
     public bool HasActiveAbsoluteDamageReductionEffect()
@@ -326,7 +326,6 @@ public class Unit
     {
         ExtraDamage += amount;
     }
-    
     
     public int AbsoluteDamageReduction { get; private set; }
     

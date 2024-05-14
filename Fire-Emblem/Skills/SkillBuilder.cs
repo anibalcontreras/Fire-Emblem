@@ -1078,18 +1078,7 @@ public static class SkillBuilder
         
         return new Skill("Remote Blow", condition, effects);
     }
-
-    // public static Skill CreateFierceStance()
-    // {
-    //     ICondition condition = new RivalBeginAsAttacker();
-    //     MultiEffect effects = new MultiEffect(new IEffect[]
-    //     {
-    //         new BonusEffect(StatType.Atk, 8, EffectTarget.Unit),
-    //         new FollowUpPercentageDamageReductionEffect(0.1, EffectTarget.Unit)
-    //     });
-    //     
-    //     return new Skill("Fierce Stance", condition, effects);
-    // }
+    
     private static Skill CreateStanceSkill(string skillName, StatType[] stats, int[] statValues, double damageReduction)
     {
         ICondition condition = new RivalBeginAsAttacker();
@@ -1169,7 +1158,7 @@ public static class SkillBuilder
         return new Skill("Golden Lotus", condition, effects);
     }
 
-    public static Skill CreateDragonWall()
+    public static Skill CreateDragonWallSkill()
     {
         ICondition condition = new StatComparisionCondition(StatType.Res);
         
@@ -1180,5 +1169,44 @@ public static class SkillBuilder
         
         return new Skill("Dragon Wall", condition, effects);
     }
+
+    public static Skill CreateDodgeSkill()
+    {
+        ICondition condition = new StatComparisionCondition(StatType.Spd);
+        
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new PercentageDamageReductionEffect(StatType.Spd, StatType.Spd, EffectTarget.Unit)
+        });
+        
+        return new Skill("Dodge", condition, effects);
+    }
     
+    public static Skill CreateLunarBraceSkill()
+    {
+        
+        MultiCondition multiCondition = new MultiCondition(new ICondition[]
+        {
+            new NotCondition(new UnitWeaponCondition("Magic")),
+            new UnitBeginAsAttackerCondition()
+        });
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new LunarBraceEffect(0.3, StatType.Def, EffectTarget.Unit),
+        });
+    
+        return new Skill("Lunar Brace", multiCondition, effects);
+    }
+
+    public static Skill CreateBackAtYouSkill()
+    {
+        ICondition condition = new RivalBeginAsAttacker();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new BackAtYouEffect(EffectTarget.Unit)
+        });
+    
+        return new Skill("Back at You", condition, effects);
+    }
+
 }
