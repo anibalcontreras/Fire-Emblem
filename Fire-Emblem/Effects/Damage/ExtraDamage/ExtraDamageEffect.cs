@@ -2,7 +2,7 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.ExtraDamage;
 
-public class ExtraDamageEffect : IEffect
+public class ExtraDamageEffect : IEffect, IExtraDamageEffect
 {
     private readonly int _amount;
     private EffectTarget Target { get; }

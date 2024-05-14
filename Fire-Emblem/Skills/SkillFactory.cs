@@ -168,6 +168,34 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateBlueSkiesSkill();
             case "Chivalry":
                 return SkillBuilder.CreateChivalrySkill();
+            case "Aegis Shield":
+                return SkillBuilder.CreateAegisShieldSkill();
+            case "Remote Sparrow":
+                return SkillBuilder.CreateRemoteSparrowSkill();
+            case "Remote Mirror":
+                return SkillBuilder.CreateRemoteMirrorSkill();
+            case "Remote Sturdy":
+                return SkillBuilder.CreateRemoteSturdySkill();
+            case "Fierce Stance":
+                return SkillBuilder.CreateFierceStanceSkill();
+            case "Darting Stance":
+                return SkillBuilder.CreateDartingStanceSkill();
+            case "Steady Stance":
+                return SkillBuilder.CreateSteadyStanceSkill();
+            case "Warding Stance":
+                return SkillBuilder.CreateWardingStanceSkill();
+            case "Kestrel Stance":
+                return SkillBuilder.CreateKestrelStanceSkill();
+            case "Sturdy Stance":
+                return SkillBuilder.CreateSturdyStanceSkill();
+            case "Mirror Stance":
+                return SkillBuilder.CreateMirrorStanceSkill();
+            case "Swift Stance":
+                return SkillBuilder.CreateSwiftStanceSkill();
+            case "Bracing Stance":
+                return SkillBuilder.CreateBracingStanceSkill();
+            case "Steady Posture":
+                return SkillBuilder.CreateSteadyPostureSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

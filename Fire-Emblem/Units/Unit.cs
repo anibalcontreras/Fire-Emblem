@@ -1,6 +1,7 @@
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
+using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Skills;
 using Fire_Emblem.Stats;
@@ -191,7 +192,9 @@ public class Unit
         DefPenaltyNeutralization = 0;
         ResPenaltyNeutralization = 0;
         ExtraDamage = 0;
-        AbsoluteDamageReduction = 0;
+        DamageReduction = 0;
+        FirstAttackDamageReduction = 0;
+        FollowUpDamageReduction = 0;
     }
 
     public int FirstAttackAtkBonus { get; private set; }
@@ -227,10 +230,8 @@ public class Unit
     private int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
     private int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
     private int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
-    
 
     
-
     public void ResetFirstAttackBonusStats()
     {
         FirstAttackAtkBonus = 0;
@@ -279,12 +280,22 @@ public class Unit
     {
         return Effects.Any(effect => effect is ExtraDamageEffect);
     }
-    
+
     public bool HasActiveAbsoluteDamageReductionEffect()
     {
         return Effects.Any(effect => effect is AbsoluteDamageReductionEffect);
     }
     
+    public bool HasActiveFollowUpPercentageDamageReductionEffect()
+    {
+        return Effects.Any(effect => effect is FollowUpPercentageDamageReductionEffect);
+    }
+    
+    public bool HasActiveFirstAttackPercentageDamageReductionEffect()
+    {
+        return Effects.Any(effect => effect is FirstAttackPercentageDamageReductionEffect);
+    }
+
     public bool HasActiveNeutralizationPenalty(StatType statType)
     {
         return Effects.Any(effect => effect is NeutralizationPenaltyEffect penalty && penalty.StatType == statType);
@@ -368,33 +379,77 @@ public class Unit
     
     private double _damage;
     
-    public int AbsoluteDamageReduction { get; private set; }
+    public int DamageReduction { get; private set; }
+    public double FirstAttackDamageReduction { get; private set; }
+    public double FollowUpDamageReduction { get; private set; }
     
     public void ApplyAbsoluteDamageReductionEffect(int amount)
     {
-        AbsoluteDamageReduction += amount;
+        DamageReduction += amount;
     }
     
+    public void ApplyFirstAttackPercentageDamageReductionEffect(double percentage)
+    {
+        FirstAttackDamageReduction += percentage;
+    }
     
+    public void ApplyFollowUpPercentageDamageReductionEffect(double percentage)
+    {
+        FollowUpDamageReduction += percentage;
+    }
     public int CalculateFirstAttackDamage(Unit opponent)
     {
-        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.FirstAttackRes) : Convert.ToInt32(opponent.FirstAttackDef);
-        _damage = (Convert.ToDouble(FirstAttackAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
-        int damageAfterExtra = (int)Math.Max(0, Math.Truncate(_damage) + ExtraDamage);
-        int finalDamage = Math.Max(0, damageAfterExtra - opponent.AbsoluteDamageReduction);
-        opponent.CurrentHP -= finalDamage;
-        
-        return finalDamage;
+        int defenseValue = CalculateDefenseValue(opponent, isFollowUp: false);
+        double initialDamage = CalculateInitialDamage(defenseValue, FirstAttackAtk, opponent);
+        int damageAfterExtra = ApplyExtraDamage(initialDamage);
+        double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, opponent.FirstAttackDamageReduction);
+        double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.DamageReduction);
+        return UpdateOpponentHpAndReturnFinalDamage(opponent, finalDamage);
     }
-    
+
     public int CalculateFollowUpDamage(Unit opponent)
     {
-        int defenseValue = Weapon is Magic ? Convert.ToInt32(opponent.FollowUpRes) : Convert.ToInt32(opponent.FollowUpDef);
-        _damage = (Convert.ToDouble(FollowUpAtk) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
-        int damageAfterExtra = (int)Math.Max(0, Math.Truncate(_damage) + ExtraDamage);
-        int finalDamage = Math.Max(0, damageAfterExtra - opponent.AbsoluteDamageReduction);
-        opponent.CurrentHP -= finalDamage;
-    
-        return finalDamage;
+        int defenseValue = CalculateDefenseValue(opponent, isFollowUp: true);
+        double initialDamage = CalculateInitialDamage(defenseValue, FollowUpAtk, opponent);
+        int damageAfterExtra = ApplyExtraDamage(initialDamage);
+        double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, opponent.FollowUpDamageReduction);
+        double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.DamageReduction);
+        return UpdateOpponentHpAndReturnFinalDamage(opponent, finalDamage);
+    }
+
+    private int CalculateDefenseValue(Unit opponent, bool isFollowUp)
+    {
+        return Weapon is Magic
+            ? Convert.ToInt32(isFollowUp ? opponent.FollowUpRes : opponent.FirstAttackRes)
+            : Convert.ToInt32(isFollowUp ? opponent.FollowUpDef : opponent.FirstAttackDef);
+    }
+
+    private double CalculateInitialDamage(int defenseValue, int attackValue, Unit opponent)
+    {
+        return (Convert.ToDouble(attackValue) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
+    }
+
+    private int ApplyExtraDamage(double initialDamage)
+    {
+        return (int)Math.Max(0, Math.Truncate(initialDamage) + ExtraDamage);
+    }
+
+    private double ApplyPercentageDamageReduction(int damage, double percentageReduction)
+    {
+        double reductionFactor = 1 - percentageReduction;
+        double reducedDamage = damage * reductionFactor;
+        return Math.Round(reducedDamage, 9);
+    }
+
+    private double ApplyAbsoluteDamageReduction(double damage, int damageReduction)
+    {
+        return Math.Max(0, damage - damageReduction);
+    }
+
+    private int UpdateOpponentHpAndReturnFinalDamage(Unit opponent, double finalDamage)
+    {
+        int finalDamageInt = Convert.ToInt32(Math.Truncate(finalDamage));
+        opponent.CurrentHP -= finalDamageInt;
+        return finalDamageInt;
     }
 }

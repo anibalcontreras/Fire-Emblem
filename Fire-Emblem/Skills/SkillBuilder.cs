@@ -4,6 +4,7 @@ using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
+using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Stats;
 
@@ -1025,4 +1026,135 @@ public static class SkillBuilder
         
         return new Skill("Chivalry", multiCondition, multiEffect);
     }
+    
+    public static Skill CreateAegisShieldSkill()
+    {
+        ICondition condition = new TrueCondition();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Def, 6, EffectTarget.Unit),
+            new BonusEffect(StatType.Res, 3, EffectTarget.Unit),
+            new FirstAttackPercentageDamageReductionEffect(0.5, EffectTarget.Unit)
+        });
+        
+        return new Skill("Aegis Shield", condition, effects);
+    }
+
+    public static Skill CreateRemoteSparrowSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 7, EffectTarget.Unit),
+            new BonusEffect(StatType.Spd, 7, EffectTarget.Unit),
+            new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit)
+        });
+        
+        return new Skill("Remote Sparrow", condition, effects);
+    }
+
+    public static Skill CreateRemoteMirrorSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 7, EffectTarget.Unit),
+            new BonusEffect(StatType.Res, 10, EffectTarget.Unit),
+            new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit)
+        });
+        
+        return new Skill("Remote Mirror", condition, effects);
+    }
+    
+    public static Skill CreateRemoteSturdySkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new BonusEffect(StatType.Atk, 7, EffectTarget.Unit),
+            new BonusEffect(StatType.Def, 10, EffectTarget.Unit),
+            new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit)
+        });
+        
+        return new Skill("Remote Blow", condition, effects);
+    }
+
+    // public static Skill CreateFierceStance()
+    // {
+    //     ICondition condition = new RivalBeginAsAttacker();
+    //     MultiEffect effects = new MultiEffect(new IEffect[]
+    //     {
+    //         new BonusEffect(StatType.Atk, 8, EffectTarget.Unit),
+    //         new FollowUpPercentageDamageReductionEffect(0.1, EffectTarget.Unit)
+    //     });
+    //     
+    //     return new Skill("Fierce Stance", condition, effects);
+    // }
+    private static Skill CreateStanceSkill(string skillName, StatType[] stats, int[] statValues, double damageReduction)
+    {
+        ICondition condition = new RivalBeginAsAttacker();
+        List<IEffect> effects = new List<IEffect>();
+
+        for (int i = 0; i < stats.Length; i++)
+        {
+            effects.Add(new BonusEffect(stats[i], statValues[i], EffectTarget.Unit));
+        }
+    
+        effects.Add(new FollowUpPercentageDamageReductionEffect(damageReduction, EffectTarget.Unit));
+
+        MultiEffect multiEffect = new MultiEffect(effects.ToArray());
+
+        return new Skill(skillName, condition, multiEffect);
+    }
+    
+    public static Skill CreateFierceStanceSkill()
+    {
+        return CreateStanceSkill("Fierce Stance", new StatType[] { StatType.Atk }, new int[] { 8 }, 0.1);
+    }
+
+    public static Skill CreateDartingStanceSkill()
+    {
+        return CreateStanceSkill("Darting Stance", new StatType[] { StatType.Spd }, new int[] { 8 }, 0.1);
+    }
+
+    public static Skill CreateSteadyStanceSkill()
+    {
+        return CreateStanceSkill("Steady Stance", new StatType[] { StatType.Def }, new int[] { 8 }, 0.1);
+    }
+
+    public static Skill CreateWardingStanceSkill()
+    {
+        return CreateStanceSkill("Warding Stance", new StatType[] { StatType.Res }, new int[] { 8 }, 0.1);
+    }
+
+    public static Skill CreateKestrelStanceSkill()
+    {
+        return CreateStanceSkill("Kestrel Stance", new StatType[] { StatType.Atk, StatType.Spd }, new int[] { 6, 6 }, 0.1);
+    }
+
+    public static Skill CreateSturdyStanceSkill()
+    {
+        return CreateStanceSkill("Sturdy Stance", new StatType[] { StatType.Atk, StatType.Def }, new int[] { 6, 6 }, 0.1);
+    }
+
+    public static Skill CreateMirrorStanceSkill()
+    {
+        return CreateStanceSkill("Mirror Stance", new StatType[] { StatType.Atk, StatType.Res }, new int[] { 6, 6 }, 0.1);
+    }
+
+    public static Skill CreateSteadyPostureSkill()
+    {
+        return CreateStanceSkill("Steady Posture", new StatType[] { StatType.Spd, StatType.Def }, new int[] { 6, 6 }, 0.1);
+    }
+
+    public static Skill CreateSwiftStanceSkill()
+    {
+        return CreateStanceSkill("Swift Stance", new StatType[] { StatType.Spd, StatType.Res }, new int[] { 6, 6 }, 0.1);
+    }
+
+    public static Skill CreateBracingStanceSkill()
+    {
+        return CreateStanceSkill("Bracing Stance", new StatType[] { StatType.Def, StatType.Res }, new int[] { 6, 6 }, 0.1);
+    }
+    
 }

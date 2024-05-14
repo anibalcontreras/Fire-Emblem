@@ -2,6 +2,7 @@ using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
+using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Units;
 using Fire_Emblem.Views;
@@ -36,7 +37,9 @@ public class SkillManager
         ApplyNeutralizationBonusEffect(activator, opponent, effectsToApply);
         ApplyNeutralizationPenaltyBonus(activator, opponent, effectsToApply);
         ApplyExtraDamage(activator, opponent, effectsToApply);
+        ApplyPercentageDamageReduction(activator, opponent, effectsToApply);
         ApplyAbsoluteDamageReduction(activator, opponent, effectsToApply);
+        ApplyFollowUpPercentageDamageReduction(activator, opponent, effectsToApply);
     }
     private static void CollectElegibleEffectsFromActiveUnit(Unit activator, Unit opponent, Combat combat,
         List<(Unit, IEffect)> effectsToApply)
@@ -124,7 +127,7 @@ public class SkillManager
     
     private static void ApplyExtraDamage(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is ExtraDamageEffect))
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is IExtraDamageEffect))
         {
             effect.ApplyEffect(unit, unit == activator ? opponent : activator);
         }
@@ -138,6 +141,22 @@ public class SkillManager
         }
     }
     
+    private static void ApplyPercentageDamageReduction(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
+    {
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is FirstAttackPercentageDamageReductionEffect))
+        {
+            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+        }
+    }
+    
+    private static void ApplyFollowUpPercentageDamageReduction(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
+    {
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is FollowUpPercentageDamageReductionEffect))
+        {
+            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+        }
+    }
+    
     private void AnnounceEffects(Combat combat)
     {
         _gameView.AnnounceAttackerBonusStat(combat.Attacker);
@@ -145,12 +164,16 @@ public class SkillManager
         _gameView.AnnounceNeutralizationBonusEffect(combat.Attacker);
         _gameView.AnnounceNeutralizationPenaltyEffect(combat.Attacker);
         _gameView.AnnounceExtraDamage(combat.Attacker);
+        _gameView.AnnounceFirstAttackPercentageReduction(combat.Attacker);
+        _gameView.AnnounceFollowUpPercentageReduction(combat.Attacker);
         _gameView.AnnounceAbsoluteDamageReduction(combat.Attacker);
         _gameView.AnnounceDefenderBonusEffects(combat.Defender);
         _gameView.AnnounceDefenderPenaltyEffects(combat.Defender);
         _gameView.AnnounceNeutralizationBonusEffect(combat.Defender);
         _gameView.AnnounceNeutralizationPenaltyEffect(combat.Defender);
         _gameView.AnnounceExtraDamage(combat.Defender);
+        _gameView.AnnounceFirstAttackPercentageReduction(combat.Defender);
+        _gameView.AnnounceFollowUpPercentageReduction(combat.Defender);
         _gameView.AnnounceAbsoluteDamageReduction(combat.Defender);
     }
 }
