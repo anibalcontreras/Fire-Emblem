@@ -196,6 +196,10 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateBracingStanceSkill();
             case "Steady Posture":
                 return SkillBuilder.CreateSteadyPostureSkill();
+            case "Golden Lotus":
+                return SkillBuilder.CreateGoldenLotusSkill();
+            case "Dragon Wall":
+                return SkillBuilder.CreateDragonWall();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

@@ -160,6 +160,11 @@ public class GameView
         AnnounceAbsoluteDamageReductionEffect(unit);
     }
     
+    public void AnnounceEachAttackPercentageReduction(Unit unit)
+    {
+        AnnounceEachAttackPercentageReductionEffect(unit);
+    }
+    
     public void AnnounceFirstAttackPercentageReduction(Unit unit)
     {
         AnnounceFirstAttackPercentageReductionEffect(unit);
@@ -327,7 +332,7 @@ public class GameView
         if (unit.HasActiveNeutralizationPenalty(StatType.Res)) AnnounceNeutralizationResPenaltyStat(unit);
     }
     
-    private void AnnnounceExtraDamageInEachAttack(Unit unit)
+    private void AnnounceExtraDamageInEachAttack(Unit unit)
     {
         _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
     }
@@ -344,7 +349,7 @@ public class GameView
     
     private void AnnounceExtraDamageEffect(Unit unit)
     {
-        if (unit.HasActiveExtraDamageEffect()) AnnnounceExtraDamageInEachAttack(unit);
+        if (unit.HasActiveExtraDamageEffect()) AnnounceExtraDamageInEachAttack(unit);
     }
     
     private void AnnounceAbsoluteDamageReductionEffect(Unit unit)
@@ -354,7 +359,7 @@ public class GameView
     
     private void AnnounceAbsoluteDamageReductionInEachAttack(Unit unit)
     {
-        _view.WriteLine($"{unit.Name} recibirá -{unit.DamageReduction} daño en cada ataque");
+        _view.WriteLine($"{unit.Name} recibirá -{unit.AbsoluteDamageReduction} daño en cada ataque");
     }
 
     private void AnnounceFirstAttackPercentageReductionEffect(Unit unit)
@@ -367,13 +372,23 @@ public class GameView
         if (unit.HasActiveFollowUpPercentageDamageReductionEffect()) AnnounceFollowUpPercentageDamageReduction(unit);
     }
     
+    private void AnnounceEachAttackPercentageReductionEffect(Unit unit)
+    {
+        if (unit.HasActivePercentageDamageReductionEffect()) AnnounceEachAttackPercentageDamageReduction(unit);
+    }
+    
+    private void AnnounceEachAttackPercentageDamageReduction(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} reducirá el daño de los ataques del rival en un {Convert.ToInt32(Math.Floor(unit.PercentageDamageReduction * 100))}%");
+    }
+    
     private void AnnounceFirstAttackPercentageDamageReduction(Unit unit)
     {
-        _view.WriteLine($"{unit.Name} reducirá el daño del primer ataque del rival en un {unit.FirstAttackDamageReduction * 100}%");
+        _view.WriteLine($"{unit.Name} reducirá el daño del primer ataque del rival en un {Convert.ToInt32(Math.Floor(unit.FirstAttackPercentageDamageReduction * 100))}%");
     }
     
     private void AnnounceFollowUpPercentageDamageReduction(Unit unit)
     {
-        _view.WriteLine($"{unit.Name} reducirá el daño del Follow-Up del rival en un {unit.FollowUpDamageReduction * 100}%");
+        _view.WriteLine($"{unit.Name} reducirá el daño del Follow-Up del rival en un {Convert.ToInt32(Math.Floor(unit.FollowUpPercentageDamageReduction * 100))}%");
     }
 }

@@ -10,7 +10,6 @@ public class FirstAttackPercentageDamageReductionEffect : IEffect
 
     public FirstAttackPercentageDamageReductionEffect(double percentage, EffectTarget target)
     {
-        // _statType = statType;
         Target = target;
         _percentage = percentage;
     }

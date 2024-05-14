@@ -1156,5 +1156,29 @@ public static class SkillBuilder
     {
         return CreateStanceSkill("Bracing Stance", new StatType[] { StatType.Def, StatType.Res }, new int[] { 6, 6 }, 0.1);
     }
+
+    public static Skill CreateGoldenLotusSkill()
+    {
+        ICondition condition = new NotCondition(new RivalWeaponCondition("Magic"));
+        
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new FirstAttackPercentageDamageReductionEffect(0.5, EffectTarget.Unit)
+        });
+        
+        return new Skill("Golden Lotus", condition, effects);
+    }
+
+    public static Skill CreateDragonWall()
+    {
+        ICondition condition = new StatComparisionCondition(StatType.Res);
+        
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new PercentageDamageReductionEffect(StatType.Res, StatType.Res, EffectTarget.Unit)
+        });
+        
+        return new Skill("Dragon Wall", condition, effects);
+    }
     
 }

@@ -57,10 +57,10 @@ public class Unit
         _currentHP = BaseHp;
     }
 
-    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - AtkBonusNeutralization + AtkPenaltyNeutralization;
+    public int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - AtkBonusNeutralization + AtkPenaltyNeutralization;
     public int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - SpdBonusNeutralization + SpdPenaltyNeutralization;
-    private int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization + DefPenaltyNeutralization;
-    private int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization + ResPenaltyNeutralization;
+    public int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization + DefPenaltyNeutralization;
+    public int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization + ResPenaltyNeutralization;
     
     public int AtkBonus { get; private set; }
     public int SpdBonus { get; private set; }
@@ -173,30 +173,6 @@ public class Unit
         }
     }
     
-    public void ResetEffects()
-    {
-        AtkBonus = 0;
-        SpdBonus = 0;
-        DefBonus = 0;
-        ResBonus = 0;
-        AtkPenalty = 0;
-        SpdPenalty = 0;
-        DefPenalty = 0;
-        ResPenalty = 0;
-        AtkBonusNeutralization = 0;
-        SpdBonusNeutralization = 0;
-        DefBonusNeutralization = 0;
-        ResBonusNeutralization = 0;
-        AtkPenaltyNeutralization = 0;
-        SpdPenaltyNeutralization = 0;
-        DefPenaltyNeutralization = 0;
-        ResPenaltyNeutralization = 0;
-        ExtraDamage = 0;
-        DamageReduction = 0;
-        FirstAttackDamageReduction = 0;
-        FollowUpDamageReduction = 0;
-    }
-
     public int FirstAttackAtkBonus { get; private set; }
     public int FirstAttackDefBonus { get; private set; }
     public int FirstAttackResBonus { get; private set; }
@@ -230,37 +206,6 @@ public class Unit
     private int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
     private int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
     private int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
-
-    
-    public void ResetFirstAttackBonusStats()
-    {
-        FirstAttackAtkBonus = 0;
-        FirstAttackDefBonus = 0;
-        FirstAttackResBonus = 0;
-        FirstAttackAtkBonusNeutralization = 0;
-        FirstAttackDefBonusNeutralization = 0;
-        FirstAttackResBonusNeutralization = 0;
-    }
-    public void ResetFirstAttackPenaltyStats()
-    {
-        FirstAttackAtkPenalty = 0;
-        FirstAttackDefPenalty = 0;
-        FirstAttackResPenalty = 0;
-        FirstAttackAtkPenaltyNeutralization = 0;
-        FirstAttackDefPenaltyNeutralization = 0;
-        FirstAttackResPenaltyNeutralization = 0;
-    }
-    
-    public void ResetFollowUpStats()
-    {
-        FollowUpAtkBonus = 0;
-        FollowUpDefBonus = 0;
-        FollowUpResBonus = 0;
-        FollowUpAtkPenalty = 0;
-        FollowUpDefPenalty = 0;
-        FollowUpResPenalty = 0;
-    }
-    
     
     private List<IEffect> _effects = new List<IEffect>();
 
@@ -286,16 +231,21 @@ public class Unit
         return Effects.Any(effect => effect is AbsoluteDamageReductionEffect);
     }
     
-    public bool HasActiveFollowUpPercentageDamageReductionEffect()
+    public bool HasActivePercentageDamageReductionEffect()
     {
-        return Effects.Any(effect => effect is FollowUpPercentageDamageReductionEffect);
+        return Effects.Any(effect => effect is PercentageDamageReductionEffect);
     }
     
     public bool HasActiveFirstAttackPercentageDamageReductionEffect()
     {
         return Effects.Any(effect => effect is FirstAttackPercentageDamageReductionEffect);
     }
-
+    
+    public bool HasActiveFollowUpPercentageDamageReductionEffect()
+    {
+        return Effects.Any(effect => effect is FollowUpPercentageDamageReductionEffect);
+    }
+    
     public bool HasActiveNeutralizationPenalty(StatType statType)
     {
         return Effects.Any(effect => effect is NeutralizationPenaltyEffect penalty && penalty.StatType == statType);
@@ -377,33 +327,41 @@ public class Unit
         ExtraDamage += amount;
     }
     
-    private double _damage;
     
-    public int DamageReduction { get; private set; }
-    public double FirstAttackDamageReduction { get; private set; }
-    public double FollowUpDamageReduction { get; private set; }
+    public int AbsoluteDamageReduction { get; private set; }
+    
+    public double PercentageDamageReduction { get; private set; }
+    
+    public double FirstAttackPercentageDamageReduction { get; private set; }
+    public double FollowUpPercentageDamageReduction { get; private set; }
+    
+    public void ApplyPercentageDamageReductionEffect(double percentage)
+    {
+        PercentageDamageReduction += percentage;
+    }
     
     public void ApplyAbsoluteDamageReductionEffect(int amount)
     {
-        DamageReduction += amount;
+        AbsoluteDamageReduction += amount;
     }
     
     public void ApplyFirstAttackPercentageDamageReductionEffect(double percentage)
     {
-        FirstAttackDamageReduction += percentage;
+        FirstAttackPercentageDamageReduction += percentage;
     }
     
     public void ApplyFollowUpPercentageDamageReductionEffect(double percentage)
     {
-        FollowUpDamageReduction += percentage;
+        FollowUpPercentageDamageReduction += percentage;
     }
     public int CalculateFirstAttackDamage(Unit opponent)
     {
         int defenseValue = CalculateDefenseValue(opponent, isFollowUp: false);
         double initialDamage = CalculateInitialDamage(defenseValue, FirstAttackAtk, opponent);
         int damageAfterExtra = ApplyExtraDamage(initialDamage);
-        double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, opponent.FirstAttackDamageReduction);
-        double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.DamageReduction);
+        double totalPercentageReduction = 1 - ((1 - opponent.PercentageDamageReduction) * (1 - opponent.FirstAttackPercentageDamageReduction));
+        double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
+        double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.AbsoluteDamageReduction);
         return UpdateOpponentHpAndReturnFinalDamage(opponent, finalDamage);
     }
 
@@ -412,8 +370,9 @@ public class Unit
         int defenseValue = CalculateDefenseValue(opponent, isFollowUp: true);
         double initialDamage = CalculateInitialDamage(defenseValue, FollowUpAtk, opponent);
         int damageAfterExtra = ApplyExtraDamage(initialDamage);
-        double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, opponent.FollowUpDamageReduction);
-        double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.DamageReduction);
+        double totalPercentageReduction = 1 - ((1 - opponent.PercentageDamageReduction) * (1 - opponent.FollowUpPercentageDamageReduction));
+        double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
+        double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.AbsoluteDamageReduction);
         return UpdateOpponentHpAndReturnFinalDamage(opponent, finalDamage);
     }
 
@@ -438,7 +397,8 @@ public class Unit
     {
         double reductionFactor = 1 - percentageReduction;
         double reducedDamage = damage * reductionFactor;
-        return Math.Round(reducedDamage, 9);
+        reducedDamage = Math.Round(reducedDamage, 9);
+        return reducedDamage;
     }
 
     private double ApplyAbsoluteDamageReduction(double damage, int damageReduction)
@@ -448,8 +408,67 @@ public class Unit
 
     private int UpdateOpponentHpAndReturnFinalDamage(Unit opponent, double finalDamage)
     {
-        int finalDamageInt = Convert.ToInt32(Math.Truncate(finalDamage));
+        int finalDamageInt = Convert.ToInt32(Math.Floor(finalDamage));
         opponent.CurrentHP -= finalDamageInt;
+        return FinalDamageInt(finalDamageInt);
+    }
+
+    private static int FinalDamageInt(int finalDamageInt)
+    {
         return finalDamageInt;
+    }
+    
+    public void ResetEffects()
+    {
+        AtkBonus = 0;
+        SpdBonus = 0;
+        DefBonus = 0;
+        ResBonus = 0;
+        AtkPenalty = 0;
+        SpdPenalty = 0;
+        DefPenalty = 0;
+        ResPenalty = 0;
+        AtkBonusNeutralization = 0;
+        SpdBonusNeutralization = 0;
+        DefBonusNeutralization = 0;
+        ResBonusNeutralization = 0;
+        AtkPenaltyNeutralization = 0;
+        SpdPenaltyNeutralization = 0;
+        DefPenaltyNeutralization = 0;
+        ResPenaltyNeutralization = 0;
+        ExtraDamage = 0;
+        AbsoluteDamageReduction = 0;
+        PercentageDamageReduction = 0;
+        FirstAttackPercentageDamageReduction = 0;
+        FollowUpPercentageDamageReduction = 0;
+    }
+    
+    public void ResetFirstAttackBonusStats()
+    {
+        FirstAttackAtkBonus = 0;
+        FirstAttackDefBonus = 0;
+        FirstAttackResBonus = 0;
+        FirstAttackAtkBonusNeutralization = 0;
+        FirstAttackDefBonusNeutralization = 0;
+        FirstAttackResBonusNeutralization = 0;
+    }
+    public void ResetFirstAttackPenaltyStats()
+    {
+        FirstAttackAtkPenalty = 0;
+        FirstAttackDefPenalty = 0;
+        FirstAttackResPenalty = 0;
+        FirstAttackAtkPenaltyNeutralization = 0;
+        FirstAttackDefPenaltyNeutralization = 0;
+        FirstAttackResPenaltyNeutralization = 0;
+    }
+    
+    public void ResetFollowUpStats()
+    {
+        FollowUpAtkBonus = 0;
+        FollowUpDefBonus = 0;
+        FollowUpResBonus = 0;
+        FollowUpAtkPenalty = 0;
+        FollowUpDefPenalty = 0;
+        FollowUpResPenalty = 0;
     }
 }
