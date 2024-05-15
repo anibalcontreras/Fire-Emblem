@@ -83,6 +83,40 @@ public class Unit
     public int DefPenalty { get; private set; }
     public int ResPenalty { get; private set; }
     
+    public int FirstAttackAtkBonus { get; private set; }
+    public int FirstAttackDefBonus { get; private set; }
+    public int FirstAttackResBonus { get; private set; }
+    
+    public int FirstAttackAtkPenalty { get; private set; }
+    public int FirstAttackDefPenalty { get; private set; }
+    public int FirstAttackResPenalty { get; private set; }
+    
+    
+    private int FollowUpAtkBonus { get; set; }
+    private int FollowUpDefBonus { get; set; }
+    private int FollowUpResBonus { get; set; }
+    
+    private int FollowUpAtkPenalty { get; set; }
+    private int FollowUpDefPenalty { get; set; }
+    private int FollowUpResPenalty { get; set; }
+    
+    private int FirstAttackAtkBonusNeutralization { get; set; }
+    private int FirstAttackDefBonusNeutralization { get; set; }
+    private int FirstAttackResBonusNeutralization { get; set; }
+    
+    private int FirstAttackAtkPenaltyNeutralization { get; set; }
+    private int FirstAttackDefPenaltyNeutralization { get; set; }
+    private int FirstAttackResPenaltyNeutralization { get; set; }
+    
+    
+    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
+    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
+    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
+    
+    private int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
+    private int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
+    private int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
+    
     
     public void ApplyStatBonusEffect(StatType statType, int effectAmount)
     {
@@ -114,6 +148,18 @@ public class Unit
             case StatType.Spd: return BaseSpd;
             case StatType.Def: return BaseDef;
             case StatType.Res: return BaseRes;
+            default: throw new ArgumentException($"Stat '{statType}' is not recognized.");
+        }
+    }
+    
+    public int GetCurrentStat(StatType statType)
+    {
+        switch (statType)
+        {
+            case StatType.Atk: return CurrentAtk;
+            case StatType.Spd: return CurrentSpd;
+            case StatType.Def: return CurrentDef;
+            case StatType.Res: return CurrentRes;
             default: throw new ArgumentException($"Stat '{statType}' is not recognized.");
         }
     }
@@ -172,40 +218,6 @@ public class Unit
                 throw new ArgumentException($"Stat '{statType}' is not recognized.");
         }
     }
-    
-    public int FirstAttackAtkBonus { get; private set; }
-    public int FirstAttackDefBonus { get; private set; }
-    public int FirstAttackResBonus { get; private set; }
-    
-    public int FirstAttackAtkPenalty { get; private set; }
-    public int FirstAttackDefPenalty { get; private set; }
-    public int FirstAttackResPenalty { get; private set; }
-    
-    
-    private int FollowUpAtkBonus { get; set; }
-    private int FollowUpDefBonus { get; set; }
-    private int FollowUpResBonus { get; set; }
-    
-    private int FollowUpAtkPenalty { get; set; }
-    private int FollowUpDefPenalty { get; set; }
-    private int FollowUpResPenalty { get; set; }
-    
-    private int FirstAttackAtkBonusNeutralization { get; set; }
-    private int FirstAttackDefBonusNeutralization { get; set; }
-    private int FirstAttackResBonusNeutralization { get; set; }
-    
-    private int FirstAttackAtkPenaltyNeutralization { get; set; }
-    private int FirstAttackDefPenaltyNeutralization { get; set; }
-    private int FirstAttackResPenaltyNeutralization { get; set; }
-    
-    
-    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
-    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
-    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
-    
-    private int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
-    private int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
-    private int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
     
     private List<IEffect> _effects = new List<IEffect>();
 
@@ -346,13 +358,14 @@ public class Unit
     
     public void ApplyFirstAttackPercentageDamageReductionEffect(double percentage)
     {
-        FirstAttackPercentageDamageReduction += percentage;
+        FirstAttackPercentageDamageReduction = 1 - (1 - FirstAttackPercentageDamageReduction) * (1 - percentage);
     }
     
     public void ApplyFollowUpPercentageDamageReductionEffect(double percentage)
     {
-        FollowUpPercentageDamageReduction += percentage;
+        FollowUpPercentageDamageReduction = 1 - (1 - FollowUpPercentageDamageReduction) * (1 - percentage);
     }
+
     public int CalculateFirstAttackDamage(Unit opponent)
     {
         int defenseValue = CalculateDefenseValue(opponent, isFollowUp: false);
@@ -361,7 +374,7 @@ public class Unit
         double totalPercentageReduction = 1 - ((1 - opponent.PercentageDamageReduction) * (1 - opponent.FirstAttackPercentageDamageReduction));
         double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
         double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.AbsoluteDamageReduction);
-        return UpdateOpponentHpAndReturnFinalDamage(opponent, finalDamage);
+        return UpdateOpponentHpDueTheDamage(opponent, finalDamage);
     }
 
     public int CalculateFollowUpDamage(Unit opponent)
@@ -372,9 +385,9 @@ public class Unit
         double totalPercentageReduction = 1 - ((1 - opponent.PercentageDamageReduction) * (1 - opponent.FollowUpPercentageDamageReduction));
         double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
         double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.AbsoluteDamageReduction);
-        return UpdateOpponentHpAndReturnFinalDamage(opponent, finalDamage);
+        return UpdateOpponentHpDueTheDamage(opponent, finalDamage);
     }
-
+    
     private int CalculateDefenseValue(Unit opponent, bool isFollowUp)
     {
         return Weapon is Magic
@@ -396,7 +409,7 @@ public class Unit
     {
         double reductionFactor = 1 - percentageReduction;
         double reducedDamage = damage * reductionFactor;
-        reducedDamage = Math.Round(reducedDamage, 9);
+        // reducedDamage = Math.Round(reducedDamage, 9);
         return reducedDamage;
     }
 
@@ -405,7 +418,7 @@ public class Unit
         return Math.Max(0, damage - damageReduction);
     }
 
-    private int UpdateOpponentHpAndReturnFinalDamage(Unit opponent, double finalDamage)
+    private int UpdateOpponentHpDueTheDamage(Unit opponent, double finalDamage)
     {
         int finalDamageInt = Convert.ToInt32(Math.Floor(finalDamage));
         opponent.CurrentHP -= finalDamageInt;

@@ -143,7 +143,7 @@ public class SkillFactory : ISkillFactory
             case "Luna":
                 return SkillBuilder.CreateLunaSkill();
             case "HP +15":
-                return SkillBuilder.CreateHPPlus15Skill();
+                return SkillBuilder.CreateHpPlus15Skill();
             // case "Soulblade":
             //     return SkillBuilder.CreateSoulbladeSkill();
             // case "Sandstorm":

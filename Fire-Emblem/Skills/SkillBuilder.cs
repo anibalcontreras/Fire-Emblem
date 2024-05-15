@@ -12,7 +12,7 @@ namespace Fire_Emblem.Skills;
 
 public static class SkillBuilder
 {
-    public static Skill CreateHPPlus15Skill()
+    public static Skill CreateHpPlus15Skill()
     {
         ICondition condition = new HasUnitActivatedTheStatAbility();
         MultiEffect effects = new MultiEffect(new IEffect[]

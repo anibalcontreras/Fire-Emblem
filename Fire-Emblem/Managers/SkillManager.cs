@@ -27,22 +27,12 @@ public class SkillManager
     private void ApplySkills(Unit activator, Unit opponent, Combat combat)
     {
         List<(Unit, IEffect)> effectsToApply = new List<(Unit, IEffect)>();
-        CollectElegibleEffectsFromActiveUnit(activator, opponent, combat, effectsToApply);
-        CollectElegibleEffectsFromOpponentUnit(activator, opponent, combat, effectsToApply);
-        ApplyAlterBaseStatEffects(activator, opponent, effectsToApply);
-        ApplyBonusEffects(activator, opponent, effectsToApply);
-        ApplyFirstAttackBonusEffects(activator, opponent, effectsToApply);
-        ApplyPenaltyBonus(activator, opponent, effectsToApply);
-        ApplyFirstAttackPenaltyBonus(activator, opponent, effectsToApply);
-        ApplyNeutralizationBonusEffect(activator, opponent, effectsToApply);
-        ApplyNeutralizationPenaltyBonus(activator, opponent, effectsToApply);
-        ApplyExtraDamage(activator, opponent, effectsToApply);
-        ApplyPercentageDamageReduction(activator, opponent, effectsToApply);
-        ApplyFirstAttackPercentageDamageReduction(activator, opponent, effectsToApply);
-        ApplyFollowUpPercentageDamageReduction(activator, opponent, effectsToApply);
-        ApplyAbsoluteDamageReduction(activator, opponent, effectsToApply);
+        CollectConditionMetEffectsFromActiveUnit(activator, opponent, combat, effectsToApply);
+        CollectConditionMetEffectsFromOpponentUnit(activator, opponent, combat, effectsToApply);
+        ApplyTheProperSkills(activator, opponent, effectsToApply);
     }
-    private static void CollectElegibleEffectsFromActiveUnit(Unit activator, Unit opponent, Combat combat,
+    
+    private static void CollectConditionMetEffectsFromActiveUnit(Unit activator, Unit opponent, Combat combat,
         List<(Unit, IEffect)> effectsToApply)
     {
         foreach (var skill in activator.Skills)
@@ -57,7 +47,7 @@ public class SkillManager
         }
     }
     
-    private static void CollectElegibleEffectsFromOpponentUnit(Unit activator, Unit opponent, 
+    private static void CollectConditionMetEffectsFromOpponentUnit(Unit activator, Unit opponent, 
         Combat combat, List<(Unit, IEffect)> effectsToApply)
     {
         foreach (var skill in opponent.Skills)
@@ -70,6 +60,21 @@ public class SkillManager
                 }
             }
         }
+    }
+    private static void ApplyTheProperSkills(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
+    {
+        ApplyAlterBaseStatEffects(activator, opponent, effectsToApply);
+        ApplyBonusEffects(activator, opponent, effectsToApply);
+        ApplyFirstAttackBonusEffects(activator, opponent, effectsToApply);
+        ApplyPenaltyBonus(activator, opponent, effectsToApply);
+        ApplyFirstAttackPenaltyBonus(activator, opponent, effectsToApply);
+        ApplyNeutralizationBonusEffect(activator, opponent, effectsToApply);
+        ApplyNeutralizationPenaltyBonus(activator, opponent, effectsToApply);
+        ApplyExtraDamage(activator, opponent, effectsToApply);
+        ApplyPercentageDamageReduction(activator, opponent, effectsToApply);
+        ApplyFirstAttackPercentageDamageReduction(activator, opponent, effectsToApply);
+        ApplyFollowUpPercentageDamageReduction(activator, opponent, effectsToApply);
+        ApplyAbsoluteDamageReduction(activator, opponent, effectsToApply);
     }
     private static void ApplyAlterBaseStatEffects(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
@@ -167,6 +172,11 @@ public class SkillManager
     
     private void AnnounceEffects(Combat combat)
     {
+        AnnounceAttackerSkills(combat);
+        AnnounceDefenderSkills(combat);
+    }
+    private void AnnounceAttackerSkills(Combat combat)
+    {
         _gameView.AnnounceAttackerBonusStat(combat.Attacker);
         _gameView.AnnounceAttackerPenaltyStat(combat.Attacker);
         _gameView.AnnounceNeutralizationBonusEffect(combat.Attacker);
@@ -176,6 +186,9 @@ public class SkillManager
         _gameView.AnnounceFirstAttackPercentageReduction(combat.Attacker);
         _gameView.AnnounceFollowUpPercentageReduction(combat.Attacker);
         _gameView.AnnounceAbsoluteDamageReduction(combat.Attacker);
+    }
+    private void AnnounceDefenderSkills(Combat combat)
+    {
         _gameView.AnnounceDefenderBonusEffects(combat.Defender);
         _gameView.AnnounceDefenderPenaltyEffects(combat.Defender);
         _gameView.AnnounceNeutralizationBonusEffect(combat.Defender);

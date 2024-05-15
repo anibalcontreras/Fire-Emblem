@@ -19,7 +19,7 @@ public class LunarBraceEffect : IEffect, IExtraDamageEffect
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        int extraDamage = (int)(opponent.GetBaseStat(_statType) * _percentage);
+        int extraDamage = (int)(opponent.GetCurrentStat(_statType) * _percentage);
         targetUnit.ApplyExtraDamageEffect(extraDamage);
         targetUnit.AddActiveEffect(this);
     }

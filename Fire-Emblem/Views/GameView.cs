@@ -380,16 +380,25 @@ public class GameView
     
     private void AnnounceEachAttackPercentageDamageReduction(Unit unit)
     {
-        _view.WriteLine($"{unit.Name} reducirá el daño de los ataques del rival en un {Convert.ToInt32(Math.Floor(unit.PercentageDamageReduction * 100))}%");
+        int percentage = Convert.ToInt32(Math.Floor(unit.PercentageDamageReduction * 100));
+        if (percentage > 0) _view.WriteLine($"{unit.Name} reducirá el daño de los ataques del rival en un {percentage}%");
     }
     
     private void AnnounceFirstAttackPercentageDamageReduction(Unit unit)
     {
-        _view.WriteLine($"{unit.Name} reducirá el daño del primer ataque del rival en un {Convert.ToInt32(Math.Floor(unit.FirstAttackPercentageDamageReduction * 100))}%");
+        int percentage = Convert.ToInt32(Math.Floor(unit.FirstAttackPercentageDamageReduction * 100));
+        if (percentage > 0) _view.WriteLine($"{unit.Name} reducirá el daño del primer ataque del rival en un {percentage}%");
     }
     
     private void AnnounceFollowUpPercentageDamageReduction(Unit unit)
     {
-        _view.WriteLine($"{unit.Name} reducirá el daño del Follow-Up del rival en un {Convert.ToInt32(Math.Floor(unit.FollowUpPercentageDamageReduction * 100))}%");
+        // Redondear a dos decimales antes de convertir a int
+        double roundedReduction = Math.Round(unit.FollowUpPercentageDamageReduction, 2);
+        int percentage = Convert.ToInt32(Math.Floor(roundedReduction * 100));
+        if (percentage > 0) 
+        {
+            _view.WriteLine($"{unit.Name} reducirá el daño del Follow-Up del rival en un {percentage}%");
+        }
     }
+
 }
