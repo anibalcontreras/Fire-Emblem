@@ -2,7 +2,7 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 
-public class AbsoluteDamageReductionEffect : IEffect
+public class AbsoluteDamageReductionEffect : IEffect, IAbsoluteDamageReductionEffect
 {
     private readonly int _amount;
     

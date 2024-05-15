@@ -3,9 +3,9 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
-public class PenaltyEffect : IEffect
+public class PenaltyEffect : IEffect, IPenaltyEffect
 {
-    private EffectTarget Target { get; }
+    public EffectTarget Target { get; }
     private StatType _statToDecrease;
     private int _amount;
     public StatType StatType => _statToDecrease;

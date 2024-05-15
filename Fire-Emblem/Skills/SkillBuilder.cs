@@ -1164,7 +1164,7 @@ public static class SkillBuilder
         
         MultiEffect effects = new MultiEffect(new IEffect[]
         {
-            new PercentageDamageReductionEffect(StatType.Res, StatType.Res, EffectTarget.Unit)
+            new PercentageComparisionDamageReductionEffect(StatType.Res, StatType.Res, EffectTarget.Unit)
         });
         
         return new Skill("Dragon Wall", condition, effects);
@@ -1176,7 +1176,7 @@ public static class SkillBuilder
         
         MultiEffect effects = new MultiEffect(new IEffect[]
         {
-            new PercentageDamageReductionEffect(StatType.Spd, StatType.Spd, EffectTarget.Unit)
+            new PercentageComparisionDamageReductionEffect(StatType.Spd, StatType.Spd, EffectTarget.Unit)
         });
         
         return new Skill("Dodge", condition, effects);
@@ -1209,4 +1209,29 @@ public static class SkillBuilder
         return new Skill("Back at You", condition, effects);
     }
 
+    public static Skill CreatePoeticJusticeSkill()
+    {
+        ICondition condition = new TrueCondition();
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival),
+            new LunarBraceEffect(0.15, StatType.Atk, EffectTarget.Unit),
+        });
+        
+        return new Skill("Poetic Justice", condition, effects);
+    }
+    
+    public static Skill CreateLaguzFriendSkill()
+    {
+        ICondition condition = new TrueCondition();
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new PercentageDamageReductionEffect(0.5, EffectTarget.Unit),
+            new NeutralizationBonusEffect(EffectTarget.Unit, StatType.Def),
+            new NeutralizationBonusEffect(EffectTarget.Unit, StatType.Res),
+            new PercentagePenaltyEffect(StatType.Def, 0.50, EffectTarget.Unit),
+            new PercentagePenaltyEffect(StatType.Res, 0.50, EffectTarget.Unit)
+        });
+        return new Skill("Laguz Friend", condition, multiEffect);
+    }
 }

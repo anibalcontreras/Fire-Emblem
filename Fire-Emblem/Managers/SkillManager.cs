@@ -101,7 +101,7 @@ public class SkillManager
     
     private static void ApplyPenaltyBonus(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is PenaltyEffect))
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is IPenaltyEffect))
         {
             effect.ApplyEffect(unit, unit == activator ? opponent : activator);
         }
@@ -148,7 +148,7 @@ public class SkillManager
     
     private static void ApplyPercentageDamageReduction(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is PercentageDamageReductionEffect))
+        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is IPercentageDamageReductionEffect))
         {
             effect.ApplyEffect(unit, unit == activator ? opponent : activator);
         }

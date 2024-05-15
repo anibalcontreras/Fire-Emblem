@@ -1,56 +1,22 @@
-using Fire_Emblem.Stats;
 using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction
+namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+
+public class PercentageDamageReductionEffect : IEffect, IPercentageDamageReductionEffect
 {
-    public class PercentageDamageReductionEffect : IEffect
+    private readonly double _percentage;
+    private readonly EffectTarget _target;
+        
+    public PercentageDamageReductionEffect(double percentage, EffectTarget target)
     {
-        private readonly EffectTarget Target;
-        private readonly double _maxPercentage = 0.4;
-        private readonly StatType _stat1;
-        private readonly StatType _stat2;
+        _percentage = percentage;
+        _target = target;
+    }
         
-        public PercentageDamageReductionEffect(StatType stat1, StatType stat2, EffectTarget target)
-        {
-            Target = target;
-            _stat1 = stat1;
-            _stat2 = stat2;
-        }
-        
-        public void ApplyEffect(Unit activator, Unit opponent)
-        {
-            Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-            
-            double stat1Value = GetStatValue(targetUnit, _stat1);
-            double stat2Value = GetStatValue(opponent, _stat2);
-            double statDifference = stat1Value - stat2Value;
-            double percentageReduction = statDifference * 0.04;
-
-            // Limitar el porcentaje máximo de reducción al 40%
-            if (percentageReduction > _maxPercentage)
-            {
-                percentageReduction = _maxPercentage;
-            }
-            else if (percentageReduction < 0)
-            {
-                percentageReduction = 0;
-            }
-            
-            targetUnit.ApplyPercentageDamageReductionEffect(percentageReduction);
-            targetUnit.AddActiveEffect(this);
-        }
-
-        private double GetStatValue(Unit unit, StatType statType)
-        {
-            switch (statType)
-            {
-                case StatType.Res:
-                    return unit.CurrentRes;
-                case StatType.Spd:
-                    return unit.CurrentSpd;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+    public void ApplyEffect(Unit activator, Unit opponent)
+    {
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
+        targetUnit.ApplyPercentageDamageReductionEffect(_percentage);
+        targetUnit.AddActiveEffect(this);
     }
 }

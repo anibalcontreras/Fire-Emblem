@@ -206,6 +206,10 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateBackAtYouSkill();
             case "Lunar Brace":
                 return SkillBuilder.CreateLunarBraceSkill();
+            case "Poetic Justice":
+                return SkillBuilder.CreatePoeticJusticeSkill();
+            case "Laguz Friend":
+                return SkillBuilder.CreateLaguzFriendSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

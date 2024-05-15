@@ -240,12 +240,12 @@ public class Unit
 
     public bool HasActiveAbsoluteDamageReductionEffect()
     {
-        return Effects.Any(effect => effect is AbsoluteDamageReductionEffect);
+        return Effects.Any(effect => effect is IAbsoluteDamageReductionEffect);
     }
     
     public bool HasActivePercentageDamageReductionEffect()
     {
-        return Effects.Any(effect => effect is PercentageDamageReductionEffect);
+        return Effects.Any(effect => effect is IPercentageDamageReductionEffect);
     }
     
     public bool HasActiveFirstAttackPercentageDamageReductionEffect()
@@ -285,7 +285,7 @@ public class Unit
 
     public bool HasActivePenalty(StatType statType)
     {
-        return Effects.Any(effect => effect is PenaltyEffect penalty && penalty.StatType == statType && penalty.Amount > 0);
+        return Effects.Any(effect => effect is IPenaltyEffect penalty && penalty.StatType == statType && penalty.Amount > 0);
     }
     
     public void NeutralizeBonus(StatType statType)
@@ -346,16 +346,16 @@ public class Unit
     public double FirstAttackPercentageDamageReduction { get; private set; }
     public double FollowUpPercentageDamageReduction { get; private set; }
     
-    public void ApplyPercentageDamageReductionEffect(double percentage)
-    {
-        PercentageDamageReduction += percentage;
-    }
     
     public void ApplyAbsoluteDamageReductionEffect(int amount)
     {
         AbsoluteDamageReduction += amount;
     }
     
+    public void ApplyPercentageDamageReductionEffect(double percentage)
+    {
+        PercentageDamageReduction = 1 - (1 - PercentageDamageReduction) * (1 - percentage);
+    }
     public void ApplyFirstAttackPercentageDamageReductionEffect(double percentage)
     {
         FirstAttackPercentageDamageReduction = 1 - (1 - FirstAttackPercentageDamageReduction) * (1 - percentage);
