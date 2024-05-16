@@ -11,7 +11,7 @@ public class RivalWeaponCondition : ICondition
         _requiredWeaponNames = requiredWeaponNames.ToList();
     }
 
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
         return _requiredWeaponNames.Contains(opponent.Weapon.Name);
     }

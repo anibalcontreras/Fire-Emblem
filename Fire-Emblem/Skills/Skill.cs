@@ -7,11 +7,9 @@ public class Skill
 {
     public string Name { get; set; }
     public MultiEffect Effect { get; set; }
-    public ICondition Condition { get; set; }
-    public Skill(string name, ICondition condition, MultiEffect effect)
+    public Skill(string name, MultiEffect effect)
     {
         Name = name;
-        Condition = condition;
         Effect = effect;
     }
 }

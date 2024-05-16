@@ -36,6 +36,30 @@ public class Unit
     {
         LastUnitFaced = unit;
     }
+    
+    public bool IsAttacker { get; private set; } = false;
+    
+    public void SetIsAttacker()
+    {
+        IsAttacker = true;
+    }
+    
+    public bool ResetIsAttacker()
+    {
+        return IsAttacker = false;
+    }
+    
+    public bool IsDefender { get; private set; } = false;
+    
+    public void SetIsDefender()
+    {
+        IsDefender = true;
+    }
+    
+    public bool ResetIsDefender()
+    {
+        return IsDefender = false;
+    }
 
     public bool HasActivatedAlterStatBase { get; private set; } = false;
     

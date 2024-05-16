@@ -19,6 +19,8 @@ public class CombatManager
     {
         Combat combat = CreateCombat(teams, currentPlayer);
         combat.UpdateState(CombatState.StartOfCombat);
+        combat.Attacker.SetIsAttacker();
+        combat.Defender.SetIsDefender();
         _gameView.AnnounceRoundStart(round, combat.Attacker, currentPlayer);
         AnnounceWeaponAdvantage(combat);
         ActivateSkills(combat);
@@ -115,6 +117,8 @@ public class CombatManager
         combat.Defender.ClearActiveEffects();
         combat.Attacker.SetLastUnitFaced(combat.Defender);
         combat.Defender.SetLastUnitFaced(combat.Attacker);
+        combat.Attacker.ResetIsAttacker();
+        combat.Defender.ResetIsDefender();
     }
     
     private void HandleFollowUp(Combat combat)

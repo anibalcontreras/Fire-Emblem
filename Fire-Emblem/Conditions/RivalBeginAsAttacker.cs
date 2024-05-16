@@ -4,8 +4,8 @@ namespace Fire_Emblem.Conditions;
 
 public class RivalBeginAsAttacker : ICondition
 {
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        return combat.Attacker == opponent;
+        return opponent.IsAttacker;
     }
 }

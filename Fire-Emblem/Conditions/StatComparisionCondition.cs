@@ -12,7 +12,7 @@ public class StatComparisionCondition : ICondition
         _statType = statType;
     }
 
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
         int activatorStatValue = GetStatValue(activator, _statType);
         int opponentStatValue = GetStatValue(opponent, _statType);

@@ -5,7 +5,7 @@ namespace Fire_Emblem.Conditions;
 public class RivalIsManCondition: ICondition
 {
     private const string _rivalGender = "Male";
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
         if (opponent.Gender == _rivalGender)
         {

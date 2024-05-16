@@ -13,7 +13,7 @@ public class MixedWeaponCondition : ICondition
         _magicWeapons = magicWeapons;
     }
 
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
         bool activatorUsingPhysical = _physicalWeapons.Contains(activator.Weapon.Name);
         bool opponentUsingMagical = _magicWeapons.Contains(opponent.Weapon.Name);

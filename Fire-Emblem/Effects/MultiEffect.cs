@@ -1,4 +1,5 @@
 using System.Collections;
+using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
@@ -20,4 +21,12 @@ public class MultiEffect : IEnumerable<IEffect>
     {
         return GetEnumerator();
     }
+    
+    // public void ApplyEffect(Unit activator, Unit opponent)
+    // {
+    //     foreach (IEffect effect in _effects)
+    //     {
+    //         effect.ApplyEffect(activator, opponent);
+    //     }
+    // }
 }

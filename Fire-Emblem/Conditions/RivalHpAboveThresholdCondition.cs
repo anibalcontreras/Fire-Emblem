@@ -11,7 +11,7 @@ public class RivalHpAboveThresholdCondition : ICondition
         _threshold = threshold;
     }
 
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
         double thresholdHp = opponent.BaseHp * _threshold;
         return opponent.CurrentHP >= thresholdHp;

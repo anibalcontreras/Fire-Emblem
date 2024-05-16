@@ -11,14 +11,14 @@ public class MultiCondition : ICondition
         _conditions = new List<ICondition>(conditions);
     }
 
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
         foreach (ICondition condition in _conditions)
         {
-            if (!condition.IsConditionMet(combat, activator, opponent))
+            if (!condition.IsConditionMet(activator, opponent))
                 return false;
         }
         
-        return _conditions.All(condition => condition.IsConditionMet(combat, activator, opponent));
+        return _conditions.All(condition => condition.IsConditionMet(activator, opponent));
     }
 }

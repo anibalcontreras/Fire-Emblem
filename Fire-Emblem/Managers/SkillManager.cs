@@ -37,30 +37,45 @@ public class SkillManager
     {
         foreach (var skill in activator.Skills)
         {
-            if (skill.Condition.IsConditionMet(combat, activator, opponent))
+            foreach (var effect in skill.Effect)
             {
-                foreach (var effect in skill.Effect)
+                if (effect is ConditionalEffect conditionalEffect)
+                {
+                    if (conditionalEffect.Condition.IsConditionMet(activator, opponent))
+                    {
+                        effectsToApply.Add((activator, conditionalEffect));
+                    }
+                }
+                else
                 {
                     effectsToApply.Add((activator, effect));
                 }
             }
         }
     }
-    
+
     private static void CollectConditionMetEffectsFromOpponentUnit(Unit activator, Unit opponent, 
         Combat combat, List<(Unit, IEffect)> effectsToApply)
     {
         foreach (var skill in opponent.Skills)
         {
-            if (skill.Condition.IsConditionMet(combat, opponent, activator))
+            foreach (var effect in skill.Effect)
             {
-                foreach (var effect in skill.Effect)
+                if (effect is ConditionalEffect conditionalEffect)
+                {
+                    if (conditionalEffect.Condition.IsConditionMet(opponent, activator))
+                    {
+                        effectsToApply.Add((opponent, conditionalEffect));
+                    }
+                }
+                else
                 {
                     effectsToApply.Add((opponent, effect));
                 }
             }
         }
     }
+
     private static void ApplyTheProperSkills(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
         ApplyAlterBaseStatEffects(activator, opponent, effectsToApply);
@@ -78,95 +93,133 @@ public class SkillManager
     }
     private static void ApplyAlterBaseStatEffects(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is AlterBaseStatEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is AlterBaseStatEffect conditionalBaseStatEffect)
+            {
+                conditionalBaseStatEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
+    
     private static void ApplyBonusEffects(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is IBonusEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is IBonusEffect conditionalBonusEffect)
+            {
+                conditionalBonusEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
         
     private static void ApplyFirstAttackBonusEffects(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is FirstAttackBonusEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is FirstAttackBonusEffect conditionalFirstAttackBonusEffect)
+            {
+                conditionalFirstAttackBonusEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
-    
+
     private static void ApplyPenaltyBonus(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is IPenaltyEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is IPenaltyEffect conditionalPenaltyEffect)
+            {
+                conditionalPenaltyEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
-    
+
     private static void ApplyFirstAttackPenaltyBonus(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is FirstAttackPenaltyEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is FirstAttackPenaltyEffect conditionalFirstAttackPenaltyEffect)
+            {
+                conditionalFirstAttackPenaltyEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
-    
+
     private static void ApplyNeutralizationBonusEffect(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is NeutralizationBonusEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is NeutralizationBonusEffect conditionalNeutralizationBonusEffect)
+            {
+                conditionalNeutralizationBonusEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
+
     private static void ApplyNeutralizationPenaltyBonus(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is NeutralizationPenaltyEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is NeutralizationPenaltyEffect conditionalNeutralizationPenaltyEffect)
+            {
+                conditionalNeutralizationPenaltyEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
-    
+
     private static void ApplyExtraDamage(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is IExtraDamageEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is IExtraDamageEffect conditionalExtraDamageEffect)
+            {
+                conditionalExtraDamageEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
-    
+
     private static void ApplyAbsoluteDamageReduction(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is AbsoluteDamageReductionEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is AbsoluteDamageReductionEffect conditionalAbsoluteDamageReductionEffect)
+            {
+                conditionalAbsoluteDamageReductionEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
-    
+
     private static void ApplyPercentageDamageReduction(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is IPercentageDamageReductionEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is IPercentageDamageReductionEffect conditionalPercentageDamageReductionEffect)
+            {
+                conditionalPercentageDamageReductionEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
-    
+
     private static void ApplyFirstAttackPercentageDamageReduction(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is FirstAttackPercentageDamageReductionEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is FirstAttackPercentageDamageReductionEffect conditionalFirstAttackPercentageDamageReductionEffect)
+            {
+                conditionalFirstAttackPercentageDamageReductionEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
-    
+
     private static void ApplyFollowUpPercentageDamageReduction(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (var (unit, effect) in effectsToApply.Where(e => e.Item2 is FollowUpPercentageDamageReductionEffect))
+        foreach (var (unit, effect) in effectsToApply)
         {
-            effect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is FollowUpPercentageDamageReductionEffect conditionalFollowUpPercentageDamageReductionEffect)
+            {
+                conditionalFollowUpPercentageDamageReductionEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+            }
         }
     }
     

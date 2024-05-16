@@ -210,8 +210,14 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreatePoeticJusticeSkill();
             case "Laguz Friend":
                 return SkillBuilder.CreateLaguzFriendSkill();
-            case "Guard Bearing":
-                return SkillBuilder.CreateGuardBearingSkill();
+            case "Bushido":
+                return SkillBuilder.CreateBushidoSkill();
+            case "Prescience":
+                return SkillBuilder.CreatePrescienceSkill();
+            // case "Guard Bearing":
+            //     return SkillBuilder.CreateGuardBearingSkill();
+            // case "Moon-Twin Wing":
+            //     return SkillBuilder.CreateMoonTwinWingSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }

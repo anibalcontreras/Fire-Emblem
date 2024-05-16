@@ -5,7 +5,7 @@ namespace Fire_Emblem.Conditions;
 
 public class UnitWeaponAdvantageCondition : ICondition
 {
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
         return activator.Weapon.CalculateAdvantage(opponent) == AdvantageState.Advantage;
     }
