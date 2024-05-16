@@ -72,6 +72,7 @@ public class CombatManager
     private void PerformAttack(Combat combat)
     {
         combat.UpdateState(CombatState.UnitAttacks);
+        combat.Attacker.SetHasBeenAttackerBefore();
         int damage = combat.Attacker.CalculateFirstAttackDamage(combat.Defender);
         combat.Attacker.ResetFirstAttackBonusStats();
         combat.Defender.ResetFirstAttackPenaltyStats();
@@ -95,6 +96,7 @@ public class CombatManager
     private void PerformCounterattack(Combat combat)
     {
         combat.UpdateState(CombatState.OpponentCounterattacks);
+        combat.Defender.SetHasBeenDefenderBefore();
         int damage = combat.Defender.CalculateFirstAttackDamage(combat.Attacker);
         combat.Defender.ResetFirstAttackBonusStats();
         combat.Attacker.ResetFirstAttackPenaltyStats();

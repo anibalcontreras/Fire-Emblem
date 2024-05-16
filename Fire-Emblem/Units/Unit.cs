@@ -44,6 +44,26 @@ public class Unit
         HasActivatedAlterStatBase = true;
     }
     
+    // public bool HasStartedCombatBefore { get; private set; } = false;
+    //
+    // public void SetHasStartedCombatBefore()
+    // {
+    //     HasStartedCombatBefore = true;
+    // }
+    
+    public bool HasBeenAttackerBefore { get; private set; } = false;
+    public bool HasBeenDefenderBefore { get; private set; } = false;
+    
+    public void SetHasBeenAttackerBefore()
+    {
+        HasBeenAttackerBefore = true;
+    }
+    
+    public void SetHasBeenDefenderBefore()
+    {
+        HasBeenDefenderBefore = true;
+    }
+    
     private int _currentHP;
     
     public int CurrentHP

@@ -1234,4 +1234,17 @@ public static class SkillBuilder
         });
         return new Skill("Laguz Friend", condition, multiEffect);
     }
+
+    public static Skill CreateGuardBearingSkill()
+    {
+        ICondition condition = new NotCondition(new RivalHpThresholdCondition(0.5));
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival),
+            new PenaltyEffect(StatType.Def , 4, EffectTarget.Rival),
+            new GuardBearingPercentageReductionEffect(0.6, EffectTarget.Unit)
+        });
+        
+        return new Skill("Guard Bearing", condition, multiEffect);
+    }
 }
