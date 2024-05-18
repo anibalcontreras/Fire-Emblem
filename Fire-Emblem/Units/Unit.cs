@@ -68,13 +68,6 @@ public class Unit
         HasActivatedAlterStatBase = true;
     }
     
-    // public bool HasStartedCombatBefore { get; private set; } = false;
-    //
-    // public void SetHasStartedCombatBefore()
-    // {
-    //     HasStartedCombatBefore = true;
-    // }
-    
     public bool HasBeenAttackerBefore { get; private set; } = false;
     public bool HasBeenDefenderBefore { get; private set; } = false;
     
@@ -281,6 +274,11 @@ public class Unit
     {
         return Effects.Any(effect => effect is IExtraDamageEffect); 
     }
+    
+    public bool HasActiveFirstAttackExtraDamageEffect()
+    {
+        return Effects.Any(effect => effect is IFirstAttackExtraDamageEffect);
+    }
 
     public bool HasActiveAbsoluteDamageReductionEffect()
     {
@@ -327,10 +325,13 @@ public class Unit
         return Effects.Any(effect => effect is FirstAttackPenaltyEffect penalty && penalty.StatType == statType && penalty.Amount > 0);
     }
 
+    // Replicar los bools para todos los efectos
+    
     public bool HasActivePenalty(StatType statType)
     {
         return Effects.Any(effect => effect is IPenaltyEffect penalty && penalty.StatType == statType && penalty.Amount > 0);
     }
+    
     
     public void NeutralizeBonus(StatType statType)
     {
@@ -378,9 +379,16 @@ public class Unit
     
     public int ExtraDamage { get; private set; }
     
+    public int FirstAttackExtraDamage { get; private set; }
+    
     public void ApplyExtraDamageEffect(int amount)
     {
         ExtraDamage += amount;
+    }
+    
+    public void ApplyFirstAttackExtraDamageEffect(int amount)
+    {
+        FirstAttackExtraDamage += amount;
     }
     
     public int AbsoluteDamageReduction { get; private set; }
@@ -410,6 +418,7 @@ public class Unit
         FollowUpPercentageDamageReduction = 1 - (1 - FollowUpPercentageDamageReduction) * (1 - percentage);
     }
 
+    // Esto hace que la clase sea híbrida
     public int CalculateFirstAttackDamage(Unit opponent)
     {
         int defenseValue = CalculateDefenseValue(opponent, isFollowUp: false);
@@ -420,25 +429,28 @@ public class Unit
         double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.AbsoluteDamageReduction);
         return UpdateOpponentHpDueTheDamage(opponent, finalDamage);
     }
-
+    
+    // Esto hace que la clase sea híbrida
     public int CalculateFollowUpDamage(Unit opponent)
     {
         int defenseValue = CalculateDefenseValue(opponent, isFollowUp: true);
         double initialDamage = CalculateInitialDamage(defenseValue, FollowUpAtk, opponent);
-        int damageAfterExtra = ApplyExtraDamage(initialDamage);
+        int damageAfterExtra = ApplyExtraDamage(initialDamage) + FirstAttackExtraDamage;
         double totalPercentageReduction = 1 - ((1 - opponent.PercentageDamageReduction) * (1 - opponent.FollowUpPercentageDamageReduction));
         double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
         double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.AbsoluteDamageReduction);
         return UpdateOpponentHpDueTheDamage(opponent, finalDamage);
     }
     
+    // Esto hace que la clase sea híbrida
     private int CalculateDefenseValue(Unit opponent, bool isFollowUp)
     {
         return Weapon is Magic
             ? Convert.ToInt32(isFollowUp ? opponent.FollowUpRes : opponent.FirstAttackRes)
             : Convert.ToInt32(isFollowUp ? opponent.FollowUpDef : opponent.FirstAttackDef);
     }
-
+    
+    // Esto hace que la clase sea híbrida
     private double CalculateInitialDamage(int defenseValue, int attackValue, Unit opponent)
     {
         return (Convert.ToDouble(attackValue) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
@@ -462,6 +474,7 @@ public class Unit
         return Math.Max(0, damage - damageReduction);
     }
 
+    // Esto hace que la clase sea híbrida
     private int UpdateOpponentHpDueTheDamage(Unit opponent, double finalDamage)
     {
         int finalDamageInt = Convert.ToInt32(Math.Floor(finalDamage));

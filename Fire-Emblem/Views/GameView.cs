@@ -340,7 +340,7 @@ public class GameView
     
     private void AnnounceExtraDamageInFirstAttack(Unit unit)
     {
-        _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en su primer ataque");
+        if (unit.FirstAttackExtraDamage > 0) _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en su primer ataque");
     }
     
     private void AnnounceExtraDamageInFollowUpAttack(Unit unit)
@@ -351,6 +351,7 @@ public class GameView
     private void AnnounceExtraDamageEffect(Unit unit)
     {
         if (unit.HasActiveExtraDamageEffect()) AnnounceExtraDamageInEachAttack(unit);
+        if (unit.HasActiveFirstAttackExtraDamageEffect()) AnnounceExtraDamageInFirstAttack(unit);
     }
     
     private void AnnounceAbsoluteDamageReductionEffect(Unit unit)
@@ -397,10 +398,11 @@ public class GameView
             _view.WriteLine($"{unit.Name} reducirá el daño del primer ataque del rival en un {percentage}%");
         }
     }
-
     
     private void AnnounceFollowUpPercentageDamageReduction(Unit unit)
     {
+        // Dejar esto fuera de la vista
+        // Hacer lo mismo que en AnnounceIfPositiveBonus
         double roundedReduction = Math.Round(unit.FollowUpPercentageDamageReduction, 2);
         int percentage = Convert.ToInt32(Math.Floor(roundedReduction * 100));
         if (percentage > 0) 
@@ -408,5 +410,4 @@ public class GameView
             _view.WriteLine($"{unit.Name} reducirá el daño del Follow-Up del rival en un {percentage}%");
         }
     }
-
 }

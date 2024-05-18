@@ -25,8 +25,7 @@ namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction
             double stat2Value = GetStatValue(opponent, _stat2);
             double statDifference = stat1Value - stat2Value;
             double percentageReduction = statDifference * 0.04;
-
-            // Limitar el porcentaje máximo de reducción al 40%
+            
             if (percentageReduction > _maxPercentage)
             {
                 percentageReduction = _maxPercentage;

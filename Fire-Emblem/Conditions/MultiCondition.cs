@@ -2,6 +2,7 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Conditions;
 
+// Si tengo tiempo intentar cambiar las condiciones para que puedan recibir el EffectTarget
 public class MultiCondition : ICondition
 {
     private readonly List<ICondition> _conditions;
@@ -10,7 +11,7 @@ public class MultiCondition : ICondition
     {
         _conditions = new List<ICondition>(conditions);
     }
-
+    
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
         foreach (ICondition condition in _conditions)

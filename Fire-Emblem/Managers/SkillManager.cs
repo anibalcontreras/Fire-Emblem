@@ -20,19 +20,20 @@ public class SkillManager
     
     public void ActivateSkills(Combat combat)
     {
-        ApplySkills(combat.Attacker, combat.Defender, combat);
+        ApplySkills(combat.Attacker, combat.Defender);
         AnnounceEffects(combat);
     }
     
-    private void ApplySkills(Unit activator, Unit opponent, Combat combat)
+    private void ApplySkills(Unit activator, Unit opponent)
     {
         List<(Unit, IEffect)> effectsToApply = new List<(Unit, IEffect)>();
-        CollectConditionMetEffectsFromActiveUnit(activator, opponent, combat, effectsToApply);
-        CollectConditionMetEffectsFromOpponentUnit(activator, opponent, combat, effectsToApply);
+        CollectConditionMetEffectsFromActiveUnit(activator, opponent, effectsToApply);
+        CollectConditionMetEffectsFromOpponentUnit(activator, opponent, effectsToApply);
         ApplyTheProperSkills(activator, opponent, effectsToApply);
     }
     
-    private static void CollectConditionMetEffectsFromActiveUnit(Unit activator, Unit opponent, Combat combat,
+    // Separar método
+    private static void CollectConditionMetEffectsFromActiveUnit(Unit activator, Unit opponent,
         List<(Unit, IEffect)> effectsToApply)
     {
         foreach (var skill in activator.Skills)
@@ -53,9 +54,9 @@ public class SkillManager
             }
         }
     }
-
-    private static void CollectConditionMetEffectsFromOpponentUnit(Unit activator, Unit opponent, 
-        Combat combat, List<(Unit, IEffect)> effectsToApply)
+    
+    
+    private static void CollectConditionMetEffectsFromOpponentUnit(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
     {
         foreach (var skill in opponent.Skills)
         {

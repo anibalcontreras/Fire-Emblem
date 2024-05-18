@@ -3,6 +3,7 @@ using Fire_Emblem.Conditions.LogicalConditions;
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
+using Fire_Emblem.Effects.Damage.ExtraChivalryPercentageDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Effects.Neutralization;
@@ -13,6 +14,7 @@ namespace Fire_Emblem.Skills;
 public static class SkillBuilder
 {
     
+   // Eliminar código duplicado 
     public static Skill CreateHpPlus15Skill()
     {
         ICondition condition = new HasUnitActivatedTheStatAbility();
@@ -1478,32 +1480,27 @@ public static Skill CreateRemoteSturdySkill()
     
     public static Skill CreatePrescienceSkill()
     {
-        // Condiciones
-        ICondition condition1 = new TrueCondition(); // Siempre activa para el efecto de penalización
+        ICondition condition1 = new TrueCondition();
         ICondition condition2 = new OrCondition(
             new UnitBeginAsAttackerCondition(), 
             new RivalWeaponCondition("Magic", "Bow")
         );
-
-        // Efectos
+        
         IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival);
         IEffect resPenaltyEffect = new PenaltyEffect(StatType.Res, 5, EffectTarget.Rival);
         IEffect firstAttackDamageReductionEffect = new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
-
-        // Efectos condicionales
+        
         ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition1, atkPenaltyEffect);
         ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(condition1, resPenaltyEffect);
         ConditionalEffect conditionalFirstAttackDamageReductionEffect = new ConditionalEffect(condition2, firstAttackDamageReductionEffect);
-
-        // MultiEffect
+        
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
             conditionalAtkPenaltyEffect,
             conditionalResPenaltyEffect,
             conditionalFirstAttackDamageReductionEffect
         });
-
-        // Crear la habilidad
+        
         return new Skill("Prescience", multiEffect);
     }
 
@@ -1525,30 +1522,50 @@ public static Skill CreateRemoteSturdySkill()
         
         return new Skill("Moon-Twin Wing", multiEffect);
     }
-    
+
+    public static Skill CreateExtraChivalrySkill()
+    {
+        ICondition firstCondition = new RivalHpAboveThresholdCondition(0.5);
+        ICondition secondCondition = new TrueCondition();
+        
+        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival);
+        IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 5, EffectTarget.Rival);
+        IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 5, EffectTarget.Rival);
+        IEffect damagePercentageReductionEffect =
+            new ExtraChivalryPercentageDamageReductionEffect(0.5, EffectTarget.Unit);
+        
+        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(firstCondition, atkPenaltyEffect);
+        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(firstCondition, spdPenaltyEffect);
+        ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(firstCondition, defPenaltyEffect);
+        
+        
+        ConditionalEffect conditionalDamagePercentageReductionEffect = new ConditionalEffect(secondCondition, damagePercentageReductionEffect);
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkPenaltyEffect,
+            conditionalSpdPenaltyEffect,
+            conditionalDefPenaltyEffect,
+            conditionalDamagePercentageReductionEffect
+        });
+        
+        return new Skill("Extra Chivalry", multiEffect);
+    }
+
     // public static Skill CreateDragonsWrathSkill()
     // {
-    //     // Condiciones
-    //     ICondition trueCondition = new TrueCondition(); // Para el efecto que siempre se activa
-    //     ICondition atkGreaterThanResCondition = new StatComparisionCondition(StatType.Atk, StatType.Res);
-    //
-    //     // Efectos
+    //     ICondition firstCondition = new TrueCondition();
+    //     ICondition secondCondition = new DifferentStatComparision(StatType.Atk, StatType.Res);
+    //     
     //     IEffect firstAttackDamageReductionEffect = new FirstAttackPercentageDamageReductionEffect(0.25, EffectTarget.Unit);
-    //     IEffect extraDamageEffect = new ExtraDamageEffect(0.25, StatType.Atk, StatType.Res, EffectTarget.Unit);
-    //
-    //     // Efectos condicionales
-    //     ConditionalEffect conditionalFirstAttackDamageReductionEffect = new ConditionalEffect(trueCondition, firstAttackDamageReductionEffect);
-    //     ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(atkGreaterThanResCondition, extraDamageEffect);
-    //
-    //     // MultiEffect
-    //     MultiEffect multiEffect = new MultiEffect(new IEffect[]
-    //     {
-    //         conditionalFirstAttackDamageReductionEffect,
-    //         conditionalExtraDamageEffect
-    //     });
-    //
-    //     // Crear la habilidad
+    //     IEffect firstAttackExtraDamageEffect = new FirstAttackExtraDamageEffect(5, EffectTarget.Unit);
+    //     
+    //     ConditionalEffect conditionalFirstAttackDamageReductionEffect = new ConditionalEffect(firstCondition, firstAttackDamageReductionEffect);
+    //     ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(secondCondition, firstAttackExtraDamageEffect);
+    //     
+    //     MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalFirstAttackDamageReductionEffect, conditionalExtraDamageEffect });
+    //     
     //     return new Skill("Dragon’s Wrath", multiEffect);
     // }
-
+    //
 }

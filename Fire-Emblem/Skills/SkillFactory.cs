@@ -214,10 +214,14 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateBushidoSkill();
             case "Prescience":
                 return SkillBuilder.CreatePrescienceSkill();
+            case "Extra Chivalry":
+                return SkillBuilder.CreateExtraChivalrySkill();
             // case "Guard Bearing":
             //     return SkillBuilder.CreateGuardBearingSkill();
             // case "Moon-Twin Wing":
             //     return SkillBuilder.CreateMoonTwinWingSkill();
+            // case "Dragon's Wrath":
+            //     return SkillBuilder.CreateDragonsWrathSkill();
             default:
                 throw new ArgumentException($"Unknown skill name: {skillName}");
         }
