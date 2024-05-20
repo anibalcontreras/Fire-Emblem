@@ -14,27 +14,8 @@ public class StatComparisionCondition : ICondition
 
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        int activatorStatValue = GetStatValue(activator, _statType);
-        int opponentStatValue = GetStatValue(opponent, _statType);
+        int activatorStatValue = activator.GetCurrentStat(_statType);
+        int opponentStatValue = opponent.GetCurrentStat(_statType);
         return activatorStatValue > opponentStatValue;
-    }
-
-    private int GetStatValue(Unit unit, StatType statType)
-    {
-        switch (statType)
-        {
-            case StatType.Res:
-                return unit.CurrentRes;
-            case StatType.Atk:
-                return unit.CurrentAtk;
-            case StatType.Def:
-                return unit.CurrentDef;
-            case StatType.Spd:
-                return unit.CurrentSpd;
-            case StatType.HP:
-                return unit.CurrentHP;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(statType), statType, "Invalid stat type.");
-        }
     }
 }

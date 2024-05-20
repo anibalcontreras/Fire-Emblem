@@ -146,13 +146,13 @@ public class Unit
     private int FirstAttackResPenaltyNeutralization { get; set; }
     
     
-    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
-    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
-    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
+    public int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
+    public int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
+    public int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
     
-    private int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
-    private int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
-    private int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
+    public int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
+    public int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
+    public int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
     
     
     public void ApplyStatBonusEffect(StatType statType, int effectAmount)
@@ -416,75 +416,6 @@ public class Unit
     public void ApplyFollowUpPercentageDamageReductionEffect(double percentage)
     {
         FollowUpPercentageDamageReduction = 1 - (1 - FollowUpPercentageDamageReduction) * (1 - percentage);
-    }
-
-    // Esto hace que la clase sea híbrida
-    public int CalculateFirstAttackDamage(Unit opponent)
-    {
-        int defenseValue = CalculateDefenseValue(opponent, isFollowUp: false);
-        double initialDamage = CalculateInitialDamage(defenseValue, FirstAttackAtk, opponent);
-        int damageAfterExtra = ApplyExtraDamage(initialDamage);
-        double totalPercentageReduction = 1 - ((1 - opponent.PercentageDamageReduction) * (1 - opponent.FirstAttackPercentageDamageReduction));
-        double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
-        double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.AbsoluteDamageReduction);
-        return UpdateOpponentHpDueTheDamage(opponent, finalDamage);
-    }
-    
-    // Esto hace que la clase sea híbrida
-    public int CalculateFollowUpDamage(Unit opponent)
-    {
-        int defenseValue = CalculateDefenseValue(opponent, isFollowUp: true);
-        double initialDamage = CalculateInitialDamage(defenseValue, FollowUpAtk, opponent);
-        int damageAfterExtra = ApplyExtraDamage(initialDamage) + FirstAttackExtraDamage;
-        double totalPercentageReduction = 1 - ((1 - opponent.PercentageDamageReduction) * (1 - opponent.FollowUpPercentageDamageReduction));
-        double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
-        double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction, opponent.AbsoluteDamageReduction);
-        return UpdateOpponentHpDueTheDamage(opponent, finalDamage);
-    }
-    
-    // Esto hace que la clase sea híbrida
-    private int CalculateDefenseValue(Unit opponent, bool isFollowUp)
-    {
-        return Weapon is Magic
-            ? Convert.ToInt32(isFollowUp ? opponent.FollowUpRes : opponent.FirstAttackRes)
-            : Convert.ToInt32(isFollowUp ? opponent.FollowUpDef : opponent.FirstAttackDef);
-    }
-    
-    // Esto hace que la clase sea híbrida
-    private double CalculateInitialDamage(int defenseValue, int attackValue, Unit opponent)
-    {
-        return (Convert.ToDouble(attackValue) * Convert.ToDouble(Weapon.GetWTB(opponent.Weapon))) - defenseValue;
-    }
-
-    private int ApplyExtraDamage(double initialDamage)
-    {
-        return (int)Math.Max(0, Math.Truncate(initialDamage) + ExtraDamage);
-    }
-
-    private double ApplyPercentageDamageReduction(int damage, double percentageReduction)
-    {
-        double reductionFactor = 1 - percentageReduction;
-        double reducedDamage = damage * reductionFactor;
-        // reducedDamage = Math.Round(reducedDamage, 9);
-        return reducedDamage;
-    }
-
-    private double ApplyAbsoluteDamageReduction(double damage, int damageReduction)
-    {
-        return Math.Max(0, damage - damageReduction);
-    }
-
-    // Esto hace que la clase sea híbrida
-    private int UpdateOpponentHpDueTheDamage(Unit opponent, double finalDamage)
-    {
-        int finalDamageInt = Convert.ToInt32(Math.Floor(finalDamage));
-        opponent.CurrentHP -= finalDamageInt;
-        return FinalDamageInt(finalDamageInt);
-    }
-
-    private static int FinalDamageInt(int finalDamageInt)
-    {
-        return finalDamageInt;
     }
     
     public void ResetEffects()
