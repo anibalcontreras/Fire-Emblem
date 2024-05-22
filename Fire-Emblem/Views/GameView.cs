@@ -340,7 +340,7 @@ public class GameView
     
     private void AnnounceExtraDamageInFirstAttack(Unit unit)
     {
-        if (unit.FirstAttackExtraDamage > 0) _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en su primer ataque");
+        if (unit.FirstAttackExtraDamage > 0) _view.WriteLine($"{unit.Name} realizará +{unit.FirstAttackExtraDamage} daño extra en su primer ataque");
     }
     
     private void AnnounceExtraDamageInFollowUpAttack(Unit unit)

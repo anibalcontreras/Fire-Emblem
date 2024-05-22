@@ -94,10 +94,10 @@ public class Unit
         _currentHP = BaseHp;
     }
 
-    public int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - AtkBonusNeutralization + AtkPenaltyNeutralization;
+    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - AtkBonusNeutralization + AtkPenaltyNeutralization;
     public int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - SpdBonusNeutralization + SpdPenaltyNeutralization;
-    public int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization + DefPenaltyNeutralization;
-    public int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization + ResPenaltyNeutralization;
+    private int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization + DefPenaltyNeutralization;
+    private int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization + ResPenaltyNeutralization;
     
     public int AtkBonus { get; private set; }
     public int SpdBonus { get; private set; }
@@ -277,7 +277,7 @@ public class Unit
     
     public bool HasActiveFirstAttackExtraDamageEffect()
     {
-        return Effects.Any(effect => effect is IFirstAttackExtraDamageEffect);
+        return Effects.Any(effect => effect is FirstAttackExtraDamageEffect);
     }
 
     public bool HasActiveAbsoluteDamageReductionEffect()
@@ -420,30 +420,56 @@ public class Unit
     
     public void ResetEffects()
     {
+        ResetBonuses();
+        ResetPenalties();
+        ResetBonusNeutralizations();
+        ResetPenaltyNeutralizations();
+        ResetDamageModifiers();
+    }
+
+    private void ResetBonuses()
+    {
         AtkBonus = 0;
         SpdBonus = 0;
         DefBonus = 0;
         ResBonus = 0;
+    }
+
+    private void ResetPenalties()
+    {
         AtkPenalty = 0;
         SpdPenalty = 0;
         DefPenalty = 0;
         ResPenalty = 0;
+    }
+
+    private void ResetBonusNeutralizations()
+    {
         AtkBonusNeutralization = 0;
         SpdBonusNeutralization = 0;
         DefBonusNeutralization = 0;
         ResBonusNeutralization = 0;
+    }
+
+    private void ResetPenaltyNeutralizations()
+    {
         AtkPenaltyNeutralization = 0;
         SpdPenaltyNeutralization = 0;
         DefPenaltyNeutralization = 0;
         ResPenaltyNeutralization = 0;
+    }
+
+    private void ResetDamageModifiers()
+    {
         ExtraDamage = 0;
         AbsoluteDamageReduction = 0;
         PercentageDamageReduction = 0;
         FirstAttackPercentageDamageReduction = 0;
         FollowUpPercentageDamageReduction = 0;
     }
+
     
-    public void ResetFirstAttackBonusStats()
+    public void ResetFirstAttackEffectsStats()
     {
         FirstAttackAtkBonus = 0;
         FirstAttackDefBonus = 0;
@@ -451,6 +477,7 @@ public class Unit
         FirstAttackAtkBonusNeutralization = 0;
         FirstAttackDefBonusNeutralization = 0;
         FirstAttackResBonusNeutralization = 0;
+        FirstAttackExtraDamage = 0;
     }
     public void ResetFirstAttackPenaltyStats()
     {

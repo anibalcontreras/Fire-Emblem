@@ -1,6 +1,7 @@
 ﻿using Fire_Emblem_View;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Views;
+using Fire_Emblem.Managers;
 
 namespace Fire_Emblem;
 

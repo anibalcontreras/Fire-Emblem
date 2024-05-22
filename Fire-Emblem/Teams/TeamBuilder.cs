@@ -1,3 +1,4 @@
+using Fire_Emblem.Exception;
 using Fire_Emblem.Loaders;
 namespace Fire_Emblem.Teams;
 using Units;
@@ -126,14 +127,13 @@ public class TeamBuilder
 
     private void EquipSkillByName(string skillName, Unit unit)
     {
-        // TODO: Parche mientras no tenga todas las skills y tenga que pasar los primeros test cases
-        Skill skill = null;
+        Skill skill;
+        SkillFactory skillFactory = new SkillFactory();
         try
         {
-            SkillFactory skillFactory = new SkillFactory();
             skill = skillFactory.CreateSkill(skillName);
         }
-        catch (ArgumentException)
+        catch (NotImplementedSkillException)
         {
             skill = FindSkillByName(skillName);
         }

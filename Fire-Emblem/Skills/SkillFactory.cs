@@ -1,6 +1,8 @@
+using Fire_Emblem.Exception;
+
 namespace Fire_Emblem.Skills;
 
-public class SkillFactory : ISkillFactory
+public class SkillFactory
 {
     public Skill CreateSkill(string skillName)
     {
@@ -144,10 +146,6 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreateLunaSkill();
             case "HP +15":
                 return SkillBuilder.CreateHpPlus15Skill();
-            // case "Soulblade":
-            //     return SkillBuilder.CreateSoulbladeSkill();
-            // case "Sandstorm":
-            //     return SkillBuilder.CreateSandstormSkill();
             case "Bravery":
                 return SkillBuilder.CreateBraverySkill();
             case "Gentility":
@@ -216,14 +214,20 @@ public class SkillFactory : ISkillFactory
                 return SkillBuilder.CreatePrescienceSkill();
             case "Extra Chivalry":
                 return SkillBuilder.CreateExtraChivalrySkill();
-            // case "Guard Bearing":
-            //     return SkillBuilder.CreateGuardBearingSkill();
-            // case "Moon-Twin Wing":
-            //     return SkillBuilder.CreateMoonTwinWingSkill();
-            // case "Dragon's Wrath":
-            //     return SkillBuilder.CreateDragonsWrathSkill();
+            case "Guard Bearing":
+                return SkillBuilder.CreateGuardBearingSkill();
+            case "Moon-Twin Wing":
+                return SkillBuilder.CreateMoonTwinWingSkill();
+            case "Dragon's Wrath":
+                return SkillBuilder.CreateDragonsWrathSkill();
+            // case "Divine Recreation":
+            //     return SkillBuilder.CreateDivineRecreationSkill();
+            // case "Soulblade":
+            //     return SkillBuilder.CreateSoulbladeSkill();
+            // case "Sandstorm":
+            //     return SkillBuilder.CreateSandstormSkill();
             default:
-                throw new ArgumentException($"Unknown skill name: {skillName}");
+                throw new NotImplementedSkillException();
         }
     }
 }

@@ -3,10 +3,8 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
-public interface IPenaltyEffect
+public interface IPenaltyEffect : IEffect
 {
     StatType StatType { get; }
     int? Amount { get; }
-    EffectTarget Target { get; }
-    void ApplyEffect(Unit activator, Unit opponent);
 }

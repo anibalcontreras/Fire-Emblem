@@ -20,16 +20,8 @@ public class DataLoader
     
     private List<T> LoadFromJson<T>(string filePath, JsonSerializerOptions options)
     {
-        try
-        {
-            string jsonContent = File.ReadAllText(filePath);
-            return new List<T>(JsonSerializer.Deserialize<T[]>(jsonContent, options));
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error loading data from JSON: {ex.Message}");
-            return new List<T>();
-        }
+        string jsonContent = File.ReadAllText(filePath);
+        return new List<T>(JsonSerializer.Deserialize<T[]>(jsonContent, options));
     }
     
     private List<Unit> LoadUnits(string filePath)
