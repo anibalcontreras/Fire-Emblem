@@ -5,12 +5,12 @@ namespace Fire_Emblem.Managers;
 
 public class MatchManager
 {
-    private readonly GameView _gameView;
+    private readonly ConsoleGameView _consoleGameView;
     private readonly CombatManager _combatManager;
-    public MatchManager(GameView gameView)
+    public MatchManager(ConsoleGameView consoleGameView)
     {
-        _gameView = gameView;
-        _combatManager = new CombatManager(_gameView);
+        _consoleGameView = consoleGameView;
+        _combatManager = new CombatManager(_consoleGameView);
     }
     
     public void ManageGame(List<Team> teams, List<Combat> combats)
@@ -45,8 +45,8 @@ public class MatchManager
         bool team2HasLivingUnits = teams[1].HasLivingUnits();
 
         if (team1HasLivingUnits && !team2HasLivingUnits)
-            _gameView.AnnounceWinner(1);
+            _consoleGameView.AnnounceWinner(1);
         else if (!team1HasLivingUnits && team2HasLivingUnits)
-            _gameView.AnnounceWinner(2);
+            _consoleGameView.AnnounceWinner(2);
     }
 }

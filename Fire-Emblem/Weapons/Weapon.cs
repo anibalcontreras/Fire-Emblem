@@ -7,7 +7,7 @@ public abstract class Weapon
     public string Name { get; set; }
     public AdvantageState CalculateAdvantage(Unit defender)
     {
-        double wtb = GetWTB(defender.Weapon);
+        double wtb = GetWtb(defender.Weapon);
 
         if (wtb > 1.0)
             return AdvantageState.Advantage;
@@ -16,6 +16,6 @@ public abstract class Weapon
         else
             return AdvantageState.Neutral;
     }
-    public abstract double GetWTB(Weapon opponentWeapon);
+    public abstract double GetWtb(Weapon opponentWeapon);
 
 }

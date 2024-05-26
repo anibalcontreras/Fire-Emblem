@@ -9,7 +9,6 @@ public class Combat
     public Team OpponentTeam { get; private set; }
     public Unit Attacker { get; private set; }
     public Unit Defender { get; private set; }
-    public CombatState State { get; private set; }
     
 
     public Combat(Team activeTeam, Team opponentTeam, Unit attacker, Unit defender)
@@ -20,10 +19,6 @@ public class Combat
         Defender = defender;
     }
     
-    public void UpdateState(CombatState newState)
-    {
-        State = newState;
-    }
     
     public bool CanAttackerPerformFollowUp()
     {

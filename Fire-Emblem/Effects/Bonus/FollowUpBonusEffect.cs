@@ -3,7 +3,7 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
-public class FirstAttackBonusEffect : IEffect
+public class FollowUpBonusEffect : IEffect
 {
     private readonly StatType _statToIncrease;
     private readonly int _percentage;
@@ -14,7 +14,7 @@ public class FirstAttackBonusEffect : IEffect
     public StatType StatType => _statToIncrease;
     public int? Amount => _calculatedBonusAmount;
 
-    public FirstAttackBonusEffect(StatType statToIncrease, int percentage, EffectTarget target)
+    public FollowUpBonusEffect(StatType statToIncrease, int percentage, EffectTarget target)
     {
         _statToIncrease = statToIncrease;
         _percentage = percentage;

@@ -10,7 +10,8 @@ public static class CreateWeaponGuard
     {
         ICondition condition = new RivalWeaponCondition(weaponType);
         IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
-        ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, absoluteDamageReductionEffect);
+        ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, 
+            absoluteDamageReductionEffect);
 
         MultiEffect effects = new MultiEffect(new IEffect[] { conditionalAbsoluteDamageReductionEffect });
 

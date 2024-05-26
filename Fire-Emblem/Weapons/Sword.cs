@@ -7,13 +7,13 @@ public class Sword : Weapon
         Name = "Sword"; 
     }
     
-    public override double GetWTB(Weapon opponentWeapon)
+    public override double GetWtb(Weapon opponentWeapon)
     {
         return opponentWeapon switch
         {
-            Axe _ => 1.2,  // Ventaja sobre la hacha
-            Lance _ => 0.8,  // Desventaja contra la lanza
-            _ => 1.0,  // Sin ventaja ni desventaja contra otros tipos de armas
+            Axe _ => 1.2,
+            Lance _ => 0.8,
+            _ => 1.0
         };
     }
 }

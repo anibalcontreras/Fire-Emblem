@@ -7,6 +7,4 @@ public interface IBonusEffect : IEffect
 {
     StatType StatType { get; }
     int? Amount { get; }
-    EffectTarget Target { get; }
-    void ApplyEffect(Unit activator, Unit opponent);
 }

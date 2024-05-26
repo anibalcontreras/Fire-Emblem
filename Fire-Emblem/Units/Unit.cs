@@ -129,13 +129,13 @@ public class Unit
     public int FirstAttackResPenalty { get; private set; }
     
     
-    private int FollowUpAtkBonus { get; set; }
-    private int FollowUpDefBonus { get; set; }
-    private int FollowUpResBonus { get; set; }
+    public int FollowUpAtkBonus { get; private set; }
+    public int FollowUpDefBonus { get; private set; }
+    public int FollowUpResBonus { get; private set; }
     
-    private int FollowUpAtkPenalty { get; set; }
-    private int FollowUpDefPenalty { get; set; }
-    private int FollowUpResPenalty { get; set; }
+    public int FollowUpAtkPenalty { get; private set; }
+    public int FollowUpDefPenalty { get; private set; }
+    public int FollowUpResPenalty { get; private set; }
     
     private int FirstAttackAtkBonusNeutralization { get; set; }
     private int FirstAttackDefBonusNeutralization { get; set; }
@@ -250,6 +250,42 @@ public class Unit
                 break;
             case StatType.Res:
                 FirstAttackResPenalty += effectAmount;
+                break;
+            default:
+                throw new ArgumentException($"Stat '{statType}' is not recognized.");
+        }
+    }
+    
+    public void ApplyFollowUpStatBonusEffect(StatType statType, int effectAmount)
+    {
+        switch (statType)
+        {
+            case StatType.Atk:
+                FollowUpAtkBonus += effectAmount;
+                break;
+            case StatType.Def:
+                FollowUpDefBonus += effectAmount;
+                break;
+            case StatType.Res:
+                FollowUpResBonus += effectAmount;
+                break;
+            default:
+                throw new ArgumentException($"Stat '{statType}' is not recognized.");
+        }
+    }
+    
+    public void ApplyFollowUpStatPenaltyEffect(StatType statType, int effectAmount)
+    {
+        switch (statType)
+        {
+            case StatType.Atk:
+                FollowUpAtkPenalty += effectAmount;
+                break;
+            case StatType.Def:
+                FollowUpDefPenalty += effectAmount;
+                break;
+            case StatType.Res:
+                FollowUpResPenalty += effectAmount;
                 break;
             default:
                 throw new ArgumentException($"Stat '{statType}' is not recognized.");

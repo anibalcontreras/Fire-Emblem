@@ -7,9 +7,7 @@ public class AlterBaseStatEffect : IEffect
 {
     private readonly StatType _statToIncrease;
     private readonly int _amount;
-    public EffectTarget Target { get; private set; }
-    public StatType StatType => _statToIncrease;
-    public int? Amount => _amount;
+    private EffectTarget Target { get; }
     
     public AlterBaseStatEffect(StatType statToIncrease, int amount, EffectTarget target)
     {

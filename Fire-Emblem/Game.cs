@@ -9,7 +9,7 @@ namespace Fire_Emblem;
 public class Game
 {
     private readonly View _view;
-    private readonly GameView _gameView;
+    private readonly ConsoleGameView _consoleGameView;
     private readonly string _teamsFolder;
     private MatchManager _matchManager;
     private List<Combat> _combats;
@@ -18,8 +18,8 @@ public class Game
     {
         _view = view;
         _teamsFolder = teamsFolder;
-        _gameView = new GameView(_view, _teamsFolder);
-        _matchManager = new MatchManager(_gameView);
+        _consoleGameView = new ConsoleGameView(_view, _teamsFolder);
+        _matchManager = new MatchManager(_consoleGameView);
         _combats = new List<Combat>();
     }
 
@@ -48,12 +48,12 @@ public class Game
     
     private string[] GetFileOptions()
     {
-        return _gameView.DisplayFiles();
+        return _consoleGameView.DisplayFiles();
     }
     
     private string SelectFile(string[] files)
     {
-        return _gameView.AskUserToSelectAnOption(files);
+        return _consoleGameView.AskUserToSelectAnOption(files);
     }
     
     private string ReadFileContent(string filePath)
@@ -72,7 +72,7 @@ public class Game
         return teams.All(team => team.IsValidTeam());
     }
     
-    private void ShowInvalidTeamMessage() => _gameView.ShowMessageForInvalidTeam();
+    private void ShowInvalidTeamMessage() => _consoleGameView.ShowMessageForInvalidTeam();
     
     private void StartGameDevelopment(List<Team> teams) => _matchManager.ManageGame(teams, _combats);
     

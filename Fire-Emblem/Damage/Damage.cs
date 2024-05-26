@@ -38,7 +38,7 @@ public abstract class Damage
 
     private double CalculateInitialDamage(int defenseValue)
     {
-        return (Convert.ToDouble(AttackValue) * Convert.ToDouble(AttackerWeapon.GetWTB(Defender.Weapon))) - defenseValue;
+        return (Convert.ToDouble(AttackValue) * Convert.ToDouble(AttackerWeapon.GetWtb(Defender.Weapon))) - defenseValue;
     }
 
     private int ApplyExtraDamage(double initialDamage)

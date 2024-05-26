@@ -6,12 +6,12 @@ using Fire_Emblem.Weapons;
 
 namespace Fire_Emblem.Views;
 
-public class GameView
+public class ConsoleGameView : IView
 {
     private View _view;
     private readonly string _teamsFolder;
 
-    public GameView(View view, string teamsFolder)
+    public ConsoleGameView(View view, string teamsFolder)
     {
         _view = view;
         _teamsFolder = teamsFolder;
@@ -250,7 +250,37 @@ public class GameView
     {
         _view.WriteLine($"{unit.Name} obtiene Res-{unit.FirstAttackResPenalty} en su primer ataque");
     }
-
+    
+    private void AnnounceFollowUpAtkBonusStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Atk+{unit.FollowUpAtkBonus} en su Follow-Up");
+    }
+    
+    private void AnnounceFollowUpDefBonusStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Def+{unit.FollowUpDefBonus} en su Follow-Up");
+    }
+    
+    private void AnnounceFollowUpResBonusStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Res+{unit.FollowUpResBonus} en su Follow-Up");
+    }
+    
+    private void AnnounceFollowUpAtkPenaltyStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Atk-{unit.FollowUpAtkPenalty} en su Follow-Up");
+    }
+    
+    private void AnnounceFollowUpDefPenaltyStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Def-{unit.FollowUpDefPenalty} en su Follow-Up");
+    }
+    
+    private void AnnounceFollowUpResPenaltyStat(Unit unit)
+    {
+        _view.WriteLine($"{unit.Name} obtiene Res-{unit.FollowUpResPenalty} en su Follow-Up");
+    }
+    
     private void AnnounceSpdBonusStat(Unit unit)
     {
         _view.WriteLine($"{unit.Name} obtiene Spd+{unit.SpdBonus}");
@@ -334,7 +364,6 @@ public class GameView
     
     private void AnnounceExtraDamageInEachAttack(Unit unit)
     {
-        // Esto está feo
         if (unit.ExtraDamage > 0)_view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
     }
     

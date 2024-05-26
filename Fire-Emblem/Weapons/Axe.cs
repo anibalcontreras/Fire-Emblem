@@ -4,7 +4,7 @@ public class Axe : Weapon
 {
     public Axe() { Name = "Axe"; }
 
-    public override double GetWTB(Weapon opponentWeapon)
+    public override double GetWtb(Weapon opponentWeapon)
     {
         return opponentWeapon switch
         {

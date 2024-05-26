@@ -14,10 +14,10 @@ namespace Fire_Emblem.Managers;
 public class SkillManager
 {
     
-    private readonly GameView _gameView;
-    public SkillManager(GameView gameView)
+    private readonly ConsoleGameView _consoleGameView;
+    public SkillManager(ConsoleGameView consoleGameView)
     {
-        _gameView = gameView;
+        _consoleGameView = consoleGameView;
     }
     
     public void ActivateSkills(Combat combat)
@@ -184,26 +184,26 @@ public class SkillManager
     }
     private void AnnounceAttackerSkills(Combat combat)
     {
-        _gameView.AnnounceAttackerBonusStat(combat.Attacker);
-        _gameView.AnnounceAttackerPenaltyStat(combat.Attacker);
-        _gameView.AnnounceNeutralizationBonusEffect(combat.Attacker);
-        _gameView.AnnounceNeutralizationPenaltyEffect(combat.Attacker);
-        _gameView.AnnounceExtraDamage(combat.Attacker);
-        _gameView.AnnounceEachAttackPercentageReduction(combat.Attacker);
-        _gameView.AnnounceFirstAttackPercentageReduction(combat.Attacker);
-        _gameView.AnnounceFollowUpPercentageReduction(combat.Attacker);
-        _gameView.AnnounceAbsoluteDamageReduction(combat.Attacker);
+        _consoleGameView.AnnounceAttackerBonusStat(combat.Attacker);
+        _consoleGameView.AnnounceAttackerPenaltyStat(combat.Attacker);
+        _consoleGameView.AnnounceNeutralizationBonusEffect(combat.Attacker);
+        _consoleGameView.AnnounceNeutralizationPenaltyEffect(combat.Attacker);
+        _consoleGameView.AnnounceExtraDamage(combat.Attacker);
+        _consoleGameView.AnnounceEachAttackPercentageReduction(combat.Attacker);
+        _consoleGameView.AnnounceFirstAttackPercentageReduction(combat.Attacker);
+        _consoleGameView.AnnounceFollowUpPercentageReduction(combat.Attacker);
+        _consoleGameView.AnnounceAbsoluteDamageReduction(combat.Attacker);
     }
     private void AnnounceDefenderSkills(Combat combat)
     {
-        _gameView.AnnounceDefenderBonusEffects(combat.Defender);
-        _gameView.AnnounceDefenderPenaltyEffects(combat.Defender);
-        _gameView.AnnounceNeutralizationBonusEffect(combat.Defender);
-        _gameView.AnnounceNeutralizationPenaltyEffect(combat.Defender);
-        _gameView.AnnounceExtraDamage(combat.Defender);
-        _gameView.AnnounceEachAttackPercentageReduction(combat.Defender);
-        _gameView.AnnounceFirstAttackPercentageReduction(combat.Defender);
-        _gameView.AnnounceFollowUpPercentageReduction(combat.Defender);
-        _gameView.AnnounceAbsoluteDamageReduction(combat.Defender);
+        _consoleGameView.AnnounceDefenderBonusEffects(combat.Defender);
+        _consoleGameView.AnnounceDefenderPenaltyEffects(combat.Defender);
+        _consoleGameView.AnnounceNeutralizationBonusEffect(combat.Defender);
+        _consoleGameView.AnnounceNeutralizationPenaltyEffect(combat.Defender);
+        _consoleGameView.AnnounceExtraDamage(combat.Defender);
+        _consoleGameView.AnnounceEachAttackPercentageReduction(combat.Defender);
+        _consoleGameView.AnnounceFirstAttackPercentageReduction(combat.Defender);
+        _consoleGameView.AnnounceFollowUpPercentageReduction(combat.Defender);
+        _consoleGameView.AnnounceAbsoluteDamageReduction(combat.Defender);
     }
 }

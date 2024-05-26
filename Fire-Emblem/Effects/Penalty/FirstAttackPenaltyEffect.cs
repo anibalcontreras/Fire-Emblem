@@ -7,7 +7,7 @@ public class FirstAttackPenaltyEffect : IEffect
 {
     private readonly StatType _statToDecrease;
     private readonly int _percentage;
-    public EffectTarget Target { get; }
+    private EffectTarget Target { get; }
 
     private int? _calculatedPenaltyAmount;
     
