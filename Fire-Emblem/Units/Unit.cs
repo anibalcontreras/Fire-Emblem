@@ -3,13 +3,11 @@ using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Effects.Neutralization;
+using Fire_Emblem.Exception;
 using Fire_Emblem.Skills;
 using Fire_Emblem.Stats;
-
 namespace Fire_Emblem.Units;
-
 using Weapons;
-
 public class Unit
 {
     public string Name { get; set; }
@@ -44,9 +42,9 @@ public class Unit
         IsAttacker = true;
     }
     
-    public bool ResetIsAttacker()
-    {
-        return IsAttacker = false;
+    public void ResetIsAttacker()
+    { 
+        IsAttacker = false;
     }
     
     public bool IsDefender { get; private set; } = false;
@@ -56,9 +54,9 @@ public class Unit
         IsDefender = true;
     }
     
-    public bool ResetIsDefender()
+    public void ResetIsDefender()
     {
-        return IsDefender = false;
+        IsDefender = false;
     }
 
     public bool HasActivatedAlterStatBase { get; private set; } = false;
@@ -146,9 +144,12 @@ public class Unit
     private int FirstAttackResPenaltyNeutralization { get; set; }
     
     
-    public int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
-    public int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
-    public int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
+    public int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - 
+        FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
+    public int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - 
+        FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
+    public int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - 
+        FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
     
     public int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
     public int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
@@ -165,7 +166,7 @@ public class Unit
             case StatType.Spd: return BaseSpd;
             case StatType.Def: return BaseDef;
             case StatType.Res: return BaseRes;
-            default: throw new ArgumentException($"Stat '{statType}' is not recognized.");
+            default: throw new StatNotRecognizedException();
         }
     }
     
@@ -177,7 +178,7 @@ public class Unit
             case StatType.Spd: return CurrentSpd;
             case StatType.Def: return CurrentDef;
             case StatType.Res: return CurrentRes;
-            default: throw new ArgumentException($"Stat '{statType}' is not recognized.");
+            default: throw new StatNotRecognizedException();
         }
     }
     
@@ -236,7 +237,7 @@ public class Unit
                 FirstAttackResBonus += effectAmount;
                 break;
             default:
-                throw new ArgumentException($"Stat '{statType}' is not recognized.");
+                throw new StatNotRecognizedException();
         }
     }
     
@@ -254,7 +255,7 @@ public class Unit
                 FirstAttackResPenalty += effectAmount;
                 break;
             default:
-                throw new ArgumentException($"Stat '{statType}' is not recognized.");
+                throw new StatNotRecognizedException();
         }
     }
     
@@ -272,7 +273,7 @@ public class Unit
                 FollowUpResBonus += effectAmount;
                 break;
             default:
-                throw new ArgumentException($"Stat '{statType}' is not recognized.");
+                throw new StatNotRecognizedException();
         }
     }
     
@@ -290,7 +291,7 @@ public class Unit
                 FollowUpResPenalty += effectAmount;
                 break;
             default:
-                throw new ArgumentException($"Stat '{statType}' is not recognized.");
+                throw new StatNotRecognizedException();
         }
     }
     
@@ -355,19 +356,20 @@ public class Unit
     
     public bool HasActiveFirstAttackBonus(StatType statType)
     {
-        return Effects.Any(effect => effect is FirstAttackBonusEffect bonus && bonus.StatType == statType && bonus.Amount > 0);
+        return Effects.Any(effect => effect is FirstAttackBonusEffect bonus && 
+                                     bonus.StatType == statType && bonus.Amount > 0);
     }
     
     public bool HasActiveFirstAttackPenalty(StatType statType)
     {
-        return Effects.Any(effect => effect is FirstAttackPenaltyEffect penalty && penalty.StatType == statType && penalty.Amount > 0);
+        return Effects.Any(effect => effect is FirstAttackPenaltyEffect penalty && 
+                                     penalty.StatType == statType && penalty.Amount > 0);
     }
-
-    // Replicar los bools para todos los efectos
     
     public bool HasActivePenalty(StatType statType)
     {
-        return Effects.Any(effect => effect is IPenaltyEffect penalty && penalty.StatType == statType && penalty.Amount > 0);
+        return Effects.Any(effect => effect is IPenaltyEffect penalty && 
+                                     penalty.StatType == statType && penalty.Amount > 0);
     }
     
     
@@ -507,7 +509,7 @@ public class Unit
     }
 
     
-    public void ResetFirstAttackEffectsStats()
+    public void ResetFirstAttackBonusStats()
     {
         FirstAttackAtkBonus = 0;
         FirstAttackDefBonus = 0;

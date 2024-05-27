@@ -19,7 +19,7 @@ public class WeaponConverter : JsonConverter<Weapon>
             _ => throw new JsonException($"Weapon type {weaponType} is not supported.")
         };
     }
-
+    
     public override void Write(Utf8JsonWriter writer, Weapon value, JsonSerializerOptions options)
     {
         writer.WriteStringValue(value.ToString());

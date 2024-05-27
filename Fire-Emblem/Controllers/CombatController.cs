@@ -78,7 +78,7 @@ public class CombatController
     private void PerformAttack(Unit attacker, Unit defender)
     {
         int damage = CalculateFirstAttackDamage(attacker, defender);
-        attacker.ResetFirstAttackEffectsStats();
+        attacker.ResetFirstAttackBonusStats();
         defender.ResetFirstAttackPenaltyStats();
         _consoleGameView.AnnounceAttack(attacker, defender, damage);
     }
@@ -100,7 +100,7 @@ public class CombatController
     {
         
         int damage = CalculateFirstAttackDamage(defender, attacker);
-        defender.ResetFirstAttackEffectsStats();
+        defender.ResetFirstAttackBonusStats();
         attacker.ResetFirstAttackPenaltyStats();
         _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
     }
@@ -158,7 +158,7 @@ public class CombatController
     private void DeactivateAttackerSkills(Unit attacker)
     {
         attacker.ResetEffects();
-        attacker.ResetFirstAttackEffectsStats();
+        attacker.ResetFirstAttackBonusStats();
         attacker.ResetFirstAttackPenaltyStats();
         attacker.ClearActiveEffects();
         attacker.SetHasBeenAttackerBefore();
@@ -168,7 +168,7 @@ public class CombatController
     private void DeactivateDefenderSkills(Unit defender)
     {
         defender.ResetEffects();
-        defender.ResetFirstAttackEffectsStats();
+        defender.ResetFirstAttackBonusStats();
         defender.ResetFirstAttackPenaltyStats();
         defender.ClearActiveEffects();
         defender.SetHasBeenDefenderBefore();
