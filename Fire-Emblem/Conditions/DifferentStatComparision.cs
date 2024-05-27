@@ -20,5 +20,4 @@ public class DifferentStatComparision : ICondition
         int opponentStatValue = opponent.GetCurrentStat(_secondStatType);
         return activatorStatValue > opponentStatValue;
     }
-    
 }

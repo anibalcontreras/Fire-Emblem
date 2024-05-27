@@ -1,16 +1,16 @@
 using Fire_Emblem.Teams;
 using Fire_Emblem.Views;
 
-namespace Fire_Emblem.Managers;
+namespace Fire_Emblem.Controllers;
 
-public class MatchManager
+public class MatchController
 {
     private readonly ConsoleGameView _consoleGameView;
-    private readonly CombatManager _combatManager;
-    public MatchManager(ConsoleGameView consoleGameView)
+    private readonly CombatController _combatController;
+    public MatchController(ConsoleGameView consoleGameView)
     {
         _consoleGameView = consoleGameView;
-        _combatManager = new CombatManager(_consoleGameView);
+        _combatController = new CombatController(_consoleGameView);
     }
     
     public void ManageGame(List<Team> teams, List<Combat> combats)
@@ -21,7 +21,7 @@ public class MatchManager
         while (CheckIfBothTeamsHaveLivingUnits(teams))
         {
             
-            Combat combat = _combatManager.ConductCombat(teams, round++, currentPlayer);
+            Combat combat = _combatController.ConductCombat(teams, round++, currentPlayer);
             RemoveDefeatedUnits(teams);
             combats.Add(combat);
             currentPlayer = (currentPlayer + 1) % 2;

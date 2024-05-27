@@ -155,27 +155,7 @@ public class Unit
     public int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
     
     
-    public void ApplyStatBonusEffect(StatType statType, int effectAmount)
-    {
-        switch (statType)
-        {
-            case StatType.Atk:
-                AtkBonus += effectAmount;
-                break;
-            case StatType.Spd:
-                SpdBonus += effectAmount;
-                break;
-            case StatType.Def:
-                DefBonus += effectAmount;
-                break;
-            case StatType.Res:
-                ResBonus += effectAmount;
-                break;
-            case StatType.HP:
-                _currentHP += effectAmount;
-                break;
-        }
-    }
+    
     
     public int GetBaseStat(StatType statType)
     {
@@ -198,6 +178,28 @@ public class Unit
             case StatType.Def: return CurrentDef;
             case StatType.Res: return CurrentRes;
             default: throw new ArgumentException($"Stat '{statType}' is not recognized.");
+        }
+    }
+    
+    public void ApplyStatBonusEffect(StatType statType, int effectAmount)
+    {
+        switch (statType)
+        {
+            case StatType.Atk:
+                AtkBonus += effectAmount;
+                break;
+            case StatType.Spd:
+                SpdBonus += effectAmount;
+                break;
+            case StatType.Def:
+                DefBonus += effectAmount;
+                break;
+            case StatType.Res:
+                ResBonus += effectAmount;
+                break;
+            case StatType.HP:
+                _currentHP += effectAmount;
+                break;
         }
     }
     

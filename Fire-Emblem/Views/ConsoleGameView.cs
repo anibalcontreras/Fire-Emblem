@@ -117,24 +117,24 @@ public class ConsoleGameView : IView
         => _view.WriteLine("Ninguna unidad puede hacer un follow up");
     
     
-    public void AnnounceAttackerBonusStat(Unit unit)
+    public void AnnounceAttackerBonusEffect(Unit unit)
     {
         AnnounceIfPositiveBonus(unit);
         AnnounceIfPositiveFirstAttackBonus(unit);
     }
     
-    public void AnnounceDefenderBonusEffects(Unit rival)
+    public void AnnounceDefenderBonusEffect(Unit rival)
     {
         AnnounceIfPositiveBonus(rival);
         AnnounceIfPositiveFirstAttackBonus(rival);
     }
     
-    public void AnnounceAttackerPenaltyStat(Unit unit)
+    public void AnnounceAttackerPenaltyEffect(Unit unit)
     {
         AnnounceIfPositivePenalty(unit);
         AnnounceIfPositiveFirstAttackPenalty(unit);
     }
-    public void AnnounceDefenderPenaltyEffects(Unit rival)
+    public void AnnounceDefenderPenaltyEffect(Unit rival)
     {
         AnnounceIfPositivePenalty(rival);
         AnnounceIfPositiveFirstAttackPenalty(rival);
@@ -152,7 +152,7 @@ public class ConsoleGameView : IView
 
     public void AnnounceExtraDamage(Unit unit)
     {
-        AnnounceExtraDamageEffect(unit);
+        AnnounceIfActiveExtraDamageEffect(unit);
     }
     
     public void AnnounceAbsoluteDamageReduction(Unit unit)
@@ -160,21 +160,12 @@ public class ConsoleGameView : IView
         AnnounceAbsoluteDamageReductionEffect(unit);
     }
     
-    public void AnnounceEachAttackPercentageReduction(Unit unit)
+    public void AnnouncePercentageReductionEffect(Unit unit)
     {
         AnnounceEachAttackPercentageReductionEffect(unit);
-    }
-    
-    public void AnnounceFirstAttackPercentageReduction(Unit unit)
-    {
         AnnounceFirstAttackPercentageReductionEffect(unit);
-    }
-    
-    public void AnnounceFollowUpPercentageReduction(Unit unit)
-    {
         AnnounceFollowUpPercentageReductionEffect(unit);
     }
-    
     
     private void AnnounceNeutralizationAtkPenaltyStat(Unit unit)
     {
@@ -364,12 +355,14 @@ public class ConsoleGameView : IView
     
     private void AnnounceExtraDamageInEachAttack(Unit unit)
     {
-        if (unit.ExtraDamage > 0)_view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
+        if (unit.ExtraDamage > 0)
+            _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
     }
     
     private void AnnounceExtraDamageInFirstAttack(Unit unit)
     {
-        if (unit.FirstAttackExtraDamage > 0) _view.WriteLine($"{unit.Name} realizará +{unit.FirstAttackExtraDamage} daño extra en su primer ataque");
+        if (unit.FirstAttackExtraDamage > 0) 
+            _view.WriteLine($"{unit.Name} realizará +{unit.FirstAttackExtraDamage} daño extra en su primer ataque");
     }
     
     private void AnnounceExtraDamageInFollowUpAttack(Unit unit)
@@ -377,7 +370,7 @@ public class ConsoleGameView : IView
         _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en su Follow-Up");
     }
     
-    private void AnnounceExtraDamageEffect(Unit unit)
+    private void AnnounceIfActiveExtraDamageEffect(Unit unit)
     {
         if (unit.HasActiveExtraDamageEffect()) AnnounceExtraDamageInEachAttack(unit);
         if (unit.HasActiveFirstAttackExtraDamageEffect()) AnnounceExtraDamageInFirstAttack(unit);
@@ -395,17 +388,20 @@ public class ConsoleGameView : IView
 
     private void AnnounceFirstAttackPercentageReductionEffect(Unit unit)
     {
-        if (unit.HasActiveFirstAttackPercentageDamageReductionEffect()) AnnounceFirstAttackPercentageDamageReduction(unit);
+        if (unit.HasActiveFirstAttackPercentageDamageReductionEffect())
+            AnnounceFirstAttackPercentageDamageReduction(unit);
     }
     
     private void AnnounceFollowUpPercentageReductionEffect(Unit unit)
     {
-        if (unit.HasActiveFollowUpPercentageDamageReductionEffect()) AnnounceFollowUpPercentageDamageReduction(unit);
+        if (unit.HasActiveFollowUpPercentageDamageReductionEffect())
+            AnnounceFollowUpPercentageDamageReduction(unit);
     }
     
     private void AnnounceEachAttackPercentageReductionEffect(Unit unit)
     {
-        if (unit.HasActivePercentageDamageReductionEffect()) AnnounceEachAttackPercentageDamageReduction(unit);
+        if (unit.HasActivePercentageDamageReductionEffect())
+            AnnounceEachAttackPercentageDamageReduction(unit);
     }
     
     private void AnnounceEachAttackPercentageDamageReduction(Unit unit)
