@@ -3,9 +3,9 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
-public class PercentagePenaltyEffect : IEffect, IPenaltyEffect
+public class PercentagePenaltyEffect : IPenaltyEffect
 {
-    public EffectTarget Target { get; }
+    private EffectTarget _target { get; }
     private readonly StatType _statToDecrease;
     private readonly double _percentage;
     private int _penaltyAmount;
@@ -17,12 +17,12 @@ public class PercentagePenaltyEffect : IEffect, IPenaltyEffect
     {
         _statToDecrease = statToDecrease;
         _percentage = percentage;
-        Target = target;
+        _target = target;
     }
     
     public void ApplyEffect(Unit activator, Unit opponent)
     {
-        Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         int baseStatValue = targetUnit.GetBaseStat(_statToDecrease);
         _penaltyAmount = (int)(baseStatValue * _percentage);
         targetUnit.ApplyStatPenaltyEffect(_statToDecrease, _penaltyAmount);

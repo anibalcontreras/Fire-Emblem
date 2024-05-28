@@ -984,11 +984,10 @@ public static Skill CreateRemoteSturdySkill()
     public static Skill CreateDragonWallSkill()
     {
         ICondition condition = new StatComparisionCondition(StatType.Res);
-        IEffect effect = new PercentageComparisionDamageReductionEffect(StatType.Res, StatType.Res, EffectTarget.Unit);
+        IEffect effect = new PercentageComparisionDamageReductionEffect(StatType.Res, StatType.Res, 
+            EffectTarget.Unit);
         ConditionalEffect conditionalEffect = new ConditionalEffect(condition, effect);
-
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
-
         return new Skill("Dragon Wall", multiEffect);
     }
 

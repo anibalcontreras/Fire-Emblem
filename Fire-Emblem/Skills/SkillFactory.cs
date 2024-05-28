@@ -196,8 +196,6 @@ public class SkillFactory
                 return SkillBuilder.CreateSteadyPostureSkill();
             case "Golden Lotus":
                 return SkillBuilder.CreateGoldenLotusSkill();
-            case "Dragon Wall":
-                return SkillBuilder.CreateDragonWallSkill();
             case "Dodge":
                 return SkillBuilder.CreateDodgeSkill();
             case "Back at You":
@@ -206,20 +204,22 @@ public class SkillFactory
                 return SkillBuilder.CreateLunarBraceSkill();
             case "Poetic Justice":
                 return SkillBuilder.CreatePoeticJusticeSkill();
-            case "Laguz Friend":
-                return SkillBuilder.CreateLaguzFriendSkill();
             case "Bushido":
                 return SkillBuilder.CreateBushidoSkill();
             case "Prescience":
                 return SkillBuilder.CreatePrescienceSkill();
             case "Extra Chivalry":
                 return SkillBuilder.CreateExtraChivalrySkill();
-            case "Guard Bearing":
-                return SkillBuilder.CreateGuardBearingSkill();
-            case "Moon-Twin Wing":
-                return SkillBuilder.CreateMoonTwinWingSkill();
-            case "Dragon's Wrath":
-                return SkillBuilder.CreateDragonsWrathSkill();
+            case "Laguz Friend":
+                return SkillBuilder.CreateLaguzFriendSkill();
+            case "Dragon Wall":
+                return SkillBuilder.CreateDragonWallSkill();
+            // case "Guard Bearing":
+            //     return SkillBuilder.CreateGuardBearingSkill();
+            // case "Moon-Twin Wing":
+            //     return SkillBuilder.CreateMoonTwinWingSkill();
+            // case "Dragon's Wrath":
+            //     return SkillBuilder.CreateDragonsWrathSkill();
             // case "Divine Recreation":
             //     return SkillBuilder.CreateDivineRecreationSkill();
             // case "Soulblade":

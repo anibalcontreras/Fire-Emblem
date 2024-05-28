@@ -95,7 +95,7 @@ public class SkillController
         ApplyAlterBaseStatEffect(activator, opponent, effectsToApply);
         ApplyBonusEffect(activator, opponent, effectsToApply);
         ApplyFirstAttackBonusEffect(activator, opponent, effectsToApply);
-        ApplyPenaltyBonusEffect(activator, opponent, effectsToApply);
+        ApplyPenaltyEffect(activator, opponent, effectsToApply);
         ApplyFirstAttackPenaltyBonusEffect(activator, opponent, effectsToApply);
         ApplyNeutralizationBonusEffect(activator, opponent, effectsToApply);
         ApplyNeutralizationPenaltyEffect(activator, opponent, effectsToApply);
@@ -132,7 +132,7 @@ public class SkillController
         ApplyEffects<FirstAttackBonusEffect>(activator, opponent, effectsToApply);
     }
 
-    private void ApplyPenaltyBonusEffect(Unit activator, Unit opponent, 
+    private void ApplyPenaltyEffect(Unit activator, Unit opponent, 
         List<(Unit, IEffect)> effectsToApply)
     {
         ApplyEffects<IPenaltyEffect>(activator, opponent, effectsToApply);
