@@ -25,7 +25,7 @@ public abstract class Damage
     public int CalculateDamage()
     {
         int defenseValue = CalculateDefenseValue();
-        double initialDamage = CalculateInitialDamage(defenseValue);
+        double initialDamage = CalculateInitialDamage(defenseValue); 
         int damageAfterExtra = ApplyExtraDamage(initialDamage);
         double totalPercentageReduction = CalculateTotalPercentageReduction();
         double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
@@ -38,7 +38,10 @@ public abstract class Damage
 
     private double CalculateInitialDamage(int defenseValue)
     {
-        return (Convert.ToDouble(AttackValue) * Convert.ToDouble(AttackerWeapon.GetWtb(Defender.Weapon))) - defenseValue;
+        double attackValue = Convert.ToDouble(AttackValue);
+        double weaponTriangleBonus = Convert.ToDouble(AttackerWeapon.GetWtb(Defender.Weapon));
+        double initialDamage = (attackValue * weaponTriangleBonus) - defenseValue;
+        return Math.Max(0, initialDamage);
     }
 
     private int ApplyExtraDamage(double initialDamage)

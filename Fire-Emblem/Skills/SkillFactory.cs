@@ -214,12 +214,12 @@ public class SkillFactory
                 return SkillBuilder.CreateLaguzFriendSkill();
             case "Dragon Wall":
                 return SkillBuilder.CreateDragonWallSkill();
+            case "Moon-Twin Wing":
+                return SkillBuilder.CreateMoonTwinWingSkill();
+            case "Dragon's Wrath":
+                return SkillBuilder.CreateDragonsWrathSkill();
             // case "Guard Bearing":
             //     return SkillBuilder.CreateGuardBearingSkill();
-            // case "Moon-Twin Wing":
-            //     return SkillBuilder.CreateMoonTwinWingSkill();
-            // case "Dragon's Wrath":
-            //     return SkillBuilder.CreateDragonsWrathSkill();
             // case "Divine Recreation":
             //     return SkillBuilder.CreateDivineRecreationSkill();
             // case "Soulblade":
