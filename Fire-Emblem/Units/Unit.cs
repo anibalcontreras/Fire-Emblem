@@ -1,7 +1,4 @@
 using Fire_Emblem.Effects;
-using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
-using Fire_Emblem.Effects.Damage.ExtraDamage;
-using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Exception;
 using Fire_Emblem.Skills;
@@ -10,24 +7,27 @@ namespace Fire_Emblem.Units;
 using Weapons;
 public class Unit
 {
-    public string Name { get; set; }
-    public string Gender { get; set; }
-    public string DeathQuote { get; set; }
-    public int BaseHp { get; set; }
-    public int BaseAtk { get; set; }
-    public int BaseSpd { get; set; }
-    public int BaseDef { get; set; }
-    public int BaseRes { get; set; }
-    public Weapon Weapon { get; set; }
-       
-    private List<Skill> _skills = new List<Skill>();
-
+    private readonly List<Skill> _skills = new List<Skill>();
+    private readonly List<IEffect> _effects = new List<IEffect>();
+    private IEnumerable<IEffect> Effects => _effects.AsReadOnly();
+    
+    
+    public bool HasActiveNeutralizationBonus(StatType statType)
+    {
+        return Effects.Any(effect => effect is NeutralizationBonusEffect bonus && bonus.StatType == statType);
+    }
+    public bool HasActiveNeutralizationPenalty(StatType statType)
+    {
+        return Effects.Any(effect => effect is NeutralizationPenaltyEffect penalty && penalty.StatType == statType);
+    }
+    
+    
     public IEnumerable<Skill> Skills
         => _skills.AsReadOnly();
-
+    
     public void AddSkill(Skill skill)
         => _skills.Add(skill);
-    
+
     public Unit LastUnitFaced { get; private set; }
     
     public void SetLastUnitFaced(Unit unit)
@@ -35,7 +35,7 @@ public class Unit
         LastUnitFaced = unit;
     }
     
-    public bool IsAttacker { get; private set; } = false;
+    public bool IsAttacker { get; private set; }
     
     public void SetIsAttacker()
     {
@@ -47,7 +47,7 @@ public class Unit
         IsAttacker = false;
     }
     
-    public bool IsDefender { get; private set; } = false;
+    public bool IsDefender { get; private set; }
     
     public void SetIsDefender()
     {
@@ -59,15 +59,15 @@ public class Unit
         IsDefender = false;
     }
 
-    public bool HasActivatedAlterStatBase { get; private set; } = false;
+    public bool HasActivatedAlterStatBase { get; private set; }
     
     public void SetActivatedAlterStatBase()
     {
         HasActivatedAlterStatBase = true;
     }
     
-    public bool HasBeenAttackerBefore { get; private set; } = false;
-    public bool HasBeenDefenderBefore { get; private set; } = false;
+    public bool HasBeenAttackerBefore { get; private set; }
+    public bool HasBeenDefenderBefore { get; private set; }
     
     public void SetHasBeenAttackerBefore()
     {
@@ -112,7 +112,6 @@ public class Unit
     private int DefPenaltyNeutralization { get; set; }
     private int ResPenaltyNeutralization { get; set; }
     
-    
     public int AtkPenalty { get; private set; }
     public int SpdPenalty { get; private set; }
     public int DefPenalty { get; private set; }
@@ -125,7 +124,6 @@ public class Unit
     public int FirstAttackAtkPenalty { get; private set; }
     public int FirstAttackDefPenalty { get; private set; }
     public int FirstAttackResPenalty { get; private set; }
-    
     
     public int FollowUpAtkBonus { get; private set; }
     public int FollowUpDefBonus { get; private set; }
@@ -143,20 +141,15 @@ public class Unit
     private int FirstAttackDefPenaltyNeutralization { get; set; }
     private int FirstAttackResPenaltyNeutralization { get; set; }
     
-    
     public int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - 
         FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
     public int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - 
         FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
     public int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - 
         FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
-    
     public int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
     public int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
     public int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
-    
-    
-    
     
     public int GetBaseStat(StatType statType)
     {
@@ -259,46 +252,6 @@ public class Unit
         }
     }
     
-    public void ApplyFollowUpStatBonusEffect(StatType statType, int effectAmount)
-    {
-        switch (statType)
-        {
-            case StatType.Atk:
-                FollowUpAtkBonus += effectAmount;
-                break;
-            case StatType.Def:
-                FollowUpDefBonus += effectAmount;
-                break;
-            case StatType.Res:
-                FollowUpResBonus += effectAmount;
-                break;
-            default:
-                throw new StatNotRecognizedException();
-        }
-    }
-    
-    public void ApplyFollowUpStatPenaltyEffect(StatType statType, int effectAmount)
-    {
-        switch (statType)
-        {
-            case StatType.Atk:
-                FollowUpAtkPenalty += effectAmount;
-                break;
-            case StatType.Def:
-                FollowUpDefPenalty += effectAmount;
-                break;
-            case StatType.Res:
-                FollowUpResPenalty += effectAmount;
-                break;
-            default:
-                throw new StatNotRecognizedException();
-        }
-    }
-    
-    private List<IEffect> _effects = new List<IEffect>();
-
-    private IEnumerable<IEffect> Effects => _effects.AsReadOnly();
-    
     public void AddActiveEffect(IEffect effect)
     {
         _effects.Add(effect);
@@ -308,70 +261,6 @@ public class Unit
     {
         _effects.Clear();
     }
-    
-    public bool HasActiveExtraDamageEffect()
-    {
-        return Effects.Any(effect => effect is IExtraDamageEffect); 
-    }
-    
-    public bool HasActiveFirstAttackExtraDamageEffect()
-    {
-        return Effects.Any(effect => effect is FirstAttackExtraDamageEffect);
-    }
-
-    public bool HasActiveAbsoluteDamageReductionEffect()
-    {
-        return Effects.Any(effect => effect is IAbsoluteDamageReductionEffect);
-    }
-    
-    public bool HasActivePercentageDamageReductionEffect()
-    {
-        return Effects.Any(effect => effect is IPercentageDamageReductionEffect);
-    }
-    
-    public bool HasActiveFirstAttackPercentageDamageReductionEffect()
-    {
-        return Effects.Any(effect => effect is FirstAttackPercentageDamageReductionEffect);
-    }
-    
-    public bool HasActiveFollowUpPercentageDamageReductionEffect()
-    {
-        return Effects.Any(effect => effect is FollowUpPercentageDamageReductionEffect);
-    }
-    
-    public bool HasActiveNeutralizationPenalty(StatType statType)
-    {
-        return Effects.Any(effect => effect is NeutralizationPenaltyEffect penalty && penalty.StatType == statType);
-    }
-    
-    public bool HasActiveNeutralizationBonus(StatType statType)
-    {
-        return Effects.Any(effect => effect is NeutralizationBonusEffect bonus && bonus.StatType == statType);
-    }
-    
-    public bool HasActiveBonus(StatType statType)
-    {
-        return Effects.Any(effect => effect is IBonusEffect bonus && bonus.StatType == statType && bonus.Amount > 0);
-    }
-    
-    public bool HasActiveFirstAttackBonus(StatType statType)
-    {
-        return Effects.Any(effect => effect is FirstAttackBonusEffect bonus && 
-                                     bonus.StatType == statType && bonus.Amount > 0);
-    }
-    
-    public bool HasActiveFirstAttackPenalty(StatType statType)
-    {
-        return Effects.Any(effect => effect is FirstAttackPenaltyEffect penalty && 
-                                     penalty.StatType == statType && penalty.Amount > 0);
-    }
-    
-    public bool HasActivePenalty(StatType statType)
-    {
-        return Effects.Any(effect => effect is IPenaltyEffect penalty && 
-                                     penalty.StatType == statType && penalty.Amount > 0);
-    }
-    
     
     public void NeutralizeBonus(StatType statType)
     {
@@ -538,4 +427,14 @@ public class Unit
         FollowUpDefPenalty = 0;
         FollowUpResPenalty = 0;
     }
+    
+    public string Name { get; init; }
+    public string Gender { get; init; }
+    public string DeathQuote { get; init; }
+    public int BaseHp { get; init; }
+    public int BaseAtk { get; init; }
+    public int BaseSpd { get; init; }
+    public int BaseDef { get; init; }
+    public int BaseRes { get; init; }
+    public Weapon Weapon { get; init; }
 }

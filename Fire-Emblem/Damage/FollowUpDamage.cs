@@ -6,7 +6,8 @@ namespace Fire_Emblem.Damage;
 public class FollowUpDamage : Damage
 {
     public FollowUpDamage(Unit attacker, Unit defender)
-        : base(attacker, defender, attacker.FollowUpAtk, attacker.ExtraDamage, attacker.FirstAttackExtraDamage)
+        : base(attacker, defender, attacker.FollowUpAtk, attacker.ExtraDamage, 
+            attacker.FirstAttackExtraDamage)
     {
     }
 

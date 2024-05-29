@@ -18,7 +18,6 @@ public class MultiCondition : ICondition
             if (!condition.IsConditionMet(activator, opponent))
                 return false;
         }
-        
-        return _conditions.All(condition => condition.IsConditionMet(activator, opponent));
+        return true;
     }
 }

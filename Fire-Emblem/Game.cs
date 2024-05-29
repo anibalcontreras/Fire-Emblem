@@ -31,7 +31,7 @@ public class Game
     private void StartGame()
     {
         List<Team> teams = BuildTeamsFromScratch();
-        if (AreTeamsValid(teams))
+        if (TeamsAreValid(teams))
             StartGameDevelopment(teams);
         else
             ShowInvalidTeamMessage();
@@ -67,7 +67,7 @@ public class Game
         return teamBuilder.BuildTeams(content);
     }
     
-    private bool AreTeamsValid(List<Team> teams)
+    private bool TeamsAreValid(List<Team> teams)
     {
         return teams.All(team => team.IsValidTeam());
     }

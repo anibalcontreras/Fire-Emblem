@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Fire_Emblem.Exception;
 using Fire_Emblem.Loaders;
 namespace Fire_Emblem.Teams;
@@ -145,6 +146,8 @@ public class TeamBuilder
 
     private Skill FindSkillByName(string skillName)
     {
-        return _dataLoader.Skills.FirstOrDefault(s => s.Name == skillName);
+        ReadOnlyCollection<Skill> dataLoaderSkills = _dataLoader.Skills;
+        
+        return dataLoaderSkills.FirstOrDefault(skill => skill.Name == skillName);
     }
 }

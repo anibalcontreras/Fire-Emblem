@@ -28,7 +28,9 @@ public class Team
     private bool HasUniqueUnits()
     {
         IEnumerable<string> unitNames = Units.Select(unit => unit.Name);
-        return unitNames.Distinct().Count() == unitNames.Count();
+        IEnumerable<string> distinctUnitNames = unitNames.Distinct();
+        bool hasUniqueUnits = distinctUnitNames.Count() == unitNames.Count();
+        return hasUniqueUnits;
     }
     
     private bool UnitsHaveValidSkills()

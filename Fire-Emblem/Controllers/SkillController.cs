@@ -29,21 +29,21 @@ public class SkillController
         ApplyFirstOrderEffects(activator, opponent);
         ApplySecondOrderEffects(activator, opponent);
     }
-
-    private void ApplySecondOrderEffects(Unit activator, Unit opponent)
-    {
-        List<(Unit, IEffect)> secondEffectsToApply = new List<(Unit, IEffect)>();
-        _secondOrderEffectsHandler.CollectConditionMetEffects(activator, opponent, secondEffectsToApply);
-        _secondOrderEffectsHandler.CollectConditionMetEffects(opponent, activator, secondEffectsToApply);
-        _secondOrderEffectsHandler.ApplyEffectsInOrder(activator, opponent, secondEffectsToApply);
-    }
-
+    
     private void ApplyFirstOrderEffects(Unit activator, Unit opponent)
     {
         List<(Unit, IEffect)> firstEffectsToApply = new List<(Unit, IEffect)>();
         _firstOrderEffectsHandler.CollectConditionMetEffects(activator, opponent, firstEffectsToApply);
         _firstOrderEffectsHandler.CollectConditionMetEffects(opponent, activator, firstEffectsToApply);
         _firstOrderEffectsHandler.ApplyEffectsInOrder(activator, opponent, firstEffectsToApply);
+    }
+    
+    private void ApplySecondOrderEffects(Unit activator, Unit opponent)
+    {
+        List<(Unit, IEffect)> secondEffectsToApply = new List<(Unit, IEffect)>();
+        _secondOrderEffectsHandler.CollectConditionMetEffects(activator, opponent, secondEffectsToApply);
+        _secondOrderEffectsHandler.CollectConditionMetEffects(opponent, activator, secondEffectsToApply);
+        _secondOrderEffectsHandler.ApplyEffectsInOrder(activator, opponent, secondEffectsToApply);
     }
 
     private void AnnounceEffects(Combat combat)

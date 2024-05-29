@@ -46,21 +46,20 @@ public class CombatController
     {
         Unit attacker = combat.Attacker;
         Unit defender = combat.Defender;
-        AdvantageState weaponAdvantage = attacker.Weapon.CalculateAdvantage(defender);
+        Weapon selectedWeapon = attacker.Weapon;
+        AdvantageState weaponAdvantage = selectedWeapon.CalculateAdvantage(defender);
         _consoleGameView.AnnounceAdvantage(attacker, defender, weaponAdvantage);
     }
     
     private void ActivateSkills(Combat combat)
-    {
-        _skillController.ActivateSkills(combat);
-    }
+        => _skillController.ActivateSkills(combat);
     
     private void ExecuteCombatProcess(Unit attacker, Unit defender, Combat combat)
     {
-    if (HandleAttack(attacker, defender)) return;
-    if (HandleCounterattack(attacker, defender)) return;
-    HandleFollowUp(combat);
-    EndCombat(attacker, defender);
+        if (HandleAttack(attacker, defender)) return;
+        if (HandleCounterattack(attacker, defender)) return;
+        HandleFollowUp(combat);
+        EndCombat(attacker, defender);
     }
 
     private bool HandleAttack(Unit attacker, Unit defender)
@@ -98,7 +97,6 @@ public class CombatController
     
     private void PerformCounterattack(Unit attacker, Unit defender)
     {
-        
         int damage = CalculateFirstAttackDamage(defender, attacker);
         defender.ResetFirstAttackBonusStats();
         attacker.ResetFirstAttackPenaltyStats();

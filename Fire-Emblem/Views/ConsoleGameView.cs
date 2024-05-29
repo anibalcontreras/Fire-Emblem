@@ -8,7 +8,7 @@ namespace Fire_Emblem.Views;
 
 public class ConsoleGameView : IView
 {
-    private View _view;
+    private readonly View _view;
     private readonly string _teamsFolder;
 
     public ConsoleGameView(View view, string teamsFolder)
@@ -309,32 +309,32 @@ public class ConsoleGameView : IView
     
     private void AnnounceIfPositiveBonus(Unit unit)
     {
-        if (unit.HasActiveBonus(StatType.Atk)) AnnounceAtkBonusStat(unit);
-        if (unit.HasActiveBonus(StatType.Spd)) AnnounceSpdBonusStat(unit);
-        if (unit.HasActiveBonus(StatType.Def)) AnnounceDefBonusStat(unit);
-        if (unit.HasActiveBonus(StatType.Res)) AnnounceResBonusStat(unit);
+        if (unit.AtkBonus > 0) AnnounceAtkBonusStat(unit);
+        if (unit.SpdBonus > 0) AnnounceSpdBonusStat(unit);
+        if (unit.DefBonus > 0) AnnounceDefBonusStat(unit);
+        if (unit.ResBonus > 0) AnnounceResBonusStat(unit);
     }
     
     private void AnnounceIfPositiveFirstAttackBonus(Unit unit)
     {
-        if (unit.HasActiveFirstAttackBonus(StatType.Atk)) AnnounceFirstAttackAtkBonusStat(unit);
-        if (unit.HasActiveFirstAttackBonus(StatType.Def)) AnnounceFirstAttackDefBonusStat(unit);
-        if (unit.HasActiveFirstAttackBonus(StatType.Res)) AnnounceFirstAttackResBonusStat(unit);
+        if (unit.FirstAttackAtkBonus > 0) AnnounceFirstAttackAtkBonusStat(unit);
+        if (unit.FirstAttackDefBonus > 0) AnnounceFirstAttackDefBonusStat(unit);
+        if (unit.FirstAttackResBonus > 0) AnnounceFirstAttackResBonusStat(unit);
     }
     
     private void AnnounceIfPositivePenalty(Unit unit)
     {
-        if (unit.HasActivePenalty(StatType.Atk)) AnnounceAtkPenaltyStat(unit);
-        if (unit.HasActivePenalty(StatType.Spd)) AnnounceSpdPenaltyStat(unit);
-        if (unit.HasActivePenalty(StatType.Def)) AnnounceDefPenaltyStat(unit);
-        if (unit.HasActivePenalty(StatType.Res)) AnnounceResPenaltyStat(unit);
+        if (unit.AtkPenalty > 0) AnnounceAtkPenaltyStat(unit);
+        if (unit.SpdPenalty > 0) AnnounceSpdPenaltyStat(unit);
+        if (unit.DefPenalty > 0) AnnounceDefPenaltyStat(unit);
+        if (unit.ResPenalty > 0) AnnounceResPenaltyStat(unit);
     }
     
     private void AnnounceIfPositiveFirstAttackPenalty(Unit unit)
     {
-        if (unit.HasActiveFirstAttackPenalty(StatType.Atk)) AnnounceFirstAttackAtkPenaltyStat(unit);
-        if (unit.HasActiveFirstAttackPenalty(StatType.Def)) AnnounceFirstAttackDefPenaltyStat(unit);
-        if (unit.HasActiveFirstAttackPenalty(StatType.Res)) AnnounceFirstAttackResPenaltyStat(unit);
+        if (unit.FirstAttackAtkPenalty > 0) AnnounceFirstAttackAtkPenaltyStat(unit);
+        if (unit.FirstAttackDefPenalty > 0) AnnounceFirstAttackDefPenaltyStat(unit);
+        if (unit.FirstAttackResPenalty > 0) AnnounceFirstAttackResPenaltyStat(unit);
     }
 
     private void AnnounceBonusNeutralizationStat(Unit unit)
@@ -365,20 +365,15 @@ public class ConsoleGameView : IView
             _view.WriteLine($"{unit.Name} realizará +{unit.FirstAttackExtraDamage} daño extra en su primer ataque");
     }
     
-    private void AnnounceExtraDamageInFollowUpAttack(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en su Follow-Up");
-    }
-    
     private void AnnounceIfActiveExtraDamageEffect(Unit unit)
     {
-        if (unit.HasActiveExtraDamageEffect()) AnnounceExtraDamageInEachAttack(unit);
-        if (unit.HasActiveFirstAttackExtraDamageEffect()) AnnounceExtraDamageInFirstAttack(unit);
+        if (unit.ExtraDamage > 0) AnnounceExtraDamageInEachAttack(unit);
+        if (unit.FirstAttackExtraDamage > 0) AnnounceExtraDamageInFirstAttack(unit);
     }
     
     private void AnnounceAbsoluteDamageReductionEffect(Unit unit)
     {
-        if (unit.HasActiveAbsoluteDamageReductionEffect()) AnnounceAbsoluteDamageReductionInEachAttack(unit);
+        if (unit.AbsoluteDamageReduction > 0) AnnounceAbsoluteDamageReductionInEachAttack(unit);
     }
     
     private void AnnounceAbsoluteDamageReductionInEachAttack(Unit unit)
@@ -388,20 +383,19 @@ public class ConsoleGameView : IView
 
     private void AnnounceFirstAttackPercentageReductionEffect(Unit unit)
     {
-        if (unit.HasActiveFirstAttackPercentageDamageReductionEffect())
+        if (unit.FirstAttackPercentageDamageReduction > 0)
             AnnounceFirstAttackPercentageDamageReduction(unit);
     }
     
     private void AnnounceFollowUpPercentageReductionEffect(Unit unit)
     {
-        if (unit.HasActiveFollowUpPercentageDamageReductionEffect())
+        if (unit.FollowUpPercentageDamageReduction > 0)
             AnnounceFollowUpPercentageDamageReduction(unit);
     }
     
     private void AnnounceEachAttackPercentageReductionEffect(Unit unit)
     {
-        if (unit.HasActivePercentageDamageReductionEffect())
-            AnnounceEachAttackPercentageDamageReduction(unit);
+        if (unit.PercentageDamageReduction > 0) AnnounceEachAttackPercentageDamageReduction(unit);
     }
     
     private void AnnounceEachAttackPercentageDamageReduction(Unit unit)
@@ -409,9 +403,7 @@ public class ConsoleGameView : IView
         double roundedReduction = Math.Round(unit.PercentageDamageReduction, 2);
         int percentage = Convert.ToInt32(Math.Floor(roundedReduction * 100));
         if (percentage > 0)
-        {
             _view.WriteLine($"{unit.Name} reducirá el daño de los ataques del rival en un {percentage}%");
-        }
     }
 
     private void AnnounceFirstAttackPercentageDamageReduction(Unit unit)
@@ -419,20 +411,14 @@ public class ConsoleGameView : IView
         double roundedReduction = Math.Round(unit.FirstAttackPercentageDamageReduction, 2);
         int percentage = Convert.ToInt32(Math.Floor(roundedReduction * 100));
         if (percentage > 0)
-        {
             _view.WriteLine($"{unit.Name} reducirá el daño del primer ataque del rival en un {percentage}%");
-        }
     }
     
     private void AnnounceFollowUpPercentageDamageReduction(Unit unit)
     {
-        // Dejar esto fuera de la vista
-        // Hacer lo mismo que en AnnounceIfPositiveBonus
         double roundedReduction = Math.Round(unit.FollowUpPercentageDamageReduction, 2);
         int percentage = Convert.ToInt32(Math.Floor(roundedReduction * 100));
         if (percentage > 0) 
-        {
             _view.WriteLine($"{unit.Name} reducirá el daño del Follow-Up del rival en un {percentage}%");
-        }
     }
 }
