@@ -1197,4 +1197,37 @@ public static Skill CreateRemoteSturdySkill()
         
         return new Skill("Dragon’s Wrath", multiEffect);
     }
+
+    public static Skill CreateDivineRecreationSkill()
+    {
+        ICondition rivalHpAboveThresholdCondition = new RivalHpAboveThresholdCondition(0.5);
+        
+        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 4, EffectTarget.Rival);
+        IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival);
+        IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 4, EffectTarget.Rival);
+        IEffect resPenaltyEffect = new PenaltyEffect(StatType.Res, 4, EffectTarget.Rival);
+        
+        IEffect reduceFirstAttackDamageEffect = new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+        IEffect extraDamageEffect = new ExtraDamageEffect(4, EffectTarget.Unit);
+        
+        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, atkPenaltyEffect);
+        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, spdPenaltyEffect);
+        ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, defPenaltyEffect);
+        ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, resPenaltyEffect);
+        
+        ConditionalEffect conditionalReduceFirstAttackDamageEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, reduceFirstAttackDamageEffect);
+        ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, extraDamageEffect);
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkPenaltyEffect,
+            conditionalSpdPenaltyEffect,
+            conditionalDefPenaltyEffect,
+            conditionalResPenaltyEffect,
+            conditionalReduceFirstAttackDamageEffect,
+            conditionalExtraDamageEffect
+        });
+        
+        return new Skill("Divine Recreation", multiEffect);
+    }
 }

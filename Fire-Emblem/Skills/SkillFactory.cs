@@ -218,10 +218,10 @@ public class SkillFactory
                 return SkillBuilder.CreateMoonTwinWingSkill();
             case "Dragon's Wrath":
                 return SkillBuilder.CreateDragonsWrathSkill();
-            // case "Guard Bearing":
-            //     return SkillBuilder.CreateGuardBearingSkill();
-            // case "Divine Recreation":
-            //     return SkillBuilder.CreateDivineRecreationSkill();
+            case "Guard Bearing":
+                return SkillBuilder.CreateGuardBearingSkill();
+            case "Divine Recreation":
+                return SkillBuilder.CreateDivineRecreationSkill();
             // case "Soulblade":
             //     return SkillBuilder.CreateSoulbladeSkill();
             // case "Sandstorm":
