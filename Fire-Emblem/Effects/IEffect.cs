@@ -1,7 +1,7 @@
-using Fire_Emblem.Stats;
-using Fire_Emblem.Units;
+using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Combats.Stats;
 
-namespace Fire_Emblem.Effects;
+namespace Fire_Emblem.Combats.Effects;
 
 public interface IEffect
 {

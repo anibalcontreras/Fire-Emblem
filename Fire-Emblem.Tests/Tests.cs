@@ -1,7 +1,7 @@
 ﻿using Fire_Emblem_View;
 
-namespace Fire_Emblem.Tests;
-using Fire_Emblem;
+namespace Fire_Emblem.Combats.Tests;
+using Combats;
 
 public class Tests
 {

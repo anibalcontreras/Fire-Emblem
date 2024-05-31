@@ -1,7 +1,7 @@
-using Fire_Emblem.Units;
-using Fire_Emblem.Weapons;
+using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Combats.Weapons;
 
-namespace Fire_Emblem.Damage;
+namespace Fire_Emblem.Combats.Damage;
 
 public class FollowUpDamage : Damage
 {

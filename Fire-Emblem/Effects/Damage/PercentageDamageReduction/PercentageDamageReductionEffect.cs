@@ -1,6 +1,6 @@
-using Fire_Emblem.Units;
+using Fire_Emblem.Combats.Units;
 
-namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+namespace Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction;
 
 public class PercentageDamageReductionEffect : IEffect, IPercentageDamageReductionEffect
 {

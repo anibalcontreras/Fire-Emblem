@@ -1,6 +1,5 @@
-namespace Fire_Emblem.Loaders;
+namespace Fire_Emblem.Combats.Loaders;
 
-using Weapons;
 using System.Text.Json;
 using Units;
 using Skills;
@@ -10,12 +9,14 @@ public class DataLoader
 {
     public ReadOnlyCollection<Unit> Units { get; private set; }
     public ReadOnlyCollection<Skill> Skills { get; private set; }
+    private readonly string _unitsJsonFilePath = "characters.json";
+    private readonly string _skillsJsonFilePath = "skills.json";
     
     
-    public DataLoader(string unitsJsonFilePath = "characters.json", string skillsJsonFilePath = "skills.json")
+    public DataLoader()
     {
-        Units = LoadUnits(unitsJsonFilePath).AsReadOnly();
-        Skills = LoadSkills(skillsJsonFilePath).AsReadOnly();
+        Units = LoadUnits(_unitsJsonFilePath).AsReadOnly();
+        Skills = LoadSkills(_skillsJsonFilePath).AsReadOnly();
     }
     
     private List<T> LoadFromJson<T>(string filePath, JsonSerializerOptions options)
@@ -35,10 +36,10 @@ public class DataLoader
         return CreateUnitsList(unitFromJsonList);
     }
 
-    private static List<Unit> CreateUnitsList(List<UnitFromJson>? unitFromJsonList)
+    private static List<Unit> CreateUnitsList(List<UnitFromJson> unitFromJsonList)
     {
         List<Unit> units = new List<Unit>();
-        foreach (var unitFromJson in unitFromJsonList)
+        foreach (UnitFromJson unitFromJson in unitFromJsonList)
             units.Add(unitFromJson.ConvertToUnit());
         return units;
     }

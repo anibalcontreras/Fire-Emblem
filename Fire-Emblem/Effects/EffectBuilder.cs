@@ -1,7 +1,7 @@
-using Fire_Emblem.Effects.Neutralization;
-using Fire_Emblem.Stats;
+using Fire_Emblem.Combats.Effects.Neutralization;
+using Fire_Emblem.Combats.Stats;
 
-namespace Fire_Emblem.Effects;
+namespace Fire_Emblem.Combats.Effects;
 
 public static class EffectBuilder
 {

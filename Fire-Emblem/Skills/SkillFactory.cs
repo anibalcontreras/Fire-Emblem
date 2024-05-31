@@ -1,6 +1,6 @@
-using Fire_Emblem.Exception;
+using Fire_Emblem.Combats.Exception;
 
-namespace Fire_Emblem.Skills;
+namespace Fire_Emblem.Combats.Skills;
 
 public class SkillFactory
 {
@@ -222,10 +222,6 @@ public class SkillFactory
                 return SkillBuilder.CreateGuardBearingSkill();
             case "Divine Recreation":
                 return SkillBuilder.CreateDivineRecreationSkill();
-            // case "Soulblade":
-            //     return SkillBuilder.CreateSoulbladeSkill();
-            // case "Sandstorm":
-            //     return SkillBuilder.CreateSandstormSkill();
             default:
                 throw new NotImplementedSkillException();
         }

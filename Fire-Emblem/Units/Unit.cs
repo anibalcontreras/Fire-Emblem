@@ -1,9 +1,10 @@
-using Fire_Emblem.Effects;
-using Fire_Emblem.Effects.Neutralization;
-using Fire_Emblem.Exception;
-using Fire_Emblem.Skills;
-using Fire_Emblem.Stats;
-namespace Fire_Emblem.Units;
+using Fire_Emblem.Combats.Effects;
+using Fire_Emblem.Combats.Effects.Neutralization;
+using Fire_Emblem.Combats.Exception;
+using Fire_Emblem.Combats.Skills;
+using Fire_Emblem.Combats.Stats;
+
+namespace Fire_Emblem.Combats.Units;
 using Weapons;
 public class Unit
 {
@@ -20,7 +21,6 @@ public class Unit
     {
         return Effects.Any(effect => effect is NeutralizationPenaltyEffect penalty && penalty.StatType == statType);
     }
-    
     
     public IEnumerable<Skill> Skills
         => _skills.AsReadOnly();
@@ -47,18 +47,6 @@ public class Unit
         IsAttacker = false;
     }
     
-    public bool IsDefender { get; private set; }
-    
-    public void SetIsDefender()
-    {
-        IsDefender = true;
-    }
-    
-    public void ResetIsDefender()
-    {
-        IsDefender = false;
-    }
-
     public bool HasActivatedAlterStatBase { get; private set; }
     
     public void SetActivatedAlterStatBase()
@@ -93,7 +81,7 @@ public class Unit
     }
 
     private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - AtkBonusNeutralization + AtkPenaltyNeutralization;
-    public int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - SpdBonusNeutralization + SpdPenaltyNeutralization;
+    private int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - SpdBonusNeutralization + SpdPenaltyNeutralization;
     private int CurrentDef => BaseDef + DefBonus - DefPenalty - DefBonusNeutralization + DefPenaltyNeutralization;
     private int CurrentRes => BaseRes + ResBonus - ResPenalty - ResBonusNeutralization + ResPenaltyNeutralization;
     
@@ -141,15 +129,28 @@ public class Unit
     private int FirstAttackDefPenaltyNeutralization { get; set; }
     private int FirstAttackResPenaltyNeutralization { get; set; }
     
-    public int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - 
+    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - 
         FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
-    public int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - 
+    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - 
         FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
-    public int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - 
+    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - 
         FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
+    
     public int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
     public int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
     public int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
+    
+    public int GetFirstAttackStat(StatType statType)
+    {
+        switch (statType)
+        {
+            case StatType.Atk: return FirstAttackAtk;
+            case StatType.Def: return FirstAttackDef;
+            case StatType.Res: return FirstAttackRes;
+            default: throw new StatNotRecognizedException();
+        }
+    }
+    
     
     public int GetBaseStat(StatType statType)
     {
@@ -191,7 +192,7 @@ public class Unit
             case StatType.Res:
                 ResBonus += effectAmount;
                 break;
-            case StatType.HP:
+            case StatType.Hp:
                 _currentHP += effectAmount;
                 break;
         }
@@ -427,7 +428,6 @@ public class Unit
         FollowUpDefPenalty = 0;
         FollowUpResPenalty = 0;
     }
-    
     public string Name { get; init; }
     public string Gender { get; init; }
     public string DeathQuote { get; init; }

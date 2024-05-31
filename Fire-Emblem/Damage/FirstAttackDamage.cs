@@ -1,19 +1,22 @@
-using Fire_Emblem.Units;
-using Fire_Emblem.Weapons;
+using Fire_Emblem.Combats.Stats;
+using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Combats.Weapons;
 
-namespace Fire_Emblem.Damage;
+namespace Fire_Emblem.Combats.Damage;
 
 public class FirstAttackDamage : Damage
 {
     public FirstAttackDamage(Unit attacker, Unit defender)
-        : base(attacker, defender, attacker.FirstAttackAtk, attacker.ExtraDamage + attacker.FirstAttackExtraDamage
+        : base(attacker, defender, attacker.GetFirstAttackStat(StatType.Atk), 
+            attacker.ExtraDamage + attacker.FirstAttackExtraDamage
             , 0)
     {
     }
 
     protected override int CalculateDefenseValue()
     {
-        return AttackerWeapon is Magic ? Defender.FirstAttackRes : Defender.FirstAttackDef;
+        return AttackerWeapon is Magic ? 
+            Defender.GetFirstAttackStat(StatType.Res) : Defender.GetFirstAttackStat(StatType.Def);
     }
 
     protected override double CalculateTotalPercentageReduction()

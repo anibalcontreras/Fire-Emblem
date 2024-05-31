@@ -1,10 +1,10 @@
-using Fire_Emblem.Conditions;
-using Fire_Emblem.Conditions.LogicalConditions;
-using Fire_Emblem.Effects;
-using Fire_Emblem.Effects.Neutralization;
-using Fire_Emblem.Stats;
+using Fire_Emblem.Combats.Conditions;
+using Fire_Emblem.Combats.Conditions.LogicalConditions;
+using Fire_Emblem.Combats.Effects;
+using Fire_Emblem.Combats.Effects.Neutralization;
+using Fire_Emblem.Combats.Stats;
 
-namespace Fire_Emblem.Skills.TypesCreator;
+namespace Fire_Emblem.Combats.Skills.TypesCreator;
 
 public static class CreateLull
 {

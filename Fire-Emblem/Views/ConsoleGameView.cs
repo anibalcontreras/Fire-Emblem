@@ -1,10 +1,10 @@
 using Fire_Emblem_View;
-using Fire_Emblem.Stats;
-using Fire_Emblem.Teams;
-using Fire_Emblem.Units;
-using Fire_Emblem.Weapons;
+using Fire_Emblem.Combats.Stats;
+using Fire_Emblem.Combats.Teams;
+using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Combats.Weapons;
 
-namespace Fire_Emblem.Views;
+namespace Fire_Emblem.Combats.Views;
 
 public class ConsoleGameView : IView
 {

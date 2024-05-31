@@ -1,8 +1,8 @@
-using Fire_Emblem.Teams;
-using Fire_Emblem.Units;
-using Fire_Emblem.Weapons;
+using Fire_Emblem.Combats.Teams;
+using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Combats.Weapons;
 
-namespace Fire_Emblem.Views;
+namespace Fire_Emblem.Combats.Views;
 
 public interface IView
 {

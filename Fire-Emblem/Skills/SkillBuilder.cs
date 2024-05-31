@@ -1,16 +1,16 @@
-using Fire_Emblem.Conditions;
-using Fire_Emblem.Conditions.LogicalConditions;
-using Fire_Emblem.Effects;
-using Fire_Emblem.Effects.AlterBaseStat;
-using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
-using Fire_Emblem.Effects.Damage.ExtraChivalryPercentageDamageReduction;
-using Fire_Emblem.Effects.Damage.ExtraDamage;
-using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
-using Fire_Emblem.Effects.Neutralization;
-using Fire_Emblem.Stats;
-using Fire_Emblem.Skills.TypesCreator;
+using Fire_Emblem.Combats.Conditions;
+using Fire_Emblem.Combats.Conditions.LogicalConditions;
+using Fire_Emblem.Combats.Effects;
+using Fire_Emblem.Combats.Effects.AlterBaseStat;
+using Fire_Emblem.Combats.Effects.Damage.AbsoluteDamageReduction;
+using Fire_Emblem.Combats.Effects.Damage.ExtraChivalryPercentageDamageReduction;
+using Fire_Emblem.Combats.Effects.Damage.ExtraDamage;
+using Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction;
+using Fire_Emblem.Combats.Effects.Neutralization;
+using Fire_Emblem.Combats.Skills.TypesCreator;
+using Fire_Emblem.Combats.Stats;
 
-namespace Fire_Emblem.Skills;
+namespace Fire_Emblem.Combats.Skills;
 
 public static class SkillBuilder
 {
@@ -244,7 +244,7 @@ public static class SkillBuilder
     public static Skill CreateHpPlus15Skill()
     {
         ICondition condition = new HasUnitActivatedTheStatAbility();
-        IEffect effect = new AlterBaseStatEffect(StatType.HP, 15, EffectTarget.Unit);
+        IEffect effect = new AlterBaseStatEffect(StatType.Hp, 15, EffectTarget.Unit);
         ConditionalEffect conditionalEffect = new ConditionalEffect(condition, effect);
         MultiEffect effects = new MultiEffect(new IEffect[] { conditionalEffect });
         return new Skill("HP +15", effects);

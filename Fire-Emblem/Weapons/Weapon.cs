@@ -1,6 +1,6 @@
-using Fire_Emblem.Units;
+using Fire_Emblem.Combats.Units;
 
-namespace Fire_Emblem.Weapons;
+namespace Fire_Emblem.Combats.Weapons;
 
 public abstract class Weapon
 {

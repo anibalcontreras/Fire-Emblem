@@ -1,4 +1,4 @@
-namespace Fire_Emblem.Weapons;
+namespace Fire_Emblem.Combats.Weapons;
 
 public class Lance : Weapon
 {

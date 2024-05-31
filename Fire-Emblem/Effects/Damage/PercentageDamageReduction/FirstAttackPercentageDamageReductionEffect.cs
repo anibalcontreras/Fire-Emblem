@@ -1,7 +1,7 @@
-using Fire_Emblem.Stats;
-using Fire_Emblem.Units;
+using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Combats.Stats;
 
-namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+namespace Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction;
 
 public class FirstAttackPercentageDamageReductionEffect : IEffect
 {

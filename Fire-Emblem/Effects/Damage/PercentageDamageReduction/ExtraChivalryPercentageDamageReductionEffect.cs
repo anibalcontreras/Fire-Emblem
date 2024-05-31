@@ -1,7 +1,7 @@
-using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
-using Fire_Emblem.Units;
+using Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction;
+using Fire_Emblem.Combats.Units;
 
-namespace Fire_Emblem.Effects.Damage.ExtraChivalryPercentageDamageReduction
+namespace Fire_Emblem.Combats.Effects.Damage.ExtraChivalryPercentageDamageReduction
 {
     public class ExtraChivalryPercentageDamageReductionEffect : IEffect, IPercentageDamageReductionEffect
     {

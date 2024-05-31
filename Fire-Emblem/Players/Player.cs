@@ -1,6 +1,6 @@
-using Fire_Emblem.Teams;
+using Fire_Emblem.Combats.Teams;
 
-namespace Fire_Emblem;
+namespace Fire_Emblem.Combats;
 public class Player
 {
     public string Name { get; private set; }

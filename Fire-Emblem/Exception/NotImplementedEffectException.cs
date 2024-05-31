@@ -1,4 +1,4 @@
-namespace Fire_Emblem.Exception;
+namespace Fire_Emblem.Combats.Exception;
 
 public class NotImplementedEffectException : ApplicationException
 {

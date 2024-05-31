@@ -1,4 +1,4 @@
-namespace Fire_Emblem.Stats;
+namespace Fire_Emblem.Combats.Stats;
 
 public enum StatType
 {
@@ -6,5 +6,5 @@ public enum StatType
     Def,
     Spd,
     Res,
-    HP,
+    Hp,
 }

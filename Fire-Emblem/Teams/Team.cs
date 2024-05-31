@@ -1,7 +1,7 @@
-using Fire_Emblem.Skills;
-using Fire_Emblem.Units;
+using Fire_Emblem.Combats.Skills;
+using Fire_Emblem.Combats.Units;
 
-namespace Fire_Emblem.Teams;
+namespace Fire_Emblem.Combats.Teams;
 public class Team
 {
     public List<Unit> Units { get; } = new List<Unit>();
@@ -52,7 +52,7 @@ public class Team
 
     private bool HasUniqueSkills(Unit unit)
     {
-        var uniqueSkillNames = GetUniqueSkillNames(unit.Skills);
+        IEnumerable<string> uniqueSkillNames = GetUniqueSkillNames(unit.Skills);
         return uniqueSkillNames.Count() == unit.Skills.Count();
     }
     

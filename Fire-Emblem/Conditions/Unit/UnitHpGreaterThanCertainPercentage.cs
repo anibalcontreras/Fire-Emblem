@@ -1,6 +1,6 @@
-using Fire_Emblem.Units;
+using Fire_Emblem.Combats.Units;
 
-namespace Fire_Emblem.Conditions;
+namespace Fire_Emblem.Combats.Conditions;
 
 public class UnitHpGreaterThanCertainPercentage : ICondition
 {

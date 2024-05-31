@@ -1,7 +1,7 @@
-using Fire_Emblem.Conditions;
-using Fire_Emblem.Stats;
+using Fire_Emblem.Combats.Conditions;
+using Fire_Emblem.Combats.Stats;
 
-namespace Fire_Emblem.Effects;
+namespace Fire_Emblem.Combats.Effects;
 
 public static class ConditionalEffectBuilder
 {

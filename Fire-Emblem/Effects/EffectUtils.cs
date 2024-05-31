@@ -1,7 +1,7 @@
-using Fire_Emblem.Effects.AlterBaseStat;
-using Fire_Emblem.Effects.Neutralization;
+using Fire_Emblem.Combats.Effects.AlterBaseStat;
+using Fire_Emblem.Combats.Effects.Neutralization;
 
-namespace Fire_Emblem.Effects;
+namespace Fire_Emblem.Combats.Effects;
 
 public static class EffectUtils
 {

@@ -1,10 +1,10 @@
-using Fire_Emblem.Damage;
-using Fire_Emblem.Teams;
-using Fire_Emblem.Units;
-using Fire_Emblem.Views;
-using Fire_Emblem.Weapons;
+using Fire_Emblem.Combats.Damage;
+using Fire_Emblem.Combats.Teams;
+using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Combats.Views;
+using Fire_Emblem.Combats.Weapons;
 
-namespace Fire_Emblem.Controllers;
+namespace Fire_Emblem.Combats.Controllers;
 public class CombatController
 {
     private readonly ConsoleGameView _consoleGameView;
@@ -22,7 +22,6 @@ public class CombatController
         Unit attacker = combat.Attacker;
         Unit defender = combat.Defender;
         attacker.SetIsAttacker();
-        defender.SetIsDefender();
         _consoleGameView.AnnounceRoundStart(round, attacker, currentPlayer);
         AnnounceWeaponAdvantage(combat);
         ActivateSkills(combat);
@@ -38,7 +37,7 @@ public class CombatController
         int defenderPlayerNumber = (currentPlayer + 1) % 2 + 1;
         Unit attacker = _consoleGameView.SelectUnit(activeTeam, attackerPlayerNumber);
         Unit defender = _consoleGameView.SelectUnit(opponentTeam, defenderPlayerNumber);
-        Combat combat = new Combat(activeTeam, opponentTeam, attacker, defender);
+        Combat combat = new Combat(attacker, defender);
         return combat;
     }
     
@@ -170,6 +169,5 @@ public class CombatController
         defender.ResetFirstAttackPenaltyStats();
         defender.ClearActiveEffects();
         defender.SetHasBeenDefenderBefore();
-        defender.ResetIsDefender();
     }
 }

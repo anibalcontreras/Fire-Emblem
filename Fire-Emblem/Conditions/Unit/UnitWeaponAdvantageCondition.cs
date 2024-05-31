@@ -1,7 +1,7 @@
-using Fire_Emblem.Units;
-using Fire_Emblem.Weapons;
+using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Combats.Weapons;
 
-namespace Fire_Emblem.Conditions;
+namespace Fire_Emblem.Combats.Conditions;
 
 public class UnitWeaponAdvantageCondition : ICondition
 {

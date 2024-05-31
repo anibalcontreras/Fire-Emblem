@@ -1,6 +1,7 @@
-using Fire_Emblem.Units;
+using Fire_Emblem.Combats.Stats;
+using Fire_Emblem.Combats.Units;
 
-namespace Fire_Emblem.Effects.Damage.ExtraDamage;
+namespace Fire_Emblem.Combats.Effects.Damage.ExtraDamage;
 
 public class FirstAttackExtraDamageEffect : IEffect
 {
@@ -22,8 +23,8 @@ public class FirstAttackExtraDamageEffect : IEffect
 
     private int CalculateExtraDamage(Unit activator, Unit opponent)
     {
-        int atk = activator.FirstAttackAtk;
-        int res = opponent.FirstAttackRes;
+        int atk = activator.GetFirstAttackStat(StatType.Atk);
+        int res = opponent.GetFirstAttackStat(StatType.Res);
         return (int)(0.25 * (atk - res));
     }
 }

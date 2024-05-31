@@ -1,6 +1,6 @@
-using Fire_Emblem.Units;
+using Fire_Emblem.Combats.Units;
 
-namespace Fire_Emblem.Conditions.LogicalConditions;
+namespace Fire_Emblem.Combats.Conditions.LogicalConditions;
 
 public class AndCondition : ICondition {
     private readonly List<ICondition> _conditions;
