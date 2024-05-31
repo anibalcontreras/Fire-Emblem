@@ -6,10 +6,8 @@ namespace Fire_Emblem.Effects;
 public class PenaltyEffect : IPenaltyEffect
 {
     private EffectTarget _target { get; }
-    private StatType _statToDecrease;
-    private int _amount;
-    public StatType StatType => _statToDecrease;
-    public int? Amount => _amount;
+    private readonly StatType _statToDecrease;
+    private readonly int _amount;
     
     public PenaltyEffect(StatType statToDecrease, int amount, EffectTarget target)
     {
@@ -18,7 +16,7 @@ public class PenaltyEffect : IPenaltyEffect
         _target = target;
     }
     
-    public virtual void ApplyEffect(Unit activator, Unit opponent)
+    public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyStatPenaltyEffect(_statToDecrease, _amount);

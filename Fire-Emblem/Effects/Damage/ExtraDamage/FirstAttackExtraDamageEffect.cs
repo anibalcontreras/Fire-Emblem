@@ -1,22 +1,21 @@
-using Fire_Emblem.Effects;
 using Fire_Emblem.Stats;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.ExtraDamage;
 
 public class FirstAttackExtraDamageEffect : IEffect
-{
-    private readonly int _amount;
-    private EffectTarget Target { get; }
+{ 
+    private readonly double _percentageReductionDamage = 0.25;
+    private EffectTarget _target { get; }
     
     public FirstAttackExtraDamageEffect(EffectTarget target)
     {
-        Target = target;
+        _target = target;
     }
 
     public void ApplyEffect(Unit activator, Unit opponent)
     {
-        Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         int amount = CalculateExtraDamage(activator, opponent);
         targetUnit.ApplyFirstAttackExtraDamageEffect(amount);
         targetUnit.AddActiveEffect(this);
@@ -26,6 +25,6 @@ public class FirstAttackExtraDamageEffect : IEffect
     {
         int atk = activator.GetFirstAttackStat(StatType.Atk);
         int res = opponent.GetFirstAttackStat(StatType.Res);
-        return (int)(0.25 * (atk - res));
+        return (int)(_percentageReductionDamage * (atk - res));
     }
 }

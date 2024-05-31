@@ -1,20 +1,19 @@
-using Fire_Emblem.Effects;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.ExtraDamage;
 
 public class BackAtYouEffect : IExtraDamageEffect
 {
-    private EffectTarget Target { get; }
+    private EffectTarget _target { get; }
         
     public BackAtYouEffect(EffectTarget target)
     {
-        Target = target;
+        _target = target;
     }
         
     public void ApplyEffect(Unit activator, Unit opponent)
     {
-        Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         int extraDamage = (activator.BaseHp - activator.CurrentHP) / 2;
         targetUnit.ApplyExtraDamageEffect(extraDamage);
         targetUnit.AddActiveEffect(this);

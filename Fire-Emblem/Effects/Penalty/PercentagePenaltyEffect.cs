@@ -9,9 +9,6 @@ public class PercentagePenaltyEffect : IPenaltyEffect
     private readonly StatType _statToDecrease;
     private readonly double _percentage;
     private int _penaltyAmount;
-
-    public StatType StatType => _statToDecrease;
-    public int? Amount => _penaltyAmount;
     
     public PercentagePenaltyEffect(StatType statToDecrease, double percentage, EffectTarget target)
     {

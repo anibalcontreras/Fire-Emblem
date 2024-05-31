@@ -1,9 +1,8 @@
-using Fire_Emblem.Effects;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 
-public class AbsoluteDamageReductionEffect : IEffect, IAbsoluteDamageReductionEffect
+public class AbsoluteDamageReductionEffect : IEffect
 {
     private readonly int _amount;
     private EffectTarget Target { get; }
