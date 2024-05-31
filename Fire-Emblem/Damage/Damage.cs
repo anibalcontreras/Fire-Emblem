@@ -1,7 +1,7 @@
-using Fire_Emblem.Combats.Units;
-using Fire_Emblem.Combats.Weapons;
+using Fire_Emblem.Units;
+using Fire_Emblem.Weapons;
 
-namespace Fire_Emblem.Combats.Damage;
+namespace Fire_Emblem.Damage;
 
 public abstract class Damage
 {
@@ -46,8 +46,11 @@ public abstract class Damage
 
     private int ApplyExtraDamage(double initialDamage)
     {
-        return (int)Math.Max(0, Math.Truncate(initialDamage) + ExtraDamage + FollowUpExtraDamage);
+        double truncatedInitialDamage = Math.Truncate(initialDamage);
+        double totalDamage = truncatedInitialDamage + ExtraDamage + FollowUpExtraDamage;
+        return (int)Math.Max(0, totalDamage);
     }
+
 
     private double ApplyPercentageDamageReduction(int damage, double percentageReduction)
     {
@@ -58,7 +61,8 @@ public abstract class Damage
 
     private double ApplyAbsoluteDamageReduction(double damage)
     {
-        return Math.Max(0, damage - Defender.AbsoluteDamageReduction);
+        int absoluteDamageReduction = Defender.AbsoluteDamageReduction;
+        return Math.Max(0, damage - absoluteDamageReduction);
     }
 
     private int UpdateOpponentHpDueTheDamage(double finalDamage)

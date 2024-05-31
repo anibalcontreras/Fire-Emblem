@@ -1,7 +1,7 @@
-using Fire_Emblem.Combats.Effects;
-using Fire_Emblem.Combats.Conditions;
+using Fire_Emblem.Conditions;
+using Fire_Emblem.Effects.Bonus;
 
-namespace Fire_Emblem.Combats.Skills;
+namespace Fire_Emblem.Skills;
 
 public class Skill
 {

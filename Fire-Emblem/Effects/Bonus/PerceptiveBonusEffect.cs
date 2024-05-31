@@ -1,17 +1,14 @@
-using Fire_Emblem.Combats.Stats;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Stats;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects;
-public class PerceptiveEffect: IBonusEffect
+namespace Fire_Emblem.Effects.Bonus;
+public class PerceptiveBonusEffect: IBonusEffect
 {
     private readonly int _baseSpdIncrease = 12;
     private readonly int _spdIncrementFactor = 4;
-
-    public StatType StatType => StatType.Spd;
-    public int? Amount { get; private set; }
     private EffectTarget Target { get; }
 
-    public PerceptiveEffect(EffectTarget target)
+    public PerceptiveBonusEffect(EffectTarget target)
     {
         Target = target;
     }
@@ -25,6 +22,5 @@ public class PerceptiveEffect: IBonusEffect
         spdBonus += additionalBonus;
         targetUnit.ApplyStatBonusEffect(StatType.Spd, spdBonus);
         targetUnit.AddActiveEffect(this);
-        Amount = spdBonus;
     }
 }

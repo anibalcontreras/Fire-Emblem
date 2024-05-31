@@ -1,7 +1,7 @@
-using Fire_Emblem.Combats.Stats;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Stats;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects;
+namespace Fire_Emblem.Effects.Bonus;
 
 public class PercentagePenaltyEffect : IPenaltyEffect
 {

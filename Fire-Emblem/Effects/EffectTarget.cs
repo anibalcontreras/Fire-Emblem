@@ -1,4 +1,4 @@
-namespace Fire_Emblem.Combats.Effects;
+namespace Fire_Emblem.Effects.Bonus;
 
 public enum EffectTarget
 {

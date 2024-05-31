@@ -1,4 +1,4 @@
-namespace Fire_Emblem.Combats.Loaders;
+namespace Fire_Emblem.Loaders;
 
 using System.Text.Json;
 using Units;

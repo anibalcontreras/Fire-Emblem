@@ -1,8 +1,8 @@
-using Fire_Emblem.Combats.Stats;
-using Fire_Emblem.Combats.Units;
-using Fire_Emblem.Combats.Weapons;
+using Fire_Emblem.Stats;
+using Fire_Emblem.Units;
+using Fire_Emblem.Weapons;
 
-namespace Fire_Emblem.Combats.Damage;
+namespace Fire_Emblem.Damage;
 
 public class FirstAttackDamage : Damage
 {

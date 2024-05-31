@@ -1,7 +1,7 @@
-using Fire_Emblem.Combats.Conditions;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Conditions;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects;
+namespace Fire_Emblem.Effects.Bonus;
 
 public class ConditionalEffect : IEffect
 {

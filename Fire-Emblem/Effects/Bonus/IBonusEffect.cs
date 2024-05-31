@@ -1,10 +1,5 @@
-using Fire_Emblem.Combats.Stats;
-using Fire_Emblem.Combats.Units;
-
-namespace Fire_Emblem.Combats.Effects;
+namespace Fire_Emblem.Effects.Bonus;
 
 public interface IBonusEffect : IEffect
 {
-    StatType StatType { get; }
-    int? Amount { get; }
 }

@@ -1,7 +1,7 @@
-using Fire_Emblem.Combats.Teams;
-using Fire_Emblem.Combats.Views;
+using Fire_Emblem.Teams;
+using Fire_Emblem.Views;
 
-namespace Fire_Emblem.Combats.Controllers;
+namespace Fire_Emblem.Controllers;
 
 public class MatchController
 {

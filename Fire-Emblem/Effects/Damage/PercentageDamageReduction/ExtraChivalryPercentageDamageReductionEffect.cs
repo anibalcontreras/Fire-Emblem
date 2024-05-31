@@ -1,7 +1,8 @@
-using Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects.Damage.ExtraChivalryPercentageDamageReduction
+namespace Fire_Emblem.Effects.Damage.ExtraChivalryPercentageDamageReduction
 {
     public class ExtraChivalryPercentageDamageReductionEffect : IEffect, IPercentageDamageReductionEffect
     {
@@ -21,7 +22,7 @@ namespace Fire_Emblem.Combats.Effects.Damage.ExtraChivalryPercentageDamageReduct
             double truncatedHpFraction = Math.Truncate(opponentHpFraction * 100) / 100;
             double damageReductionPercentage = truncatedHpFraction * 0.5;
             double truncatedDamageReductionPercentage = Math.Truncate(damageReductionPercentage * 100) / 100;
-            targetUnit.ApplyPercentageDamageReductionEffect(truncatedDamageReductionPercentage);
+            targetUnit.ApplyPercentageDamageReduction(truncatedDamageReductionPercentage);
             targetUnit.AddActiveEffect(this);
         }
     }

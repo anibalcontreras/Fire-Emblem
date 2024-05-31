@@ -1,7 +1,8 @@
-using Fire_Emblem.Combats.Stats;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Stats;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects.Damage.ExtraDamage;
+namespace Fire_Emblem.Effects.Damage.ExtraDamage;
 
 public class FirstAttackExtraDamageEffect : IEffect
 {

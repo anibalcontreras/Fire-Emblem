@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
-using Fire_Emblem.Combats.Exception;
-using Fire_Emblem.Combats.Loaders;
+using Fire_Emblem.Exception;
+using Fire_Emblem.Loaders;
 
-namespace Fire_Emblem.Combats.Teams;
+namespace Fire_Emblem.Teams;
 using Units;
 using Skills;
 

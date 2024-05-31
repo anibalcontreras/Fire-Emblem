@@ -1,11 +1,11 @@
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects.Damage.AbsoluteDamageReduction;
+namespace Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 
 public class AbsoluteDamageReductionEffect : IEffect, IAbsoluteDamageReductionEffect
 {
     private readonly int _amount;
-    
     private EffectTarget Target { get; }
     
     public AbsoluteDamageReductionEffect(int amount, EffectTarget target)
@@ -17,7 +17,7 @@ public class AbsoluteDamageReductionEffect : IEffect, IAbsoluteDamageReductionEf
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        targetUnit.ApplyAbsoluteDamageReductionEffect(_amount);
+        targetUnit.ApplyAbsoluteDamageReduction(_amount);
         targetUnit.AddActiveEffect(this);
     }
 }

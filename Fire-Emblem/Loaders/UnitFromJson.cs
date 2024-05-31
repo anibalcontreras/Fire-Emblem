@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Fire_Emblem.Combats.Weapons;
+using Fire_Emblem.Weapons;
 
-namespace Fire_Emblem.Combats.Units;
+namespace Fire_Emblem.Units;
 
 public class UnitFromJson
 {

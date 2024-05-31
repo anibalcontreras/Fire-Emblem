@@ -1,6 +1,7 @@
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction;
+namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 
 public class FollowUpPercentageDamageReductionEffect : IEffect
 {
@@ -16,7 +17,7 @@ public class FollowUpPercentageDamageReductionEffect : IEffect
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        targetUnit.ApplyFollowUpPercentageDamageReductionEffect(_percentage);
+        targetUnit.ApplyFollowUpPercentageDamageReduction(_percentage);
         targetUnit.AddActiveEffect(this);
     }
 }

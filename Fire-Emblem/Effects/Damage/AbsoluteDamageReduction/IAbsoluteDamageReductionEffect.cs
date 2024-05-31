@@ -1,6 +1,6 @@
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects.Damage.AbsoluteDamageReduction;
+namespace Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 
 public interface IAbsoluteDamageReductionEffect
 {

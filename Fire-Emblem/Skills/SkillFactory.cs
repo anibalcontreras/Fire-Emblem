@@ -1,6 +1,6 @@
-using Fire_Emblem.Combats.Exception;
+using Fire_Emblem.Exception;
 
-namespace Fire_Emblem.Combats.Skills;
+namespace Fire_Emblem.Skills;
 
 public class SkillFactory
 {

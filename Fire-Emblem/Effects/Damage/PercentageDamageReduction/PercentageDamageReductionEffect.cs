@@ -1,6 +1,7 @@
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction;
+namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 
 public class PercentageDamageReductionEffect : IEffect, IPercentageDamageReductionEffect
 {
@@ -16,7 +17,7 @@ public class PercentageDamageReductionEffect : IEffect, IPercentageDamageReducti
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
-        targetUnit.ApplyPercentageDamageReductionEffect(_percentage);
+        targetUnit.ApplyPercentageDamageReduction(_percentage);
         targetUnit.AddActiveEffect(this);
     }
 }

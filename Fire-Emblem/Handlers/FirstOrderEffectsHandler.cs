@@ -1,11 +1,11 @@
-using Fire_Emblem.Combats.Effects;
-using Fire_Emblem.Combats.Effects.AlterBaseStat;
-using Fire_Emblem.Combats.Effects.Neutralization;
-using Fire_Emblem.Combats.Exception;
-using Fire_Emblem.Combats.Skills;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects.Bonus.AlterBaseStat;
+using Fire_Emblem.Effects.Bonus.Neutralization;
+using Fire_Emblem.Exception;
+using Fire_Emblem.Skills;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Handlers;
+namespace Fire_Emblem.Handlers;
 
 public class FirstOrderEffectsHandler
 {

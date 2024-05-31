@@ -1,9 +1,9 @@
-using Fire_Emblem.Combats.Conditions;
-using Fire_Emblem.Combats.Conditions.LogicalConditions;
-using Fire_Emblem.Combats.Effects;
-using Fire_Emblem.Combats.Stats;
+using Fire_Emblem.Conditions;
+using Fire_Emblem.Conditions.LogicalConditions;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Stats;
 
-namespace Fire_Emblem.Combats.Skills.TypesCreator;
+namespace Fire_Emblem.Skills.TypesCreator;
 
 public class CreateBonus
 {

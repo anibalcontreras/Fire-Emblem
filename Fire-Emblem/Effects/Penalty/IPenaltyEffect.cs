@@ -1,7 +1,7 @@
-using Fire_Emblem.Combats.Stats;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Units;
+using Fire_Emblem.Stats;
 
-namespace Fire_Emblem.Combats.Effects;
+namespace Fire_Emblem.Effects.Bonus;
 
 public interface IPenaltyEffect : IEffect
 {

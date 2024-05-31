@@ -1,7 +1,8 @@
-using Fire_Emblem.Combats.Stats;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Stats;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction
+namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction
 {
     public class PercentageComparisionDamageReductionEffect : IPercentageDamageReductionEffect
     {
@@ -28,7 +29,7 @@ namespace Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction
                 percentageReduction = _maxPercentage;
             else if (percentageReduction < 0)
                 percentageReduction = 0;
-            targetUnit.ApplyPercentageDamageReductionEffect(percentageReduction);
+            targetUnit.ApplyPercentageDamageReduction(percentageReduction);
             targetUnit.AddActiveEffect(this);
         }
     }

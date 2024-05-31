@@ -1,10 +1,10 @@
 using Fire_Emblem_View;
-using Fire_Emblem.Combats.Stats;
-using Fire_Emblem.Combats.Teams;
-using Fire_Emblem.Combats.Units;
-using Fire_Emblem.Combats.Weapons;
+using Fire_Emblem.Stats;
+using Fire_Emblem.Teams;
+using Fire_Emblem.Units;
+using Fire_Emblem.Weapons;
 
-namespace Fire_Emblem.Combats.Views;
+namespace Fire_Emblem.Views;
 
 public class ConsoleGameView : IView
 {
@@ -34,9 +34,7 @@ public class ConsoleGameView : IView
         for (int i = 0; i < team.Units.Count; i++)
         {
             if (team.Units[i].CurrentHP > 0)
-            {
                 _view.WriteLine($"{i}: {team.Units[i].Name}");
-            }
         }
     }
 
@@ -373,6 +371,7 @@ public class ConsoleGameView : IView
     
     private void AnnounceAbsoluteDamageReductionEffect(Unit unit)
     {
+        
         if (unit.AbsoluteDamageReduction > 0) AnnounceAbsoluteDamageReductionInEachAttack(unit);
     }
     

@@ -1,12 +1,13 @@
-using Fire_Emblem.Combats.Units;
-using Fire_Emblem.Combats.Weapons;
+using Fire_Emblem.Stats;
+using Fire_Emblem.Units;
+using Fire_Emblem.Weapons;
 
-namespace Fire_Emblem.Combats.Damage;
+namespace Fire_Emblem.Damage;
 
 public class FollowUpDamage : Damage
 {
     public FollowUpDamage(Unit attacker, Unit defender)
-        : base(attacker, defender, attacker.FollowUpAtk, attacker.ExtraDamage, 
+        : base(attacker, defender, attacker.GetFollowUpStat(StatType.Atk), attacker.ExtraDamage, 
             attacker.FirstAttackExtraDamage)
     {
     }

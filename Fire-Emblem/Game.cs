@@ -1,9 +1,9 @@
 ﻿using Fire_Emblem_View;
-using Fire_Emblem.Combats.Controllers;
-using Fire_Emblem.Combats.Teams;
-using Fire_Emblem.Combats.Views;
+using Fire_Emblem.Controllers;
+using Fire_Emblem.Teams;
+using Fire_Emblem.Views;
 
-namespace Fire_Emblem.Combats;
+namespace Fire_Emblem;
 
 
 public class Game

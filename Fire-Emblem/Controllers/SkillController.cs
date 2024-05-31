@@ -1,9 +1,9 @@
-using Fire_Emblem.Combats.Effects;
-using Fire_Emblem.Combats.Handlers;
-using Fire_Emblem.Combats.Units;
-using Fire_Emblem.Combats.Views;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Handlers;
+using Fire_Emblem.Units;
+using Fire_Emblem.Views;
 
-namespace Fire_Emblem.Combats.Controllers;
+namespace Fire_Emblem.Controllers;
 
 public class SkillController
 {

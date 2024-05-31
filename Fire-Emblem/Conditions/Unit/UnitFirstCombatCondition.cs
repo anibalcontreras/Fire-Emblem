@@ -1,6 +1,6 @@
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Conditions;
+namespace Fire_Emblem.Conditions;
 
 public class UnitFirstCombatCondition : ICondition
 {

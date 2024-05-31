@@ -1,4 +1,4 @@
-﻿using Fire_Emblem.Combats;
+﻿using Fire_Emblem;
 using Fire_Emblem_View;
 
 /* 

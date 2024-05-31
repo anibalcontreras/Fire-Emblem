@@ -1,16 +1,16 @@
-using Fire_Emblem.Combats.Conditions;
-using Fire_Emblem.Combats.Conditions.LogicalConditions;
-using Fire_Emblem.Combats.Effects;
-using Fire_Emblem.Combats.Effects.AlterBaseStat;
-using Fire_Emblem.Combats.Effects.Damage.AbsoluteDamageReduction;
-using Fire_Emblem.Combats.Effects.Damage.ExtraChivalryPercentageDamageReduction;
-using Fire_Emblem.Combats.Effects.Damage.ExtraDamage;
-using Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction;
-using Fire_Emblem.Combats.Effects.Neutralization;
-using Fire_Emblem.Combats.Skills.TypesCreator;
-using Fire_Emblem.Combats.Stats;
+using Fire_Emblem.Conditions;
+using Fire_Emblem.Conditions.LogicalConditions;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects.Bonus.AlterBaseStat;
+using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
+using Fire_Emblem.Effects.Damage.ExtraChivalryPercentageDamageReduction;
+using Fire_Emblem.Effects.Damage.ExtraDamage;
+using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+using Fire_Emblem.Effects.Bonus.Neutralization;
+using Fire_Emblem.Skills.TypesCreator;
+using Fire_Emblem.Stats;
 
-namespace Fire_Emblem.Combats.Skills;
+namespace Fire_Emblem.Skills;
 
 public static class SkillBuilder
 {
@@ -720,7 +720,7 @@ public static Skill CreateCharmerSkill()
 public static Skill CreatePerceptiveSkill()
 {
     ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect perceptiveEffect = new PerceptiveEffect(EffectTarget.Unit);
+    IEffect perceptiveEffect = new PerceptiveBonusEffect(EffectTarget.Unit);
     ConditionalEffect conditionalPerceptiveEffect = new ConditionalEffect(condition, perceptiveEffect);
 
     MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalPerceptiveEffect });

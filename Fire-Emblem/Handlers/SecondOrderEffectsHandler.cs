@@ -1,12 +1,12 @@
-using Fire_Emblem.Combats.Effects;
-using Fire_Emblem.Combats.Effects.Damage.AbsoluteDamageReduction;
-using Fire_Emblem.Combats.Effects.Damage.ExtraDamage;
-using Fire_Emblem.Combats.Effects.Damage.PercentageDamageReduction;
-using Fire_Emblem.Combats.Exception;
-using Fire_Emblem.Combats.Skills;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
+using Fire_Emblem.Effects.Damage.ExtraDamage;
+using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+using Fire_Emblem.Exception;
+using Fire_Emblem.Skills;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Handlers;
+namespace Fire_Emblem.Handlers;
 
 public class SecondOrderEffectsHandler
 {

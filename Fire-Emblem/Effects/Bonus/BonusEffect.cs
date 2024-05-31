@@ -1,16 +1,13 @@
-using Fire_Emblem.Combats.Stats;
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Stats;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects;
+namespace Fire_Emblem.Effects.Bonus;
 
-public class BonusEffect : IEffect, IBonusEffect
+public class BonusEffect : IBonusEffect
 {
     private readonly StatType _statToIncrease;
     private readonly int _amount;
-    public EffectTarget Target { get; private set; }
-    public StatType StatType => _statToIncrease;
-    public int? Amount => _amount;
-    
+    private EffectTarget Target { get; }
     public BonusEffect(StatType statToIncrease, int amount, EffectTarget target)
     {
         _statToIncrease = statToIncrease;

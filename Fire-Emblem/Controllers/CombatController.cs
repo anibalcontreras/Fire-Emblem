@@ -1,10 +1,10 @@
-using Fire_Emblem.Combats.Damage;
-using Fire_Emblem.Combats.Teams;
-using Fire_Emblem.Combats.Units;
-using Fire_Emblem.Combats.Views;
-using Fire_Emblem.Combats.Weapons;
+using Fire_Emblem.Damage;
+using Fire_Emblem.Teams;
+using Fire_Emblem.Units;
+using Fire_Emblem.Views;
+using Fire_Emblem.Weapons;
 
-namespace Fire_Emblem.Combats.Controllers;
+namespace Fire_Emblem.Controllers;
 public class CombatController
 {
     private readonly ConsoleGameView _consoleGameView;

@@ -1,4 +1,4 @@
-namespace Fire_Emblem.Combats.Exception;
+namespace Fire_Emblem.Exception;
 
 public class NotImplementedSkillException : ApplicationException
 {

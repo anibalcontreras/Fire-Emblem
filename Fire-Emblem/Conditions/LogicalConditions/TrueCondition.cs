@@ -1,6 +1,6 @@
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Conditions.LogicalConditions;
+namespace Fire_Emblem.Conditions.LogicalConditions;
 
 public class TrueCondition : ICondition
 {

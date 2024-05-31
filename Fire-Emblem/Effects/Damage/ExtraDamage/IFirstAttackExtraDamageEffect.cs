@@ -1,6 +1,6 @@
-using Fire_Emblem.Combats.Units;
+using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Combats.Effects.Damage.ExtraDamage;
+namespace Fire_Emblem.Effects.Damage.ExtraDamage;
 
 public interface IFirstAttackExtraDamageEffect
 {
