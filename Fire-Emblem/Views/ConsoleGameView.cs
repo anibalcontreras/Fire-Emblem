@@ -168,144 +168,71 @@ public class ConsoleGameView : IView
     }
     
     private void AnnounceNeutralizationAtkPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"Los penalty de Atk de {unit.Name} fueron neutralizados");
-    }
+        => _view.WriteLine($"Los penalty de Atk de {unit.Name} fueron neutralizados");
     
     private void AnnounceNeutralizationSpdPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"Los penalty de Spd de {unit.Name} fueron neutralizados");
-    }
+        => _view.WriteLine($"Los penalty de Spd de {unit.Name} fueron neutralizados");
     
     private void AnnounceNeutralizationDefPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"Los penalty de Def de {unit.Name} fueron neutralizados");
-    }
+        => _view.WriteLine($"Los penalty de Def de {unit.Name} fueron neutralizados");
     
     private void AnnounceNeutralizationResPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"Los penalty de Res de {unit.Name} fueron neutralizados");
-    }
-
+        => _view.WriteLine($"Los penalty de Res de {unit.Name} fueron neutralizados");
+    
     private void AnnounceNeutralizationAtkBonusStat(Unit unit)
-    {
-        _view.WriteLine($"Los bonus de Atk de {unit.Name} fueron neutralizados");
-    }
+        => _view.WriteLine($"Los bonus de Atk de {unit.Name} fueron neutralizados");
     
     private void AnnounceNeutralizationSpdBonusStat(Unit unit)
-    {
-        _view.WriteLine($"Los bonus de Spd de {unit.Name} fueron neutralizados");
-    }
+        => _view.WriteLine($"Los bonus de Spd de {unit.Name} fueron neutralizados");
     
     private void AnnounceNeutralizationDefBonusStat(Unit unit)
-    {
-        _view.WriteLine($"Los bonus de Def de {unit.Name} fueron neutralizados");
-    }
+       =>  _view.WriteLine($"Los bonus de Def de {unit.Name} fueron neutralizados");
     
     private void AnnounceNeutralizationResBonusStat(Unit unit)
-    {
-        _view.WriteLine($"Los bonus de Res de {unit.Name} fueron neutralizados");
-    }
+        => _view.WriteLine($"Los bonus de Res de {unit.Name} fueron neutralizados");
     
     private void AnnounceAtkBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Atk+{unit.AtkBonus}");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Atk+{unit.AtkBonus}");
 
     private void AnnounceFirstAttackAtkBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Atk+{unit.FirstAttackAtkBonus} en su primer ataque");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Atk+{unit.FirstAttackAtkBonus} en su primer ataque");
     
     private void AnnounceFirstAttackDefBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Def+{unit.FirstAttackDefBonus} en su primer ataque");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Def+{unit.FirstAttackDefBonus} en su primer ataque");
     
     private void AnnounceFirstAttackResBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Res+{unit.FirstAttackResBonus} en su primer ataque");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Res+{unit.FirstAttackResBonus} en su primer ataque");
     
     private void AnnounceFirstAttackAtkPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Atk-{unit.FirstAttackAtkPenalty} en su primer ataque");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Atk-{unit.FirstAttackAtkPenalty} en su primer ataque");
     
     private void AnnounceFirstAttackDefPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Def-{unit.FirstAttackDefPenalty} en su primer ataque");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Def-{unit.FirstAttackDefPenalty} en su primer ataque");
     
     private void AnnounceFirstAttackResPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Res-{unit.FirstAttackResPenalty} en su primer ataque");
-    }
-    
-    private void AnnounceFollowUpAtkBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Atk+{unit.FollowUpAtkBonus} en su Follow-Up");
-    }
-    
-    private void AnnounceFollowUpDefBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Def+{unit.FollowUpDefBonus} en su Follow-Up");
-    }
-    
-    private void AnnounceFollowUpResBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Res+{unit.FollowUpResBonus} en su Follow-Up");
-    }
-    
-    private void AnnounceFollowUpAtkPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Atk-{unit.FollowUpAtkPenalty} en su Follow-Up");
-    }
-    
-    private void AnnounceFollowUpDefPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Def-{unit.FollowUpDefPenalty} en su Follow-Up");
-    }
-    
-    private void AnnounceFollowUpResPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Res-{unit.FollowUpResPenalty} en su Follow-Up");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Res-{unit.FirstAttackResPenalty} en su primer ataque");
     
     private void AnnounceSpdBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Spd+{unit.SpdBonus}");
-    }
+    => _view.WriteLine($"{unit.Name} obtiene Spd+{unit.SpdBonus}");
+    
 
     private void AnnounceDefBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Def+{unit.DefBonus}");
-    }
-
+        => _view.WriteLine($"{unit.Name} obtiene Def+{unit.DefBonus}");
+    
     private void AnnounceResBonusStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Res+{unit.ResBonus}");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Res+{unit.ResBonus}");
 
     private void AnnounceAtkPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Atk-{unit.AtkPenalty}");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Atk-{unit.AtkPenalty}");
     
     private void AnnounceSpdPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Spd-{unit.SpdPenalty}");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Spd-{unit.SpdPenalty}");
     
     private void AnnounceDefPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Def-{unit.DefPenalty}");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Def-{unit.DefPenalty}");
     
     private void AnnounceResPenaltyStat(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} obtiene Res-{unit.ResPenalty}");
-    }
+        => _view.WriteLine($"{unit.Name} obtiene Res-{unit.ResPenalty}");
     
     private void AnnounceIfPositiveBonus(Unit unit)
     {
@@ -374,14 +301,11 @@ public class ConsoleGameView : IView
     
     private void AnnounceAbsoluteDamageReductionEffect(Unit unit)
     {
-        
         if (unit.AbsoluteDamageReduction > 0) AnnounceAbsoluteDamageReductionInEachAttack(unit);
     }
     
     private void AnnounceAbsoluteDamageReductionInEachAttack(Unit unit)
-    {
-        _view.WriteLine($"{unit.Name} recibirá -{unit.AbsoluteDamageReduction} daño en cada ataque");
-    }
+        => _view.WriteLine($"{unit.Name} recibirá -{unit.AbsoluteDamageReduction} daño en cada ataque");
 
     private void AnnounceFirstAttackPercentageReductionEffect(Unit unit)
     {

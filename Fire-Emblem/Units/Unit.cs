@@ -56,7 +56,7 @@ public class Unit
         => HasBeenAttackerBefore = true;
     
     public void SetHasBeenDefenderBefore()
-        =>HasBeenDefenderBefore = true;
+        => HasBeenDefenderBefore = true;
     
     private int _currentHP;
     
@@ -182,21 +182,11 @@ public class Unit
     {
         switch (statType)
         {
-            case StatType.Atk:
-                AtkBonus += effectAmount;
-                break;
-            case StatType.Spd:
-                SpdBonus += effectAmount;
-                break;
-            case StatType.Def:
-                DefBonus += effectAmount;
-                break;
-            case StatType.Res:
-                ResBonus += effectAmount;
-                break;
-            case StatType.Hp:
-                _currentHP += effectAmount;
-                break;
+            case StatType.Atk: AtkBonus += effectAmount; break;
+            case StatType.Spd: SpdBonus += effectAmount; break;
+            case StatType.Def: DefBonus += effectAmount; break;
+            case StatType.Res: ResBonus += effectAmount; break;
+            case StatType.Hp: _currentHP += effectAmount; break;
         }
     }
     
@@ -204,18 +194,10 @@ public class Unit
     {
         switch (statType)
         {
-            case StatType.Atk:
-                AtkPenalty += effectAmount;
-                break;
-            case StatType.Spd:
-                SpdPenalty += effectAmount;
-                break;
-            case StatType.Def:
-                DefPenalty += effectAmount;
-                break;
-            case StatType.Res:
-                ResPenalty += effectAmount;
-                break;
+            case StatType.Atk: AtkPenalty += effectAmount; break;
+            case StatType.Spd: SpdPenalty += effectAmount; break;
+            case StatType.Def: DefPenalty += effectAmount; break;
+            case StatType.Res: ResPenalty += effectAmount; break;
         }
     }
     
@@ -223,17 +205,9 @@ public class Unit
     {
         switch (statType)
         {
-            case StatType.Atk:
-                FirstAttackAtkBonus += effectAmount;
-                break;
-            case StatType.Def:
-                FirstAttackDefBonus += effectAmount;
-                break;
-            case StatType.Res:
-                FirstAttackResBonus += effectAmount;
-                break;
-            default:
-                throw new StatNotRecognizedException();
+            case StatType.Atk: FirstAttackAtkBonus += effectAmount; break;
+            case StatType.Def: FirstAttackDefBonus += effectAmount; break;
+            case StatType.Res: FirstAttackResBonus += effectAmount; break;
         }
     }
     
@@ -241,17 +215,9 @@ public class Unit
     {
         switch (statType)
         {
-            case StatType.Atk:
-                FirstAttackAtkPenalty += effectAmount;
-                break;
-            case StatType.Def:
-                FirstAttackDefPenalty += effectAmount;
-                break;
-            case StatType.Res:
-                FirstAttackResPenalty += effectAmount;
-                break;
-            default:
-                throw new StatNotRecognizedException();
+            case StatType.Atk: FirstAttackAtkPenalty += effectAmount; break;
+            case StatType.Def: FirstAttackDefPenalty += effectAmount; break;
+            case StatType.Res: FirstAttackResPenalty += effectAmount; break;
         }
     }
     
@@ -308,23 +274,15 @@ public class Unit
                 break;
         }
     }
-    
     public int ExtraDamage { get; private set; }
-    
     public int FirstAttackExtraDamage { get; private set; }
-    
     public void ApplyExtraDamageEffect(int amount)
-    {
-        ExtraDamage += amount;
-    }
+        => ExtraDamage += amount;
     
     public void ApplyFirstAttackExtraDamageEffect(int amount)
-    {
-        FirstAttackExtraDamage += amount;
-    }
+        =>FirstAttackExtraDamage += amount;
     
     public int AbsoluteDamageReduction { get; private set;}
-    
     
     public double PercentageDamageReduction { get; private set; }
     
