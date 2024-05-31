@@ -163,48 +163,55 @@ public static class SkillBuilder
     
     public static Skill CreateAttackPlus6Skill()
     {
-        return CreateBonus.CreateBonusSkill("Attack +6", new StatType[] { StatType.Atk }, new int[] { 6 });
+        return CreateBonus.CreateBonusSkill("Attack +6", new StatType[] 
+            { StatType.Atk }, new int[] { 6 });
     }
 
     public static Skill CreateSpeedPlus5Skill()
     {
-        return CreateBonus.CreateBonusSkill("Speed +5", new StatType[] { StatType.Spd }, new int[] { 5 });
+        return CreateBonus.CreateBonusSkill("Speed +5", new StatType[] 
+            { StatType.Spd }, new int[] { 5 });
     }
 
     public static Skill CreateDefensePlus5Skill()
     {
-        return CreateBonus.CreateBonusSkill("Defense +5", new StatType[] { StatType.Def }, new int[] { 5 });
+        return CreateBonus.CreateBonusSkill("Defense +5", new StatType[] 
+            { StatType.Def }, new int[] { 5 });
     }
 
     public static Skill CreateResistancePlus5Skill()
     {
-        return CreateBonus.CreateBonusSkill("Resistance +5", new StatType[] { StatType.Res }, new int[] { 5 });
+        return CreateBonus.CreateBonusSkill("Resistance +5", new StatType[] 
+            { StatType.Res }, new int[] { 5 });
     }
 
     public static Skill CreateAtkDefPlus5Skill()
     {
-        return CreateBonus.CreateBonusSkill("Atk/Def +5", new StatType[] { StatType.Atk, StatType.Def }, new int[] { 5, 5 });
+        return CreateBonus.CreateBonusSkill("Atk/Def +5", new StatType[] 
+            { StatType.Atk, StatType.Def }, new int[] { 5, 5 });
     }
 
     public static Skill CreateSpdResPlus5Skill()
     {
-        return CreateBonus.CreateBonusSkill("Spd/Res +5", new StatType[] { StatType.Spd, StatType.Res }, new int[] { 5, 5 });
+        return CreateBonus.CreateBonusSkill("Spd/Res +5", new StatType[] 
+            { StatType.Spd, StatType.Res }, new int[] { 5, 5 });
     }
 
     public static Skill CreateAtkResPlus5Skill()
     {
-        return CreateBonus.CreateBonusSkill("Atk/Res +5", new StatType[] { StatType.Atk, StatType.Res }, new int[] { 5, 5 });
+        return CreateBonus.CreateBonusSkill("Atk/Res +5", new StatType[] 
+            { StatType.Atk, StatType.Res }, new int[] { 5, 5 });
     }
     
     public static Skill CreateAgneasArrowSkill()
-{
-    ICondition condition = new TrueCondition();
+    {
+        ICondition condition = new TrueCondition();
 
-    MultiEffect multiEffect = ConditionalEffectBuilder.BuildNeutralizationPenaltyEffect(condition,
-        StatType.Atk, StatType.Spd, StatType.Def, StatType.Res);
+        MultiEffect multiEffect = ConditionalEffectBuilder.BuildNeutralizationPenaltyEffect(condition,
+            StatType.Atk, StatType.Spd, StatType.Def, StatType.Res);
 
-    return new Skill("Agnea's Arrow", multiEffect);
-}
+        return new Skill("Agnea's Arrow", multiEffect);
+    }
 
     public static Skill CreateLightAndDarkSkill()
     {
@@ -239,7 +246,6 @@ public static class SkillBuilder
         return new Skill("Dragonskin", multiEffect);
     }
     
-   // Eliminar código duplicado 
     public static Skill CreateHpPlus15Skill()
     {
         ICondition condition = new HasUnitActivatedTheStatAbility();
@@ -411,147 +417,162 @@ public static class SkillBuilder
     }
 
     public static Skill CreateArmoredBlowSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect defBonusEffect = new BonusEffect(StatType.Def, 8, EffectTarget.Unit);
-    ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect defBonusEffect = new BonusEffect(StatType.Def, 8, EffectTarget.Unit);
+        ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalDefBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalDefBonusEffect });
 
-    return new Skill("Armored Blow", multiEffect);
-}
+        return new Skill("Armored Blow", multiEffect);
+    }
 
-public static Skill CreateDeathBlowSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 8, EffectTarget.Unit);
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+    public static Skill CreateDeathBlowSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 8, EffectTarget.Unit);
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkBonusEffect });
 
-    return new Skill("Death Blow", multiEffect);
-}
+        return new Skill("Death Blow", multiEffect);
+    }
 
-public static Skill CreateDartingBlowSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 8, EffectTarget.Unit);
-    ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
+    public static Skill CreateDartingBlowSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 8, EffectTarget.Unit);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdBonusEffect });
 
-    return new Skill("Darting Blow", multiEffect);
-}
+        return new Skill("Darting Blow", multiEffect);
+    }
 
-public static Skill CreateWardingBlowSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect resBonusEffect = new BonusEffect(StatType.Res, 8, EffectTarget.Unit);
-    ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
+    public static Skill CreateWardingBlowSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect resBonusEffect = new BonusEffect(StatType.Res, 8, EffectTarget.Unit);
+        ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalResBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalResBonusEffect });
 
-    return new Skill("Warding Blow", multiEffect);
-}
+        return new Skill("Warding Blow", multiEffect);
+    }
 
-public static Skill CreateSwiftSparrowSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 6, EffectTarget.Unit);
-    IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 6, EffectTarget.Unit);
+    public static Skill CreateSwiftSparrowSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 6, EffectTarget.Unit);
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 6, EffectTarget.Unit);
 
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
-    ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkBonusEffect, conditionalSpdBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkBonusEffect, conditionalSpdBonusEffect });
 
-    return new Skill("Swift Sparrow", multiEffect);
-}
+        return new Skill("Swift Sparrow", multiEffect);
+    }
 
-public static Skill CreateSturdyBlowSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 6, EffectTarget.Unit);
-    IEffect defBonusEffect = new BonusEffect(StatType.Def, 6, EffectTarget.Unit);
+    public static Skill CreateSturdyBlowSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 6, EffectTarget.Unit);
+        IEffect defBonusEffect = new BonusEffect(StatType.Def, 6, EffectTarget.Unit);
 
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
-    ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+        ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkBonusEffect, conditionalDefBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkBonusEffect, conditionalDefBonusEffect
+        });
 
-    return new Skill("Sturdy Blow", multiEffect);
-}
+        return new Skill("Sturdy Blow", multiEffect);
+    }
 
-public static Skill CreateMirrorStrikeSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 6, EffectTarget.Unit);
-    IEffect resBonusEffect = new BonusEffect(StatType.Res, 6, EffectTarget.Unit);
+    public static Skill CreateMirrorStrikeSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 6, EffectTarget.Unit);
+        IEffect resBonusEffect = new BonusEffect(StatType.Res, 6, EffectTarget.Unit);
 
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
-    ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+        ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkBonusEffect, conditionalResBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkBonusEffect, conditionalResBonusEffect
+        });
 
-    return new Skill("Mirror Strike", multiEffect);
-}
+        return new Skill("Mirror Strike", multiEffect);
+    }
 
-public static Skill CreateSteadyBlowSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 6, EffectTarget.Unit);
-    IEffect defBonusEffect = new BonusEffect(StatType.Def, 6, EffectTarget.Unit);
+    public static Skill CreateSteadyBlowSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 6, EffectTarget.Unit);
+        IEffect defBonusEffect = new BonusEffect(StatType.Def, 6, EffectTarget.Unit);
 
-    ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
-    ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
+        ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdBonusEffect, conditionalDefBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalSpdBonusEffect, conditionalDefBonusEffect
+        });
 
-    return new Skill("Steady Blow", multiEffect);
-}
+        return new Skill("Steady Blow", multiEffect);
+    }
 
-public static Skill CreateSwiftStrikeSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 6, EffectTarget.Unit);
-    IEffect resBonusEffect = new BonusEffect(StatType.Res, 6, EffectTarget.Unit);
+    public static Skill CreateSwiftStrikeSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 6, EffectTarget.Unit);
+        IEffect resBonusEffect = new BonusEffect(StatType.Res, 6, EffectTarget.Unit);
 
-    ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
-    ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
+        ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdBonusEffect, conditionalResBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalSpdBonusEffect, conditionalResBonusEffect
+        });
 
-    return new Skill("Swift Strike", multiEffect);
-}
+        return new Skill("Swift Strike", multiEffect);
+    }
 
-public static Skill CreateBracingBlowSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect defBonusEffect = new BonusEffect(StatType.Def, 6, EffectTarget.Unit);
-    IEffect resBonusEffect = new BonusEffect(StatType.Res, 6, EffectTarget.Unit);
+    public static Skill CreateBracingBlowSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect defBonusEffect = new BonusEffect(StatType.Def, 6, EffectTarget.Unit);
+        IEffect resBonusEffect = new BonusEffect(StatType.Res, 6, EffectTarget.Unit);
 
-    ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
-    ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
+        ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
+        ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalDefBonusEffect, conditionalResBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalDefBonusEffect, conditionalResBonusEffect
+        });
 
-    return new Skill("Bracing Blow", multiEffect);
-}
+        return new Skill("Bracing Blow", multiEffect);
+    }
 
-public static Skill CreateTomePrecisionSkill()
-{
-    ICondition condition = new UnitWeaponCondition("Magic");
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 6, EffectTarget.Unit);
-    IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 6, EffectTarget.Unit);
+    public static Skill CreateTomePrecisionSkill()
+    {
+        ICondition condition = new UnitWeaponCondition("Magic");
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 6, EffectTarget.Unit);
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 6, EffectTarget.Unit);
 
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
-    ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] 
-        { conditionalAtkBonusEffect, conditionalSpdBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] 
+            { conditionalAtkBonusEffect, conditionalSpdBonusEffect });
 
-    return new Skill("Tome Precision", multiEffect);
-}
+        return new Skill("Tome Precision", multiEffect);
+    }
 
     public static Skill CreateCloseDefSkill()
     {
@@ -574,341 +595,362 @@ public static Skill CreateTomePrecisionSkill()
         return CreateDef.CreateDefSkill("Distant Def", condition);
     }
     
-public static Skill CreateBeliefInLoveSkill()
-{
-    ICondition condition = new OrCondition(
-        new RivalBeginAsAttacker(),
-        new RivalHpThresholdCondition(1.0)
-    );
-
-    IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival);
-    IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 5, EffectTarget.Rival);
-
-    ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition, atkPenaltyEffect);
-    ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(condition, defPenaltyEffect);
-
-    MultiEffect multiEffect = new MultiEffect(new IEffect[]
+    public static Skill CreateBeliefInLoveSkill()
     {
-        conditionalAtkPenaltyEffect,
-        conditionalDefPenaltyEffect
-    });
+        ICondition condition = new OrCondition(
+            new RivalBeginAsAttacker(),
+            new RivalHpThresholdCondition(1.0)
+        );
 
-    return new Skill("Belief in Love", multiEffect);
-}
+        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival);
+        IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 5, EffectTarget.Rival);
 
-public static Skill CreateDeadlyBladeSkill()
-{
-    ICondition condition = new AndCondition(
-        new UnitWeaponCondition("Sword"),
-        new UnitBeginAsAttackerCondition()
-    );
+        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition, atkPenaltyEffect);
+        ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(condition, defPenaltyEffect);
 
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 8, EffectTarget.Unit);
-    IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 8, EffectTarget.Unit);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkPenaltyEffect,
+            conditionalDefPenaltyEffect
+        });
 
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
-    ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
+        return new Skill("Belief in Love", multiEffect);
+    }
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[]
+    public static Skill CreateDeadlyBladeSkill()
     {
-        conditionalAtkBonusEffect,
-        conditionalSpdBonusEffect
-    });
+        ICondition condition = new AndCondition(
+            new UnitWeaponCondition("Sword"),
+            new UnitBeginAsAttackerCondition()
+        );
 
-    return new Skill("Deadly Blade", multiEffect);
-}
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 8, EffectTarget.Unit);
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 8, EffectTarget.Unit);
 
-public static Skill CreateBlindingFlashSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
 
-    IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival);
-    ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(condition, spdPenaltyEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkBonusEffect,
+            conditionalSpdBonusEffect
+        });
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdPenaltyEffect });
+        return new Skill("Deadly Blade", multiEffect);
+    }
 
-    return new Skill("Blinding Flash", multiEffect);
-}
+    public static Skill CreateBlindingFlashSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+
+        IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival);
+        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(condition, spdPenaltyEffect);
+
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdPenaltyEffect });
+
+        return new Skill("Blinding Flash", multiEffect);
+    }
 
     public static Skill CreateNotQuiteSkill()
-{
-    ICondition condition = new RivalBeginAsAttacker();
-    IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 4, EffectTarget.Rival);
-    ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition, atkPenaltyEffect);
+    {
+        ICondition condition = new RivalBeginAsAttacker();
+        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 4, EffectTarget.Rival);
+        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition, atkPenaltyEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkPenaltyEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkPenaltyEffect });
 
-    return new Skill("Not Quite", multiEffect);
-}
+        return new Skill("Not Quite", multiEffect);
+    }
 
-public static Skill CreateChaosStyleSkill()
-{
-    ICondition beginsAsAttacker = new UnitBeginAsAttackerCondition();
-    ICondition mixedWeaponCondition = new MixedWeaponCondition(
-        new string[] { "Bow", "Sword", "Lance", "Axe" },
-        new string[] { "Magic" }
-    );
+    public static Skill CreateChaosStyleSkill()
+    {
+        ICondition beginsAsAttacker = new UnitBeginAsAttackerCondition();
+        ICondition mixedWeaponCondition = new MixedWeaponCondition(
+            new string[] { "Bow", "Sword", "Lance", "Axe" },
+            new string[] { "Magic" }
+        );
 
-    ICondition condition = new AndCondition(beginsAsAttacker, mixedWeaponCondition);
-    IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 3, EffectTarget.Unit);
-    ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
+        ICondition condition = new AndCondition(beginsAsAttacker, mixedWeaponCondition);
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 3, EffectTarget.Unit);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdBonusEffect });
 
-    return new Skill("Chaos Style", multiEffect);
-}
+        return new Skill("Chaos Style", multiEffect);
+    }
 
-public static Skill CreateStunningSmileSkill()
-{
-    ICondition condition = new RivalIsManCondition();
-    IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 8, EffectTarget.Rival);
-    ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(condition, spdPenaltyEffect);
+    public static Skill CreateStunningSmileSkill()
+    {
+        ICondition condition = new RivalIsManCondition();
+        IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 8, EffectTarget.Rival);
+        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(condition, spdPenaltyEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdPenaltyEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalSpdPenaltyEffect });
 
-    return new Skill("Stunning Smile", multiEffect);
-}
+        return new Skill("Stunning Smile", multiEffect);
+    }
 
-public static Skill CreateDisarmingSighSkill()
-{
-    ICondition condition = new RivalIsManCondition();
-    IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 8, EffectTarget.Rival);
-    ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition, atkPenaltyEffect);
+    public static Skill CreateDisarmingSighSkill()
+    {
+        ICondition condition = new RivalIsManCondition();
+        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 8, EffectTarget.Rival);
+        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition, atkPenaltyEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkPenaltyEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkPenaltyEffect });
 
-    return new Skill("Disarming Sigh", multiEffect);
-}
+        return new Skill("Disarming Sigh", multiEffect);
+    }
 
-public static Skill CreateIgnisSkill()
-{
-    ICondition condition = new TrueCondition();
-    IEffect firstAttackBonusEffect = new FirstAttackBonusEffect(StatType.Atk, 50, EffectTarget.Unit);
-    ConditionalEffect conditionalFirstAttackBonusEffect = new ConditionalEffect(condition, firstAttackBonusEffect);
+    public static Skill CreateIgnisSkill()
+    {
+        ICondition condition = new TrueCondition();
+        IEffect firstAttackBonusEffect = new FirstAttackBonusEffect(StatType.Atk, 
+            50, EffectTarget.Unit);
+        ConditionalEffect conditionalFirstAttackBonusEffect = new ConditionalEffect(condition, firstAttackBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalFirstAttackBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalFirstAttackBonusEffect });
 
-    return new Skill("Ignis", multiEffect);
-}
+        return new Skill("Ignis", multiEffect);
+    }
 
-public static Skill CreateSingleMindedSkill()
-{
-    ICondition condition = new RivalIsLastOpponentFaced();
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 8, EffectTarget.Unit);
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+    public static Skill CreateSingleMindedSkill()
+    {
+        ICondition condition = new RivalIsLastOpponentFaced();
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 8, EffectTarget.Unit);
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkBonusEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkBonusEffect });
 
-    return new Skill("Single Minded", multiEffect);
-}
+        return new Skill("Single Minded", multiEffect);
+    }
 
-public static Skill CreateCharmerSkill()
-{
-    ICondition condition = new RivalIsLastOpponentFaced();
-    IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 3, EffectTarget.Rival);
-    IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 3, EffectTarget.Rival);
+    public static Skill CreateCharmerSkill()
+    {
+        ICondition condition = new RivalIsLastOpponentFaced();
+        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 3, EffectTarget.Rival);
+        IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 3, EffectTarget.Rival);
+        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition, atkPenaltyEffect);
+        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(condition, spdPenaltyEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkPenaltyEffect, conditionalSpdPenaltyEffect
+        });
+        return new Skill("Charmer", multiEffect);
+    }
 
-    ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition, atkPenaltyEffect);
-    ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(condition, spdPenaltyEffect);
+    public static Skill CreatePerceptiveSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect perceptiveEffect = new PerceptiveBonusEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalPerceptiveEffect = new ConditionalEffect(condition, perceptiveEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkPenaltyEffect, conditionalSpdPenaltyEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalPerceptiveEffect });
 
-    return new Skill("Charmer", multiEffect);
-}
+        return new Skill("Perceptive", multiEffect);
+    }
 
-public static Skill CreatePerceptiveSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
-    IEffect perceptiveEffect = new PerceptiveBonusEffect(EffectTarget.Unit);
-    ConditionalEffect conditionalPerceptiveEffect = new ConditionalEffect(condition, perceptiveEffect);
+    public static Skill CreateLunaSkill()
+    {
+        ICondition condition = new TrueCondition();
+        IEffect defPenaltyEffect = new FirstAttackPenaltyEffect(StatType.Def, 50, EffectTarget.Rival);
+        IEffect resPenaltyEffect = new FirstAttackPenaltyEffect(StatType.Res, 50, EffectTarget.Rival);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalPerceptiveEffect });
+        ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(condition, defPenaltyEffect);
+        ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(condition, resPenaltyEffect);
 
-    return new Skill("Perceptive", multiEffect);
-}
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalDefPenaltyEffect, conditionalResPenaltyEffect
+        });
 
-public static Skill CreateLunaSkill()
-{
-    ICondition condition = new TrueCondition();
-    IEffect defPenaltyEffect = new FirstAttackPenaltyEffect(StatType.Def, 50, EffectTarget.Rival);
-    IEffect resPenaltyEffect = new FirstAttackPenaltyEffect(StatType.Res, 50, EffectTarget.Rival);
+        return new Skill("Luna", multiEffect);
+    }
 
-    ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(condition, defPenaltyEffect);
-    ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(condition, resPenaltyEffect);
+    public static Skill CreateBraverySkill()
+    {
+        ICondition condition = new TrueCondition();
+        IEffect extraDamageEffect = new ExtraDamageEffect(5, EffectTarget.Unit);
+        ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(condition, extraDamageEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalDefPenaltyEffect, conditionalResPenaltyEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalExtraDamageEffect });
 
-    return new Skill("Luna", multiEffect);
-}
+        return new Skill("Bravery", multiEffect);
+    }
 
-public static Skill CreateBraverySkill()
-{
-    ICondition condition = new TrueCondition();
-    IEffect extraDamageEffect = new ExtraDamageEffect(5, EffectTarget.Unit);
-    ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(condition, extraDamageEffect);
+    public static Skill CreateGentilitySkill()
+    {
+        ICondition condition = new TrueCondition();
+        IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
+        ConditionalEffect conditionalAbsoluteDamageReductionEffect = 
+            new ConditionalEffect(condition, absoluteDamageReductionEffect);
 
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalExtraDamageEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAbsoluteDamageReductionEffect });
 
-    return new Skill("Bravery", multiEffect);
-}
-
-public static Skill CreateGentilitySkill()
-{
-    ICondition condition = new TrueCondition();
-    IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
-    ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, absoluteDamageReductionEffect);
-
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAbsoluteDamageReductionEffect });
-
-    return new Skill("Gentility", multiEffect);
-}
+        return new Skill("Gentility", multiEffect);
+    }
 
     public static Skill CreateArmsShieldSkill()
-{
-    ICondition condition = new UnitWeaponAdvantageCondition();
-    IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(7, EffectTarget.Unit);
-    ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, absoluteDamageReductionEffect);
-
-    MultiEffect effects = new MultiEffect(new IEffect[] { conditionalAbsoluteDamageReductionEffect });
-
-    return new Skill("Arms Shield", effects);
-}
-
-public static Skill CreateSympatheticSkill()
-{
-    ICondition condition = new AndCondition(
-        new RivalBeginAsAttacker(),
-        new UnitHpThresholdCondition(0.5)
-    );
-
-    IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
-    ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, absoluteDamageReductionEffect);
-
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAbsoluteDamageReductionEffect });
-
-    return new Skill("Sympathetic", multiEffect);
-}
-
-public static Skill CreateBlueSkiesSkill()
-{
-    ICondition condition = new TrueCondition();
-
-    IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
-    IEffect extraDamageEffect = new ExtraDamageEffect(5, EffectTarget.Unit);
-
-    ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, absoluteDamageReductionEffect);
-    ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(condition, extraDamageEffect);
-
-    MultiEffect effects = new MultiEffect(new IEffect[] { conditionalAbsoluteDamageReductionEffect, conditionalExtraDamageEffect });
-
-    return new Skill("Blue Skies", effects);
-}
-
-public static Skill CreateChivalrySkill()
-{
-    ICondition condition = new AndCondition(
-        new UnitBeginAsAttackerCondition(),
-        new RivalHpThresholdCondition(1)
-    );
-
-    IEffect extraDamageEffect = new ExtraDamageEffect(2, EffectTarget.Unit);
-    IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(2, EffectTarget.Unit);
-
-    ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(condition, extraDamageEffect);
-    ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, absoluteDamageReductionEffect);
-
-    MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalExtraDamageEffect, conditionalAbsoluteDamageReductionEffect });
-
-    return new Skill("Chivalry", multiEffect);
-}
-
-public static Skill CreateAegisShieldSkill()
-{
-    ICondition condition = new TrueCondition();
-
-    IEffect defBonusEffect = new BonusEffect(StatType.Def, 6, EffectTarget.Unit);
-    IEffect resBonusEffect = new BonusEffect(StatType.Res, 3, EffectTarget.Unit);
-    IEffect firstAttackPercentageDamageReductionEffect = new FirstAttackPercentageDamageReductionEffect(0.5, EffectTarget.Unit);
-
-    ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
-    ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
-    ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = new ConditionalEffect(condition, firstAttackPercentageDamageReductionEffect);
-
-    MultiEffect effects = new MultiEffect(new IEffect[]
     {
-        conditionalDefBonusEffect,
-        conditionalResBonusEffect,
-        conditionalFirstAttackPercentageDamageReductionEffect
-    });
+        ICondition condition = new UnitWeaponAdvantageCondition();
+        IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(7, EffectTarget.Unit);
+        ConditionalEffect conditionalAbsoluteDamageReductionEffect = 
+            new ConditionalEffect(condition, absoluteDamageReductionEffect);
 
-    return new Skill("Aegis Shield", effects);
-}
+        MultiEffect effects = new MultiEffect(new IEffect[] { conditionalAbsoluteDamageReductionEffect });
 
-public static Skill CreateRemoteSparrowSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
+        return new Skill("Arms Shield", effects);
+    }
 
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 7, EffectTarget.Unit);
-    IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 7, EffectTarget.Unit);
-    IEffect firstAttackPercentageDamageReductionEffect = new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
-
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
-    ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
-    ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = new ConditionalEffect(condition, firstAttackPercentageDamageReductionEffect);
-
-    MultiEffect effects = new MultiEffect(new IEffect[]
+    public static Skill CreateSympatheticSkill()
     {
-        conditionalAtkBonusEffect,
-        conditionalSpdBonusEffect,
-        conditionalFirstAttackPercentageDamageReductionEffect
-    });
+        ICondition condition = new AndCondition(
+            new RivalBeginAsAttacker(),
+            new UnitHpThresholdCondition(0.5)
+        );
 
-    return new Skill("Remote Sparrow", effects);
-}
+        IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
+        ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, 
+            absoluteDamageReductionEffect);
 
-public static Skill CreateRemoteMirrorSkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAbsoluteDamageReductionEffect });
 
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 7, EffectTarget.Unit);
-    IEffect resBonusEffect = new BonusEffect(StatType.Res, 10, EffectTarget.Unit);
-    IEffect firstAttackPercentageDamageReductionEffect = new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+        return new Skill("Sympathetic", multiEffect);
+    }
 
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
-    ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
-    ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = new ConditionalEffect(condition, firstAttackPercentageDamageReductionEffect);
-
-    MultiEffect effects = new MultiEffect(new IEffect[]
+    public static Skill CreateBlueSkiesSkill()
     {
-        conditionalAtkBonusEffect,
-        conditionalResBonusEffect,
-        conditionalFirstAttackPercentageDamageReductionEffect
-    });
+        ICondition condition = new TrueCondition();
 
-    return new Skill("Remote Mirror", effects);
-}
+        IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
+        IEffect extraDamageEffect = new ExtraDamageEffect(5, EffectTarget.Unit);
 
-public static Skill CreateRemoteSturdySkill()
-{
-    ICondition condition = new UnitBeginAsAttackerCondition();
+        ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, 
+            absoluteDamageReductionEffect);
+        ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(condition, extraDamageEffect);
 
-    IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 7, EffectTarget.Unit);
-    IEffect defBonusEffect = new BonusEffect(StatType.Def, 10, EffectTarget.Unit);
-    IEffect firstAttackPercentageDamageReductionEffect = new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            conditionalAbsoluteDamageReductionEffect, conditionalExtraDamageEffect
+        });
 
-    ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
-    ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
-    ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = new ConditionalEffect(condition, firstAttackPercentageDamageReductionEffect);
+        return new Skill("Blue Skies", effects);
+    }
 
-    MultiEffect effects = new MultiEffect(new IEffect[]
+    public static Skill CreateChivalrySkill()
     {
-        conditionalAtkBonusEffect,
-        conditionalDefBonusEffect,
-        conditionalFirstAttackPercentageDamageReductionEffect
-    });
+        ICondition condition = new AndCondition(
+            new UnitBeginAsAttackerCondition(),
+            new RivalHpThresholdCondition(1)
+        );
 
-    return new Skill("Remote Sturdy", effects);
-}
+        IEffect extraDamageEffect = new ExtraDamageEffect(2, EffectTarget.Unit);
+        IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(2, EffectTarget.Unit);
+
+        ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(condition, extraDamageEffect);
+        ConditionalEffect conditionalAbsoluteDamageReductionEffect = 
+            new ConditionalEffect(condition, absoluteDamageReductionEffect);
+
+        MultiEffect multiEffect = new MultiEffect(
+            new IEffect[] { conditionalExtraDamageEffect, conditionalAbsoluteDamageReductionEffect });
+
+        return new Skill("Chivalry", multiEffect);
+    }
+
+    public static Skill CreateAegisShieldSkill()
+    {
+        ICondition condition = new TrueCondition();
+
+        IEffect defBonusEffect = new BonusEffect(StatType.Def, 6, EffectTarget.Unit);
+        IEffect resBonusEffect = new BonusEffect(StatType.Res, 3, EffectTarget.Unit);
+        IEffect firstAttackPercentageDamageReductionEffect = 
+            new FirstAttackPercentageDamageReductionEffect(0.5, EffectTarget.Unit);
+
+        ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
+        ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
+        ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = new ConditionalEffect(condition, 
+            firstAttackPercentageDamageReductionEffect);
+
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            conditionalDefBonusEffect,
+            conditionalResBonusEffect,
+            conditionalFirstAttackPercentageDamageReductionEffect
+        });
+
+        return new Skill("Aegis Shield", effects);
+    }
+
+    public static Skill CreateRemoteSparrowSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 7, EffectTarget.Unit);
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 7, EffectTarget.Unit);
+        IEffect firstAttackPercentageDamageReductionEffect = 
+            new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
+        ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = 
+            new ConditionalEffect(condition, firstAttackPercentageDamageReductionEffect);
+
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkBonusEffect,
+            conditionalSpdBonusEffect,
+            conditionalFirstAttackPercentageDamageReductionEffect
+        });
+
+        return new Skill("Remote Sparrow", effects);
+    }
+
+    public static Skill CreateRemoteMirrorSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 7, EffectTarget.Unit);
+        IEffect resBonusEffect = new BonusEffect(StatType.Res, 10, EffectTarget.Unit);
+        IEffect firstAttackPercentageDamageReductionEffect = 
+            new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+        ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
+        ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = 
+            new ConditionalEffect(condition, firstAttackPercentageDamageReductionEffect);
+
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkBonusEffect,
+            conditionalResBonusEffect,
+            conditionalFirstAttackPercentageDamageReductionEffect
+        });
+
+        return new Skill("Remote Mirror", effects);
+    }
+
+    public static Skill CreateRemoteSturdySkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 7, EffectTarget.Unit);
+        IEffect defBonusEffect = new BonusEffect(StatType.Def, 10, EffectTarget.Unit);
+        IEffect firstAttackPercentageDamageReductionEffect = 
+            new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+        ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
+        ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = 
+            new ConditionalEffect(condition, firstAttackPercentageDamageReductionEffect);
+
+        MultiEffect effects = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkBonusEffect,
+            conditionalDefBonusEffect,
+            conditionalFirstAttackPercentageDamageReductionEffect
+        });
+
+        return new Skill("Remote Sturdy", effects);
+    }
     public static Skill CreateFierceStanceSkill()
     {
         return CreateStance.CreateStanceSkill("Fierce Stance", new StatType[] { StatType.Atk }, 
@@ -993,7 +1035,8 @@ public static Skill CreateRemoteSturdySkill()
     public static Skill CreateDodgeSkill()
     {
         ICondition condition = new StatComparisionCondition(StatType.Spd);
-        IEffect effect = new PercentageComparisionDamageReductionEffect(StatType.Spd, StatType.Spd, EffectTarget.Unit);
+        IEffect effect = new PercentageComparisionDamageReductionEffect(StatType.Spd, 
+            StatType.Spd, EffectTarget.Unit);
         ConditionalEffect conditionalEffect = new ConditionalEffect(condition, effect);
 
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
@@ -1035,7 +1078,8 @@ public static Skill CreateRemoteSturdySkill()
         ConditionalEffect conditionalPenaltyEffect = new ConditionalEffect(condition, penaltyEffect);
         ConditionalEffect conditionalLunarBraceEffect = new ConditionalEffect(condition, lunarBraceEffect);
 
-        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalPenaltyEffect, conditionalLunarBraceEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] 
+            { conditionalPenaltyEffect, conditionalLunarBraceEffect });
 
         return new Skill("Poetic Justice", multiEffect);
     }
@@ -1047,12 +1091,16 @@ public static Skill CreateRemoteSturdySkill()
         IEffect damageReductionEffect = new PercentageDamageReductionEffect(0.5, EffectTarget.Unit);
         IEffect defNeutralizationEffect = new NeutralizationBonusEffect(EffectTarget.Unit, StatType.Def);
         IEffect resNeutralizationEffect = new NeutralizationBonusEffect(EffectTarget.Unit, StatType.Res);
-        IEffect defPenaltyEffect = new PercentagePenaltyEffect(StatType.Def, 0.50, EffectTarget.Unit);
-        IEffect resPenaltyEffect = new PercentagePenaltyEffect(StatType.Res, 0.50, EffectTarget.Unit);
+        IEffect defPenaltyEffect = 
+            new PercentagePenaltyEffect(StatType.Def, 0.50, EffectTarget.Unit);
+        IEffect resPenaltyEffect = 
+            new PercentagePenaltyEffect(StatType.Res, 0.50, EffectTarget.Unit);
 
         ConditionalEffect conditionalDamageReductionEffect = new ConditionalEffect(condition, damageReductionEffect);
-        ConditionalEffect conditionalDefNeutralizationEffect = new ConditionalEffect(condition, defNeutralizationEffect);
-        ConditionalEffect conditionalResNeutralizationEffect = new ConditionalEffect(condition, resNeutralizationEffect);
+        ConditionalEffect conditionalDefNeutralizationEffect = 
+            new ConditionalEffect(condition, defNeutralizationEffect);
+        ConditionalEffect conditionalResNeutralizationEffect = 
+            new ConditionalEffect(condition, resNeutralizationEffect);
         ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(condition, defPenaltyEffect);
         ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(condition, resPenaltyEffect);
 
@@ -1076,8 +1124,11 @@ public static Skill CreateRemoteSturdySkill()
         IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 4, EffectTarget.Rival);
 
         ICondition firstCombatCondition = new UnitFirstCombatCondition();
-        IEffect guardBearing60Effect = new ConditionalEffect(firstCombatCondition, new PercentageDamageReductionEffect(0.6, EffectTarget.Unit));
-        IEffect guardBearing30Effect = new ConditionalEffect(new NotCondition(firstCombatCondition), new PercentageDamageReductionEffect(0.3, EffectTarget.Unit));
+        IEffect guardBearing60Effect = 
+            new ConditionalEffect(firstCombatCondition, new PercentageDamageReductionEffect(0.6, EffectTarget.Unit));
+        IEffect guardBearing30Effect = new ConditionalEffect(
+            new NotCondition(firstCombatCondition), 
+            new PercentageDamageReductionEffect(0.3, EffectTarget.Unit));
 
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1095,12 +1146,14 @@ public static Skill CreateRemoteSturdySkill()
         ICondition firstCondition = new TrueCondition();
         ICondition secondCondition = new StatComparisionCondition(StatType.Spd);
         IEffect extraDamageEffect = new ExtraDamageEffect(7, EffectTarget.Unit);
-        IEffect percentageEffect = new PercentageComparisionDamageReductionEffect(StatType.Spd, StatType.Spd, EffectTarget.Unit);
+        IEffect percentageEffect = new PercentageComparisionDamageReductionEffect(StatType.Spd, 
+            StatType.Spd, EffectTarget.Unit);
         
         ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(firstCondition, extraDamageEffect);
         ConditionalEffect conditionalPercentageEffect = new ConditionalEffect(secondCondition, percentageEffect);
         
-        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalExtraDamageEffect, conditionalPercentageEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] 
+            { conditionalExtraDamageEffect, conditionalPercentageEffect });
         
         return new Skill("Bushido", multiEffect);
     }
@@ -1113,13 +1166,17 @@ public static Skill CreateRemoteSturdySkill()
             new RivalWeaponCondition("Magic", "Bow")
         );
         
-        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival);
-        IEffect resPenaltyEffect = new PenaltyEffect(StatType.Res, 5, EffectTarget.Rival);
-        IEffect firstAttackDamageReductionEffect = new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+        IEffect atkPenaltyEffect = 
+            new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival);
+        IEffect resPenaltyEffect = 
+            new PenaltyEffect(StatType.Res, 5, EffectTarget.Rival);
+        IEffect firstAttackDamageReductionEffect = 
+            new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
         
         ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(condition1, atkPenaltyEffect);
         ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(condition1, resPenaltyEffect);
-        ConditionalEffect conditionalFirstAttackDamageReductionEffect = new ConditionalEffect(condition2, firstAttackDamageReductionEffect);
+        ConditionalEffect conditionalFirstAttackDamageReductionEffect = 
+            new ConditionalEffect(condition2, firstAttackDamageReductionEffect);
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1139,7 +1196,8 @@ public static Skill CreateRemoteSturdySkill()
         
         IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival);
         IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 5, EffectTarget.Rival);
-        IEffect percentageEffect = new PercentageComparisionDamageReductionEffect(StatType.Spd, StatType.Spd, EffectTarget.Unit);
+        IEffect percentageEffect = new PercentageComparisionDamageReductionEffect(StatType.Spd, 
+            StatType.Spd, EffectTarget.Unit);
         
         ICondition andCondition = new AndCondition(firstCondition, secondCondition);
         
@@ -1147,7 +1205,10 @@ public static Skill CreateRemoteSturdySkill()
         ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(firstCondition, spdPenaltyEffect);
         ConditionalEffect conditionalPercentageEffect = new ConditionalEffect(andCondition, percentageEffect);
         
-        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalAtkPenaltyEffect, conditionalSpdPenaltyEffect, conditionalPercentageEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkPenaltyEffect, conditionalSpdPenaltyEffect, conditionalPercentageEffect
+        });
         
         return new Skill("Moon-Twin Wing", multiEffect);
     }
@@ -1168,7 +1229,8 @@ public static Skill CreateRemoteSturdySkill()
         ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(firstCondition, defPenaltyEffect);
         
         
-        ConditionalEffect conditionalDamagePercentageReductionEffect = new ConditionalEffect(secondCondition, damagePercentageReductionEffect);
+        ConditionalEffect conditionalDamagePercentageReductionEffect = 
+            new ConditionalEffect(secondCondition, damagePercentageReductionEffect);
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1186,13 +1248,17 @@ public static Skill CreateRemoteSturdySkill()
         ICondition firstCondition = new TrueCondition();
         ICondition secondCondition = new DifferentStatComparision(StatType.Atk, StatType.Res);
         
-        IEffect firstAttackDamageReductionEffect = new FirstAttackPercentageDamageReductionEffect(0.25, EffectTarget.Unit);
+        IEffect firstAttackDamageReductionEffect = 
+            new FirstAttackPercentageDamageReductionEffect(0.25, EffectTarget.Unit);
         IEffect firstAttackExtraDamageEffect = new FirstAttackExtraDamageEffect(EffectTarget.Unit);
         
-        ConditionalEffect conditionalFirstAttackDamageReductionEffect = new ConditionalEffect(firstCondition, firstAttackDamageReductionEffect);
-        ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(secondCondition, firstAttackExtraDamageEffect);
+        ConditionalEffect conditionalFirstAttackDamageReductionEffect = 
+            new ConditionalEffect(firstCondition, firstAttackDamageReductionEffect);
+        ConditionalEffect conditionalExtraDamageEffect = 
+            new ConditionalEffect(secondCondition, firstAttackExtraDamageEffect);
         
-        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalFirstAttackDamageReductionEffect, conditionalExtraDamageEffect });
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] 
+            { conditionalFirstAttackDamageReductionEffect, conditionalExtraDamageEffect });
         
         return new Skill("Dragon’s Wrath", multiEffect);
     }
@@ -1200,23 +1266,24 @@ public static Skill CreateRemoteSturdySkill()
     public static Skill CreateDivineRecreationSkill()
     {
         ICondition rivalHpAboveThresholdCondition = new RivalHpAboveThresholdCondition(0.5);
-        
         IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 4, EffectTarget.Rival);
         IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival);
         IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 4, EffectTarget.Rival);
         IEffect resPenaltyEffect = new PenaltyEffect(StatType.Res, 4, EffectTarget.Rival);
-        
         IEffect reduceFirstAttackDamageEffect = new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
         IEffect extraDamageEffect = new ExtraDamageEffect(4, EffectTarget.Unit);
-        
-        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, atkPenaltyEffect);
-        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, spdPenaltyEffect);
-        ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, defPenaltyEffect);
-        ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, resPenaltyEffect);
-        
-        ConditionalEffect conditionalReduceFirstAttackDamageEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, reduceFirstAttackDamageEffect);
-        ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(rivalHpAboveThresholdCondition, extraDamageEffect);
-        
+        ConditionalEffect conditionalAtkPenaltyEffect = 
+            new ConditionalEffect(rivalHpAboveThresholdCondition, atkPenaltyEffect);
+        ConditionalEffect conditionalSpdPenaltyEffect = 
+            new ConditionalEffect(rivalHpAboveThresholdCondition, spdPenaltyEffect);
+        ConditionalEffect conditionalDefPenaltyEffect = 
+            new ConditionalEffect(rivalHpAboveThresholdCondition, defPenaltyEffect);
+        ConditionalEffect conditionalResPenaltyEffect = 
+            new ConditionalEffect(rivalHpAboveThresholdCondition, resPenaltyEffect);
+        ConditionalEffect conditionalReduceFirstAttackDamageEffect = 
+            new ConditionalEffect(rivalHpAboveThresholdCondition, reduceFirstAttackDamageEffect);
+        ConditionalEffect conditionalExtraDamageEffect = 
+            new ConditionalEffect(rivalHpAboveThresholdCondition, extraDamageEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
             conditionalAtkPenaltyEffect,
@@ -1226,7 +1293,6 @@ public static Skill CreateRemoteSturdySkill()
             conditionalReduceFirstAttackDamageEffect,
             conditionalExtraDamageEffect
         });
-        
         return new Skill("Divine Recreation", multiEffect);
     }
 }

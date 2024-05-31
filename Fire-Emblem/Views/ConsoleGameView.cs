@@ -43,9 +43,11 @@ public class ConsoleGameView : IView
         string message = advantage switch
         {
             AdvantageState.Advantage =>
-                $"{attacker.Name} ({attacker.Weapon.Name}) tiene ventaja con respecto a {defender.Name} ({defender.Weapon.Name})",
+                $"{attacker.Name} ({attacker.Weapon.Name}) tiene ventaja con respecto a " +
+                $"{defender.Name} ({defender.Weapon.Name})",
             AdvantageState.Disadvantage =>
-                $"{defender.Name} ({defender.Weapon.Name}) tiene ventaja con respecto a {attacker.Name} ({attacker.Weapon.Name})",
+                $"{defender.Name} ({defender.Weapon.Name}) tiene ventaja con respecto a " +
+                $"{attacker.Name} ({attacker.Weapon.Name})",
             AdvantageState.Neutral => "Ninguna unidad tiene ventaja con respecto a la otra",
             _ => "Estado de ventaja desconocido"
         };
@@ -360,7 +362,8 @@ public class ConsoleGameView : IView
     private void AnnounceExtraDamageInFirstAttack(Unit unit)
     {
         if (unit.FirstAttackExtraDamage > 0) 
-            _view.WriteLine($"{unit.Name} realizará +{unit.FirstAttackExtraDamage} daño extra en su primer ataque");
+            _view.WriteLine($"{unit.Name} realizará +{unit.FirstAttackExtraDamage} " +
+                            $"daño extra en su primer ataque");
     }
     
     private void AnnounceIfActiveExtraDamageEffect(Unit unit)

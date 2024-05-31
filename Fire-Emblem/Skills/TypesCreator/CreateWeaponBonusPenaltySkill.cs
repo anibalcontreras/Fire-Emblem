@@ -12,12 +12,13 @@ public static class CreateWeaponBonusPenaltySkill
         ICondition weaponCondition = new UnitWeaponCondition(weaponType);
         IEffect bonusEffect = new BonusEffect(bonusStat, bonusValue, EffectTarget.Unit);
         IEffect penaltyEffect = new PenaltyEffect(penaltyStat, penaltyValue, EffectTarget.Unit);
-
         ConditionalEffect conditionalBonusEffect = new ConditionalEffect(weaponCondition, bonusEffect);
         ConditionalEffect conditionalPenaltyEffect = new ConditionalEffect(weaponCondition, penaltyEffect);
 
-        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalBonusEffect, conditionalPenaltyEffect });
-
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalBonusEffect, conditionalPenaltyEffect
+        });
         return new Skill(skillName, multiEffect);
     }
 }

@@ -5,7 +5,6 @@ namespace Fire_Emblem.Damage;
 
 public abstract class Damage
 {
-    protected Unit Attacker { get; }
     protected Unit Defender { get; }
     protected Weapon AttackerWeapon { get; }
     private int AttackValue { get; }
@@ -14,7 +13,6 @@ public abstract class Damage
 
     protected Damage(Unit attacker, Unit defender, int attackValue, int extraDamage, int followUpExtraDamage)
     {
-        Attacker = attacker;
         Defender = defender;
         AttackerWeapon = attacker.Weapon;
         AttackValue = attackValue;
