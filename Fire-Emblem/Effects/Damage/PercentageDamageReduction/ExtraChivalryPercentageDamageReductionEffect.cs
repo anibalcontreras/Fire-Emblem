@@ -1,4 +1,4 @@
-using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Units;
 

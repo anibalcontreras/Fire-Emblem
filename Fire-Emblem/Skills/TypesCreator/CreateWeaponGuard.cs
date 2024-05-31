@@ -1,5 +1,5 @@
 using Fire_Emblem.Conditions;
-using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 
 namespace Fire_Emblem.Skills.TypesCreator;

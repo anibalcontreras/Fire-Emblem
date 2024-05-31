@@ -1,4 +1,4 @@
-using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects;
 using Fire_Emblem.Handlers;
 using Fire_Emblem.Units;
 using Fire_Emblem.Views;

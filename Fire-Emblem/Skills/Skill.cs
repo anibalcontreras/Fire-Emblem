@@ -1,5 +1,5 @@
 using Fire_Emblem.Conditions;
-using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects;
 
 namespace Fire_Emblem.Skills;
 

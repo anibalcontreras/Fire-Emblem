@@ -1,12 +1,12 @@
 using Fire_Emblem.Conditions;
 using Fire_Emblem.Conditions.LogicalConditions;
-using Fire_Emblem.Effects.Bonus;
-using Fire_Emblem.Effects.Bonus.AlterBaseStat;
+using Fire_Emblem.Effects;
+using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraChivalryPercentageDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
-using Fire_Emblem.Effects.Bonus.Neutralization;
+using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Skills.TypesCreator;
 using Fire_Emblem.Stats;
 

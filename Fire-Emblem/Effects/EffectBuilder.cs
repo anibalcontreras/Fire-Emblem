@@ -1,7 +1,7 @@
-using Fire_Emblem.Effects.Bonus.Neutralization;
+using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Stats;
 
-namespace Fire_Emblem.Effects.Bonus;
+namespace Fire_Emblem.Effects;
 
 public static class EffectBuilder
 {

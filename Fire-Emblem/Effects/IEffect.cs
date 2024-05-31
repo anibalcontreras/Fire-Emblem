@@ -1,7 +1,6 @@
-using Fire_Emblem.Stats;
 using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Effects.Bonus;
+namespace Fire_Emblem.Effects;
 
 public interface IEffect
 {

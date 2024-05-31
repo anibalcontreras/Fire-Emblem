@@ -1,7 +1,7 @@
 using Fire_Emblem.Stats;
 using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Effects.Bonus.AlterBaseStat;
+namespace Fire_Emblem.Effects.AlterBaseStat;
 
 public class AlterBaseStatEffect : IEffect
 {

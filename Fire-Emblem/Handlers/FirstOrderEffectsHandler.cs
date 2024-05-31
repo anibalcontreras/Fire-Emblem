@@ -1,6 +1,6 @@
-using Fire_Emblem.Effects.Bonus;
-using Fire_Emblem.Effects.Bonus.AlterBaseStat;
-using Fire_Emblem.Effects.Bonus.Neutralization;
+using Fire_Emblem.Effects;
+using Fire_Emblem.Effects.AlterBaseStat;
+using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Exception;
 using Fire_Emblem.Skills;
 using Fire_Emblem.Units;

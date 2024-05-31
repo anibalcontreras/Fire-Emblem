@@ -1,4 +1,4 @@
-using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects;
 
 namespace Fire_Emblem.Effects.Damage.ExtraDamage;
 

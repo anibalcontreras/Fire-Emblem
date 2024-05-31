@@ -1,6 +1,6 @@
 using Fire_Emblem.Conditions;
 using Fire_Emblem.Conditions.LogicalConditions;
-using Fire_Emblem.Effects.Bonus;
+using Fire_Emblem.Effects;
 using Fire_Emblem.Stats;
 
 namespace Fire_Emblem.Skills.TypesCreator;

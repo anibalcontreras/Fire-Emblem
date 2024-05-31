@@ -1,7 +1,7 @@
 using Fire_Emblem.Stats;
 using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Effects.Bonus.Neutralization;
+namespace Fire_Emblem.Effects.Neutralization;
 
 public class NeutralizationPenaltyEffect: IEffect
 {

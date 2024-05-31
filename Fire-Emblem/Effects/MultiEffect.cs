@@ -1,7 +1,6 @@
 using System.Collections;
-using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Effects.Bonus;
+namespace Fire_Emblem.Effects;
 
 public class MultiEffect : IEnumerable<IEffect>
 {
