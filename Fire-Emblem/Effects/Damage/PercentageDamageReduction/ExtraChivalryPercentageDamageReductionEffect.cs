@@ -1,29 +1,30 @@
-using Fire_Emblem.Effects;
-using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Units;
 
-namespace Fire_Emblem.Effects.Damage.ExtraChivalryPercentageDamageReduction
+namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+
+public class ExtraChivalryPercentageDamageReductionEffect : IPercentageDamageReductionEffect
 {
-    public class ExtraChivalryPercentageDamageReductionEffect : IEffect, IPercentageDamageReductionEffect
+    private readonly EffectTarget _target;
+    private readonly double _damageReductionPercentage = 0.5;
+    
+    public ExtraChivalryPercentageDamageReductionEffect(EffectTarget target)
     {
-        private readonly double _percentage;
-        private readonly EffectTarget _target;
-        
-        public ExtraChivalryPercentageDamageReductionEffect(double percentage, EffectTarget target)
-        {
-            _percentage = percentage;
-            _target = target;
-        }
-        
-        public void ApplyEffect(Unit activator, Unit opponent)
-        {
-            Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
-            double opponentHpFraction = (double)opponent.CurrentHP / opponent.BaseHp;
-            double truncatedHpFraction = Math.Truncate(opponentHpFraction * 100) / 100;
-            double damageReductionPercentage = truncatedHpFraction * 0.5;
-            double truncatedDamageReductionPercentage = Math.Truncate(damageReductionPercentage * 100) / 100;
-            targetUnit.ApplyPercentageDamageReduction(truncatedDamageReductionPercentage);
-            targetUnit.AddActiveEffect(this);
-        }
+        _target = target;
+    }
+    
+    public void ApplyEffect(Unit activator, Unit opponent)
+    {
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
+        double damageReductionPercentage = CalculateDamageReductionPercentage(opponent);
+        targetUnit.ApplyPercentageDamageReduction(damageReductionPercentage);
+        targetUnit.AddActiveEffect(this);
+    }
+
+    private double CalculateDamageReductionPercentage(Unit opponent)
+    {
+        double opponentHpFraction = (double)opponent.CurrentHP / opponent.BaseHp;
+        double truncatedHpFraction = Math.Truncate(opponentHpFraction * 100) / 100;
+        double damageReductionPercentage = truncatedHpFraction * _damageReductionPercentage;
+        return Math.Truncate(damageReductionPercentage * 100) / 100;
     }
 }

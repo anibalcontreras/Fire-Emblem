@@ -2,7 +2,8 @@ namespace Fire_Emblem.Weapons;
 
 public class Axe : Weapon
 {
-    public Axe() { Name = "Axe"; }
+    private readonly string _weaponName = "Axe";
+    public Axe() { Name = _weaponName; }
 
     public override double GetWtb(Weapon opponentWeapon)
     {

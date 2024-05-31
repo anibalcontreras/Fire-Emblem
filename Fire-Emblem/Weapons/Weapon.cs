@@ -4,7 +4,7 @@ namespace Fire_Emblem.Weapons;
 
 public abstract class Weapon
 {
-    public string Name { get; set; }
+    public string Name { get; init; }
     public AdvantageState CalculateAdvantage(Unit defender)
     {
         double wtb = GetWtb(defender.Weapon);
@@ -17,5 +17,4 @@ public abstract class Weapon
             return AdvantageState.Neutral;
     }
     public abstract double GetWtb(Weapon opponentWeapon);
-
 }

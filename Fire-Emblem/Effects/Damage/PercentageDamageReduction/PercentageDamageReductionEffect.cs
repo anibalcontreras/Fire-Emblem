@@ -1,9 +1,8 @@
-using Fire_Emblem.Effects;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 
-public class PercentageDamageReductionEffect : IEffect, IPercentageDamageReductionEffect
+public class PercentageDamageReductionEffect : IPercentageDamageReductionEffect
 {
     private readonly double _percentage;
     private readonly EffectTarget _target;

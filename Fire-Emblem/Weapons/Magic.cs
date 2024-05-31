@@ -2,7 +2,8 @@ namespace Fire_Emblem.Weapons;
 
 public class Magic : Weapon
 {
-    public Magic() { Name = "Magic"; }
+    private readonly string _weaponName = "Magic";
+    public Magic() { Name = _weaponName; }
 
     public override double GetWtb(Weapon opponentWeapon)
     {

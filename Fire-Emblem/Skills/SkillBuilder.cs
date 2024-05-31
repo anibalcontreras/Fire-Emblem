@@ -3,7 +3,6 @@ using Fire_Emblem.Conditions.LogicalConditions;
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
-using Fire_Emblem.Effects.Damage.ExtraChivalryPercentageDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Effects.Neutralization;
@@ -1162,7 +1161,7 @@ public static Skill CreateRemoteSturdySkill()
         IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 5, EffectTarget.Rival);
         IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 5, EffectTarget.Rival);
         IEffect damagePercentageReductionEffect =
-            new ExtraChivalryPercentageDamageReductionEffect(0.5, EffectTarget.Unit);
+            new ExtraChivalryPercentageDamageReductionEffect(EffectTarget.Unit);
         
         ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(firstCondition, atkPenaltyEffect);
         ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(firstCondition, spdPenaltyEffect);

@@ -1,4 +1,3 @@
-using Fire_Emblem.Effects;
 using Fire_Emblem.Stats;
 using Fire_Emblem.Units;
 
