@@ -7,11 +7,10 @@ using System.Collections.ObjectModel;
 
 public class DataLoader
 {
-    public ReadOnlyCollection<Unit> Units { get; private set; }
-    public ReadOnlyCollection<Skill> Skills { get; private set; }
     private readonly string _unitsJsonFilePath = "characters.json";
     private readonly string _skillsJsonFilePath = "skills.json";
-    
+    public ReadOnlyCollection<Unit> Units { get; private set; }
+    public ReadOnlyCollection<Skill> Skills { get; private set; }
     
     public DataLoader()
     {
@@ -28,10 +27,7 @@ public class DataLoader
     private List<Unit> LoadUnits(string filePath)
     {
         string jsonContent = File.ReadAllText(filePath);
-        JsonSerializerOptions options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
+        JsonSerializerOptions options = new JsonSerializerOptions{ PropertyNameCaseInsensitive = true };
         var unitFromJsonList = JsonSerializer.Deserialize<List<UnitFromJson>>(jsonContent, options);
         return CreateUnitsList(unitFromJsonList);
     }

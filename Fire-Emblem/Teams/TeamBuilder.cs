@@ -1,10 +1,11 @@
 using System.Collections.ObjectModel;
 using Fire_Emblem.Exception;
 using Fire_Emblem.Loaders;
+using Fire_Emblem.Players;
+using Fire_Emblem.Units;
+using Fire_Emblem.Skills;
 
 namespace Fire_Emblem.Teams;
-using Units;
-using Skills;
 
 public class TeamBuilder
 {

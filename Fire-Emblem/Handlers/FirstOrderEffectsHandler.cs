@@ -9,22 +9,29 @@ namespace Fire_Emblem.Handlers;
 
 public class FirstOrderEffectsHandler
 {
-    public void CollectConditionMetEffects(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
+    private Unit _activator { get; }
+    private Unit _opponent { get; }
+    public FirstOrderEffectsHandler(Unit activator, Unit opponent)
     {
-        foreach (Skill skill in activator.Skills)
+        _activator = activator;
+        _opponent = opponent;
+    }
+    
+    public void CollectConditionMetEffects(List<(Unit, IEffect)> effectsToApply)
+    {
+        foreach (Skill skill in _activator.Skills)
         {
-            AddConditionalEffects(skill, activator, opponent, effectsToApply);
+            AddConditionalEffects(skill, effectsToApply);
         }
     }
 
-    private void AddConditionalEffects(Skill skill, Unit activator, Unit opponent, 
-        List<(Unit, IEffect)> effectsToApply)
+    private void AddConditionalEffects(Skill skill, List<(Unit, IEffect)> effectsToApply)
     {
         try
         {
             foreach (IEffect effect in skill.Effect)
             {
-                ProcessEffect(effect, activator, opponent, effectsToApply);
+                ProcessEffect(effect, effectsToApply);
             }
         }
         catch (NullReferenceException)
@@ -33,43 +40,41 @@ public class FirstOrderEffectsHandler
         }
     }
 
-    private void ProcessEffect(IEffect effect, Unit activator, Unit opponent, 
-        List<(Unit, IEffect)> effectsToApply)
+    private void ProcessEffect(IEffect effect, List<(Unit, IEffect)> effectsToApply)
     {
         if (effect is ConditionalEffect conditionalEffect && EffectUtils.IsFirstOrderEffect(conditionalEffect))
         {
-            AddEffectIfConditionMet(conditionalEffect, activator, opponent, effectsToApply);
+            AddEffectIfConditionMet(conditionalEffect, effectsToApply);
         }
     }
 
-    private void AddEffectIfConditionMet(ConditionalEffect conditionalEffect, Unit activator, Unit opponent, 
-        List<(Unit, IEffect)> effectsToApply)
+    private void AddEffectIfConditionMet(ConditionalEffect conditionalEffect, List<(Unit, IEffect)> effectsToApply)
     {
-        if (conditionalEffect.Condition.IsConditionMet(activator, opponent))
+        if (conditionalEffect.Condition.IsConditionMet(_activator, _opponent))
         {
-            effectsToApply.Add((activator, conditionalEffect));
+            effectsToApply.Add((_activator, conditionalEffect));
         }
     }
 
     
-    public void ApplyEffectsInOrder(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply)
+    public void ApplyEffectsInOrder(List<(Unit, IEffect)> effectsToApply)
     {
-        ApplyEffects<AlterBaseStatEffect>(activator, opponent, effectsToApply);
-        ApplyEffects<IBonusEffect>(activator, opponent, effectsToApply);
-        ApplyEffects<FirstAttackBonusEffect>(activator, opponent, effectsToApply);
-        ApplyEffects<IPenaltyEffect>(activator, opponent, effectsToApply);
-        ApplyEffects<FirstAttackPenaltyEffect>(activator, opponent, effectsToApply);
-        ApplyEffects<NeutralizationBonusEffect>(activator, opponent, effectsToApply);
-        ApplyEffects<NeutralizationPenaltyEffect>(activator, opponent, effectsToApply);
+        ApplyEffects<AlterBaseStatEffect>(effectsToApply);
+        ApplyEffects<IBonusEffect>(effectsToApply);
+        ApplyEffects<FirstAttackBonusEffect>(effectsToApply);
+        ApplyEffects<IPenaltyEffect>(effectsToApply);
+        ApplyEffects<FirstAttackPenaltyEffect>(effectsToApply);
+        ApplyEffects<NeutralizationBonusEffect>(effectsToApply);
+        ApplyEffects<NeutralizationPenaltyEffect>(effectsToApply);
     }
     
-    private void ApplyEffects<T>(Unit activator, Unit opponent, List<(Unit, IEffect)> effectsToApply) where T : IEffect
+    private void ApplyEffects<T>(List<(Unit, IEffect)> effectsToApply) where T : IEffect
     {
         foreach (var (unit, effect) in effectsToApply)
         {
             if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is T specificEffect)
             {
-                specificEffect.ApplyEffect(unit, unit == activator ? opponent : activator);
+                specificEffect.ApplyEffect(unit, unit == _activator ? _opponent : _activator);
             }
         }
     }

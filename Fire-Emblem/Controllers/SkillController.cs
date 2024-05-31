@@ -8,13 +8,13 @@ namespace Fire_Emblem.Controllers;
 public class SkillController
 {
     private readonly ConsoleGameView _consoleGameView;
-    private readonly FirstOrderEffectsHandler _firstOrderEffectsHandler;
+    private FirstOrderEffectsHandler? _firstOrderEffectsHandler;
     private readonly SecondOrderEffectsHandler _secondOrderEffectsHandler;
 
     public SkillController(ConsoleGameView consoleGameView)
     {
         _consoleGameView = consoleGameView;
-        _firstOrderEffectsHandler = new FirstOrderEffectsHandler();
+        // _firstOrderEffectsHandler = new FirstOrderEffectsHandler();
         _secondOrderEffectsHandler = new SecondOrderEffectsHandler();
     }
 
@@ -33,9 +33,11 @@ public class SkillController
     private void ApplyFirstOrderEffects(Unit activator, Unit opponent)
     {
         List<(Unit, IEffect)> firstEffectsToApply = new List<(Unit, IEffect)>();
-        _firstOrderEffectsHandler.CollectConditionMetEffects(activator, opponent, firstEffectsToApply);
-        _firstOrderEffectsHandler.CollectConditionMetEffects(opponent, activator, firstEffectsToApply);
-        _firstOrderEffectsHandler.ApplyEffectsInOrder(activator, opponent, firstEffectsToApply);
+        _firstOrderEffectsHandler = new FirstOrderEffectsHandler(activator, opponent);
+        _firstOrderEffectsHandler.CollectConditionMetEffects(firstEffectsToApply);
+        _firstOrderEffectsHandler = new FirstOrderEffectsHandler(opponent, activator);
+        _firstOrderEffectsHandler.CollectConditionMetEffects(firstEffectsToApply);
+        _firstOrderEffectsHandler.ApplyEffectsInOrder(firstEffectsToApply);
     }
     
     private void ApplySecondOrderEffects(Unit activator, Unit opponent)

@@ -1,14 +1,11 @@
 using Fire_Emblem.Teams;
 
-namespace Fire_Emblem;
+namespace Fire_Emblem.Players;
 public class Player
 {
-    public string Name { get; private set; }
     public Team Team { get; }
-
     public Player(string name)
     {
-        Name = name;
         Team = new Team(name);
     }
 }
