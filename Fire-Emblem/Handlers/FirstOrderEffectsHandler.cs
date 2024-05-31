@@ -70,12 +70,31 @@ public class FirstOrderEffectsHandler
     
     private void ApplyEffects<T>(List<(Unit, IEffect)> effectsToApply) where T : IEffect
     {
-        foreach (var (unit, effect) in effectsToApply)
+        foreach ((Unit, IEffect) effectPair in effectsToApply)
         {
-            if (effect is ConditionalEffect conditionalEffect && conditionalEffect.Effect is T specificEffect)
-            {
-                specificEffect.ApplyEffect(unit, unit == _activator ? _opponent : _activator);
-            }
+            ApplyEffectToUnit<T>(effectPair);
         }
+    }
+
+    private void ApplyEffectToUnit<T>((Unit, IEffect) effectPair) where T : IEffect
+    {
+        Unit unit = effectPair.Item1;
+        IEffect effect = effectPair.Item2;
+        if (effect is ConditionalEffect conditionalEffect)
+        {
+            ApplyConditionalEffect<T>(unit, conditionalEffect);
+        }
+    }
+
+    private void ApplyConditionalEffect<T>(Unit unit, ConditionalEffect conditionalEffect) where T : IEffect
+    {
+        if (conditionalEffect.Effect is T specificEffect)
+            ApplySpecificEffect(unit, specificEffect);
+    }
+
+    private void ApplySpecificEffect(Unit unit, IEffect specificEffect)
+    {
+        Unit targetUnit = unit == _activator ? _opponent : _activator;
+        specificEffect.ApplyEffect(unit, targetUnit);
     }
 }

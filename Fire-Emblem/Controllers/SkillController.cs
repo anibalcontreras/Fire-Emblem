@@ -9,13 +9,11 @@ public class SkillController
 {
     private readonly ConsoleGameView _consoleGameView;
     private FirstOrderEffectsHandler? _firstOrderEffectsHandler;
-    private readonly SecondOrderEffectsHandler _secondOrderEffectsHandler;
+    private SecondOrderEffectsHandler? _secondOrderEffectsHandler;
 
     public SkillController(ConsoleGameView consoleGameView)
     {
         _consoleGameView = consoleGameView;
-        // _firstOrderEffectsHandler = new FirstOrderEffectsHandler();
-        _secondOrderEffectsHandler = new SecondOrderEffectsHandler();
     }
 
     public void ActivateSkills(Combat combat)
@@ -43,9 +41,11 @@ public class SkillController
     private void ApplySecondOrderEffects(Unit activator, Unit opponent)
     {
         List<(Unit, IEffect)> secondEffectsToApply = new List<(Unit, IEffect)>();
-        _secondOrderEffectsHandler.CollectConditionMetEffects(activator, opponent, secondEffectsToApply);
-        _secondOrderEffectsHandler.CollectConditionMetEffects(opponent, activator, secondEffectsToApply);
-        _secondOrderEffectsHandler.ApplyEffectsInOrder(activator, opponent, secondEffectsToApply);
+        _secondOrderEffectsHandler = new SecondOrderEffectsHandler(activator, opponent);
+        _secondOrderEffectsHandler.CollectConditionMetEffects(secondEffectsToApply);
+        _secondOrderEffectsHandler = new SecondOrderEffectsHandler(opponent, activator);
+        _secondOrderEffectsHandler.CollectConditionMetEffects(secondEffectsToApply);
+        _secondOrderEffectsHandler.ApplyEffectsInOrder(secondEffectsToApply);
     }
 
     private void AnnounceEffects(Combat combat)
