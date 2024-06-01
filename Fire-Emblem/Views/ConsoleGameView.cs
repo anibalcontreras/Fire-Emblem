@@ -25,7 +25,8 @@ public class ConsoleGameView : IView
     {
         _view.WriteLine($"Player {playerNumber} selecciona una opción");
         ShowUnitOptions(team);
-        int selectedOption = AskUserToSelectNumber(0, team.Units.Count - 1);
+        List<Unit> units = team.Units;
+        int selectedOption = AskUserToSelectNumber(0, units.Count - 1);
         return team.Units[selectedOption];
     }
 
