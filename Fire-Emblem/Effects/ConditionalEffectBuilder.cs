@@ -14,11 +14,22 @@ public static class ConditionalEffectBuilder
         return new MultiEffect(conditionalEffects);
     }
     
-    public static MultiEffect BuildPenaltyEffects(ICondition condition, int penaltyValue, params StatType[] statTypes)
+    public static MultiEffect BuildRivalPenaltyEffects(ICondition condition, int penaltyValue, 
+        params StatType[] statTypes)
     {
         ConditionalEffect[] conditionalEffects = statTypes.Select(statType => 
             new ConditionalEffect(condition, 
                 EffectBuilder.BuildPenaltyEffect(statType, penaltyValue, EffectTarget.Rival))
+        ).ToArray();
+        return new MultiEffect(conditionalEffects);
+    }
+    
+    public static MultiEffect BuildUnitPenaltyEffects(ICondition condition, int penaltyValue, 
+        params StatType[] statTypes)
+    {
+        ConditionalEffect[] conditionalEffects = statTypes.Select(statType => 
+            new ConditionalEffect(condition, 
+                EffectBuilder.BuildPenaltyEffect(statType, penaltyValue, EffectTarget.Unit))
         ).ToArray();
         return new MultiEffect(conditionalEffects);
     }
@@ -40,4 +51,5 @@ public static class ConditionalEffectBuilder
         ).ToArray();
         return new MultiEffect(conditionalEffects);
     }
+    
 }

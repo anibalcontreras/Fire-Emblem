@@ -4,16 +4,16 @@ namespace Fire_Emblem.Conditions;
 
 public class UnitWeaponCondition : ICondition
 {
-    private readonly string _requiredWeaponName;
+    private readonly Type _requiredWeaponType;
 
-    public UnitWeaponCondition(string requiredWeaponName)
+    public UnitWeaponCondition(Type requiredWeaponType)
     {
-        _requiredWeaponName = requiredWeaponName;
+        _requiredWeaponType = requiredWeaponType;
     }
 
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        return activator.Weapon.Name == _requiredWeaponName;
+        return activator.Weapon.GetType() == _requiredWeaponType;
     }
 }
 

@@ -4,15 +4,9 @@ namespace Fire_Emblem.Conditions;
 
 public class MixedWeaponCondition : ICondition
 {
-    private readonly string[] _physicalWeapons;
-    private readonly string[] _magicWeapons;
-
-    public MixedWeaponCondition(string[] physicalWeapons, string[] magicWeapons)
-    {
-        _physicalWeapons = physicalWeapons;
-        _magicWeapons = magicWeapons;
-    }
-
+    private readonly string[] _physicalWeapons = { "Bow", "Sword", "Lance", "Axe" };
+    private readonly string[] _magicWeapons = { "Magic" };
+    
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
         bool activatorUsingPhysical = _physicalWeapons.Contains(activator.Weapon.Name);

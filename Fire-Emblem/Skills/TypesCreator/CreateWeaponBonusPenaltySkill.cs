@@ -6,7 +6,7 @@ namespace Fire_Emblem.Skills.TypesCreator;
 
 public static class CreateWeaponBonusPenaltySkill
 {
-    public static Skill CreateSkill(string skillName, string weaponType, StatType bonusStat, int bonusValue, 
+    public static Skill CreateSkill(string skillName, Type weaponType, StatType bonusStat, int bonusValue, 
         StatType penaltyStat, int penaltyValue)
     {
         ICondition weaponCondition = new UnitWeaponCondition(weaponType);

@@ -5,15 +5,15 @@ namespace Fire_Emblem.Conditions;
 
 public class RivalWeaponCondition : ICondition
 {
-    private readonly List<string> _requiredWeaponNames;
-    public RivalWeaponCondition(params string[] requiredWeaponNames)
+    private readonly List<Type> _requiredWeaponTypes;
+
+    public RivalWeaponCondition(params Type[] requiredWeaponTypes)
     {
-        _requiredWeaponNames = requiredWeaponNames.ToList();
+        _requiredWeaponTypes = requiredWeaponTypes.ToList();
     }
-    
+
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        Weapon opponentWeapon = opponent.Weapon;
-        return _requiredWeaponNames.Contains(opponentWeapon.Name);
+        return _requiredWeaponTypes.Contains(opponent.Weapon.GetType());
     }
 }

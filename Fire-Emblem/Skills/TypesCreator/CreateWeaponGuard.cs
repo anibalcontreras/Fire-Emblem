@@ -6,7 +6,7 @@ namespace Fire_Emblem.Skills.TypesCreator;
 
 public static class CreateWeaponGuard
 {
-    public static Skill CreateWeaponGuardSkill(string weaponType)
+    public static Skill CreateWeaponGuardSkill(Type weaponType)
     {
         ICondition condition = new RivalWeaponCondition(weaponType);
         IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
