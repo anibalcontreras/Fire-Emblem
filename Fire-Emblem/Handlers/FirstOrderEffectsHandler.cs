@@ -55,7 +55,6 @@ public class FirstOrderEffectsHandler
             effectsToApply.Add((_activator, conditionalEffect));
         }
     }
-
     
     public void ApplyEffectsInOrder(List<(Unit, IEffect)> effectsToApply)
     {

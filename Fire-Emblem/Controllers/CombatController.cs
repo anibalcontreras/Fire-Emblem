@@ -81,7 +81,6 @@ public class CombatController
         _consoleGameView.AnnounceAttack(attacker, defender, damage);
     }
     
-    
     private bool HandleCounterattack(Unit attacker, Unit defender)
     {
         PerformCounterattack(attacker, defender);

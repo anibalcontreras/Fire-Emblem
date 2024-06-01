@@ -23,7 +23,7 @@ public class FirstAttackBonusEffect : IEffect
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         int baseStat = targetUnit.GetBaseStat(_statToIncrease);
         _calculatedBonusAmount = (int)(baseStat * (_percentage / 100.0));
-        targetUnit.ApplyFirstAttackStatBonusEffect(_statToIncrease, _calculatedBonusAmount.Value);
+        targetUnit.ApplyFirstAttackStatBonus(_statToIncrease, _calculatedBonusAmount.Value);
         targetUnit.AddActiveEffect(this);
     }
 }

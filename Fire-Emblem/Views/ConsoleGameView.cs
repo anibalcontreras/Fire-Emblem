@@ -37,26 +37,7 @@ public class ConsoleGameView : IView
                 _view.WriteLine($"{i}: {team.Units[i].Name}");
         }
     }
-
-    public void AnnounceAdvantage(Unit attacker, Unit defender, AdvantageState advantage)
-    {
-        string message = advantage switch
-        {
-            AdvantageState.Advantage =>
-                $"{attacker.Name} ({attacker.Weapon.Name}) tiene ventaja con respecto a " +
-                $"{defender.Name} ({defender.Weapon.Name})",
-            AdvantageState.Disadvantage =>
-                $"{defender.Name} ({defender.Weapon.Name}) tiene ventaja con respecto a " +
-                $"{attacker.Name} ({attacker.Weapon.Name})",
-            AdvantageState.Neutral => "Ninguna unidad tiene ventaja con respecto a la otra",
-            _ => "Estado de ventaja desconocido"
-        };
-        _view.WriteLine(message);
-    }
-
-    public void AnnounceRoundStart(int round, Unit activeUnit, int currentPlayer)
-        => _view.WriteLine($"Round {round}: {activeUnit.Name} (Player {currentPlayer + 1}) comienza");
-
+    
     public string[] DisplayFiles()
     {
         _view.WriteLine("Elige un archivo para cargar los equipos");
@@ -95,6 +76,27 @@ public class ConsoleGameView : IView
         } while (!wasParsePossible || IsValueOutsideTheValidRange(minValue, value, maxValue));
 
         return value;
+    }
+    
+    public void AnnounceRoundStart(int round, Unit activeUnit, int currentPlayer)
+        => _view.WriteLine($"Round {round}: {activeUnit.Name} (Player {currentPlayer + 1}) comienza");
+    
+    public void AnnounceAdvantage(Unit attacker, Unit defender, AdvantageState advantage)
+    {
+        Weapon attackerWeapon = attacker.Weapon;
+        Weapon defenderWeapon = defender.Weapon;
+        string message = advantage switch
+        {
+            AdvantageState.Advantage =>
+                $"{attacker.Name} ({attackerWeapon.Name}) tiene ventaja con respecto a " +
+                $"{defender.Name} ({defenderWeapon.Name})",
+            AdvantageState.Disadvantage =>
+                $"{defender.Name} ({defenderWeapon.Name}) tiene ventaja con respecto a " +
+                $"{attacker.Name} ({attackerWeapon.Name})",
+            AdvantageState.Neutral => "Ninguna unidad tiene ventaja con respecto a la otra",
+            _ => "Estado de ventaja desconocido"
+        };
+        _view.WriteLine(message);
     }
 
     public void AnnounceAttack(Unit attacker, Unit defender, int damage)

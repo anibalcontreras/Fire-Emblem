@@ -1,11 +1,11 @@
 using Fire_Emblem.Units;
+using Fire_Emblem.Weapons;
 
 namespace Fire_Emblem.Conditions;
 
 public class RivalWeaponCondition : ICondition
 {
     private readonly List<string> _requiredWeaponNames;
-
     public RivalWeaponCondition(params string[] requiredWeaponNames)
     {
         _requiredWeaponNames = requiredWeaponNames.ToList();
@@ -13,6 +13,7 @@ public class RivalWeaponCondition : ICondition
 
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        return _requiredWeaponNames.Contains(opponent.Weapon.Name);
+        Weapon opponentWeapon = opponent.Weapon;
+        return _requiredWeaponNames.Contains(opponentWeapon.Name);
     }
 }

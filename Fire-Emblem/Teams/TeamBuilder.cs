@@ -25,7 +25,6 @@ public class TeamBuilder
         return playerTeams;
     }
     
-    
     private List<Team> BuildPlayerTeamsFromFileTxt(string[] lines)
     {
         _playerTeams.Clear();

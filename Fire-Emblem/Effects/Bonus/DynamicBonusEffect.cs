@@ -20,7 +20,7 @@ public class DynamicBonusEffect : IBonusEffect
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         int lostHp = targetUnit.BaseHp - targetUnit.CurrentHP;
         int bonusAmount = Math.Min(lostHp, _maxAmount);
-        targetUnit.ApplyStatBonusEffect(_statToIncrease, bonusAmount);
+        targetUnit.ApplyStatBonus(_statToIncrease, bonusAmount);
         targetUnit.AddActiveEffect(this);
     }
 }

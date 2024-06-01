@@ -17,7 +17,7 @@ public class BonusEffect : IBonusEffect
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        targetUnit.ApplyStatBonusEffect(_statToIncrease, _amount);
+        targetUnit.ApplyStatBonus(_statToIncrease, _amount);
         targetUnit.AddActiveEffect(this);
     }
 }
