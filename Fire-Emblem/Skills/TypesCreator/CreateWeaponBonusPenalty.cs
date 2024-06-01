@@ -4,7 +4,7 @@ using Fire_Emblem.Stats;
 
 namespace Fire_Emblem.Skills.TypesCreator;
 
-public static class CreateWeaponBonusPenaltySkill
+public static class CreateWeaponBonusPenalty
 {
     public static Skill CreateSkill(string skillName, Type weaponType, StatType bonusStat, int bonusValue, 
         StatType penaltyStat, int penaltyValue)

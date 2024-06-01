@@ -43,7 +43,7 @@ public static class ConditionalEffectBuilder
         return new MultiEffect(conditionalEffects);
     }
     
-    public static MultiEffect BuildNeutralizationBonusEffects(ICondition condition, params StatType[] statTypes)
+    public static MultiEffect BuildRivalNeutralizationBonusEffects(ICondition condition, params StatType[] statTypes)
     {
         ConditionalEffect[] conditionalEffects = statTypes.Select(statType => 
             new ConditionalEffect(condition, 

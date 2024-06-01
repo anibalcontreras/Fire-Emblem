@@ -13,7 +13,7 @@ public static class CreateDef
         StatType[] neutralizationStatTypes = { StatType.Atk, StatType.Spd, StatType.Def, StatType.Res };
         
         MultiEffect bonusEffects = ConditionalEffectBuilder.BuildBonusEffects(condition, bonusValue, bonusStatTypes);
-        MultiEffect neutralizationBonusEffects = ConditionalEffectBuilder.BuildNeutralizationBonusEffects(condition, 
+        MultiEffect neutralizationBonusEffects = ConditionalEffectBuilder.BuildRivalNeutralizationBonusEffects(condition, 
             neutralizationStatTypes);
         IEnumerable<IEffect> allEffects = bonusEffects.Concat(neutralizationBonusEffects);
         MultiEffect multiEffect = new MultiEffect(allEffects);
