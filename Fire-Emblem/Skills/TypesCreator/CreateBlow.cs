@@ -11,7 +11,6 @@ public static class CreateBlow
         IEffect bonusEffect = new BonusEffect(stat, statValue, EffectTarget.Unit);
         ConditionalEffect conditionalBonusEffect = new ConditionalEffect(condition, bonusEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalBonusEffect });
-
         return new Skill(skillName, multiEffect);
     }
 }

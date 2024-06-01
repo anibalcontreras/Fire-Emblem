@@ -14,7 +14,6 @@ public static class CreateWeaponBonusPenalty
         IEffect penaltyEffect = new PenaltyEffect(penaltyStat, penaltyValue, EffectTarget.Unit);
         ConditionalEffect conditionalBonusEffect = new ConditionalEffect(weaponCondition, bonusEffect);
         ConditionalEffect conditionalPenaltyEffect = new ConditionalEffect(weaponCondition, penaltyEffect);
-
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
             conditionalBonusEffect, conditionalPenaltyEffect

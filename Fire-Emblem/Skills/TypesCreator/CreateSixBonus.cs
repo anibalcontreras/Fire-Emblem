@@ -4,7 +4,7 @@ using Fire_Emblem.Stats;
 
 namespace Fire_Emblem.Skills.TypesCreator;
 
-public class CreateSixBonus
+public static class CreateSixBonus
 {
     private const int _defaultBonusValue = 6;
 
@@ -13,6 +13,7 @@ public class CreateSixBonus
         MultiEffect bonusEffects = BuildBonusEffects(cond, statTypes);
         return new Skill(skillName, bonusEffects);
     }
+    
     private static MultiEffect BuildBonusEffects(ICondition condition, params StatType[] statTypes)
     {
         ConditionalEffect[] conditionalEffects = statTypes.Select(statType => 

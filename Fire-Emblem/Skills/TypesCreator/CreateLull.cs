@@ -18,9 +18,11 @@ public static class CreateLull
         IEffect stat2NeutralizationEffect = new NeutralizationBonusEffect(EffectTarget.Rival, stat2);
 
         ConditionalEffect conditionalStat1PenaltyEffect = new ConditionalEffect(condition, stat1PenaltyEffect);
-        ConditionalEffect conditionalStat1NeutralizationEffect = new ConditionalEffect(condition, stat1NeutralizationEffect);
+        ConditionalEffect conditionalStat1NeutralizationEffect = 
+            new ConditionalEffect(condition, stat1NeutralizationEffect);
         ConditionalEffect conditionalStat2PenaltyEffect = new ConditionalEffect(condition, stat2PenaltyEffect);
-        ConditionalEffect conditionalStat2NeutralizationEffect = new ConditionalEffect(condition, stat2NeutralizationEffect);
+        ConditionalEffect conditionalStat2NeutralizationEffect = 
+            new ConditionalEffect(condition, stat2NeutralizationEffect);
 
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {

@@ -206,62 +206,62 @@ public static class SkillBuilder
     
     public static Skill CreateFierceStanceSkill()
     {
-        return CreateStance.CreateStanceSkill("Fierce Stance", new StatType[] { StatType.Atk },
-            new int[] { 8 }, 0.1);
+        return CreateStance.CreateStanceSkill("Fierce Stance", new StatType[] { StatType.Atk }, 
+            new int[] { 8 });
     }
 
     public static Skill CreateDartingStanceSkill()
     {
-        return CreateStance.CreateStanceSkill("Darting Stance", new StatType[] { StatType.Spd },
-            new int[] { 8 }, 0.1);
+        return CreateStance.CreateStanceSkill("Darting Stance", new StatType[] { StatType.Spd }, 
+            new int[] { 8 });
     }
 
     public static Skill CreateSteadyStanceSkill()
     {
-        return CreateStance.CreateStanceSkill("Steady Stance", new StatType[] { StatType.Def },
-            new int[] { 8 }, 0.1);
+        return CreateStance.CreateStanceSkill("Steady Stance", new StatType[] { StatType.Def }, 
+            new int[] { 8 });
     }
 
     public static Skill CreateWardingStanceSkill()
     {
-        return CreateStance.CreateStanceSkill("Warding Stance", new StatType[] { StatType.Res },
-            new int[] { 8 }, 0.1);
+        return CreateStance.CreateStanceSkill("Warding Stance", new StatType[] { StatType.Res }, new 
+            int[] { 8 });
     }
 
     public static Skill CreateKestrelStanceSkill()
     {
-        return CreateStance.CreateStanceSkill("Kestrel Stance", new StatType[] { StatType.Atk, StatType.Spd },
-            new int[] { 6, 6 }, 0.1);
+        return CreateStance.CreateStanceSkill("Kestrel Stance", new StatType[] { StatType.Atk, StatType.Spd }, 
+            new int[] { 6, 6 });
     }
 
     public static Skill CreateSturdyStanceSkill()
     {
-        return CreateStance.CreateStanceSkill("Sturdy Stance", new StatType[] { StatType.Atk, StatType.Def },
-            new int[] { 6, 6 }, 0.1);
+        return CreateStance.CreateStanceSkill("Sturdy Stance", new StatType[] { StatType.Atk, StatType.Def }, 
+            new int[] { 6, 6 });
     }
 
     public static Skill CreateMirrorStanceSkill()
     {
-        return CreateStance.CreateStanceSkill("Mirror Stance", new StatType[] { StatType.Atk, StatType.Res },
-            new int[] { 6, 6 }, 0.1);
+        return CreateStance.CreateStanceSkill("Mirror Stance", new StatType[] { StatType.Atk, StatType.Res }, 
+            new int[] { 6, 6 });
     }
 
     public static Skill CreateSteadyPostureSkill()
     {
-        return CreateStance.CreateStanceSkill("Steady Posture", new StatType[] { StatType.Spd, StatType.Def },
-            new int[] { 6, 6 }, 0.1);
+        return CreateStance.CreateStanceSkill("Steady Posture", new StatType[] { StatType.Spd, StatType.Def }, 
+            new int[] { 6, 6 });
     }
 
     public static Skill CreateSwiftStanceSkill()
     {
-        return CreateStance.CreateStanceSkill("Swift Stance", new StatType[] { StatType.Spd, StatType.Res },
-            new int[] { 6, 6 }, 0.1);
+        return CreateStance.CreateStanceSkill("Swift Stance", new StatType[] { StatType.Spd, StatType.Res }, 
+            new int[] { 6, 6 });
     }
 
     public static Skill CreateBracingStanceSkill()
     {
-        return CreateStance.CreateStanceSkill("Bracing Stance", new StatType[] { StatType.Def, StatType.Res },
-            new int[] { 6, 6 }, 0.1);
+        return CreateStance.CreateStanceSkill("Bracing Stance", new StatType[] { StatType.Def, StatType.Res }, 
+            new int[] { 6, 6 });
     }
     
     public static Skill CreateStunningSmileSkill()

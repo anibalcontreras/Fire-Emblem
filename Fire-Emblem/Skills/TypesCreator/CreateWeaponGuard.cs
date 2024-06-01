@@ -12,9 +12,7 @@ public static class CreateWeaponGuard
         IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
         ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition, 
             absoluteDamageReductionEffect);
-
         MultiEffect effects = new MultiEffect(new IEffect[] { conditionalAbsoluteDamageReductionEffect });
-
         return new Skill(weaponType + " Guard", effects);
     }
 }
