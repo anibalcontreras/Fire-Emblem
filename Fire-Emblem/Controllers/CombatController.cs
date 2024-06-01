@@ -21,7 +21,6 @@ public class CombatController
         Combat combat = CreateCombat(teams, currentPlayer);
         Unit attacker = combat.Attacker;
         Unit defender = combat.Defender;
-        attacker.SetIsAttacker();
         _consoleGameView.AnnounceRoundStart(round, attacker, currentPlayer);
         AnnounceWeaponAdvantage(combat);
         ActivateSkills(combat);
@@ -38,6 +37,7 @@ public class CombatController
         Unit attacker = _consoleGameView.SelectUnit(activeTeam, attackerPlayerNumber);
         Unit defender = _consoleGameView.SelectUnit(opponentTeam, defenderPlayerNumber);
         Combat combat = new Combat(attacker, defender);
+        attacker.SetIsAttacker();
         return combat;
     }
     

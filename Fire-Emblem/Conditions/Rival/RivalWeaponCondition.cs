@@ -10,7 +10,7 @@ public class RivalWeaponCondition : ICondition
     {
         _requiredWeaponNames = requiredWeaponNames.ToList();
     }
-
+    
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
         Weapon opponentWeapon = opponent.Weapon;
