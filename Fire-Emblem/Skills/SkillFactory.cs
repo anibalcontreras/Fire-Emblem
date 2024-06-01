@@ -1,6 +1,8 @@
+using Fire_Emblem.Exception;
+
 namespace Fire_Emblem.Skills;
 
-public class SkillFactory : ISkillFactory
+public class SkillFactory
 {
     public Skill CreateSkill(string skillName)
     {
@@ -143,13 +145,85 @@ public class SkillFactory : ISkillFactory
             case "Luna":
                 return SkillBuilder.CreateLunaSkill();
             case "HP +15":
-                return SkillBuilder.CreateHPPlus15Skill();
-            // case "Soulblade":
-            //     return SkillBuilder.CreateSoulbladeSkill();
-            // case "Sandstorm":
-            //     return SkillBuilder.CreateSandstormSkill();
+                return SkillBuilder.CreateHpPlus15Skill();
+            case "Bravery":
+                return SkillBuilder.CreateBraverySkill();
+            case "Gentility":
+                return SkillBuilder.CreateGentilitySkill();
+            case "Bow Guard":
+                return SkillBuilder.CreateBowGuardSkill();
+            case "Axe Guard":
+                return SkillBuilder.CreateAxeGuardSkill();
+            case "Magic Guard":
+                return SkillBuilder.CreateMagicGuardSkill();
+            case "Lance Guard":
+                return SkillBuilder.CreateLanceGuardSkill();
+            case "Arms Shield":
+                return SkillBuilder.CreateArmsShieldSkill();
+            case "Sympathetic":
+                return SkillBuilder.CreateSympatheticSkill();
+            case "Blue Skies":
+                return SkillBuilder.CreateBlueSkiesSkill();
+            case "Chivalry":
+                return SkillBuilder.CreateChivalrySkill();
+            case "Aegis Shield":
+                return SkillBuilder.CreateAegisShieldSkill();
+            case "Remote Sparrow":
+                return SkillBuilder.CreateRemoteSparrowSkill();
+            case "Remote Mirror":
+                return SkillBuilder.CreateRemoteMirrorSkill();
+            case "Remote Sturdy":
+                return SkillBuilder.CreateRemoteSturdySkill();
+            case "Fierce Stance":
+                return SkillBuilder.CreateFierceStanceSkill();
+            case "Darting Stance":
+                return SkillBuilder.CreateDartingStanceSkill();
+            case "Steady Stance":
+                return SkillBuilder.CreateSteadyStanceSkill();
+            case "Warding Stance":
+                return SkillBuilder.CreateWardingStanceSkill();
+            case "Kestrel Stance":
+                return SkillBuilder.CreateKestrelStanceSkill();
+            case "Sturdy Stance":
+                return SkillBuilder.CreateSturdyStanceSkill();
+            case "Mirror Stance":
+                return SkillBuilder.CreateMirrorStanceSkill();
+            case "Swift Stance":
+                return SkillBuilder.CreateSwiftStanceSkill();
+            case "Bracing Stance":
+                return SkillBuilder.CreateBracingStanceSkill();
+            case "Steady Posture":
+                return SkillBuilder.CreateSteadyPostureSkill();
+            case "Golden Lotus":
+                return SkillBuilder.CreateGoldenLotusSkill();
+            case "Dodge":
+                return SkillBuilder.CreateDodgeSkill();
+            case "Back at You":
+                return SkillBuilder.CreateBackAtYouSkill();
+            case "Lunar Brace":
+                return SkillBuilder.CreateLunarBraceSkill();
+            case "Poetic Justice":
+                return SkillBuilder.CreatePoeticJusticeSkill();
+            case "Bushido":
+                return SkillBuilder.CreateBushidoSkill();
+            case "Prescience":
+                return SkillBuilder.CreatePrescienceSkill();
+            case "Extra Chivalry":
+                return SkillBuilder.CreateExtraChivalrySkill();
+            case "Laguz Friend":
+                return SkillBuilder.CreateLaguzFriendSkill();
+            case "Dragon Wall":
+                return SkillBuilder.CreateDragonWallSkill();
+            case "Moon-Twin Wing":
+                return SkillBuilder.CreateMoonTwinWingSkill();
+            case "Dragon's Wrath":
+                return SkillBuilder.CreateDragonsWrathSkill();
+            case "Guard Bearing":
+                return SkillBuilder.CreateGuardBearingSkill();
+            case "Divine Recreation":
+                return SkillBuilder.CreateDivineRecreationSkill();
             default:
-                throw new ArgumentException($"Unknown skill name: {skillName}");
+                throw new NotImplementedSkillException();
         }
     }
 }

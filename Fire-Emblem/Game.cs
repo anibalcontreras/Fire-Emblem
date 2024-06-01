@@ -1,4 +1,5 @@
 ﻿using Fire_Emblem_View;
+using Fire_Emblem.Controllers;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Views;
 
@@ -8,17 +9,17 @@ namespace Fire_Emblem;
 public class Game
 {
     private readonly View _view;
-    private readonly GameView _gameView;
+    private readonly ConsoleGameView _consoleGameView;
     private readonly string _teamsFolder;
-    private MatchManager _matchManager;
+    private MatchController _matchController;
     private List<Combat> _combats;
     
     public Game(View view, string teamsFolder)
     {
         _view = view;
         _teamsFolder = teamsFolder;
-        _gameView = new GameView(_view, _teamsFolder);
-        _matchManager = new MatchManager(_gameView);
+        _consoleGameView = new ConsoleGameView(_view, _teamsFolder);
+        _matchController = new MatchController(_consoleGameView);
         _combats = new List<Combat>();
     }
 
@@ -30,7 +31,7 @@ public class Game
     private void StartGame()
     {
         List<Team> teams = BuildTeamsFromScratch();
-        if (AreTeamsValid(teams))
+        if (TeamsAreValid(teams))
             StartGameDevelopment(teams);
         else
             ShowInvalidTeamMessage();
@@ -47,12 +48,12 @@ public class Game
     
     private string[] GetFileOptions()
     {
-        return _gameView.DisplayFiles();
+        return _consoleGameView.DisplayFiles();
     }
     
     private string SelectFile(string[] files)
     {
-        return _gameView.AskUserToSelectAnOption(files);
+        return _consoleGameView.AskUserToSelectAnOption(files);
     }
     
     private string ReadFileContent(string filePath)
@@ -66,13 +67,13 @@ public class Game
         return teamBuilder.BuildTeams(content);
     }
     
-    private bool AreTeamsValid(List<Team> teams)
+    private bool TeamsAreValid(List<Team> teams)
     {
         return teams.All(team => team.IsValidTeam());
     }
     
-    private void ShowInvalidTeamMessage() => _gameView.ShowMessageForInvalidTeam();
+    private void ShowInvalidTeamMessage() => _consoleGameView.ShowMessageForInvalidTeam();
     
-    private void StartGameDevelopment(List<Team> teams) => _matchManager.ManageGame(teams, _combats);
+    private void StartGameDevelopment(List<Team> teams) => _matchController.ManageGame(teams, _combats);
     
 }

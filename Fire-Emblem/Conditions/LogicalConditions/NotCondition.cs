@@ -11,8 +11,8 @@ public class NotCondition : ICondition
         _condition = condition;
     }
     
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        return !_condition.IsConditionMet(combat, activator, opponent);
+        return !_condition.IsConditionMet(activator, opponent);
     }
 }

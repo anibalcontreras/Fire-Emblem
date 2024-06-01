@@ -9,7 +9,7 @@ public class AndCondition : ICondition {
         _conditions = new List<ICondition>(conditions);
     }
 
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent) {
-        return _conditions.All(condition => condition.IsConditionMet(combat, activator, opponent));
+    public bool IsConditionMet(Unit activator, Unit opponent) {
+        return _conditions.All(condition => condition.IsConditionMet(activator, opponent));
     }
 }

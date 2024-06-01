@@ -2,10 +2,11 @@ namespace Fire_Emblem.Weapons;
 
 public class Bow : Weapon
 {
-    public Bow() { Name = "Bow"; }
+    private readonly string _weaponName = "Bow";
+    public Bow() { Name = _weaponName; }
 
-    public override double GetWTB(Weapon opponentWeapon)
+    public override double GetWtb(Weapon opponentWeapon)
     {
-        return 1.0;  // Sin ventaja ni desventaja contra cualquier arma
+        return 1.0;
     }
 }

@@ -9,7 +9,7 @@ public class OrCondition : ICondition {
         _conditions = new List<ICondition>(conditions);
     }
 
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent) {
-        return _conditions.Any(condition => condition.IsConditionMet(combat, activator, opponent));
+    public bool IsConditionMet(Unit activator, Unit opponent) {
+        return _conditions.Any(condition => condition.IsConditionMet(activator, opponent));
     }
 }

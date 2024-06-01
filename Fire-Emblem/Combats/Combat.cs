@@ -1,37 +1,31 @@
-using Fire_Emblem.Teams;
+using Fire_Emblem.Stats;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem;
 
 public class Combat
 {
-    public Team ActiveTeam { get; private set; }
-    public Team OpponentTeam { get; private set; }
-    public Unit Attacker { get; private set; }
-    public Unit Defender { get; private set; }
-    public CombatState State { get; private set; }
+    private readonly int _spdNumberDifference = 5;
+    public Unit Attacker { get; }
+    public Unit Defender { get;  }
     
-
-    public Combat(Team activeTeam, Team opponentTeam, Unit attacker, Unit defender)
+    public Combat(Unit attacker, Unit defender)
     {
-        ActiveTeam = activeTeam;
-        OpponentTeam = opponentTeam;
         Attacker = attacker;
         Defender = defender;
     }
     
-    public void UpdateState(CombatState newState)
-    {
-        State = newState;
-    }
-    
     public bool CanAttackerPerformFollowUp()
     {
-        return Attacker.CurrentSpd - Defender.CurrentSpd >= 5;
+        int attackerCurrentStat = Attacker.GetCurrentStat(StatType.Spd);
+        int defenderCurrentStat = Defender.GetCurrentStat(StatType.Spd);
+        return attackerCurrentStat - defenderCurrentStat >= _spdNumberDifference;
     }
 
     public bool CanDefenderPerformFollowUp()
     {
-        return Defender.CurrentSpd - Attacker.CurrentSpd >= 5;
+        int defenderCurrentStat = Defender.GetCurrentStat(StatType.Spd);
+        int attackerCurrentStat = Attacker.GetCurrentStat(StatType.Spd);
+        return defenderCurrentStat - attackerCurrentStat >= _spdNumberDifference;
     }
 }

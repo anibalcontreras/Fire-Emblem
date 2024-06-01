@@ -2,18 +2,16 @@ namespace Fire_Emblem.Weapons;
 
 public class Sword : Weapon
 {
-    public Sword()
-    {
-        Name = "Sword"; 
-    }
+    private readonly string _weaponName = "Sword";
+    public Sword() { Name = _weaponName; }
     
-    public override double GetWTB(Weapon opponentWeapon)
+    public override double GetWtb(Weapon opponentWeapon)
     {
         return opponentWeapon switch
         {
-            Axe _ => 1.2,  // Ventaja sobre la hacha
-            Lance _ => 0.8,  // Desventaja contra la lanza
-            _ => 1.0,  // Sin ventaja ni desventaja contra otros tipos de armas
+            Axe _ => 1.2,
+            Lance _ => 0.8,
+            _ => 1.0
         };
     }
 }

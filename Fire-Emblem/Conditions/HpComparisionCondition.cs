@@ -11,7 +11,7 @@ public class HpComparisonCondition : ICondition
         _hpDifference = hpDifference;
     }
 
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
         return activator.CurrentHP >= opponent.CurrentHP + _hpDifference;
     }

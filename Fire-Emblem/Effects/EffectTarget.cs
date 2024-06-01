@@ -4,5 +4,4 @@ public enum EffectTarget
 {
     Unit,
     Rival,
-    Allies
 }

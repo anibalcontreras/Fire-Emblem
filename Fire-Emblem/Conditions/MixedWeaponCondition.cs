@@ -1,26 +1,26 @@
 using Fire_Emblem.Units;
+using Fire_Emblem.Weapons;
 
 namespace Fire_Emblem.Conditions;
 
 public class MixedWeaponCondition : ICondition
 {
-    private readonly string[] _physicalWeapons;
-    private readonly string[] _magicWeapons;
+    private readonly string[] _physicalWeapons = { "Bow", "Sword", "Lance", "Axe" };
+    private readonly string[] _magicWeapons = { "Magic" };
 
-    public MixedWeaponCondition(string[] physicalWeapons, string[] magicWeapons)
+    public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        _physicalWeapons = physicalWeapons;
-        _magicWeapons = magicWeapons;
+        return (IsPhysicalWeapon(activator.Weapon) && IsMagicalWeapon(opponent.Weapon)) 
+               || (IsMagicalWeapon(activator.Weapon) && IsPhysicalWeapon(opponent.Weapon));
     }
 
-    public bool IsConditionMet(Combat combat, Unit activator, Unit opponent)
+    private bool IsPhysicalWeapon(Weapon weapon)
     {
-        bool activatorUsingPhysical = _physicalWeapons.Contains(activator.Weapon.Name);
-        bool opponentUsingMagical = _magicWeapons.Contains(opponent.Weapon.Name);
+        return _physicalWeapons.Contains(weapon.Name);
+    }
 
-        bool activatorUsingMagical = _magicWeapons.Contains(activator.Weapon.Name);
-        bool opponentUsingPhysical = _physicalWeapons.Contains(opponent.Weapon.Name);
-
-        return (activatorUsingPhysical && opponentUsingMagical) || (activatorUsingMagical && opponentUsingPhysical);
+    private bool IsMagicalWeapon(Weapon weapon)
+    {
+        return _magicWeapons.Contains(weapon.Name);
     }
 }

@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Fire_Emblem.Exception;
 
 namespace Fire_Emblem.Weapons;
 
@@ -16,10 +17,10 @@ public class WeaponConverter : JsonConverter<Weapon>
             "Bow" => new Bow(),
             "Magic" => new Magic(),
             "Axe" => new Axe(),
-            _ => throw new JsonException($"Weapon type {weaponType} is not supported.")
+            _ => throw new WeaponTypeNotSupportedException()
         };
     }
-
+    
     public override void Write(Utf8JsonWriter writer, Weapon value, JsonSerializerOptions options)
     {
         writer.WriteStringValue(value.ToString());

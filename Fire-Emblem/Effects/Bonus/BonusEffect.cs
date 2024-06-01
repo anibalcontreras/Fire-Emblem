@@ -3,14 +3,11 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects;
 
-public class BonusEffect : IEffect, IBonusEffect
+public class BonusEffect : IBonusEffect
 {
     private readonly StatType _statToIncrease;
     private readonly int _amount;
-    public EffectTarget Target { get; private set; }
-    public StatType StatType => _statToIncrease;
-    public int? Amount => _amount;
-    
+    private EffectTarget Target { get; }
     public BonusEffect(StatType statToIncrease, int amount, EffectTarget target)
     {
         _statToIncrease = statToIncrease;
@@ -20,7 +17,7 @@ public class BonusEffect : IEffect, IBonusEffect
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        targetUnit.ApplyStatBonusEffect(_statToIncrease, _amount);
+        targetUnit.ApplyStatBonus(_statToIncrease, _amount);
         targetUnit.AddActiveEffect(this);
     }
 }
