@@ -8,9 +8,7 @@ public class RivalIsManCondition: ICondition
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
         if (opponent.Gender == _rivalGender)
-        {
             return true;
-        }
         return false;
     }
 }

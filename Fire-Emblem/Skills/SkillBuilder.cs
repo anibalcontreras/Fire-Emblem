@@ -762,10 +762,9 @@ public static class SkillBuilder
     {
         ICondition notCondition = new NotCondition(new UnitWeaponCondition(typeof(Magic)));
         ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
-        MultiCondition multiCondition = new MultiCondition(new ICondition[] 
-            { notCondition, unitBeginAsAttackerCondition });
+        ICondition combinedCondition = new AndCondition(notCondition, unitBeginAsAttackerCondition);
         IEffect effect = new LunarBraceEffect(0.3, StatType.Def, EffectTarget.Unit);
-        ConditionalEffect conditionalEffect = new ConditionalEffect(multiCondition, effect);
+        ConditionalEffect conditionalEffect = new ConditionalEffect(combinedCondition, effect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
         return new Skill("Lunar Brace", multiEffect);
     }

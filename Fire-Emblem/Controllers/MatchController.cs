@@ -27,15 +27,16 @@ public class MatchController
         AnnounceWinner(teams);
     }
     
+    private bool CheckIfBothTeamsHaveLivingUnits(List<Team> teams)
+    {
+        return teams[0].HasLivingUnits() && teams[1].HasLivingUnits();
+    }
+    
     private void RemoveDefeatedUnits(List<Team> teams)
     {
         foreach (Team team in teams) team.RemoveDefeatedUnits();
     }
     
-    private bool CheckIfBothTeamsHaveLivingUnits(List<Team> teams)
-    {
-        return teams[0].HasLivingUnits() && teams[1].HasLivingUnits();
-    }
     
     private void AnnounceWinner(List<Team> teams)
     {

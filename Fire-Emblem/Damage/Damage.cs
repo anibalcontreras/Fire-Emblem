@@ -26,7 +26,8 @@ public abstract class Damage
         double initialDamage = CalculateInitialDamage(defenseValue); 
         int damageAfterExtra = ApplyExtraDamage(initialDamage);
         double totalPercentageReduction = CalculateTotalPercentageReduction();
-        double damageAfterPercentageReduction = ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
+        double damageAfterPercentageReduction = 
+            ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
         double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction);
         return UpdateOpponentHpDueTheDamage(finalDamage);
     }

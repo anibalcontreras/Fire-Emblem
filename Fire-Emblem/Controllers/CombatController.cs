@@ -55,22 +55,16 @@ public class CombatController
     
     private void ExecuteCombatProcess(Unit attacker, Unit defender, Combat combat)
     {
-        if (HandleAttack(attacker, defender)) return;
-        if (HandleCounterattack(attacker, defender)) return;
+        if (HasAttackerCompleteTheAttack(attacker, defender)) return;
+        if (HasDefenderCompleteCounterAttack(attacker, defender)) return;
         HandleFollowUp(combat);
         EndCombat(attacker, defender);
     }
-
-    private bool HandleAttack(Unit attacker, Unit defender)
+    
+    private bool HasAttackerCompleteTheAttack(Unit attacker, Unit defender)
     {
         PerformAttack(attacker, defender);
-        if (defender.CurrentHP <= 0)
-        {
-            _consoleGameView.ShowCurrentHealth(attacker, defender);
-            DeactivateSkills(attacker, defender);
-            return true;
-        }
-        return false;
+        return CheckIfUnitDefeated(attacker, defender, defender);
     }
     
     private void PerformAttack(Unit attacker, Unit defender)
@@ -81,19 +75,24 @@ public class CombatController
         _consoleGameView.AnnounceAttack(attacker, defender, damage);
     }
     
-    private bool HandleCounterattack(Unit attacker, Unit defender)
+    private bool CheckIfUnitDefeated(Unit attacker, Unit defender, Unit unitToCheck)
     {
-        PerformCounterattack(attacker, defender);
-        if (attacker.CurrentHP <= 0)
+        if (unitToCheck.CurrentHP <= 0)
         {
             _consoleGameView.ShowCurrentHealth(attacker, defender);
-            DeactivateSkills(attacker, defender);
+            ManageEndOfCombat(attacker, defender);
             return true;
         }
         return false;
     }
     
-    private void PerformCounterattack(Unit attacker, Unit defender)
+    private bool HasDefenderCompleteCounterAttack(Unit attacker, Unit defender)
+    {
+        PerformCounterAttack(attacker, defender);
+        return CheckIfUnitDefeated(attacker, defender, attacker);
+    }
+    
+    private void PerformCounterAttack(Unit attacker, Unit defender)
     {
         int damage = CalculateFirstAttackDamage(defender, attacker);
         defender.ResetFirstAttackBonusStats();
@@ -140,10 +139,10 @@ public class CombatController
     private void EndCombat(Unit attacker, Unit defender)
     {
         _consoleGameView.ShowCurrentHealth(attacker, defender); 
-        DeactivateSkills(attacker, defender);
+        ManageEndOfCombat(attacker, defender);
     }
     
-    private void DeactivateSkills(Unit attacker, Unit defender)
+    private void ManageEndOfCombat(Unit attacker, Unit defender)
     {
         attacker.SetLastUnitFaced(defender);
         defender.SetLastUnitFaced(attacker);
