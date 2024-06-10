@@ -63,6 +63,9 @@ public class SkillController
         _consoleGameView.AnnounceExtraDamage(combat.Attacker);
         _consoleGameView.AnnouncePercentageReductionEffect(combat.Attacker);
         _consoleGameView.AnnounceAbsoluteDamageReduction(combat.Attacker);
+        _consoleGameView.AnnounceHealingEffect(combat.Attacker);
+        _consoleGameView.AnnounceCounterattackDenialEffect(combat.Attacker);
+        _consoleGameView.AnnounceCounterattackDenialDenialEffect(combat.Attacker);
     }
 
     private void AnnounceDefenderSkills(Combat combat)
@@ -74,5 +77,8 @@ public class SkillController
         _consoleGameView.AnnounceExtraDamage(combat.Defender);
         _consoleGameView.AnnouncePercentageReductionEffect(combat.Defender);
         _consoleGameView.AnnounceAbsoluteDamageReduction(combat.Defender);
+        _consoleGameView.AnnounceHealingEffect(combat.Defender);
+        _consoleGameView.AnnounceCounterattackDenialEffect(combat.Defender);
+        _consoleGameView.AnnounceCounterattackDenialDenialEffect(combat.Defender);
     }
 }

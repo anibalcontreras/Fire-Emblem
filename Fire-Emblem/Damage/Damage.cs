@@ -1,4 +1,5 @@
 using Fire_Emblem.Units;
+using Fire_Emblem.Views;
 using Fire_Emblem.Weapons;
 
 namespace Fire_Emblem.Damage;
@@ -20,7 +21,7 @@ public abstract class Damage
         FollowUpExtraDamage = followUpExtraDamage;
     }
 
-    public int CalculateDamage()
+    public int CalculateDamage(IView view)
     {
         int defenseValue = CalculateDefenseValue();
         double initialDamage = CalculateInitialDamage(defenseValue); 
@@ -29,7 +30,7 @@ public abstract class Damage
         double damageAfterPercentageReduction = 
             ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
         double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction);
-        return UpdateOpponentHpDueTheDamage(finalDamage);
+        return UpdateOpponentHpDueTheDamage(finalDamage, view);
     }
 
     protected abstract int CalculateDefenseValue();
@@ -64,10 +65,11 @@ public abstract class Damage
         return Math.Max(0, damage - absoluteDamageReduction);
     }
 
-    private int UpdateOpponentHpDueTheDamage(double finalDamage)
+    private int UpdateOpponentHpDueTheDamage(double finalDamage, IView view)
     {
         int finalDamageInt = Convert.ToInt32(Math.Floor(finalDamage));
         Defender.CurrentHP -= finalDamageInt;
         return finalDamageInt;
     }
+    
 }

@@ -1,7 +1,9 @@
 using Fire_Emblem.Effects;
+using Fire_Emblem.Effects.CounterattackDenial;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+using Fire_Emblem.Effects.Healing;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Handlers;
@@ -23,7 +25,10 @@ public class SecondOrderEffectsHandler : EffectsHandler
             typeof(AbsoluteDamageReductionEffect),
             typeof(IPercentageDamageReductionEffect),
             typeof(FirstAttackPercentageDamageReductionEffect),
-            typeof(FollowUpPercentageDamageReductionEffect)
+            typeof(FollowUpPercentageDamageReductionEffect),
+            typeof(HealingEffect),
+            typeof(CounterattackDenialEffect),
+            // typeof(CounterattackDenialDenialEffect)
         };
     }
 }

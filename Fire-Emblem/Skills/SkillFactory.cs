@@ -218,10 +218,18 @@ public class SkillFactory
                 return SkillBuilder.CreateMoonTwinWingSkill();
             case "Dragon's Wrath":
                 return SkillBuilder.CreateDragonsWrathSkill();
-            case "Guard Bearing":
-                return SkillBuilder.CreateGuardBearingSkill();
-            case "Divine Recreation":
-                return SkillBuilder.CreateDivineRecreationSkill();
+            // case "Guard Bearing":
+            //     return SkillBuilder.CreateGuardBearingSkill();
+            // case "Divine Recreation":
+            //     return SkillBuilder.CreateDivineRecreationSkill();
+            case "Windsweep":
+                return SkillBuilder.CreateWindsweepSkill();
+            case "Surprise Attack":
+                return SkillBuilder.CreateSurpriseAttackSkill();
+            case "Hliðskjálf":
+                return SkillBuilder.CreateHliðskjálfSkill();
+            // case "Null C-Disrupt":
+            //     return SkillBuilder.CreateNullCDisruptSkill();
             default:
                 throw new NotImplementedSkillException();
         }

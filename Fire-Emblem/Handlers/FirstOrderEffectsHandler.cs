@@ -1,5 +1,6 @@
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
+using Fire_Emblem.Effects.CounterattackDenial;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Units;
 
@@ -23,7 +24,7 @@ public class FirstOrderEffectsHandler : EffectsHandler
             typeof(IPenaltyEffect),
             typeof(FirstAttackPenaltyEffect),
             typeof(NeutralizationBonusEffect),
-            typeof(NeutralizationPenaltyEffect)
+            typeof(NeutralizationPenaltyEffect),
         };
     }
 }

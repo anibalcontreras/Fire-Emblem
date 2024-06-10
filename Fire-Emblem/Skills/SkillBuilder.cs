@@ -2,9 +2,11 @@ using Fire_Emblem.Conditions;
 using Fire_Emblem.Conditions.LogicalConditions;
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
+using Fire_Emblem.Effects.CounterattackDenial;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+using Fire_Emblem.Effects.Healing;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Skills.TypesCreator;
 using Fire_Emblem.Stats;
@@ -918,7 +920,7 @@ public static class SkillBuilder
             { conditionalFirstAttackDamageReductionEffect, conditionalExtraDamageEffect });
         return new Skill("Dragon’s Wrath", multiEffect);
     }
-
+    
     public static Skill CreateDivineRecreationSkill()
     {
         ICondition rivalHpAboveThresholdCondition = new RivalHpAboveThresholdCondition(0.5);
@@ -937,5 +939,50 @@ public static class SkillBuilder
             conditionalExtraDamageEffect
         }).ToArray());
         return new Skill("Divine Recreation", multiEffect);
+    }
+    
+    public static Skill CreateWindsweepSkill()
+    {
+        ICondition unitUseSwordCondition = new AndCondition(new UnitWeaponCondition(typeof(Sword)), 
+            new UnitBeginAsAttackerCondition());
+        ICondition rivalUseSwordCondition = new RivalWeaponCondition(typeof(Sword));
+        ICondition andCondition = new AndCondition(unitUseSwordCondition, rivalUseSwordCondition);
+        ConditionalEffect conditionalEffect = new ConditionalEffect(andCondition, 
+            new CounterattackDenialEffect(EffectTarget.Rival));
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
+        return new Skill("Windsweep", multiEffect);
+    }
+
+    public static Skill CreateSurpriseAttackSkill()
+    {
+        ICondition unitUseBowCondition = new AndCondition(new UnitWeaponCondition(typeof(Bow)), 
+            new UnitBeginAsAttackerCondition());
+        ICondition rivalUseBowCondition = new RivalWeaponCondition(typeof(Bow));
+        ICondition andCondition = new AndCondition(unitUseBowCondition, rivalUseBowCondition);
+        ConditionalEffect conditionalEffect = new ConditionalEffect(andCondition, 
+            new CounterattackDenialEffect(EffectTarget.Rival));
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
+        return new Skill("Surprise Attack", multiEffect);
+    }
+
+    public static Skill CreateHliðskjálfSkill()
+    {
+        ICondition unitUseMagicCondition = new AndCondition(new UnitWeaponCondition(typeof(Magic)), 
+            new UnitBeginAsAttackerCondition());
+        ICondition rivalUseMagicCondition = new RivalWeaponCondition(typeof(Magic));
+        ICondition andCondition = new AndCondition(unitUseMagicCondition, rivalUseMagicCondition);
+        ConditionalEffect conditionalEffect = new ConditionalEffect(andCondition, 
+            new CounterattackDenialEffect(EffectTarget.Rival));
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
+        return new Skill("Hliðskjálf", multiEffect);
+    }
+    
+    public static Skill CreateNullCDisruptSkill()
+    {
+        ICondition condition = new TrueCondition();
+        IEffect effect = new CounterattackDenialDenialEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalEffect = new ConditionalEffect(condition, effect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
+        return new Skill("Null C-Disrupt", multiEffect);
     }
 }

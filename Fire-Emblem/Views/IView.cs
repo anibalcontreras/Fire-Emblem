@@ -26,4 +26,5 @@ public interface IView
     public void AnnounceExtraDamage(Unit unit);
     public void AnnounceAbsoluteDamageReduction(Unit unit);
     public void AnnouncePercentageReductionEffect(Unit unit);
+    public void AnnounceHpHealing(Unit unit, int amount);
 }

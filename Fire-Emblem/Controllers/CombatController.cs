@@ -94,22 +94,28 @@ public class CombatController
     
     private void PerformCounterAttack(Unit attacker, Unit defender)
     {
+
+        if (defender.HasNullifiedCounterattack)
+        {
+            defender.ResetFirstAttackBonusStats();
+            attacker.ResetFirstAttackPenaltyStats();
+            return;
+        }
         int damage = CalculateFirstAttackDamage(defender, attacker);
-        defender.ResetFirstAttackBonusStats();
-        attacker.ResetFirstAttackPenaltyStats();
         _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
     }
+    
     
     private int CalculateFirstAttackDamage(Unit attacker, Unit defender)
     {
         FirstAttackDamage damage = new FirstAttackDamage(attacker, defender);
-        return damage.CalculateDamage();
+        return damage.CalculateDamage(_consoleGameView);
     }
 
     private int CalculateFollowUpDamage(Unit attacker, Unit defender)
     {
         FollowUpDamage damage = new FollowUpDamage(attacker, defender);
-        return damage.CalculateDamage();
+        return damage.CalculateDamage(_consoleGameView);
     }
     
     private void HandleFollowUp(Combat combat)
@@ -119,7 +125,13 @@ public class CombatController
         else if (combat.CanDefenderPerformFollowUp())
             PerformDefenderFollowUp(combat.Attacker, combat.Defender);
         else
-            _consoleGameView.ShowMessageForNoFollowUpAttack();
+        {
+            if (combat.Defender.HasNullifiedCounterattack)
+                _consoleGameView.ShowMessageForNoFollowUpAttackDueNullifiedCounterattack(combat.Attacker);
+            else
+                _consoleGameView.ShowMessageForNoFollowUpAttack();
+        }
+            
     }
     
     private void PerformAttackerFollowUp(Unit attacker, Unit defender)
@@ -131,6 +143,12 @@ public class CombatController
     
     private void PerformDefenderFollowUp(Unit attacker, Unit defender)
     {
+        if (defender.HasNullifiedCounterattack)
+        {
+            _consoleGameView.ShowMessageForNoFollowUpAttackDueNullifiedCounterattack(attacker);
+            defender.ResetFollowUpStats();
+            return;
+        }
         int damage = CalculateFollowUpDamage(defender, attacker);
         _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
         defender.ResetFollowUpStats();
@@ -158,6 +176,8 @@ public class CombatController
         attacker.ClearActiveEffects();
         attacker.SetHasBeenAttackerBefore();
         attacker.ResetIsAttacker();
+        attacker.ResetNullifyCounterattack();
+        attacker.ResetNullifyNullifiedCounterattack();
     }
 
     private void DeactivateDefenderSkills(Unit defender)
@@ -167,5 +187,7 @@ public class CombatController
         defender.ResetFirstAttackPenaltyStats();
         defender.ClearActiveEffects();
         defender.SetHasBeenDefenderBefore();
+        defender.ResetNullifyCounterattack();
+        defender.ResetNullifyNullifiedCounterattack();
     }
 }

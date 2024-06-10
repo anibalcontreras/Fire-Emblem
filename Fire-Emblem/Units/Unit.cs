@@ -383,4 +383,21 @@ public class Unit
     
     public void SetHasBeenDefenderBefore()
         => HasBeenDefenderBefore = true;
+    
+    public double HealingPercentage { get; private set; }
+    
+    public void ApplyHealing(double percentage)
+        => HealingPercentage = percentage;
+    
+    public bool HasNullifiedCounterattack { get; private set; }
+    public void SetNullifyCounterattack()
+        => HasNullifiedCounterattack = true;
+    public void ResetNullifyCounterattack()
+        => HasNullifiedCounterattack = false;
+
+    public bool HasNullifiedNullifiedCounterattack { get; private set; }
+    public void SetNullifyNullifiedCounterattack()
+        => HasNullifiedNullifiedCounterattack = true;
+    public void ResetNullifyNullifiedCounterattack()
+        => HasNullifiedNullifiedCounterattack = false;
 }

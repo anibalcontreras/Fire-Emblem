@@ -38,7 +38,7 @@ public class ConsoleGameView : IView
                 _view.WriteLine($"{i}: {team.Units[i].Name}");
         }
     }
-    
+
     public string[] DisplayFiles()
     {
         _view.WriteLine("Elige un archivo para cargar los equipos");
@@ -78,10 +78,10 @@ public class ConsoleGameView : IView
 
         return value;
     }
-    
+
     public void AnnounceRoundStart(int round, Unit activeUnit, int currentPlayer)
         => _view.WriteLine($"Round {round}: {activeUnit.Name} (Player {currentPlayer + 1}) comienza");
-    
+
     public void AnnounceAdvantage(Unit attacker, Unit defender, AdvantageState advantage)
     {
         Weapon attackerWeapon = attacker.Weapon;
@@ -105,7 +105,7 @@ public class ConsoleGameView : IView
 
     public void AnnounceCounterattack(Unit defender, Unit attacker, int damage)
         => _view.WriteLine($"{defender.Name} ataca a {attacker.Name} con {damage} de daño");
-    
+
     public void AnnounceWinner(int winnerTeamNumber)
         => _view.WriteLine($"Player {winnerTeamNumber} ganó");
 
@@ -118,18 +118,21 @@ public class ConsoleGameView : IView
     public void ShowMessageForNoFollowUpAttack()
         => _view.WriteLine("Ninguna unidad puede hacer un follow up");
     
+    public void ShowMessageForNoFollowUpAttackDueNullifiedCounterattack(Unit unit)
+        => _view.WriteLine($"{unit.Name} no puede hacer un follow up");
+
     public void AnnounceAttackerBonusEffect(Unit unit)
     {
         AnnounceIfPositiveBonus(unit);
         AnnounceIfPositiveFirstAttackBonus(unit);
     }
-    
+
     public void AnnounceDefenderBonusEffect(Unit rival)
     {
         AnnounceIfPositiveBonus(rival);
         AnnounceIfPositiveFirstAttackBonus(rival);
     }
-    
+
     private void AnnounceIfPositiveBonus(Unit unit)
     {
         if (unit.AtkBonus > 0) AnnounceAtkBonusStat(unit);
@@ -137,47 +140,48 @@ public class ConsoleGameView : IView
         if (unit.DefBonus > 0) AnnounceDefBonusStat(unit);
         if (unit.ResBonus > 0) AnnounceResBonusStat(unit);
     }
-    
+
     private void AnnounceAtkBonusStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Atk+{unit.AtkBonus}");
-    
+
     private void AnnounceSpdBonusStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Spd+{unit.SpdBonus}");
-    
+
     private void AnnounceDefBonusStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Def+{unit.DefBonus}");
-    
+
     private void AnnounceResBonusStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Res+{unit.ResBonus}");
-    
+
     private void AnnounceIfPositiveFirstAttackBonus(Unit unit)
     {
         if (unit.FirstAttackAtkBonus > 0) AnnounceFirstAttackAtkBonusStat(unit);
         if (unit.FirstAttackDefBonus > 0) AnnounceFirstAttackDefBonusStat(unit);
         if (unit.FirstAttackResBonus > 0) AnnounceFirstAttackResBonusStat(unit);
     }
-    
+
     private void AnnounceFirstAttackAtkBonusStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Atk+{unit.FirstAttackAtkBonus} en su primer ataque");
-    
+
     private void AnnounceFirstAttackDefBonusStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Def+{unit.FirstAttackDefBonus} en su primer ataque");
-    
+
     private void AnnounceFirstAttackResBonusStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Res+{unit.FirstAttackResBonus} en su primer ataque");
 
-    
+
     public void AnnounceAttackerPenaltyEffect(Unit unit)
     {
         AnnounceIfPositivePenalty(unit);
         AnnounceIfPositiveFirstAttackPenalty(unit);
     }
+
     public void AnnounceDefenderPenaltyEffect(Unit rival)
     {
         AnnounceIfPositivePenalty(rival);
         AnnounceIfPositiveFirstAttackPenalty(rival);
     }
-    
+
     private void AnnounceIfPositivePenalty(Unit unit)
     {
         if (unit.AtkPenalty > 0) AnnounceAtkPenaltyStat(unit);
@@ -185,38 +189,38 @@ public class ConsoleGameView : IView
         if (unit.DefPenalty > 0) AnnounceDefPenaltyStat(unit);
         if (unit.ResPenalty > 0) AnnounceResPenaltyStat(unit);
     }
-    
+
     private void AnnounceAtkPenaltyStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Atk-{unit.AtkPenalty}");
-    
+
     private void AnnounceSpdPenaltyStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Spd-{unit.SpdPenalty}");
-    
+
     private void AnnounceDefPenaltyStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Def-{unit.DefPenalty}");
-    
+
     private void AnnounceResPenaltyStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Res-{unit.ResPenalty}");
-    
+
     private void AnnounceIfPositiveFirstAttackPenalty(Unit unit)
     {
         if (unit.FirstAttackAtkPenalty > 0) AnnounceFirstAttackAtkPenaltyStat(unit);
         if (unit.FirstAttackDefPenalty > 0) AnnounceFirstAttackDefPenaltyStat(unit);
         if (unit.FirstAttackResPenalty > 0) AnnounceFirstAttackResPenaltyStat(unit);
     }
-    
+
     private void AnnounceFirstAttackAtkPenaltyStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Atk-{unit.FirstAttackAtkPenalty} en su primer ataque");
-    
+
     private void AnnounceFirstAttackDefPenaltyStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Def-{unit.FirstAttackDefPenalty} en su primer ataque");
-    
+
     private void AnnounceFirstAttackResPenaltyStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Res-{unit.FirstAttackResPenalty} en su primer ataque");
-    
+
     public void AnnounceNeutralizationBonusEffect(Unit unit)
         => AnnounceBonusNeutralizationStat(unit);
-    
+
     private void AnnounceBonusNeutralizationStat(Unit unit)
     {
         if (unit.HasActiveNeutralizationBonus(StatType.Atk)) AnnounceNeutralizationAtkBonusStat(unit);
@@ -224,22 +228,22 @@ public class ConsoleGameView : IView
         if (unit.HasActiveNeutralizationBonus(StatType.Def)) AnnounceNeutralizationDefBonusStat(unit);
         if (unit.HasActiveNeutralizationBonus(StatType.Res)) AnnounceNeutralizationResBonusStat(unit);
     }
-    
+
     private void AnnounceNeutralizationAtkBonusStat(Unit unit)
         => _view.WriteLine($"Los bonus de Atk de {unit.Name} fueron neutralizados");
-    
+
     private void AnnounceNeutralizationSpdBonusStat(Unit unit)
         => _view.WriteLine($"Los bonus de Spd de {unit.Name} fueron neutralizados");
-    
+
     private void AnnounceNeutralizationDefBonusStat(Unit unit)
-        =>  _view.WriteLine($"Los bonus de Def de {unit.Name} fueron neutralizados");
-    
+        => _view.WriteLine($"Los bonus de Def de {unit.Name} fueron neutralizados");
+
     private void AnnounceNeutralizationResBonusStat(Unit unit)
         => _view.WriteLine($"Los bonus de Res de {unit.Name} fueron neutralizados");
-    
+
     public void AnnounceNeutralizationPenaltyEffect(Unit unit)
         => AnnouncePenaltyNeutralizationStat(unit);
-    
+
     private void AnnouncePenaltyNeutralizationStat(Unit unit)
     {
         if (unit.HasActiveNeutralizationPenalty(StatType.Atk)) AnnounceNeutralizationAtkPenaltyStat(unit);
@@ -247,65 +251,65 @@ public class ConsoleGameView : IView
         if (unit.HasActiveNeutralizationPenalty(StatType.Def)) AnnounceNeutralizationDefPenaltyStat(unit);
         if (unit.HasActiveNeutralizationPenalty(StatType.Res)) AnnounceNeutralizationResPenaltyStat(unit);
     }
-    
+
     private void AnnounceNeutralizationAtkPenaltyStat(Unit unit)
         => _view.WriteLine($"Los penalty de Atk de {unit.Name} fueron neutralizados");
-    
+
     private void AnnounceNeutralizationSpdPenaltyStat(Unit unit)
         => _view.WriteLine($"Los penalty de Spd de {unit.Name} fueron neutralizados");
-    
+
     private void AnnounceNeutralizationDefPenaltyStat(Unit unit)
         => _view.WriteLine($"Los penalty de Def de {unit.Name} fueron neutralizados");
-    
+
     private void AnnounceNeutralizationResPenaltyStat(Unit unit)
         => _view.WriteLine($"Los penalty de Res de {unit.Name} fueron neutralizados");
 
     public void AnnounceExtraDamage(Unit unit)
         => AnnounceIfActiveExtraDamageEffect(unit);
-    
+
     private void AnnounceIfActiveExtraDamageEffect(Unit unit)
     {
         if (unit.ExtraDamage > 0) AnnounceExtraDamageInEachAttack(unit);
         if (unit.FirstAttackExtraDamage > 0) AnnounceExtraDamageInFirstAttack(unit);
     }
-    
+
     private void AnnounceExtraDamageInEachAttack(Unit unit)
     {
         if (unit.ExtraDamage > 0)
             _view.WriteLine($"{unit.Name} realizará +{unit.ExtraDamage} daño extra en cada ataque");
     }
-    
+
     private void AnnounceExtraDamageInFirstAttack(Unit unit)
     {
-        if (unit.FirstAttackExtraDamage > 0) 
+        if (unit.FirstAttackExtraDamage > 0)
             _view.WriteLine($"{unit.Name} realizará +{unit.FirstAttackExtraDamage} " +
                             $"daño extra en su primer ataque");
     }
-    
+
     public void AnnounceAbsoluteDamageReduction(Unit unit)
         => AnnounceAbsoluteDamageReductionEffect(unit);
-    
+
     private void AnnounceAbsoluteDamageReductionEffect(Unit unit)
     {
         if (unit.AbsoluteDamageReduction > 0) AnnounceAbsoluteDamageReductionInEachAttack(unit);
     }
-    
+
     private void AnnounceAbsoluteDamageReductionInEachAttack(Unit unit)
         => _view.WriteLine($"{unit.Name} recibirá -{unit.AbsoluteDamageReduction} daño en cada ataque");
 
-    
+
     public void AnnouncePercentageReductionEffect(Unit unit)
     {
         AnnounceEachAttackPercentageReductionEffect(unit);
         AnnounceFirstAttackPercentageReductionEffect(unit);
         AnnounceFollowUpPercentageReductionEffect(unit);
     }
-    
+
     private void AnnounceEachAttackPercentageReductionEffect(Unit unit)
     {
         if (unit.PercentageDamageReduction > 0) AnnounceEachAttackPercentageDamageReduction(unit);
     }
-    
+
     private void AnnounceEachAttackPercentageDamageReduction(Unit unit)
     {
         double roundedReduction = Math.Round(unit.PercentageDamageReduction, 2);
@@ -313,13 +317,13 @@ public class ConsoleGameView : IView
         if (percentage > 0)
             _view.WriteLine($"{unit.Name} reducirá el daño de los ataques del rival en un {percentage}%");
     }
-    
+
     private void AnnounceFirstAttackPercentageReductionEffect(Unit unit)
     {
         if (unit.FirstAttackPercentageDamageReduction > 0)
             AnnounceFirstAttackPercentageDamageReduction(unit);
     }
-    
+
     private void AnnounceFirstAttackPercentageDamageReduction(Unit unit)
     {
         double roundedReduction = Math.Round(unit.FirstAttackPercentageDamageReduction, 2);
@@ -327,18 +331,59 @@ public class ConsoleGameView : IView
         if (percentage > 0)
             _view.WriteLine($"{unit.Name} reducirá el daño del primer ataque del rival en un {percentage}%");
     }
-    
+
     private void AnnounceFollowUpPercentageReductionEffect(Unit unit)
     {
         if (unit.FollowUpPercentageDamageReduction > 0)
             AnnounceFollowUpPercentageDamageReduction(unit);
     }
-    
+
     private void AnnounceFollowUpPercentageDamageReduction(Unit unit)
     {
         double roundedReduction = Math.Round(unit.FollowUpPercentageDamageReduction, 2);
         int percentage = Convert.ToInt32(Math.Floor(roundedReduction * 100));
-        if (percentage > 0) 
+        if (percentage > 0)
             _view.WriteLine($"{unit.Name} reducirá el daño del Follow-Up del rival en un {percentage}%");
     }
+
+    public void AnnounceHealingEffect(Unit unit)
+        => AnnounceHealing(unit);
+
+    private void AnnounceHealing(Unit unit)
+    {
+        if (unit.HealingPercentage > 0)
+            AnnounceHealingPercentage(unit);
+    }
+
+    private void AnnounceHealingPercentage(Unit unit)
+    {
+        double roundedHealing = Math.Round(unit.HealingPercentage, 2);
+        int percentage = Convert.ToInt32(Math.Floor(roundedHealing * 100));
+        if (percentage > 0)
+            _view.WriteLine($"{unit.Name} recuperará HP igual al {percentage}% " +
+                            $"del daño realizado en cada ataque");
+    }
+
+    public void AnnounceHpHealing(Unit unit, int healingAmount)
+        => _view.WriteLine($"{unit.Name} recupera {healingAmount} HP luego de atacar y queda con {unit.CurrentHP} HP.");
+
+    public void AnnounceCounterattackDenialEffect(Unit unit)
+        => AnnounceCounterattackDenial(unit);
+
+    private void AnnounceCounterattackDenial(Unit unit)
+    {
+        if (unit.HasNullifiedCounterattack)
+            _view.WriteLine($"{unit.Name} no podrá contraatacar");
+    }
+    
+    public void AnnounceCounterattackDenialDenialEffect(Unit unit)
+        => AnnounceCounterattackDenialDenial(unit);
+    
+    private void AnnounceCounterattackDenialDenial(Unit unit)
+    {
+        if (unit.HasNullifiedNullifiedCounterattack)
+            _view.WriteLine($"{unit.Name} neutraliza los efectos que previenen sus contraataques");
+    }
+    
 }
+
