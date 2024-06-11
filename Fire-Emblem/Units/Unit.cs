@@ -384,10 +384,21 @@ public class Unit
     public void SetHasBeenDefenderBefore()
         => HasBeenDefenderBefore = true;
     
+    public int FinalCausedDamage { get; private set; }
+    
+    public void SetFinalCausedDamage(int damage)
+        => FinalCausedDamage = damage;
+    
+    public void ResetFinalCausedDamage()
+        => FinalCausedDamage = 0;
+    
     public double HealingPercentage { get; private set; }
     
     public void ApplyHealing(double percentage)
         => HealingPercentage = percentage;
+    
+    public void ResetHealingPercentage()
+        => HealingPercentage = 0;
     
     public bool HasNullifiedCounterattack { get; private set; }
     public void SetNullifyCounterattack()
@@ -400,4 +411,10 @@ public class Unit
         => HasNullifiedNullifiedCounterattack = true;
     public void ResetNullifyNullifiedCounterattack()
         => HasNullifiedNullifiedCounterattack = false;
+    
+    public bool HasUnitAttacked { get; private set; }
+    public void SetUnitAttacked()
+        => HasUnitAttacked = true;
+    public void ResetUnitAttacked()
+        => HasUnitAttacked = false;
 }

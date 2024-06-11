@@ -367,6 +367,15 @@ public class ConsoleGameView : IView
     public void AnnounceHpHealing(Unit unit, int healingAmount)
         => _view.WriteLine($"{unit.Name} recupera {healingAmount} HP luego de atacar y queda con {unit.CurrentHP} HP.");
 
+    public void AnnounceHpHealingInEachAttack(Unit unit)
+    {
+        double unitHealingPercentage = unit.HealingPercentage;
+        int finalDamage = unit.FinalCausedDamage;
+        int healingAmount = Convert.ToInt32(Math.Floor(finalDamage * unitHealingPercentage));
+        if (healingAmount > 0)
+            _view.WriteLine($"{unit.Name} recupera {healingAmount} HP luego de atacar y queda con {unit.CurrentHP} HP.");
+    }
+
     public void AnnounceCounterattackDenialEffect(Unit unit)
         => AnnounceCounterattackDenial(unit);
 

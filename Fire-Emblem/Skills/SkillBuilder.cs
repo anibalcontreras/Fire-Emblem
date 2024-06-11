@@ -1016,4 +1016,31 @@ public static class SkillBuilder
         });
         return new Skill("Laws of Sacae", multiEffect);
     }
+
+    public static Skill CreateSolSkill()
+    {
+        ICondition trueCondition = new TrueCondition();
+        IEffect healingEffect = new HealingEffect(0.25, EffectTarget.Unit);
+        ConditionalEffect conditionalHealingEffect = new ConditionalEffect(trueCondition, healingEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalHealingEffect });
+        return new Skill("Sol", multiEffect);
+    }
+
+    public static Skill CreateNosferatuSkill()
+    {
+        ICondition magicCondition = new UnitWeaponCondition(typeof(Magic));
+        IEffect healingEffect = new HealingEffect(0.50, EffectTarget.Unit);
+        ConditionalEffect conditionalHealingEffect = new ConditionalEffect(magicCondition, healingEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalHealingEffect });
+        return new Skill("Nosferatu", multiEffect);
+    }
+
+    public static Skill CreateSolarBraceSkill()
+    {
+        ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
+        IEffect healingEffect = new HealingEffect(0.5, EffectTarget.Unit);
+        ConditionalEffect conditionalHealingEffect = new ConditionalEffect(unitBeginAsAttackerCondition, healingEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalHealingEffect });
+        return new Skill("Solar Brace", multiEffect);
+    }
 }

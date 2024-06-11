@@ -73,6 +73,7 @@ public class CombatController
         attacker.ResetFirstAttackBonusStats();
         defender.ResetFirstAttackPenaltyStats();
         _consoleGameView.AnnounceAttack(attacker, defender, damage);
+        _consoleGameView.AnnounceHpHealingInEachAttack(attacker);
     }
     
     private bool CheckIfUnitDefeated(Unit attacker, Unit defender, Unit unitToCheck)
@@ -94,7 +95,6 @@ public class CombatController
     
     private void PerformCounterAttack(Unit attacker, Unit defender)
     {
-
         if (defender.HasNullifiedCounterattack && !defender.HasNullifiedNullifiedCounterattack)
         {
             defender.ResetFirstAttackBonusStats();
@@ -103,19 +103,20 @@ public class CombatController
         }
         int damage = CalculateFirstAttackDamage(defender, attacker);
         _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
+        _consoleGameView.AnnounceHpHealingInEachAttack(defender);
     }
     
     
     private int CalculateFirstAttackDamage(Unit attacker, Unit defender)
     {
         FirstAttackDamage damage = new FirstAttackDamage(attacker, defender);
-        return damage.CalculateDamage(_consoleGameView);
+        return damage.CalculateDamage();
     }
 
     private int CalculateFollowUpDamage(Unit attacker, Unit defender)
     {
         FollowUpDamage damage = new FollowUpDamage(attacker, defender);
-        return damage.CalculateDamage(_consoleGameView);
+        return damage.CalculateDamage();
     }
     
     private void HandleFollowUp(Combat combat)
@@ -138,6 +139,7 @@ public class CombatController
     {
         int damage = CalculateFollowUpDamage(attacker, defender);
         _consoleGameView.AnnounceAttack(attacker, defender, damage);
+        _consoleGameView.AnnounceHpHealingInEachAttack(attacker);
         attacker.ResetFollowUpStats();
     }
     
@@ -151,6 +153,7 @@ public class CombatController
         }
         int damage = CalculateFollowUpDamage(defender, attacker);
         _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
+        _consoleGameView.AnnounceHpHealingInEachAttack(defender);
         defender.ResetFollowUpStats();
     }
     
@@ -178,6 +181,8 @@ public class CombatController
         attacker.ResetIsAttacker();
         attacker.ResetNullifyCounterattack();
         attacker.ResetNullifyNullifiedCounterattack();
+        attacker.ResetFinalCausedDamage();
+        attacker.ResetHealingPercentage();
     }
 
     private void DeactivateDefenderSkills(Unit defender)
@@ -189,5 +194,7 @@ public class CombatController
         defender.SetHasBeenDefenderBefore();
         defender.ResetNullifyCounterattack();
         defender.ResetNullifyNullifiedCounterattack();
+        defender.ResetFinalCausedDamage();
+        defender.ResetHealingPercentage();
     }
 }

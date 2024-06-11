@@ -6,6 +6,7 @@ namespace Fire_Emblem.Damage;
 
 public abstract class Damage
 {
+    private Unit Attacker { get; }
     protected Unit Defender { get; }
     protected Weapon AttackerWeapon { get; }
     private int AttackValue { get; }
@@ -14,6 +15,7 @@ public abstract class Damage
 
     protected Damage(Unit attacker, Unit defender, int attackValue, int extraDamage, int followUpExtraDamage)
     {
+        Attacker = attacker;
         Defender = defender;
         AttackerWeapon = attacker.Weapon;
         AttackValue = attackValue;
@@ -21,7 +23,7 @@ public abstract class Damage
         FollowUpExtraDamage = followUpExtraDamage;
     }
 
-    public int CalculateDamage(IView view)
+    public int CalculateDamage()
     {
         int defenseValue = CalculateDefenseValue();
         double initialDamage = CalculateInitialDamage(defenseValue); 
@@ -30,7 +32,7 @@ public abstract class Damage
         double damageAfterPercentageReduction = 
             ApplyPercentageDamageReduction(damageAfterExtra, totalPercentageReduction);
         double finalDamage = ApplyAbsoluteDamageReduction(damageAfterPercentageReduction);
-        return UpdateOpponentHpDueTheDamage(finalDamage, view);
+        return UpdateOpponentHpDueTheDamage(finalDamage);
     }
 
     protected abstract int CalculateDefenseValue();
@@ -65,11 +67,15 @@ public abstract class Damage
         return Math.Max(0, damage - absoluteDamageReduction);
     }
 
-    private int UpdateOpponentHpDueTheDamage(double finalDamage, IView view)
+    private int UpdateOpponentHpDueTheDamage(double finalDamage)
     {
         int finalDamageInt = Convert.ToInt32(Math.Floor(finalDamage));
+        // TODO: Cambiar estos metodos a privados para manejar la vida y el daño de los jugadores.
         Defender.CurrentHP -= finalDamageInt;
+        Attacker.SetFinalCausedDamage(finalDamageInt);
+        Attacker.CurrentHP += Convert.ToInt32(Math.Floor(finalDamage * Attacker.HealingPercentage));
+        if (Attacker.CurrentHP > Attacker.BaseHp)
+            Attacker.CurrentHP = Attacker.BaseHp;
         return finalDamageInt;
     }
-    
 }

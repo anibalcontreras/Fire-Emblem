@@ -232,7 +232,12 @@ public class SkillFactory
                 return SkillBuilder.CreateNullCDisruptSkill();
             // case "Laws of Sacae":
             //     return SkillBuilder.CreateLawsOfSacaeSkill();
-            
+            case "Sol":
+                return SkillBuilder.CreateSolSkill();
+            case "Nosferatu":
+                return SkillBuilder.CreateNosferatuSkill();
+            case "Solar Brace":
+                return SkillBuilder.CreateSolarBraceSkill();
             default:
                 throw new NotImplementedSkillException();
         }
