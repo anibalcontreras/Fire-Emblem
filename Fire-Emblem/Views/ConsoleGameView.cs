@@ -393,4 +393,13 @@ public class ConsoleGameView : IView
         if (unit.HasNullifiedNullifiedCounterattack && unit.HasNullifiedCounterattack)
             _view.WriteLine($"{unit.Name} neutraliza los efectos que previenen sus contraataques");
     }
+    
+    public void AnnounceDamageOutOfCombatEffect(Unit unit)
+        => AnnounceDamageOutOfCombat(unit);
+
+    private void AnnounceDamageOutOfCombat(Unit unit)
+    {
+        if (unit.DamageOutOfCombat > 0)
+            _view.WriteLine($"{unit.Name} recibe {unit.DamageOutOfCombat} de daño despues del combate");
+    }
 }

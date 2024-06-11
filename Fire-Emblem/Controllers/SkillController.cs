@@ -81,4 +81,36 @@ public class SkillController
         _consoleGameView.AnnounceCounterattackDenialEffect(combat.Defender);
         _consoleGameView.AnnounceCounterattackDenialDenialEffect(combat.Defender);
     }
+    
+    public void ActivateAfterCombatSkills(Unit attacker, Unit defender)
+    {
+        ApplyAfterCombatSkills(attacker, defender);
+        AnnounceAfterCombatEffects(attacker, defender);
+    }
+
+    private void ApplyAfterCombatSkills(Unit activator, Unit opponent)
+    {
+        List<(Unit, IEffect)> afterCombatEffectsToApply = new List<(Unit, IEffect)>();
+        AfterCombatEffectsHandler afterCombatEffectsHandler = new AfterCombatEffectsHandler(activator, opponent);
+        afterCombatEffectsHandler.CollectConditionMetEffects(afterCombatEffectsToApply);
+        afterCombatEffectsHandler = new AfterCombatEffectsHandler(opponent, activator);
+        afterCombatEffectsHandler.CollectConditionMetEffects(afterCombatEffectsToApply);
+        afterCombatEffectsHandler.ApplyEffectsInOrder(afterCombatEffectsToApply);
+    }
+    
+    private void AnnounceAfterCombatEffects(Unit attacker, Unit defender)
+    {
+        AnnounceAttackerAfterCombatSkills(attacker, defender);
+        AnnounceDefenderAfterCombatSkills(defender, attacker);
+    }
+
+    private void AnnounceAttackerAfterCombatSkills(Unit attacker, Unit defender)
+    {
+        _consoleGameView.AnnounceDamageOutOfCombatEffect(attacker);
+    }
+    
+    private void AnnounceDefenderAfterCombatSkills(Unit defender, Unit attacker)
+    {
+        _consoleGameView.AnnounceDamageOutOfCombatEffect(defender);
+    }
 }

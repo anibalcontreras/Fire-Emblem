@@ -1,4 +1,5 @@
 using Fire_Emblem.Effects.AlterBaseStat;
+using Fire_Emblem.Effects.Damage.DamageOutOfCombat;
 using Fire_Emblem.Effects.Neutralization;
 
 namespace Fire_Emblem.Effects;
@@ -14,5 +15,10 @@ public static class EffectUtils
                || effect.Effect is FirstAttackPenaltyEffect
                || effect.Effect is NeutralizationBonusEffect
                || effect.Effect is NeutralizationPenaltyEffect;
+    }
+    
+    public static bool IsAfterCombatEffect(ConditionalEffect effect)
+    {
+        return effect.Effect is DamageOutOfCombatEffect;
     }
 }

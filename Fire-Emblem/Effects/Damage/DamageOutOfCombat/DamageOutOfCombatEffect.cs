@@ -17,7 +17,7 @@ public class DamageOutOfCombatEffect : IEffect
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        // targetUnit.ApplyDecreaseInCurrentHp(_amount);
+        targetUnit.ApplyDamageOutOfCombat(_amount);
         targetUnit.AddActiveEffect(this);
     }
 }

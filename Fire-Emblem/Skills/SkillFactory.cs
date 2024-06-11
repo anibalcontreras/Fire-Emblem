@@ -238,6 +238,8 @@ public class SkillFactory
                 return SkillBuilder.CreateNosferatuSkill();
             case "Solar Brace":
                 return SkillBuilder.CreateSolarBraceSkill();
+            case "Atk/Spd Push":
+                return SkillBuilder.CreateAtkSpdPushSkill();
             default:
                 throw new NotImplementedSkillException();
         }

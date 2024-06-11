@@ -6,6 +6,7 @@ using Fire_Emblem.Stats;
 using Fire_Emblem.Weapons;
 
 namespace Fire_Emblem.Units;
+
 public class Unit
 {
     public string Name { get; init; }
@@ -17,107 +18,115 @@ public class Unit
     public int BaseDef { get; init; }
     public int BaseRes { get; init; }
     public Weapon Weapon { get; init; }
-    
+
     private readonly List<Skill> _skills = new();
+
     public IEnumerable<Skill> Skills
         => _skills.AsReadOnly();
-    
+
     public void AddSkill(Skill skill)
         => _skills.Add(skill);
 
     private readonly List<IEffect> _effects = new();
     private IEnumerable<IEffect> Effects => _effects.AsReadOnly();
-    
+
     public void AddActiveEffect(IEffect effect)
         => _effects.Add(effect);
-    
+
     public void ClearActiveEffects()
         => _effects.Clear();
-    
+
     private int _currentHP;
-    
+
     public int CurrentHP
     {
         get { return _currentHP; }
         set { _currentHP = Math.Max(0, value); }
     }
-    
+
     public void InitializeCurrentHp()
         => _currentHP = BaseHp;
-    
+
     public int AtkBonus { get; private set; }
     public int AtkPenalty { get; private set; }
     private int AtkBonusNeutralization { get; set; }
     private int AtkPenaltyNeutralization { get; set; }
-    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty - 
+
+    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty -
         AtkBonusNeutralization + AtkPenaltyNeutralization;
-    
+
     public int SpdBonus { get; private set; }
     public int SpdPenalty { get; private set; }
     private int SpdBonusNeutralization { get; set; }
     private int SpdPenaltyNeutralization { get; set; }
-    private int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty - 
+
+    private int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty -
         SpdBonusNeutralization + SpdPenaltyNeutralization;
-    
+
     public int DefBonus { get; private set; }
     public int DefPenalty { get; private set; }
     private int DefBonusNeutralization { get; set; }
     private int DefPenaltyNeutralization { get; set; }
-    private int CurrentDef => BaseDef + DefBonus - DefPenalty - 
+
+    private int CurrentDef => BaseDef + DefBonus - DefPenalty -
         DefBonusNeutralization + DefPenaltyNeutralization;
-    
+
     public int ResBonus { get; private set; }
     public int ResPenalty { get; private set; }
     private int ResBonusNeutralization { get; set; }
     private int ResPenaltyNeutralization { get; set; }
-    private int CurrentRes => BaseRes + ResBonus - ResPenalty - 
+
+    private int CurrentRes => BaseRes + ResBonus - ResPenalty -
         ResBonusNeutralization + ResPenaltyNeutralization;
-    
+
     public int FirstAttackAtkBonus { get; private set; }
     public int FirstAttackAtkPenalty { get; private set; }
     private int FirstAttackAtkBonusNeutralization { get; set; }
     private int FirstAttackAtkPenaltyNeutralization { get; set; }
-    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty - 
+
+    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty -
         FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
-    
+
     public int FirstAttackDefBonus { get; private set; }
     public int FirstAttackDefPenalty { get; private set; }
     private int FirstAttackDefBonusNeutralization { get; set; }
     private int FirstAttackDefPenaltyNeutralization { get; set; }
-    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty - 
+
+    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty -
         FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
-    
+
     public int FirstAttackResBonus { get; private set; }
     public int FirstAttackResPenalty { get; private set; }
     private int FirstAttackResBonusNeutralization { get; set; }
     private int FirstAttackResPenaltyNeutralization { get; set; }
-    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty - 
+
+    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty -
         FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
-    
+
     private int FollowUpAtkBonus { get; set; }
     private int FollowUpAtkPenalty { get; set; }
     private int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
-    
+
     private int FollowUpDefBonus { get; set; }
     private int FollowUpDefPenalty { get; set; }
     public int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
-    
+
     private int FollowUpResBonus { get; set; }
     private int FollowUpResPenalty { get; set; }
     public int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
-    
+
     public bool HasActiveNeutralizationBonus(StatType statType)
     {
-        return Effects.Any(effect => effect is NeutralizationBonusEffect 
+        return Effects.Any(effect => effect is NeutralizationBonusEffect
             bonus && bonus.StatType == statType);
     }
-    
+
     public bool HasActiveNeutralizationPenalty(StatType statType)
     {
-        return Effects.Any(effect => effect is NeutralizationPenaltyEffect 
+        return Effects.Any(effect => effect is NeutralizationPenaltyEffect
             penalty && penalty.StatType == statType);
     }
-    
+
     public int GetFirstAttackStat(StatType statType)
     {
         switch (statType)
@@ -128,7 +137,7 @@ public class Unit
             default: throw new StatNotRecognizedException();
         }
     }
-    
+
     public int GetFollowUpStat(StatType statType)
     {
         switch (statType)
@@ -139,7 +148,7 @@ public class Unit
             default: throw new StatNotRecognizedException();
         }
     }
-    
+
     public int GetBaseStat(StatType statType)
     {
         switch (statType)
@@ -151,7 +160,7 @@ public class Unit
             default: throw new StatNotRecognizedException();
         }
     }
-    
+
     public int GetCurrentStat(StatType statType)
     {
         switch (statType)
@@ -163,30 +172,48 @@ public class Unit
             default: throw new StatNotRecognizedException();
         }
     }
-    
+
     public void ApplyStatBonus(StatType statType, int bonusAmount)
     {
         switch (statType)
         {
-            case StatType.Atk: AtkBonus += bonusAmount; break;
-            case StatType.Spd: SpdBonus += bonusAmount; break;
-            case StatType.Def: DefBonus += bonusAmount; break;
-            case StatType.Res: ResBonus += bonusAmount; break;
-            case StatType.Hp: _currentHP += bonusAmount; break;
+            case StatType.Atk:
+                AtkBonus += bonusAmount;
+                break;
+            case StatType.Spd:
+                SpdBonus += bonusAmount;
+                break;
+            case StatType.Def:
+                DefBonus += bonusAmount;
+                break;
+            case StatType.Res:
+                ResBonus += bonusAmount;
+                break;
+            case StatType.Hp:
+                _currentHP += bonusAmount;
+                break;
         }
     }
-    
+
     public void ApplyStatPenalty(StatType statType, int penaltyAmount)
     {
         switch (statType)
         {
-            case StatType.Atk: AtkPenalty += penaltyAmount; break;
-            case StatType.Spd: SpdPenalty += penaltyAmount; break;
-            case StatType.Def: DefPenalty += penaltyAmount; break;
-            case StatType.Res: ResPenalty += penaltyAmount; break;
+            case StatType.Atk:
+                AtkPenalty += penaltyAmount;
+                break;
+            case StatType.Spd:
+                SpdPenalty += penaltyAmount;
+                break;
+            case StatType.Def:
+                DefPenalty += penaltyAmount;
+                break;
+            case StatType.Res:
+                ResPenalty += penaltyAmount;
+                break;
         }
     }
-    
+
     public void NeutralizeBonus(StatType statType)
     {
         switch (statType)
@@ -208,7 +235,7 @@ public class Unit
                 break;
         }
     }
-    
+
     public void NeutralizePenalty(StatType statType)
     {
         switch (statType)
@@ -230,51 +257,69 @@ public class Unit
                 break;
         }
     }
-    
+
     public void ApplyFirstAttackStatBonus(StatType statType, int bonusAmount)
     {
         switch (statType)
         {
-            case StatType.Atk: FirstAttackAtkBonus += bonusAmount; break;
-            case StatType.Def: FirstAttackDefBonus += bonusAmount; break;
-            case StatType.Res: FirstAttackResBonus += bonusAmount; break;
+            case StatType.Atk:
+                FirstAttackAtkBonus += bonusAmount;
+                break;
+            case StatType.Def:
+                FirstAttackDefBonus += bonusAmount;
+                break;
+            case StatType.Res:
+                FirstAttackResBonus += bonusAmount;
+                break;
         }
     }
-    
+
     public void ApplyFirstAttackStatPenalty(StatType statType, int penaltyAmount)
     {
         switch (statType)
         {
-            case StatType.Atk: FirstAttackAtkPenalty += penaltyAmount; break;
-            case StatType.Def: FirstAttackDefPenalty += penaltyAmount; break;
-            case StatType.Res: FirstAttackResPenalty += penaltyAmount; break;
+            case StatType.Atk:
+                FirstAttackAtkPenalty += penaltyAmount;
+                break;
+            case StatType.Def:
+                FirstAttackDefPenalty += penaltyAmount;
+                break;
+            case StatType.Res:
+                FirstAttackResPenalty += penaltyAmount;
+                break;
         }
     }
-    
+
     public int ExtraDamage { get; private set; }
+
     public void ApplyExtraDamageEffect(int amount)
         => ExtraDamage += amount;
+
     public int FirstAttackExtraDamage { get; private set; }
-    
+
     public void ApplyFirstAttackExtraDamageEffect(int amount)
         => FirstAttackExtraDamage += amount;
-    
-    public int AbsoluteDamageReduction { get; private set;}
+
+    public int AbsoluteDamageReduction { get; private set; }
+
     public void ApplyAbsoluteDamageReduction(int amount)
         => AbsoluteDamageReduction += amount;
-    
+
     public double PercentageDamageReduction { get; private set; }
+
     public void ApplyPercentageDamageReduction(double percentage)
         => PercentageDamageReduction = 1 - (1 - PercentageDamageReduction) * (1 - percentage);
-    
+
     public double FirstAttackPercentageDamageReduction { get; private set; }
+
     public void ApplyFirstAttackPercentageDamageReduction(double percentage)
         => FirstAttackPercentageDamageReduction = 1 - (1 - FirstAttackPercentageDamageReduction) * (1 - percentage);
-    
+
     public double FollowUpPercentageDamageReduction { get; private set; }
+
     public void ApplyFollowUpPercentageDamageReduction(double percentage)
         => FollowUpPercentageDamageReduction = 1 - (1 - FollowUpPercentageDamageReduction) * (1 - percentage);
-    
+
     public void ResetEffects()
     {
         ResetBonuses();
@@ -315,7 +360,7 @@ public class Unit
         DefPenaltyNeutralization = 0;
         ResPenaltyNeutralization = 0;
     }
-    
+
     private void ResetDamageModifiers()
     {
         ExtraDamage = 0;
@@ -335,7 +380,7 @@ public class Unit
         FirstAttackResBonusNeutralization = 0;
         FirstAttackExtraDamage = 0;
     }
-    
+
     public void ResetFirstAttackPenaltyStats()
     {
         FirstAttackAtkPenalty = 0;
@@ -345,7 +390,7 @@ public class Unit
         FirstAttackDefPenaltyNeutralization = 0;
         FirstAttackResPenaltyNeutralization = 0;
     }
-    
+
     public void ResetFollowUpStats()
     {
         FollowUpAtkBonus = 0;
@@ -355,66 +400,83 @@ public class Unit
         FollowUpDefPenalty = 0;
         FollowUpResPenalty = 0;
     }
-    
+
     public Unit LastUnitFaced { get; private set; }
-    
+
     public void SetLastUnitFaced(Unit unit)
         => LastUnitFaced = unit;
-    
+
     public bool IsAttacker { get; private set; }
-    
+
     public void SetIsAttacker()
         => IsAttacker = true;
-    
+
     public void ResetIsAttacker()
         => IsAttacker = false;
-    
+
     public bool HasActivatedAlterStatBase { get; private set; }
-    
+
     public void SetActivatedAlterStatBase()
         => HasActivatedAlterStatBase = true;
-    
+
     public bool HasBeenAttackerBefore { get; private set; }
-    
+
     public bool HasBeenDefenderBefore { get; private set; }
-    
+
     public void SetHasBeenAttackerBefore()
         => HasBeenAttackerBefore = true;
-    
+
     public void SetHasBeenDefenderBefore()
         => HasBeenDefenderBefore = true;
-    
+
     public int FinalCausedDamage { get; private set; }
-    
+
     public void SetFinalCausedDamage(int damage)
         => FinalCausedDamage = damage;
-    
+
     public void ResetFinalCausedDamage()
         => FinalCausedDamage = 0;
-    
+
     public double HealingPercentage { get; private set; }
-    
+
     public void ApplyHealing(double percentage)
         => HealingPercentage = percentage;
-    
+
     public void ResetHealingPercentage()
         => HealingPercentage = 0;
-    
+
     public bool HasNullifiedCounterattack { get; private set; }
+
     public void SetNullifyCounterattack()
         => HasNullifiedCounterattack = true;
+
     public void ResetNullifyCounterattack()
         => HasNullifiedCounterattack = false;
 
     public bool HasNullifiedNullifiedCounterattack { get; private set; }
+
     public void SetNullifyNullifiedCounterattack()
         => HasNullifiedNullifiedCounterattack = true;
+
     public void ResetNullifyNullifiedCounterattack()
         => HasNullifiedNullifiedCounterattack = false;
+
+    public bool HasUnitExecutedAStrike { get; private set; }
+
+    public void SetUnitExecuteAStrike()
+        => HasUnitExecutedAStrike = true;
+
+    public void ResetUnitExecuteAStrike()
+        => HasUnitExecutedAStrike = false;
     
-    public bool HasUnitAttacked { get; private set; }
-    public void SetUnitAttacked()
-        => HasUnitAttacked = true;
-    public void ResetUnitAttacked()
-        => HasUnitAttacked = false;
+    public int DamageOutOfCombat { get; private set; }
+
+    public void ApplyDamageOutOfCombat(int amount)
+    {
+        DamageOutOfCombat += amount;
+        _currentHP = Math.Max(1, _currentHP - DamageOutOfCombat);
+    }
+    
+    public void ResetDamageOutOfCombat()
+        => DamageOutOfCombat = 0;
 }

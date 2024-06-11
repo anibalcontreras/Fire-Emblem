@@ -70,6 +70,7 @@ public class CombatController
     private void PerformAttack(Unit attacker, Unit defender)
     {
         int damage = CalculateFirstAttackDamage(attacker, defender);
+        attacker.SetUnitExecuteAStrike();
         attacker.ResetFirstAttackBonusStats();
         defender.ResetFirstAttackPenaltyStats();
         _consoleGameView.AnnounceAttack(attacker, defender, damage);
@@ -80,7 +81,6 @@ public class CombatController
     {
         if (unitToCheck.CurrentHP <= 0)
         {
-            _consoleGameView.ShowCurrentHealth(attacker, defender);
             ManageEndOfCombat(attacker, defender);
             return true;
         }
@@ -102,6 +102,7 @@ public class CombatController
             return;
         }
         int damage = CalculateFirstAttackDamage(defender, attacker);
+        defender.SetUnitExecuteAStrike();
         _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
         _consoleGameView.AnnounceHpHealingInEachAttack(defender);
     }
@@ -138,6 +139,7 @@ public class CombatController
     private void PerformAttackerFollowUp(Unit attacker, Unit defender)
     {
         int damage = CalculateFollowUpDamage(attacker, defender);
+        attacker.SetUnitExecuteAStrike();
         _consoleGameView.AnnounceAttack(attacker, defender, damage);
         _consoleGameView.AnnounceHpHealingInEachAttack(attacker);
         attacker.ResetFollowUpStats();
@@ -152,6 +154,7 @@ public class CombatController
             return;
         }
         int damage = CalculateFollowUpDamage(defender, attacker);
+        defender.SetUnitExecuteAStrike();
         _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
         _consoleGameView.AnnounceHpHealingInEachAttack(defender);
         defender.ResetFollowUpStats();
@@ -159,16 +162,17 @@ public class CombatController
     
     private void EndCombat(Unit attacker, Unit defender)
     {
-        _consoleGameView.ShowCurrentHealth(attacker, defender); 
         ManageEndOfCombat(attacker, defender);
     }
     
     private void ManageEndOfCombat(Unit attacker, Unit defender)
     {
+        _skillController.ActivateAfterCombatSkills(attacker, defender);
         attacker.SetLastUnitFaced(defender);
         defender.SetLastUnitFaced(attacker);
         DeactivateAttackerSkills(attacker);
         DeactivateDefenderSkills(defender);
+        _consoleGameView.ShowCurrentHealth(attacker, defender);
     }
 
     private void DeactivateAttackerSkills(Unit attacker)
@@ -183,6 +187,8 @@ public class CombatController
         attacker.ResetNullifyNullifiedCounterattack();
         attacker.ResetFinalCausedDamage();
         attacker.ResetHealingPercentage();
+        attacker.ResetUnitExecuteAStrike();
+        attacker.ResetDamageOutOfCombat();
     }
 
     private void DeactivateDefenderSkills(Unit defender)
@@ -196,5 +202,7 @@ public class CombatController
         defender.ResetNullifyNullifiedCounterattack();
         defender.ResetFinalCausedDamage();
         defender.ResetHealingPercentage();
+        defender.ResetUnitExecuteAStrike();
+        defender.ResetDamageOutOfCombat();
     }
 }

@@ -1,6 +1,5 @@
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
-using Fire_Emblem.Effects.CounterattackDenial;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Units;
 

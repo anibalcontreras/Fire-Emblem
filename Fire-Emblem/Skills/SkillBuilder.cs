@@ -4,6 +4,7 @@ using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.CounterattackDenial;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
+using Fire_Emblem.Effects.Damage.DamageOutOfCombat;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Effects.Healing;
@@ -1042,5 +1043,27 @@ public static class SkillBuilder
         ConditionalEffect conditionalHealingEffect = new ConditionalEffect(unitBeginAsAttackerCondition, healingEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalHealingEffect });
         return new Skill("Solar Brace", multiEffect);
+    }
+
+    public static Skill CreateAtkSpdPushSkill()
+    {
+        ICondition hpThresholdCondition = new UnitHpGreaterThanCertainPercentage(0.25);
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 7, EffectTarget.Unit);
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 7, EffectTarget.Unit);
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(hpThresholdCondition, atkBonusEffect);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(hpThresholdCondition, spdBonusEffect);
+        
+        ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
+        IEffect damageOutOfCombatEffect = new DamageOutOfCombatEffect(5, EffectTarget.Unit);
+        ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(unitHasAttackedCondition, 
+            damageOutOfCombatEffect);
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkBonusEffect,
+            conditionalSpdBonusEffect,
+            conditionalDamageOutOfCombatEffect
+        });
+        return new Skill("Atk/Spd Push", multiEffect);
     }
 }
