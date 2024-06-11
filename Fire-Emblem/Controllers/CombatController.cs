@@ -95,7 +95,7 @@ public class CombatController
     private void PerformCounterAttack(Unit attacker, Unit defender)
     {
 
-        if (defender.HasNullifiedCounterattack)
+        if (defender.HasNullifiedCounterattack && !defender.HasNullifiedNullifiedCounterattack)
         {
             defender.ResetFirstAttackBonusStats();
             attacker.ResetFirstAttackPenaltyStats();
@@ -143,7 +143,7 @@ public class CombatController
     
     private void PerformDefenderFollowUp(Unit attacker, Unit defender)
     {
-        if (defender.HasNullifiedCounterattack)
+        if (defender.HasNullifiedCounterattack && !defender.HasNullifiedNullifiedCounterattack)
         {
             _consoleGameView.ShowMessageForNoFollowUpAttackDueNullifiedCounterattack(attacker);
             defender.ResetFollowUpStats();

@@ -372,7 +372,7 @@ public class ConsoleGameView : IView
 
     private void AnnounceCounterattackDenial(Unit unit)
     {
-        if (unit.HasNullifiedCounterattack)
+        if (unit.HasNullifiedCounterattack && !unit.HasNullifiedNullifiedCounterattack)
             _view.WriteLine($"{unit.Name} no podrá contraatacar");
     }
     
@@ -381,9 +381,7 @@ public class ConsoleGameView : IView
     
     private void AnnounceCounterattackDenialDenial(Unit unit)
     {
-        if (unit.HasNullifiedNullifiedCounterattack)
+        if (unit.HasNullifiedNullifiedCounterattack && unit.HasNullifiedCounterattack)
             _view.WriteLine($"{unit.Name} neutraliza los efectos que previenen sus contraataques");
     }
-    
 }
-

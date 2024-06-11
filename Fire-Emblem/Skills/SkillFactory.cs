@@ -228,8 +228,11 @@ public class SkillFactory
                 return SkillBuilder.CreateSurpriseAttackSkill();
             case "Hliðskjálf":
                 return SkillBuilder.CreateHliðskjálfSkill();
-            // case "Null C-Disrupt":
-            //     return SkillBuilder.CreateNullCDisruptSkill();
+            case "Null C-Disrupt":
+                return SkillBuilder.CreateNullCDisruptSkill();
+            // case "Laws of Sacae":
+            //     return SkillBuilder.CreateLawsOfSacaeSkill();
+            
             default:
                 throw new NotImplementedSkillException();
         }

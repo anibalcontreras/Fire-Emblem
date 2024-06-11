@@ -985,4 +985,35 @@ public static class SkillBuilder
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
         return new Skill("Null C-Disrupt", multiEffect);
     }
+
+    public static Skill CreateLawsOfSacaeSkill()
+    {
+        ICondition condition = new UnitBeginAsAttackerCondition();
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 6, EffectTarget.Unit);
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 6, EffectTarget.Unit);
+        IEffect defBonusEffect = new BonusEffect(StatType.Def, 6, EffectTarget.Unit);
+        IEffect resBonusEffect = new BonusEffect(StatType.Res, 6, EffectTarget.Unit);
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(condition, atkBonusEffect);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(condition, spdBonusEffect);
+        ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(condition, defBonusEffect);
+        ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(condition, resBonusEffect);
+        ICondition weaponConditions = new OrCondition(
+            new RivalWeaponCondition(typeof(Sword)),
+            new RivalWeaponCondition(typeof(Lance)),
+            new RivalWeaponCondition(typeof(Axe)));
+        ICondition spdCondition = new LawsOfSacaeCondition(StatType.Spd, StatType.Spd);
+        ICondition mixedCondition = new AndCondition(weaponConditions, spdCondition);
+        IEffect counterattackDenialEffect = new CounterattackDenialEffect(EffectTarget.Rival);
+        ConditionalEffect conditionalCounterattackDenialEffect = 
+            new ConditionalEffect(mixedCondition, counterattackDenialEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkBonusEffect,
+            conditionalSpdBonusEffect,
+            conditionalDefBonusEffect,
+            conditionalResBonusEffect,
+            conditionalCounterattackDenialEffect
+        });
+        return new Skill("Laws of Sacae", multiEffect);
+    }
 }
