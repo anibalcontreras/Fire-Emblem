@@ -26,7 +26,7 @@ public class SecondOrderEffectsHandler : EffectsHandler
             typeof(IPercentageDamageReductionEffect),
             typeof(FirstAttackPercentageDamageReductionEffect),
             typeof(FollowUpPercentageDamageReductionEffect),
-            typeof(HealingEffect),
+            typeof(IHealingEffect),
             typeof(CounterattackDenialEffect),
             typeof(CounterattackDenialDenialEffect)
         };

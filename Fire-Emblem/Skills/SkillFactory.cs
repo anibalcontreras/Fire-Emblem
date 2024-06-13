@@ -254,7 +254,10 @@ public class SkillFactory
             //     return SkillBuilder.CreateDefResPushSkill();
             case "Flare":
                 return SkillBuilder.CreateFlareSkill();
-            
+            // case "Mystic Boost":
+            //     return SkillBuilder.CreateMysticBoostSkill();
+            case "Fury":
+                return SkillBuilder.CreateFurySkill();
             default:
                 throw new NotImplementedSkillException();
         }
