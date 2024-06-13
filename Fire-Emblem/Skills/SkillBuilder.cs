@@ -766,7 +766,7 @@ public static class SkillBuilder
         ICondition notCondition = new NotCondition(new UnitWeaponCondition(typeof(Magic)));
         ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
         ICondition combinedCondition = new AndCondition(notCondition, unitBeginAsAttackerCondition);
-        IEffect effect = new LunarBraceEffect(0.3, StatType.Def, EffectTarget.Unit);
+        IEffect effect = new ExtraDamagePerStatTypeEffect(0.3, StatType.Def, EffectTarget.Unit);
         ConditionalEffect conditionalEffect = new ConditionalEffect(combinedCondition, effect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
         return new Skill("Lunar Brace", multiEffect);
@@ -785,7 +785,7 @@ public static class SkillBuilder
     {
         ICondition condition = new TrueCondition();
         IEffect penaltyEffect = new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival);
-        IEffect lunarBraceEffect = new LunarBraceEffect(0.15, StatType.Atk, EffectTarget.Unit);
+        IEffect lunarBraceEffect = new ExtraDamagePerStatTypeEffect(0.15, StatType.Atk, EffectTarget.Unit);
         ConditionalEffect conditionalPenaltyEffect = new ConditionalEffect(condition, penaltyEffect);
         ConditionalEffect conditionalLunarBraceEffect = new ConditionalEffect(condition, lunarBraceEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[] 
@@ -1044,26 +1044,91 @@ public static class SkillBuilder
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalHealingEffect });
         return new Skill("Solar Brace", multiEffect);
     }
-
-    public static Skill CreateAtkSpdPushSkill()
+    
+    public static Skill CreateEclipseBraceSkill()
     {
-        ICondition hpThresholdCondition = new UnitHpGreaterThanCertainPercentage(0.25);
-        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 7, EffectTarget.Unit);
-        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 7, EffectTarget.Unit);
-        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(hpThresholdCondition, atkBonusEffect);
-        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(hpThresholdCondition, spdBonusEffect);
-        
-        ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
-        IEffect damageOutOfCombatEffect = new DamageOutOfCombatEffect(5, EffectTarget.Unit);
-        ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(unitHasAttackedCondition, 
-            damageOutOfCombatEffect);
-        
+        ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
+        ICondition physicAttackCond = new NotCondition(new UnitWeaponCondition(typeof(Magic)));
+        ICondition andCondition = new AndCondition(unitBeginAsAttackerCondition, physicAttackCond);
+        IEffect healingEffect = new HealingEffect(0.5, EffectTarget.Unit);
+        IEffect braceEffect = new ExtraDamagePerStatTypeEffect(0.3, StatType.Def, EffectTarget.Unit);
+        ConditionalEffect conditionalHealingEffect = new ConditionalEffect(andCondition, braceEffect);
+        ConditionalEffect conditionalBraceEffect = new ConditionalEffect(unitBeginAsAttackerCondition, healingEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
-            conditionalAtkBonusEffect,
-            conditionalSpdBonusEffect,
+            conditionalHealingEffect,
+            conditionalBraceEffect
+        });
+        return new Skill("Eclipse Brace", multiEffect);
+    }
+    
+    public static Skill CreatePushSkill(string skillName, StatType statType1, StatType statType2)
+    {
+        int statBonus = 7;
+        double hpThreshold = 0.25;
+        int damageAfterCombat = 5;
+        ICondition hpThresholdCondition = new UnitHpGreaterThanCertainPercentage(hpThreshold);
+        IEffect statBonusEffect1 = new BonusEffect(statType1, statBonus, EffectTarget.Unit);
+        IEffect statBonusEffect2 = new BonusEffect(statType2, statBonus, EffectTarget.Unit);
+        ConditionalEffect conditionalStatBonusEffect1 = new ConditionalEffect(hpThresholdCondition, statBonusEffect1);
+        ConditionalEffect conditionalStatBonusEffect2 = new ConditionalEffect(hpThresholdCondition, statBonusEffect2);
+        ICondition unitIsAliveCondition = new IsUnitAliveCondition();
+        ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
+        ICondition andCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition);
+        IEffect damageOutOfCombatEffect = new DamageOutOfCombatEffect(damageAfterCombat, EffectTarget.Unit);
+        ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(andCondition, damageOutOfCombatEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalStatBonusEffect1,
+            conditionalStatBonusEffect2,
             conditionalDamageOutOfCombatEffect
         });
-        return new Skill("Atk/Spd Push", multiEffect);
+        return new Skill(skillName, multiEffect);
+    }
+    
+    public static Skill CreateAtkSpdPushSkill()
+    {
+        return CreatePushSkill("Atk/Spd Push", StatType.Atk, StatType.Spd);
+    }
+    
+    public static Skill CreateAtkDefPushSkill()
+    {
+        return CreatePushSkill("Atk/Def Push", StatType.Atk, StatType.Def);
+    }
+    
+    public static Skill CreateAtkResPushSkill()
+    {
+        return CreatePushSkill("Atk/Res Push", StatType.Atk, StatType.Res);
+    }
+    
+    public static Skill CreateSpdDefPushSkill()
+    {
+        return CreatePushSkill("Spd/Def Push", StatType.Spd, StatType.Def);
+    }
+    
+    public static Skill CreateSpdResPushSkill()
+    {
+        return CreatePushSkill("Spd/Res Push", StatType.Spd, StatType.Res);
+    }
+
+    public static Skill CreateDefResPushSkill()
+    {
+        return CreatePushSkill("Def/Res Push", StatType.Def, StatType.Res);
+    }
+
+    public static Skill CreateFlareSkill()
+    {
+        ICondition magicWeaponCondition = new UnitWeaponCondition(typeof(Magic));
+        IEffect resPenaltyEffect = new PercentagePenaltyEffect(StatType.Res, 0.2, EffectTarget.Rival);
+        IEffect healingEffect = new HealingEffect(0.5, EffectTarget.Unit);
+        ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(magicWeaponCondition, resPenaltyEffect);
+        ConditionalEffect conditionalHealingEffect = new ConditionalEffect(magicWeaponCondition, healingEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalResPenaltyEffect,
+            conditionalHealingEffect
+        });
+        
+        return new Skill("Flare", multiEffect);
     }
 }

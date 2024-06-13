@@ -28,6 +28,7 @@ public class CombatController
         return combat;
     }
     
+    
     private Combat CreateCombat(List<Team> teams, int currentPlayer)
     {
         Team activeTeam = teams[currentPlayer];

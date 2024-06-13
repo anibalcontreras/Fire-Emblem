@@ -440,8 +440,8 @@ public class Unit
     public double HealingPercentage { get; private set; }
 
     public void ApplyHealing(double percentage)
-        => HealingPercentage = percentage;
-
+        => HealingPercentage += percentage;
+    
     public void ResetHealingPercentage()
         => HealingPercentage = 0;
 
@@ -479,4 +479,5 @@ public class Unit
     
     public void ResetDamageOutOfCombat()
         => DamageOutOfCombat = 0;
+    
 }

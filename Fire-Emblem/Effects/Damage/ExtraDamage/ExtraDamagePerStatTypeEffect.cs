@@ -3,13 +3,13 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.ExtraDamage;
 
-public class LunarBraceEffect : IExtraDamageEffect
+public class ExtraDamagePerStatTypeEffect : IExtraDamageEffect
 {
     private readonly double _percentage;
     private readonly StatType _statType;
     private EffectTarget Target { get; }
         
-    public LunarBraceEffect(double percentage, StatType statType, EffectTarget target)
+    public ExtraDamagePerStatTypeEffect(double percentage, StatType statType, EffectTarget target)
     {
         _percentage = percentage;
         _statType = statType;
