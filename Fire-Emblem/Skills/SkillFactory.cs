@@ -242,22 +242,22 @@ public class SkillFactory
                 return SkillBuilder.CreateEclipseBraceSkill();
             case "Atk/Spd Push":
                 return SkillBuilder.CreateAtkSpdPushSkill();
-            // case "Atk/Def Push":
-            //     return SkillBuilder.CreateAtkDefPushSkill();
-            // case "Atk/Res Push":
-            //     return SkillBuilder.CreateAtkResPushSkill();
-            // case "Spd/Def Push":
-            //     return SkillBuilder.CreateSpdDefPushSkill();
-            // case "Spd/Res Push":
-            //     return SkillBuilder.CreateSpdResPushSkill();
-            // case "Def/Res Push":
-            //     return SkillBuilder.CreateDefResPushSkill();
+            case "Atk/Def Push":
+                return SkillBuilder.CreateAtkDefPushSkill();
+            case "Atk/Res Push":
+                return SkillBuilder.CreateAtkResPushSkill();
+            case "Spd/Def Push":
+                return SkillBuilder.CreateSpdDefPushSkill();
+            case "Spd/Res Push":
+                return SkillBuilder.CreateSpdResPushSkill();
+            case "Def/Res Push":
+                return SkillBuilder.CreateDefResPushSkill();
             case "Flare":
                 return SkillBuilder.CreateFlareSkill();
             // case "Mystic Boost":
             //     return SkillBuilder.CreateMysticBoostSkill();
-            case "Fury":
-                return SkillBuilder.CreateFurySkill();
+            // case "Fury":
+            //     return SkillBuilder.CreateFurySkill();
             default:
                 throw new NotImplementedSkillException();
         }

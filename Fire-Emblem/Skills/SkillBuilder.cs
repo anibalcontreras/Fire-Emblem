@@ -1074,7 +1074,8 @@ public static class SkillBuilder
         ConditionalEffect conditionalStatBonusEffect2 = new ConditionalEffect(hpThresholdCondition, statBonusEffect2);
         ICondition unitIsAliveCondition = new IsUnitAliveCondition();
         ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
-        ICondition andCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition);
+        ICondition unitHpGreaterThanThresholdCondition = new UnitHpGreaterThanCertainPercentage(0);
+        ICondition andCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition, unitHpGreaterThanThresholdCondition);
         IEffect damageOutOfCombatEffect = new DamageOutOfCombatEffect(damageAfterCombat, EffectTarget.Unit);
         ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(andCondition, damageOutOfCombatEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
