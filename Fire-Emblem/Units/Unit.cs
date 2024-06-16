@@ -469,26 +469,40 @@ public class Unit
     public void ResetUnitExecuteAStrike()
         => HasUnitExecutedAStrike = false;
     
-    private int HealingOutOfCombat { get; set; }
-    private int DamageOutOfCombat { get; set; }
+    private int HealingAfterCombat { get; set; }
+    private int DamageAfterCombat { get; set; }
     
-    public int StatOutOfCombat => HealingOutOfCombat - DamageOutOfCombat;
+    public int StatOutOfCombat => HealingAfterCombat - DamageAfterCombat;
 
-    public void ApplyHealingOutOfCombat(int amount)
+    public void ApplyHealingAfterCombat(int amount)
     {
-        HealingOutOfCombat += amount;
-        _currentHP = Math.Min(BaseHp, _currentHP + HealingOutOfCombat);
+        HealingAfterCombat += amount;
+        _currentHP = Math.Min(BaseHp, _currentHP + HealingAfterCombat);
     }
     
-    public void ApplyDamageOutOfCombat(int amount)
+    public void ApplyDamageAfterCombat(int amount)
     {
-        DamageOutOfCombat += amount;
-        _currentHP = Math.Max(1, _currentHP - DamageOutOfCombat);
+        DamageAfterCombat += amount;
+        _currentHP = Math.Max(1, _currentHP - DamageAfterCombat);
     }
 
     public void ResetStatOutOfCombat()
     {
-        HealingOutOfCombat = 0;
-        DamageOutOfCombat = 0;
+        HealingAfterCombat = 0;
+        DamageAfterCombat = 0;
     }
+    
+    // public int DamageBeforeCombat { get; private set; }
+    //
+    // public void SetDamageBeforeCombat(int damage)
+    //     => DamageBeforeCombat = damage;
+    //
+    // public void ResetDamageBeforeCombat()
+    //     => DamageBeforeCombat = 0;
+    //
+    // public void ApplyDamageBeforeCombat(int amount)
+    // {
+    //     DamageBeforeCombat += amount;
+    //     _currentHP = Math.Max(1, _currentHP - DamageBeforeCombat);
+    // }
 }

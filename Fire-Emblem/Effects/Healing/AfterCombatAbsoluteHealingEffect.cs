@@ -16,7 +16,7 @@ public class AfterCombatAbsoluteHealingEffect : IEffect
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        targetUnit.ApplyHealingOutOfCombat(_amount);
+        targetUnit.ApplyHealingAfterCombat(_amount);
         targetUnit.AddActiveEffect(this);
     }
 }

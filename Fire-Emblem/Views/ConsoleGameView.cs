@@ -406,4 +406,16 @@ public class ConsoleGameView : IView
             _view.WriteLine($"{unit.Name} recupera {unit.StatOutOfCombat} HP despues del combate");
     }
     
+    // private void AnnounceDamageBeforeCombatEffect(Unit unit)
+    // => AnnounceDamageBeforeCombat(unit);
+    //
+    // private void AnnounceDamageBeforeCombat(Unit unit)
+    // {
+    //     if (unit.DamageBeforeCombat < 0)
+    //     {
+    //         _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.DamageBeforeCombat)} antes de iniciar el " +
+    //                         $"combate y queda con {unit.CurrentHP} HP");
+    //     }
+    // }
+
 }

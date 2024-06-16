@@ -26,5 +26,9 @@ public interface IView
     public void AnnounceExtraDamage(Unit unit);
     public void AnnounceAbsoluteDamageReduction(Unit unit);
     public void AnnouncePercentageReductionEffect(Unit unit);
-    public void AnnounceHpHealing(Unit unit, int amount);
+    public void AnnounceHealingEffect(Unit unit);
+    public void AnnounceHpHealing(Unit unit, int healingAmount);
+    public void AnnounceHpHealingInEachAttack(Unit unit);
+    public void AnnounceCounterattackDenialDenialEffect(Unit unit);
+    public void AnnounceDamageOutOfCombatEffect(Unit unit);
 }
