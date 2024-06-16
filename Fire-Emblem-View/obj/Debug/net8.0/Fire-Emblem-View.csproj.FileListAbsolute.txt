@@ -21,3 +21,10 @@
 /Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/refint/Fire-Emblem-View.dll
 /Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.pdb
 /Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/ref/Fire-Emblem-View.dll
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/bin/Debug/net8.0/Fire-Emblem-GUI.dll
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/bin/Debug/net8.0/Avalonia.Fonts.Inter.dll
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/bin/Debug/net8.0/Avalonia.Themes.Fluent.dll
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/bin/Debug/net8.0/Fire-Emblem-GUI.pdb
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emblem-View.csproj.AssemblyReference.cache
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Avalonia/Resources.Inputs.cache
+/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/Debug/net8.0/Fire-Emb.867EB350.Up2Date
