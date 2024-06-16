@@ -223,7 +223,7 @@ namespace Fire_Emblem.Controllers
             attacker.ResetFinalCausedDamage();
             attacker.ResetHealingPercentage();
             attacker.ResetUnitExecuteAStrike();
-            attacker.ResetDamageOutOfCombat();
+            attacker.ResetStatOutOfCombat();
         }
 
         private void DeactivateDefenderSkills(Unit defender)
@@ -238,7 +238,7 @@ namespace Fire_Emblem.Controllers
             defender.ResetFinalCausedDamage();
             defender.ResetHealingPercentage();
             defender.ResetUnitExecuteAStrike();
-            defender.ResetDamageOutOfCombat();
+            defender.ResetStatOutOfCombat();
         }
     }
 }

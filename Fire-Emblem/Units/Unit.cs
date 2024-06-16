@@ -439,12 +439,12 @@ public class Unit
 
     public double HealingPercentage { get; private set; }
 
-    public void ApplyHealing(double percentage)
+    public void ApplyPercentageHealing(double percentage)
         => HealingPercentage += percentage;
     
     public void ResetHealingPercentage()
         => HealingPercentage = 0;
-
+    
     public bool HasNullifiedCounterattack { get; private set; }
 
     public void SetNullifyCounterattack()
@@ -469,15 +469,26 @@ public class Unit
     public void ResetUnitExecuteAStrike()
         => HasUnitExecutedAStrike = false;
     
-    public int DamageOutOfCombat { get; private set; }
+    private int HealingOutOfCombat { get; set; }
+    private int DamageOutOfCombat { get; set; }
+    
+    public int StatOutOfCombat => HealingOutOfCombat - DamageOutOfCombat;
 
+    public void ApplyHealingOutOfCombat(int amount)
+    {
+        HealingOutOfCombat += amount;
+        _currentHP = Math.Min(BaseHp, _currentHP + HealingOutOfCombat);
+    }
+    
     public void ApplyDamageOutOfCombat(int amount)
     {
         DamageOutOfCombat += amount;
         _currentHP = Math.Max(1, _currentHP - DamageOutOfCombat);
     }
-    
-    public void ResetDamageOutOfCombat()
-        => DamageOutOfCombat = 0;
-    
+
+    public void ResetStatOutOfCombat()
+    {
+        HealingOutOfCombat = 0;
+        DamageOutOfCombat = 0;
+    }
 }

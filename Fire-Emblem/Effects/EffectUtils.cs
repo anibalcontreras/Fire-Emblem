@@ -1,5 +1,6 @@
 using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.Damage.DamageOutOfCombat;
+using Fire_Emblem.Effects.Healing;
 using Fire_Emblem.Effects.Neutralization;
 
 namespace Fire_Emblem.Effects;
@@ -19,6 +20,8 @@ public static class EffectUtils
     
     public static bool IsAfterCombatEffect(ConditionalEffect effect)
     {
-        return effect.Effect is DamageOutOfCombatEffect;
+        return effect.Effect is DamageOutOfCombatEffect
+            || effect.Effect is AfterCombatAbsoluteHealingEffect;
+        
     }
 }

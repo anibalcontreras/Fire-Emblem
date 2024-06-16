@@ -1,5 +1,6 @@
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.Damage.DamageOutOfCombat;
+using Fire_Emblem.Effects.Healing;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Handlers;
@@ -18,6 +19,7 @@ public class AfterCombatEffectsHandler : EffectsHandler
         return new List<Type>
         {
             typeof(DamageOutOfCombatEffect),
+            typeof(AfterCombatAbsoluteHealingEffect)
         };
     }
 }

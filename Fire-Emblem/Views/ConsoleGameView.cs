@@ -396,10 +396,14 @@ public class ConsoleGameView : IView
     
     public void AnnounceDamageOutOfCombatEffect(Unit unit)
         => AnnounceDamageOutOfCombat(unit);
-
+    
+    
     private void AnnounceDamageOutOfCombat(Unit unit)
     {
-        if (unit.DamageOutOfCombat > 0)
-            _view.WriteLine($"{unit.Name} recibe {unit.DamageOutOfCombat} de daño despues del combate");
+        if (unit.StatOutOfCombat < 0)
+            _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.StatOutOfCombat)} de daño despues del combate");
+        if (unit.StatOutOfCombat > 0)
+            _view.WriteLine($"{unit.Name} recupera {unit.StatOutOfCombat} HP despues del combate");
     }
+    
 }

@@ -4,11 +4,12 @@ using Fire_Emblem.Weapons;
 
 namespace Fire_Emblem.Damage;
 
+// Revisar esto porque está curiso
 public class FollowUpDamage : Damage
 {
     public FollowUpDamage(Unit attacker, Unit defender)
         : base(attacker, defender, attacker.GetFollowUpStat(StatType.Atk), attacker.ExtraDamage, 
-            attacker.FirstAttackExtraDamage)
+            0)
     {
     }
 

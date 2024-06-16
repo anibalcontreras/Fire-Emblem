@@ -1074,8 +1074,7 @@ public static class SkillBuilder
         ConditionalEffect conditionalStatBonusEffect2 = new ConditionalEffect(hpThresholdCondition, statBonusEffect2);
         ICondition unitIsAliveCondition = new IsUnitAliveCondition();
         ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
-        ICondition unitHpGreaterThanThresholdCondition = new UnitHpGreaterThanCertainPercentage(0);
-        ICondition andCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition, unitHpGreaterThanThresholdCondition);
+        ICondition andCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition);
         IEffect damageOutOfCombatEffect = new DamageOutOfCombatEffect(damageAfterCombat, EffectTarget.Unit);
         ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(andCondition, damageOutOfCombatEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
@@ -1136,10 +1135,11 @@ public static class SkillBuilder
     public static Skill CreateMysticBoostSkill()
     {
         ICondition trueCondition = new TrueCondition();
+        ICondition unitAliveCondition = new IsUnitAliveCondition();
         IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 5, EffectTarget.Rival);
-        IEffect healingEffect = new AbsoluteHealingEffect(10, EffectTarget.Unit);
+        IEffect healingEffect = new AfterCombatAbsoluteHealingEffect(10, EffectTarget.Unit);
         ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(trueCondition, atkPenaltyEffect);
-        ConditionalEffect conditionalHealingEffect = new ConditionalEffect(trueCondition, healingEffect);
+        ConditionalEffect conditionalHealingEffect = new ConditionalEffect(unitAliveCondition, healingEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
             conditionalAtkPenaltyEffect,
@@ -1151,6 +1151,7 @@ public static class SkillBuilder
     public static Skill CreateFurySkill()
     {
         ICondition trueCondition = new TrueCondition();
+        ICondition unitAliveCondition = new IsUnitAliveCondition();
         IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 4, EffectTarget.Unit);
         IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 4, EffectTarget.Unit);
         IEffect defBonusEffect = new BonusEffect(StatType.Def, 4, EffectTarget.Unit);
@@ -1160,7 +1161,7 @@ public static class SkillBuilder
         ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(trueCondition, spdBonusEffect);
         ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(trueCondition, defBonusEffect);
         ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(trueCondition, resBonusEffect);
-        ConditionalEffect conditionalDamageAfterCombatEffect = new ConditionalEffect(trueCondition, damageAfterCombatEffect);
+        ConditionalEffect conditionalDamageAfterCombatEffect = new ConditionalEffect(unitAliveCondition, damageAfterCombatEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
             conditionalAtkBonusEffect,
@@ -1170,5 +1171,23 @@ public static class SkillBuilder
             conditionalDamageAfterCombatEffect
         });
         return new Skill("Fury", multiEffect);
+    }
+
+    public static Skill CreateScendscaleSkill()
+    {
+        ICondition trueCondition = new TrueCondition();
+        ICondition unitAliveCondition = new IsUnitAliveCondition();
+        ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
+        IEffect extraDamageEffect = new ScendscaleEffect(0.25, StatType.Atk, EffectTarget.Unit);
+        IEffect damageAfterCombatEffect = new DamageOutOfCombatEffect(7, EffectTarget.Unit);
+        ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(trueCondition, extraDamageEffect);
+        ConditionalEffect conditionalDamageAfterCombatEffect = new ConditionalEffect(
+            new AndCondition(unitAliveCondition, unitHasAttackedCondition), damageAfterCombatEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+            {
+                conditionalExtraDamageEffect,
+                conditionalDamageAfterCombatEffect
+            });
+        return new Skill("Scendscale", multiEffect);
     }
 }

@@ -17,7 +17,7 @@ public class PercentageHealingEffect : IHealingEffect
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
-        targetUnit.ApplyHealing(_percentage);
+        targetUnit.ApplyPercentageHealing(_percentage);
         targetUnit.AddActiveEffect(this);
     }
 }

@@ -218,10 +218,10 @@ public class SkillFactory
                 return SkillBuilder.CreateMoonTwinWingSkill();
             case "Dragon's Wrath":
                 return SkillBuilder.CreateDragonsWrathSkill();
-            // case "Guard Bearing":
-            //     return SkillBuilder.CreateGuardBearingSkill();
-            // case "Divine Recreation":
-            //     return SkillBuilder.CreateDivineRecreationSkill();
+            case "Guard Bearing":
+                return SkillBuilder.CreateGuardBearingSkill();
+            case "Divine Recreation":
+                return SkillBuilder.CreateDivineRecreationSkill();
             case "Windsweep":
                 return SkillBuilder.CreateWindsweepSkill();
             case "Surprise Attack":
@@ -230,8 +230,8 @@ public class SkillFactory
                 return SkillBuilder.CreateHliðskjálfSkill();
             case "Null C-Disrupt":
                 return SkillBuilder.CreateNullCDisruptSkill();
-            // case "Laws of Sacae":
-            //     return SkillBuilder.CreateLawsOfSacaeSkill();
+            case "Laws of Sacae":
+                return SkillBuilder.CreateLawsOfSacaeSkill();
             case "Sol":
                 return SkillBuilder.CreateSolSkill();
             case "Nosferatu":
@@ -254,10 +254,12 @@ public class SkillFactory
                 return SkillBuilder.CreateDefResPushSkill();
             case "Flare":
                 return SkillBuilder.CreateFlareSkill();
-            // case "Mystic Boost":
-            //     return SkillBuilder.CreateMysticBoostSkill();
-            // case "Fury":
-            //     return SkillBuilder.CreateFurySkill();
+            case "Mystic Boost":
+                return SkillBuilder.CreateMysticBoostSkill();
+            case "Fury":
+                return SkillBuilder.CreateFurySkill();
+            case "Scendscale":
+                return SkillBuilder.CreateScendscaleSkill();
             default:
                 throw new NotImplementedSkillException();
         }
