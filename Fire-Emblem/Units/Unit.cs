@@ -1,4 +1,5 @@
 using Fire_Emblem.Effects;
+using Fire_Emblem.Effects.FollowUp;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Exception;
 using Fire_Emblem.Skills;
@@ -26,6 +27,17 @@ public class Unit
 
     public void AddSkill(Skill skill)
         => _skills.Add(skill);
+    
+    private readonly List<Unit> _allies = new();
+    public void AddAlly(Unit ally)
+        => _allies.Add(ally);
+    
+    public void RemoveAllAllies()
+        => _allies.Clear();
+    
+    public bool HaveAllies => _allies.Count > 0;
+        
+    
 
     private readonly List<IEffect> _effects = new();
     private IEnumerable<IEffect> Effects => _effects.AsReadOnly();
@@ -126,6 +138,15 @@ public class Unit
         return Effects.Any(effect => effect is NeutralizationPenaltyEffect
             penalty && penalty.StatType == statType);
     }
+    
+    public int QuantityOfActiveGuaranteeFollowUpEffects
+    {
+        get
+        {
+            return Effects.Count(effect => effect is FollowUpGuaranteeEffect);
+        }
+    }
+    
 
     public int GetFirstAttackStat(StatType statType)
     {
@@ -501,4 +522,13 @@ public class Unit
     }
     public void ResetDamageBeforeCombat()
         => DamageBeforeCombat = 0;
+    
+    public bool FollowUpGuaranteed { get; private set; }
+    
+    public void SetFollowUpGuaranteed()
+        => FollowUpGuaranteed = true;
+    
+    public void ResetFollowUpGuaranteed()
+        => FollowUpGuaranteed = false;
+    
 }

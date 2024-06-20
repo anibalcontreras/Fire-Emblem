@@ -56,9 +56,7 @@ namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction
                 percentageReduction = _maxPercentage;
             else if (percentageReduction < 0)
                 percentageReduction = 0;
-
             return percentageReduction;
         }
-
     }
 }

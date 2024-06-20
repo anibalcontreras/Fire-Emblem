@@ -102,16 +102,16 @@ public class SkillController
     
     private void AnnounceAfterCombatEffects(Unit attacker, Unit defender)
     {
-        AnnounceAttackerAfterCombatSkills(attacker, defender);
-        AnnounceDefenderAfterCombatSkills(defender, attacker);
+        AnnounceAttackerAfterCombatSkills(attacker);
+        AnnounceDefenderAfterCombatSkills(defender);
     }
 
-    private void AnnounceAttackerAfterCombatSkills(Unit attacker, Unit defender)
+    private void AnnounceAttackerAfterCombatSkills(Unit attacker)
     {
         _consoleGameView.AnnounceDamageOutOfCombatEffect(attacker);
     }
     
-    private void AnnounceDefenderAfterCombatSkills(Unit defender, Unit attacker)
+    private void AnnounceDefenderAfterCombatSkills(Unit defender)
     {
         _consoleGameView.AnnounceDamageOutOfCombatEffect(defender);
     }

@@ -1074,9 +1074,11 @@ public static class SkillBuilder
         ConditionalEffect conditionalStatBonusEffect2 = new ConditionalEffect(hpThresholdCondition, statBonusEffect2);
         ICondition unitIsAliveCondition = new IsUnitAliveCondition();
         ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
-        ICondition andCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition);
+        // ICondition combatNotEndedCondition = new NotCondition(new CombatEndedCondition());
+        ICondition unitAndCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition);    
+        
         IEffect damageOutOfCombatEffect = new DamageAfterCombatEffect(damageAfterCombat, EffectTarget.Unit);
-        ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(andCondition, damageOutOfCombatEffect);
+        ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(unitAndCondition, damageOutOfCombatEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
             conditionalStatBonusEffect1,
@@ -1236,4 +1238,25 @@ public static class SkillBuilder
         
         return new Skill("Mastermind", multiEffect);
     }
+
+    // public static Skill CreateBewitchingTomeSkill()
+    // {
+    //     ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
+    //     ICondition rivalUseMagicCondition = new RivalWeaponCondition(typeof(Magic));
+    //     ICondition rivalUseBowCondition = new RivalWeaponCondition(typeof(Bow));
+    //     ICondition weaponCondition = new OrCondition(rivalUseMagicCondition, rivalUseBowCondition);
+    //     
+    //     ICondition unitWeaponAdvantageCondition = new UnitWeaponAdvantageCondition();
+    //     ICondition spdCondition = new StatComparisionCondition(StatType.Spd);
+    //     
+    //     ICondition trueCondition = new TrueCondition();
+    //     IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 5, EffectTarget.Unit);
+    //     IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 5, EffectTarget.Unit);
+    //     IEffect defBonusEffect = new BonusEffect(StatType.Def, 5, EffectTarget.Unit);
+    //     IEffect resBonusEffect = new BonusEffect(StatType.Res, 5, EffectTarget.Unit);
+    //     IEffect firstAttackPercentageDamageReductionEffect =
+    //         new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+    //     IEffect healingAfterCombatEffect = new AfterCombatAbsoluteHealingEffect(7, EffectTarget.Unit);
+    // }
+    
 }

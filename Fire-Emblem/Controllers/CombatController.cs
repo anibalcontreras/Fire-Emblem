@@ -60,7 +60,7 @@ namespace Fire_Emblem.Controllers
             _consoleGameView.AnnounceRoundStart(round, attacker, currentPlayer);
             AnnounceWeaponAdvantage(combat);
             ActivateSkills(combat);
-            ExecuteCombatProcess(attacker, defender, combat, teams);
+            ExecuteCombatProcess(attacker, defender, combat);
             return combat;
         }
 
@@ -72,6 +72,14 @@ namespace Fire_Emblem.Controllers
             int defenderPlayerNumber = (currentPlayer + 1) % 2 + 1;
             Unit attacker = _consoleGameView.SelectUnit(activeTeam, attackerPlayerNumber);
             Unit defender = _consoleGameView.SelectUnit(opponentTeam, defenderPlayerNumber);
+            attacker.RemoveAllAllies();
+            defender.RemoveAllAllies();
+            foreach (Unit unit in activeTeam.Units)
+                if (unit != attacker)
+                    attacker.AddAlly(unit);
+            foreach (Unit unit in opponentTeam.Units)
+                if (unit != defender)
+                    defender.AddAlly(unit);
             Combat combat = new Combat(attacker, defender);
             attacker.SetIsAttacker();
             return combat;
@@ -89,12 +97,12 @@ namespace Fire_Emblem.Controllers
         private void ActivateSkills(Combat combat)
             => _skillController.ActivateSkills(combat);
 
-        private void ExecuteCombatProcess(Unit attacker, Unit defender, Combat combat, List<Team> teams)
+        private void ExecuteCombatProcess(Unit attacker, Unit defender, Combat combat)
         {
             if (HasAttackerCompleteTheAttack(attacker, defender)) return;
             if (HasDefenderCompleteCounterAttack(attacker, defender)) return;
             HandleFollowUp(combat);
-            EndCombat(attacker, defender, teams);
+            EndCombat(attacker, defender);
         }
 
         private bool HasAttackerCompleteTheAttack(Unit attacker, Unit defender)
@@ -195,19 +203,19 @@ namespace Fire_Emblem.Controllers
             defender.ResetFollowUpStats();
         }
 
-        private void EndCombat(Unit attacker, Unit defender, List<Team> teams)
+        private void EndCombat(Unit attacker, Unit defender)
         {
             ManageEndOfCombat(attacker, defender);
         }
 
         private void ManageEndOfCombat(Unit attacker, Unit defender)
-        {
+        { 
             _skillController.ActivateAfterCombatSkills(attacker, defender);
+            _consoleGameView.ShowCurrentHealth(attacker, defender);
             attacker.SetLastUnitFaced(defender);
             defender.SetLastUnitFaced(attacker);
             DeactivateAttackerSkills(attacker);
             DeactivateDefenderSkills(defender);
-            _consoleGameView.ShowCurrentHealth(attacker, defender);
         }
 
         private void DeactivateAttackerSkills(Unit attacker)
@@ -225,6 +233,7 @@ namespace Fire_Emblem.Controllers
             attacker.ResetUnitExecuteAStrike();
             attacker.ResetStatOutOfCombat();
             attacker.ResetDamageBeforeCombat();
+            attacker.ResetFollowUpGuaranteed();
         }
 
         private void DeactivateDefenderSkills(Unit defender)
@@ -241,6 +250,7 @@ namespace Fire_Emblem.Controllers
             defender.ResetUnitExecuteAStrike();
             defender.ResetStatOutOfCombat();
             defender.ResetDamageBeforeCombat();
+            defender.ResetFollowUpGuaranteed();
         }
     }
 }
