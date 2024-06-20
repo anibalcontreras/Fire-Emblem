@@ -1,6 +1,7 @@
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.CounterattackDenial;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
+using Fire_Emblem.Effects.Damage.DamageOutOfCombat;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 using Fire_Emblem.Effects.Healing;
@@ -28,7 +29,8 @@ public class SecondOrderEffectsHandler : EffectsHandler
             typeof(FollowUpPercentageDamageReductionEffect),
             typeof(IHealingEffect),
             typeof(CounterattackDenialEffect),
-            typeof(CounterattackDenialDenialEffect)
+            typeof(CounterattackDenialDenialEffect),
+            typeof(DamageBeforeCombatEffect),
         };
     }
 }

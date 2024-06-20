@@ -2,13 +2,13 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.DamageOutOfCombat;
 
-public class DamageOutOfCombatEffect : IEffect
+public class DamageAfterCombatEffect : IEffect
 {
     private readonly int _amount;
     
     private EffectTarget Target { get; }
     
-    public DamageOutOfCombatEffect(int amount, EffectTarget target)
+    public DamageAfterCombatEffect(int amount, EffectTarget target)
     {
         _amount = amount;
         Target = target;

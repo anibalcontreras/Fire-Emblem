@@ -1075,7 +1075,7 @@ public static class SkillBuilder
         ICondition unitIsAliveCondition = new IsUnitAliveCondition();
         ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
         ICondition andCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition);
-        IEffect damageOutOfCombatEffect = new DamageOutOfCombatEffect(damageAfterCombat, EffectTarget.Unit);
+        IEffect damageOutOfCombatEffect = new DamageAfterCombatEffect(damageAfterCombat, EffectTarget.Unit);
         ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(andCondition, damageOutOfCombatEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1156,7 +1156,7 @@ public static class SkillBuilder
         IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 4, EffectTarget.Unit);
         IEffect defBonusEffect = new BonusEffect(StatType.Def, 4, EffectTarget.Unit);
         IEffect resBonusEffect = new BonusEffect(StatType.Res, 4, EffectTarget.Unit);
-        IEffect damageAfterCombatEffect = new DamageOutOfCombatEffect(8, EffectTarget.Unit);
+        IEffect damageAfterCombatEffect = new DamageAfterCombatEffect(8, EffectTarget.Unit);
         ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(trueCondition, atkBonusEffect);
         ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(trueCondition, spdBonusEffect);
         ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(trueCondition, defBonusEffect);
@@ -1179,7 +1179,7 @@ public static class SkillBuilder
         ICondition unitAliveCondition = new IsUnitAliveCondition();
         ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
         IEffect extraDamageEffect = new ScendscaleEffect(0.25, StatType.Atk, EffectTarget.Unit);
-        IEffect damageAfterCombatEffect = new DamageOutOfCombatEffect(7, EffectTarget.Unit);
+        IEffect damageAfterCombatEffect = new DamageAfterCombatEffect(7, EffectTarget.Unit);
         ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(trueCondition, extraDamageEffect);
         ConditionalEffect conditionalDamageAfterCombatEffect = new ConditionalEffect(
             new AndCondition(unitAliveCondition, unitHasAttackedCondition), damageAfterCombatEffect);
@@ -1189,5 +1189,51 @@ public static class SkillBuilder
                 conditionalDamageAfterCombatEffect
             });
         return new Skill("Scendscale", multiEffect);
+    }
+
+    public static Skill CreateResonanceSkill()
+    {
+        ICondition magicWeaponCondition = new UnitWeaponCondition(typeof(Magic));
+        ICondition unitHpGreaterEqualThanCertainInteger = new UnitHpGreaterEqualThanCertainInteger(2);
+        IEffect damageBeforeCombatEffect = new DamageBeforeCombatEffect(1, EffectTarget.Unit);
+        IEffect extraDamageEffect = new ExtraDamageEffect(3, EffectTarget.Unit);
+        
+        ICondition andCondition = new AndCondition(magicWeaponCondition, unitHpGreaterEqualThanCertainInteger);
+        
+        ConditionalEffect conditionalDamageBeforeCombatEffect = new ConditionalEffect(andCondition, damageBeforeCombatEffect);
+        ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(andCondition, extraDamageEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalDamageBeforeCombatEffect,
+            conditionalExtraDamageEffect
+        });
+        return new Skill("Resonance", multiEffect);
+    }
+
+    public static Skill CreateMastermindSkill()
+    {
+        ICondition unitHpGreaterEqualThanCertainInteger = new UnitHpGreaterEqualThanCertainInteger(2);
+        IEffect damageBeforeCombatEffect = new DamageBeforeCombatEffect(1, EffectTarget.Unit);
+        ConditionalEffect conditionalDamageBeforeCombatEffect =
+            new ConditionalEffect(unitHpGreaterEqualThanCertainInteger, damageBeforeCombatEffect);
+        
+        ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
+        IEffect bonusEffect = new BonusEffect(StatType.Atk, 9, EffectTarget.Unit);
+        IEffect spdEffect = new BonusEffect(StatType.Spd, 9, EffectTarget.Unit);
+        IEffect mastermindEffect = new MastermindExtraDamageEffect(EffectTarget.Unit);
+        
+        ConditionalEffect conditionalBonusEffect = new ConditionalEffect(unitBeginAsAttackerCondition, bonusEffect);
+        ConditionalEffect conditionalSpdEffect = new ConditionalEffect(unitBeginAsAttackerCondition, spdEffect);
+        ConditionalEffect conditionalMastermindEffect = new ConditionalEffect(unitBeginAsAttackerCondition, mastermindEffect);
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalDamageBeforeCombatEffect,
+            conditionalBonusEffect,
+            conditionalSpdEffect,
+            conditionalMastermindEffect
+        });
+        
+        return new Skill("Mastermind", multiEffect);
     }
 }

@@ -18,7 +18,7 @@ public class AfterCombatEffectsHandler : EffectsHandler
     {
         return new List<Type>
         {
-            typeof(DamageOutOfCombatEffect),
+            typeof(DamageAfterCombatEffect),
             typeof(AfterCombatAbsoluteHealingEffect)
         };
     }

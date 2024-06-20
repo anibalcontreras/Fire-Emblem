@@ -16,11 +16,12 @@ public static class EffectUtils
                || effect.Effect is FirstAttackPenaltyEffect
                || effect.Effect is NeutralizationBonusEffect
                || effect.Effect is NeutralizationPenaltyEffect;
+
     }
     
     public static bool IsAfterCombatEffect(ConditionalEffect effect)
     {
-        return effect.Effect is DamageOutOfCombatEffect
+        return effect.Effect is DamageAfterCombatEffect
             || effect.Effect is AfterCombatAbsoluteHealingEffect;
         
     }

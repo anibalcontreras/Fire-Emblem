@@ -472,7 +472,7 @@ public class Unit
     private int HealingAfterCombat { get; set; }
     private int DamageAfterCombat { get; set; }
     
-    public int StatOutOfCombat => HealingAfterCombat - DamageAfterCombat;
+    public int StatAfterCombat => HealingAfterCombat - DamageAfterCombat;
 
     public void ApplyHealingAfterCombat(int amount)
     {
@@ -492,17 +492,13 @@ public class Unit
         DamageAfterCombat = 0;
     }
     
-    // public int DamageBeforeCombat { get; private set; }
-    //
-    // public void SetDamageBeforeCombat(int damage)
-    //     => DamageBeforeCombat = damage;
-    //
-    // public void ResetDamageBeforeCombat()
-    //     => DamageBeforeCombat = 0;
-    //
-    // public void ApplyDamageBeforeCombat(int amount)
-    // {
-    //     DamageBeforeCombat += amount;
-    //     _currentHP = Math.Max(1, _currentHP - DamageBeforeCombat);
-    // }
+    public int DamageBeforeCombat { get; private set; }
+    
+    public void ApplyDamageBeforeCombat(int amount)
+    {
+        DamageBeforeCombat += amount;
+        _currentHP = Math.Max(1, _currentHP - DamageBeforeCombat);
+    }
+    public void ResetDamageBeforeCombat()
+        => DamageBeforeCombat = 0;
 }

@@ -260,6 +260,10 @@ public class SkillFactory
                 return SkillBuilder.CreateFurySkill();
             case "Scendscale":
                 return SkillBuilder.CreateScendscaleSkill();
+            case "Resonance":
+                return SkillBuilder.CreateResonanceSkill();
+            case "Mastermind":
+                return SkillBuilder.CreateMastermindSkill();
             default:
                 throw new NotImplementedSkillException();
         }

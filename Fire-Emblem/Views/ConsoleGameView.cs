@@ -400,22 +400,22 @@ public class ConsoleGameView : IView
     
     private void AnnounceDamageOutOfCombat(Unit unit)
     {
-        if (unit.StatOutOfCombat < 0)
-            _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.StatOutOfCombat)} de daño despues del combate");
-        if (unit.StatOutOfCombat > 0)
-            _view.WriteLine($"{unit.Name} recupera {unit.StatOutOfCombat} HP despues del combate");
+        if (unit.StatAfterCombat < 0)
+            _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.StatAfterCombat)} de daño despues del combate");
+        if (unit.StatAfterCombat > 0)
+            _view.WriteLine($"{unit.Name} recupera {unit.StatAfterCombat} HP despues del combate");
     }
     
-    // private void AnnounceDamageBeforeCombatEffect(Unit unit)
-    // => AnnounceDamageBeforeCombat(unit);
-    //
-    // private void AnnounceDamageBeforeCombat(Unit unit)
-    // {
-    //     if (unit.DamageBeforeCombat < 0)
-    //     {
-    //         _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.DamageBeforeCombat)} antes de iniciar el " +
-    //                         $"combate y queda con {unit.CurrentHP} HP");
-    //     }
-    // }
+    public void AnnounceDamageBeforeCombatEffect(Unit unit)
+    => AnnounceDamageBeforeCombat(unit);
+    
+    private void AnnounceDamageBeforeCombat(Unit unit)
+    {
+        if (unit.DamageBeforeCombat > 0)
+        {
+            _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.DamageBeforeCombat)} de daño antes de iniciar el " +
+                            $"combate y queda con {unit.CurrentHP} HP");
+        }
+    }
 
 }
