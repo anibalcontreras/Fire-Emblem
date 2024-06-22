@@ -11,7 +11,7 @@ public class Game
     private readonly View _view;
     private readonly ConsoleGameView _consoleGameView;
     private readonly string _teamsFolder;
-    // private MatchController _matchController;
+    private MatchController _matchController;
     private CombatController _combatController;
     private List<Combat> _combats;
     
@@ -20,7 +20,7 @@ public class Game
         _view = view;
         _teamsFolder = teamsFolder;
         _consoleGameView = new ConsoleGameView(_view, _teamsFolder);
-        // _matchController = new MatchController(_consoleGameView);
+        _matchController = new MatchController(_consoleGameView);
         _combatController = new CombatController(_consoleGameView);
         _combats = new List<Combat>();
     }
@@ -76,7 +76,5 @@ public class Game
     
     private void ShowInvalidTeamMessage() => _consoleGameView.ShowMessageForInvalidTeam();
     
-    // private void StartGameDevelopment(List<Team> teams) => _matchController.ManageGame(teams, _combats);
-    private void StartGameDevelopment(List<Team> teams) => _combatController.ManageGame(teams, _combats);
-    
+    private void StartGameDevelopment(List<Team> teams) => _matchController.ManageGame(teams, _combats);
 }
