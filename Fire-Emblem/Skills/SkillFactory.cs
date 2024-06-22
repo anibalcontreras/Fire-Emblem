@@ -264,6 +264,8 @@ public class SkillFactory
                 return SkillBuilder.CreateResonanceSkill();
             case "Mastermind":
                 return SkillBuilder.CreateMastermindSkill();
+            case "Quick Riposte":
+                return SkillBuilder.CreateQuickRiposteSkill();
             default:
                 throw new NotImplementedSkillException();
         }

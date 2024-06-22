@@ -7,6 +7,7 @@ using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 using Fire_Emblem.Effects.Damage.DamageOutOfCombat;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
 using Fire_Emblem.Effects.Damage.PercentageDamageReduction;
+using Fire_Emblem.Effects.FollowUp;
 using Fire_Emblem.Effects.Healing;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Skills.TypesCreator;
@@ -1074,9 +1075,7 @@ public static class SkillBuilder
         ConditionalEffect conditionalStatBonusEffect2 = new ConditionalEffect(hpThresholdCondition, statBonusEffect2);
         ICondition unitIsAliveCondition = new IsUnitAliveCondition();
         ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
-        // ICondition combatNotEndedCondition = new NotCondition(new CombatEndedCondition());
-        ICondition unitAndCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition);    
-        
+        ICondition unitAndCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition);
         IEffect damageOutOfCombatEffect = new DamageAfterCombatEffect(damageAfterCombat, EffectTarget.Unit);
         ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(unitAndCondition, damageOutOfCombatEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
@@ -1258,5 +1257,18 @@ public static class SkillBuilder
     //         new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
     //     IEffect healingAfterCombatEffect = new AfterCombatAbsoluteHealingEffect(7, EffectTarget.Unit);
     // }
+
+    public static Skill CreateQuickRiposteSkill()
+    {
+        ICondition unitHpGreaterThanCertainPercentage = new UnitHpGreaterThanCertainPercentage(0.6);
+        ICondition rivalBeginAsAttackerCondition = new RivalBeginAsAttacker();
+        ICondition andCondition = 
+            new AndCondition(unitHpGreaterThanCertainPercentage, rivalBeginAsAttackerCondition);
+        IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalFollowUpGuaranteeEffect = new ConditionalEffect(andCondition, followUpGuaranteeEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalFollowUpGuaranteeEffect });
+        return new Skill("Quick Riposte", multiEffect);
+        
+    }
     
 }

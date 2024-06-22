@@ -252,6 +252,16 @@ public class ConsoleGameView : IView
         if (unit.HasActiveNeutralizationPenalty(StatType.Res)) AnnounceNeutralizationResPenaltyStat(unit);
     }
 
+
+    public void AnnounceFollowUpGuarantee(Unit unit)
+    => AnnounceFollowUpGuaranteeEffect(unit);
+    private void AnnounceFollowUpGuaranteeEffect(Unit unit)
+    {
+        if (unit.FollowUpGuaranteed) 
+            _view.WriteLine($"{unit.Name} tiene {unit.QuantityOfActiveGuaranteeFollowUpEffects} efecto(s)" +
+                            $" que garantiza(n) su follow up activo(s)");
+    }
+
     private void AnnounceNeutralizationAtkPenaltyStat(Unit unit)
         => _view.WriteLine($"Los penalty de Atk de {unit.Name} fueron neutralizados");
 
@@ -417,5 +427,4 @@ public class ConsoleGameView : IView
                             $"combate y queda con {unit.CurrentHP} HP");
         }
     }
-
 }

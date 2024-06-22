@@ -530,5 +530,4 @@ public class Unit
     
     public void ResetFollowUpGuaranteed()
         => FollowUpGuaranteed = false;
-    
 }
