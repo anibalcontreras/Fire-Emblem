@@ -438,9 +438,9 @@ public class ConsoleGameView : IView
     
     private void AnnounceDamageOutOfCombat(Unit unit)
     {
-        if (unit.StatAfterCombat < 0)
+        if (unit.StatAfterCombat < 0 && unit.CurrentHP > 0)
             _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.StatAfterCombat)} de daño despues del combate");
-        if (unit.StatAfterCombat > 0)
+        if (unit.StatAfterCombat > 0 && unit.CurrentHP > 0)
             _view.WriteLine($"{unit.Name} recupera {unit.StatAfterCombat} HP despues del combate");
     }
     
