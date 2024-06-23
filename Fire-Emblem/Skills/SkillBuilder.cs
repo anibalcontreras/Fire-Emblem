@@ -1277,7 +1277,7 @@ public static class SkillBuilder
         ConditionalEffect conditionalSpecialAtkBonusSpdEffect = new ConditionalEffect(firstOrCondition, specialAtkBonusSpdEffect);
         ConditionalEffect conditionalSpecialSpdBonusSpdEffect = new ConditionalEffect(firstOrCondition, specialSpdBonusSpdEffect);
         ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = new ConditionalEffect(firstOrCondition, firstAttackPercentageDamageReductionEffect);
-        ConditionalEffect conditionalHealingAfterCombatEffect = new ConditionalEffect(firstOrCondition, healingAfterCombatEffect);
+        ConditionalEffect conditionalHealingAfterCombatEffect = new ConditionalEffect(new AndCondition(firstOrCondition, new IsUnitAliveCondition()), healingAfterCombatEffect);
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
