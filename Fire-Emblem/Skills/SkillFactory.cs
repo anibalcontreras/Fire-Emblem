@@ -298,6 +298,8 @@ public class SkillFactory
                 return SkillBuilder.CreateNullFollowUpSkill();
             case "True Dragon Wall":
                 return SkillBuilder.CreateTrueDragonWallSkill();
+            case "Bewitching Tome":
+                return SkillBuilder.CreateBewitchingTomeSkill();
             // case "Black Eagle Rule":
             //     return SkillBuilder.CreateBlackEagleRuleSkill();
             default:

@@ -184,6 +184,18 @@ public class Unit
             default: throw new StatNotRecognizedException();
         }
     }
+    
+    public int GetBonusStat(StatType statType)
+    {
+        switch (statType)
+        {
+            case StatType.Atk: return AtkBonus;
+            case StatType.Spd: return SpdBonus;
+            case StatType.Def: return DefBonus;
+            case StatType.Res: return ResBonus;
+            default: throw new StatNotRecognizedException();
+        }
+    }
 
     public void ApplyStatBonus(StatType statType, int bonusAmount)
     {

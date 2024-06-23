@@ -1241,27 +1241,60 @@ public static class SkillBuilder
         return new Skill("Mastermind", multiEffect);
     }
 
-    // public static Skill CreateBewitchingTomeSkill()
-    // {
-    //     ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
-    //     ICondition rivalUseMagicCondition = new RivalWeaponCondition(typeof(Magic));
-    //     ICondition rivalUseBowCondition = new RivalWeaponCondition(typeof(Bow));
-    //     ICondition weaponCondition = new OrCondition(rivalUseMagicCondition, rivalUseBowCondition);
-    //     
-    //     ICondition unitWeaponAdvantageCondition = new UnitWeaponAdvantageCondition();
-    //     ICondition spdCondition = new StatComparisionCondition(StatType.Spd);
-    //     
-    //     ICondition trueCondition = new TrueCondition();
-    //     IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 5, EffectTarget.Unit);
-    //     IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 5, EffectTarget.Unit);
-    //     IEffect defBonusEffect = new BonusEffect(StatType.Def, 5, EffectTarget.Unit);
-    //     IEffect resBonusEffect = new BonusEffect(StatType.Res, 5, EffectTarget.Unit);
-    //     IEffect firstAttackPercentageDamageReductionEffect =
-    //         new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
-    //     IEffect healingAfterCombatEffect = new AfterCombatAbsoluteHealingEffect(7, EffectTarget.Unit);
-    //     
-    //     
-    // }
+    public static Skill CreateBewitchingTomeSkill()
+    {
+        ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
+        ICondition rivalUseMagicCondition = new RivalWeaponCondition(typeof(Magic));
+        ICondition rivalUseBowCondition = new RivalWeaponCondition(typeof(Bow));
+        ICondition weaponCondition = new OrCondition(rivalUseMagicCondition, rivalUseBowCondition);
+        ICondition firstOrCondition = new OrCondition(unitBeginAsAttackerCondition, weaponCondition);
+        
+        ICondition unitWeaponAdvantageCondition = new UnitWeaponAdvantageCondition();
+        ICondition spdCondition = new StatComparisionIncludingBonus(StatType.Spd);
+        ICondition secondOrCondition = new OrCondition(unitWeaponAdvantageCondition, spdCondition);
+
+        ICondition finalFirstCondition = new AndCondition(firstOrCondition, secondOrCondition);
+        ConditionalEffect conditionalEffect = new ConditionalEffect(finalFirstCondition, new BewitchingTomeBeforeCombatEffect(0.4, EffectTarget.Rival));
+
+        ICondition finalSecondCondition = new AndCondition(firstOrCondition, new NotCondition(secondOrCondition));
+        ConditionalEffect conditionalEffect2 = new ConditionalEffect(finalSecondCondition, new BewitchingTomeBeforeCombatEffect(0.2, EffectTarget.Rival));
+        
+        IEffect atkBonusEffect = new BonusEffect(StatType.Atk, 5, EffectTarget.Unit);
+        IEffect spdBonusEffect = new BonusEffect(StatType.Spd, 5, EffectTarget.Unit);
+        IEffect defBonusEffect = new BonusEffect(StatType.Def, 5, EffectTarget.Unit);
+        IEffect resBonusEffect = new BonusEffect(StatType.Res, 5, EffectTarget.Unit);
+        IEffect specialAtkBonusSpdEffect = new SpdDynamicBonusEffect(EffectTarget.Unit, StatType.Atk);
+        IEffect specialSpdBonusSpdEffect = new SpdDynamicBonusEffect(EffectTarget.Unit, StatType.Spd);
+        // Bien
+        IEffect firstAttackPercentageDamageReductionEffect =
+            new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+        IEffect healingAfterCombatEffect = new AfterCombatAbsoluteHealingEffect(7, EffectTarget.Unit);
+        
+        ConditionalEffect conditionalAtkBonusEffect = new ConditionalEffect(firstOrCondition, atkBonusEffect);
+        ConditionalEffect conditionalSpdBonusEffect = new ConditionalEffect(firstOrCondition, spdBonusEffect);
+        ConditionalEffect conditionalDefBonusEffect = new ConditionalEffect(firstOrCondition, defBonusEffect);
+        ConditionalEffect conditionalResBonusEffect = new ConditionalEffect(firstOrCondition, resBonusEffect);
+        ConditionalEffect conditionalSpecialAtkBonusSpdEffect = new ConditionalEffect(firstOrCondition, specialAtkBonusSpdEffect);
+        ConditionalEffect conditionalSpecialSpdBonusSpdEffect = new ConditionalEffect(firstOrCondition, specialSpdBonusSpdEffect);
+        ConditionalEffect conditionalFirstAttackPercentageDamageReductionEffect = new ConditionalEffect(firstOrCondition, firstAttackPercentageDamageReductionEffect);
+        ConditionalEffect conditionalHealingAfterCombatEffect = new ConditionalEffect(firstOrCondition, healingAfterCombatEffect);
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalEffect,
+            conditionalEffect2,
+            conditionalAtkBonusEffect,
+            conditionalSpdBonusEffect,
+            conditionalDefBonusEffect,
+            conditionalResBonusEffect,
+            conditionalSpecialAtkBonusSpdEffect,
+            conditionalSpecialSpdBonusSpdEffect,
+            conditionalFirstAttackPercentageDamageReductionEffect,
+            conditionalHealingAfterCombatEffect
+        });
+        
+        return new Skill("Bewitching Tome", multiEffect);
+    }
 
     public static Skill CreateTrueDragonWallSkill()
     {

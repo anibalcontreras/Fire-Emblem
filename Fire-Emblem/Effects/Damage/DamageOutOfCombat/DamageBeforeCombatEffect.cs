@@ -2,7 +2,7 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.DamageOutOfCombat;
 
-public class DamageBeforeCombatEffect : IEffect
+public class DamageBeforeCombatEffect : IDamageBeforeCombatEffect
 {
     private readonly int _amount;
     
