@@ -1265,7 +1265,8 @@ public static class SkillBuilder
         IEffect resBonusEffect = new BonusEffect(StatType.Res, 5, EffectTarget.Unit);
         IEffect specialAtkBonusSpdEffect = new SpdDynamicBonusEffect(EffectTarget.Unit, StatType.Atk);
         IEffect specialSpdBonusSpdEffect = new SpdDynamicBonusEffect(EffectTarget.Unit, StatType.Spd);
-        // Bien
+        
+        
         IEffect firstAttackPercentageDamageReductionEffect =
             new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
         IEffect healingAfterCombatEffect = new AfterCombatAbsoluteHealingEffect(7, EffectTarget.Unit);

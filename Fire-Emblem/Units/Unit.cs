@@ -456,7 +456,6 @@ public class Unit
     public int FinalCausedDamage { get; private set; }
 
     public void SetFinalCausedDamage(int damage)
-    // TODO: Este es el que tengo que usar en Bewitching Tome
         => FinalCausedDamage = damage;
 
     public void ResetFinalCausedDamage()

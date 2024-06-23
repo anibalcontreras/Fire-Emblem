@@ -14,8 +14,8 @@ public class StatComparisionIncludingBonus : ICondition
     }
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        int activatorStatValue = activator.GetCurrentStat(_statType) + activator.GetBonusStat(_statType);
-        int opponentStatValue = opponent.GetCurrentStat(_statType) + opponent.GetBonusStat(_statType);
+        int activatorStatValue = activator.GetCurrentStat(_statType);
+        int opponentStatValue = opponent.GetCurrentStat(_statType);
         return activatorStatValue > opponentStatValue;
     }
 }
