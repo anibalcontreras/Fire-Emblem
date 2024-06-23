@@ -254,12 +254,22 @@ public class ConsoleGameView : IView
 
 
     public void AnnounceFollowUpGuarantee(Unit unit)
-    => AnnounceFollowUpGuaranteeEffect(unit);
+        => AnnounceFollowUpGuaranteeEffect(unit);
     private void AnnounceFollowUpGuaranteeEffect(Unit unit)
     {
-        if (unit.FollowUpGuaranteed) 
+        if (unit.HasFollowUpGuaranteed) 
             _view.WriteLine($"{unit.Name} tiene {unit.QuantityOfActiveGuaranteeFollowUpEffects} efecto(s)" +
                             $" que garantiza(n) su follow up activo(s)");
+    }
+
+    public void AnnounceDenialFollowUp(Unit unit)
+        => AnnounceDenialFollowUpEffect(unit);
+    
+    private void AnnounceDenialFollowUpEffect(Unit unit)
+    {
+        if (unit.HasDenialFollowUp)
+            _view.WriteLine($"{unit.Name} tiene {unit.QuantityOfActiveDenialFollowUpEffects} efecto(s)" +
+                            $" que neutraliza(n) su follow up activo(s)");
     }
 
     private void AnnounceNeutralizationAtkPenaltyStat(Unit unit)

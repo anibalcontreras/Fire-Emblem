@@ -139,15 +139,6 @@ public class Unit
             penalty && penalty.StatType == statType);
     }
     
-    public int QuantityOfActiveGuaranteeFollowUpEffects
-    {
-        get
-        {
-            return Effects.Count(effect => effect is FollowUpGuaranteeEffect);
-        }
-    }
-    
-
     public int GetFirstAttackStat(StatType statType)
     {
         switch (statType)
@@ -522,12 +513,36 @@ public class Unit
     }
     public void ResetDamageBeforeCombat()
         => DamageBeforeCombat = 0;
-    
-    public bool FollowUpGuaranteed { get; private set; }
+
+    public bool HasFollowUpGuaranteed { get; private set; }
     
     public void SetFollowUpGuaranteed()
-        => FollowUpGuaranteed = true;
+        => HasFollowUpGuaranteed = true;
     
     public void ResetFollowUpGuaranteed()
-        => FollowUpGuaranteed = false;
+        => HasFollowUpGuaranteed = false;
+    
+    public int QuantityOfActiveGuaranteeFollowUpEffects
+    {
+        get { return Effects.Count(effect => effect is FollowUpGuaranteeEffect); }
+    }
+    
+    public bool HasDenialFollowUp { get; private set; }
+    
+    public void SetDenialFollowUp()
+        => HasDenialFollowUp = true;
+    
+    public void ResetDenialFollowUp()
+        => HasDenialFollowUp = false;
+    
+    public int QuantityOfActiveDenialFollowUpEffects
+    {
+        get { return Effects.Count(effect => effect is DenialFollowUpEffect); }
+    }
+    
+    public bool HasDenialFollowUpGuaranteed { get; private set;  }
+    
+    
+    
+    
 }

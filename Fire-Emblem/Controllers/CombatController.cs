@@ -165,26 +165,67 @@ namespace Fire_Emblem.Controllers
 
         private void HandleFollowUp(Combat combat)
         {
-            if (combat.CanAttackerPerformFollowUp())
-                PerformAttackerFollowUp(combat.Attacker, combat.Defender);
-            else if (combat.CanDefenderPerformFollowUp())
-                PerformDefenderFollowUp(combat.Attacker, combat.Defender);
+            if (CanAnyUnitPerformFollowUp(combat))
+            {
+                HandleGuaranteedFollowUp(combat);
+            }
             else
             {
-                if (combat.Defender.HasNullifiedCounterattack)
-                    _consoleGameView.ShowMessageForNoFollowUpAttackDueNullifiedCounterattack(combat.Attacker);
+                HandleNoFollowUpScenario(combat);
+            }
+        }
+
+        private bool CanAnyUnitPerformFollowUp(Combat combat)
+        {
+            return combat.CanAttackerPerformFollowUp() || combat.CanDefenderPerformFollowUp();
+        }
+
+        private void HandleGuaranteedFollowUp(Combat combat)
+        {
+            if (combat.CanAttackerPerformFollowUp())
+            {
+                PerformAttackerFollowUp(combat.Attacker, combat.Defender);
+            }
+            else if (combat.CanDefenderPerformFollowUp())
+            {
+                PerformDefenderFollowUp(combat.Attacker, combat.Defender);
+            }
+            if (combat.Attacker.HasFollowUpGuaranteed && (combat.CanAttackerPerformFollowUp() == false))
+            {
+                PerformAttackerFollowUp(combat.Attacker, combat.Defender);
+            }
+            else if (combat.Defender.HasFollowUpGuaranteed && (combat.CanDefenderPerformFollowUp() == false))
+            {
+                PerformDefenderFollowUp(combat.Attacker, combat.Defender);
+            }
+        }
+
+        private void HandleNoFollowUpScenario(Combat combat)
+        {
+            if (combat.Defender.HasNullifiedCounterattack)
+            {
+                _consoleGameView.ShowMessageForNoFollowUpAttackDueNullifiedCounterattack(combat.Attacker);
+            }
+            else
+            {
+                if (combat.Attacker.HasFollowUpGuaranteed)
+                {
+                    PerformAttackerFollowUp(combat.Attacker, combat.Defender);
+                }
+                else if (combat.Defender.HasFollowUpGuaranteed)
+                {
+                    PerformDefenderFollowUp(combat.Attacker, combat.Defender);
+                }
                 else
                     _consoleGameView.ShowMessageForNoFollowUpAttack();
             }
-
         }
 
         private void PerformAttackerFollowUp(Unit attacker, Unit defender)
         {
             int damage = CalculateFollowUpDamage(attacker, defender);
             attacker.SetUnitExecuteAStrike();
-            _consoleGameView.AnnounceAttack(attacker, defender, damage);
-            _consoleGameView.AnnounceHpHealingInEachAttack(attacker);
+            AnnounceAttack(attacker, defender, damage);
             attacker.ResetFollowUpStats();
         }
 
@@ -198,10 +239,22 @@ namespace Fire_Emblem.Controllers
             }
             int damage = CalculateFollowUpDamage(defender, attacker);
             defender.SetUnitExecuteAStrike();
-            _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
-            _consoleGameView.AnnounceHpHealingInEachAttack(defender);
+            AnnounceCounterattack(defender, attacker, damage);
             defender.ResetFollowUpStats();
         }
+
+        private void AnnounceAttack(Unit attacker, Unit defender, int damage)
+        {
+            _consoleGameView.AnnounceAttack(attacker, defender, damage);
+            _consoleGameView.AnnounceHpHealingInEachAttack(attacker);
+        }
+
+        private void AnnounceCounterattack(Unit defender, Unit attacker, int damage)
+        {
+            _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
+            _consoleGameView.AnnounceHpHealingInEachAttack(defender);
+        }
+
 
         private void EndCombat(Unit attacker, Unit defender)
         {
@@ -234,6 +287,7 @@ namespace Fire_Emblem.Controllers
             attacker.ResetStatOutOfCombat();
             attacker.ResetDamageBeforeCombat();
             attacker.ResetFollowUpGuaranteed();
+            attacker.ResetDenialFollowUp();
         }
 
         private void DeactivateDefenderSkills(Unit defender)
@@ -251,6 +305,7 @@ namespace Fire_Emblem.Controllers
             defender.ResetStatOutOfCombat();
             defender.ResetDamageBeforeCombat();
             defender.ResetFollowUpGuaranteed();
+            defender.ResetDenialFollowUp();
         }
     }
 }

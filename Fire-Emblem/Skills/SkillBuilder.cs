@@ -1268,7 +1268,26 @@ public static class SkillBuilder
         ConditionalEffect conditionalFollowUpGuaranteeEffect = new ConditionalEffect(andCondition, followUpGuaranteeEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalFollowUpGuaranteeEffect });
         return new Skill("Quick Riposte", multiEffect);
-        
+    }
+
+    public static Skill CreateFollowUpRingSkill()
+    {
+        ICondition unitHpGreaterThanCertainPercentage = new UnitHpGreaterThanCertainPercentage(0.5);
+        IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalFollowUpGuaranteeEffect = new ConditionalEffect(unitHpGreaterThanCertainPercentage, followUpGuaranteeEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalFollowUpGuaranteeEffect });
+        return new Skill("Follow-Up Ring", multiEffect);
+    }
+
+    public static Skill CreateWaryFighterSkill()
+    {
+        ICondition unitHpGreaterThanCertainPercentage = new UnitHpGreaterThanCertainPercentage(0.5);
+        IEffect unitFollowUpDenialEffect = new DenialFollowUpEffect(EffectTarget.Unit);
+        IEffect rivalFollowUpDenialEffect = new DenialFollowUpEffect(EffectTarget.Rival);
+        ConditionalEffect conditionalUnitFollowUpDenialEffect = new ConditionalEffect(unitHpGreaterThanCertainPercentage, unitFollowUpDenialEffect);
+        ConditionalEffect conditionalRivalFollowUpDenialEffect = new ConditionalEffect(unitHpGreaterThanCertainPercentage, rivalFollowUpDenialEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalUnitFollowUpDenialEffect, conditionalRivalFollowUpDenialEffect });
+        return new Skill("Wary Fighter", multiEffect);
     }
     
 }

@@ -266,6 +266,10 @@ public class SkillFactory
                 return SkillBuilder.CreateMastermindSkill();
             case "Quick Riposte":
                 return SkillBuilder.CreateQuickRiposteSkill();
+            case "Follow-Up Ring":
+                return SkillBuilder.CreateFollowUpRingSkill();
+            case "Wary Fighter":
+                return SkillBuilder.CreateWaryFighterSkill();
             default:
                 throw new NotImplementedSkillException();
         }

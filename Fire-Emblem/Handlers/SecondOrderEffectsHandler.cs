@@ -32,7 +32,8 @@ public class SecondOrderEffectsHandler : EffectsHandler
             typeof(CounterattackDenialEffect),
             typeof(CounterattackDenialDenialEffect),
             typeof(DamageBeforeCombatEffect),
-            typeof(FollowUpGuaranteeEffect)
+            typeof(FollowUpGuaranteeEffect),
+            typeof(DenialFollowUpEffect)
         };
     }
 }
