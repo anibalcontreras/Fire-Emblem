@@ -274,6 +274,28 @@ public class SkillFactory
                 return SkillBuilder.CreatePiercingTributeSkill();
             case "Mjölnir":
                 return SkillBuilder.CreateMjolnirSkill();
+            case "Melee Breaker":
+                return SkillBuilder.CreateMeleeBreakerSkill();
+            case "Range Breaker":
+                return SkillBuilder.CreateRangeBreakerSkill();
+            case "Sturdy Impact":
+                return SkillBuilder.CreateSturdyImpactSkill();
+            case "Mirror Impact":
+                return SkillBuilder.CreateMirrorImpactSkill();
+            case "Swift Impact":
+                return SkillBuilder.CreateSwiftImpactSkill();
+            case "Steady Impact":
+                return SkillBuilder.CreateSteadyImpactSkill();
+            case "Slick Fighter":
+                return SkillBuilder.CreateSlickFighterSkill();
+            case "Wily Fighter":
+                return SkillBuilder.CreateWilyFighterSkill();
+            case "Flow Force":
+                return SkillBuilder.CreateFlowForceSkill();
+            case "Flow Refresh":
+                return SkillBuilder.CreateFlowRefreshSkill();
+            case "Null Follow-Up":
+                return SkillBuilder.CreateNullFollowUpSkill();
             default:
                 throw new NotImplementedSkillException();
         }

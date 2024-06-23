@@ -1309,5 +1309,147 @@ public static class SkillBuilder
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
         return new Skill("Mjölnir", multiEffect);
     }
+
+    public static Skill CreateMeleeBreakerSkill()
+    {
+        ICondition hpThresholdCondition = new UnitHpGreaterThanCertainPercentage(0.5);
+        ICondition weaponCondition = new RivalWeaponCondition(typeof(Sword), typeof(Lance), typeof(Axe));
+        ICondition andCondition = new AndCondition(hpThresholdCondition, weaponCondition);
+        IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
+        IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
+        ConditionalEffect conditionalFollowUpGuaranteeEffect = new ConditionalEffect(andCondition, followUpGuaranteeEffect);
+        ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(andCondition, denialFollowUpEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalFollowUpGuaranteeEffect, conditionalDenialFollowUpEffect });
+        return new Skill("Melee Breaker", multiEffect);
+    }
+
+    public static Skill CreateRangeBreakerSkill()
+    {
+        ICondition hpThresholdCondition = new UnitHpGreaterThanCertainPercentage(0.5);
+        ICondition weaponCondition = new RivalWeaponCondition(typeof(Bow), typeof(Magic));
+        ICondition andCondition = new AndCondition(hpThresholdCondition, weaponCondition);
+        IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
+        IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
+        ConditionalEffect conditionalFollowUpGuaranteeEffect = new ConditionalEffect(andCondition, followUpGuaranteeEffect);
+        ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(andCondition, denialFollowUpEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalFollowUpGuaranteeEffect, conditionalDenialFollowUpEffect });
+        return new Skill("Range Breaker", multiEffect);
+    }
+
+    public static Skill CreateImpactSkill(string name, StatType statType1, StatType statType2)
+    {
+        ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
+        IEffect firstBonusEffect = new BonusEffect(statType1, 6, EffectTarget.Unit);
+        IEffect secondBonusEffect = new BonusEffect(statType2, 10, EffectTarget.Unit);
+        IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
+        ConditionalEffect conditionalFirstBonusEffect = new ConditionalEffect(unitBeginAsAttackerCondition, firstBonusEffect);
+        ConditionalEffect conditionalSecondBonusEffect = new ConditionalEffect(unitBeginAsAttackerCondition, secondBonusEffect);
+        ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(unitBeginAsAttackerCondition, denialFollowUpEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalFirstBonusEffect,
+            conditionalSecondBonusEffect,
+            conditionalDenialFollowUpEffect
+        });
+        return new Skill(name, multiEffect);
+    }
     
+    public static Skill CreateSturdyImpactSkill()
+    {
+        return CreateImpactSkill("Sturdy Impact", StatType.Atk, StatType.Def);
+    }
+    
+    public static Skill CreateMirrorImpactSkill()
+    {
+        return CreateImpactSkill("Mirror Impact", StatType.Atk, StatType.Res);
+    }
+    
+    public static Skill CreateSwiftImpactSkill()
+    {
+        return CreateImpactSkill("Swift Impact", StatType.Spd, StatType.Res);
+    }
+
+    public static Skill CreateSteadyImpactSkill()
+    {
+        return CreateImpactSkill("Steady Impact", StatType.Spd, StatType.Def);
+    }
+
+    public static Skill CreateSlickFighterSkill()
+    {
+        ICondition unitHpGreaterThanCertainPercentage = new UnitHpGreaterThanCertainPercentage(0.25);
+        ICondition rivalBeginAsAttackerCondition = new RivalBeginAsAttacker();
+        ICondition andCondition = new AndCondition(unitHpGreaterThanCertainPercentage, rivalBeginAsAttackerCondition);
+        MultiEffect multiEffect = ConditionalEffectBuilder.BuildNeutralizationPenaltyEffect(andCondition,
+            StatType.Atk, StatType.Spd, StatType.Def, StatType.Res);
+        IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalFollowUpGuaranteeEffect = new ConditionalEffect(andCondition, followUpGuaranteeEffect);
+        IEnumerable<IEffect> allEffects = multiEffect.Concat(new IEffect[]
+            { conditionalFollowUpGuaranteeEffect });
+        MultiEffect finalMultiEffect = new MultiEffect(allEffects);
+        return new Skill("Slick Fighter", finalMultiEffect);
+    }
+
+    public static Skill CreateWilyFighterSkill()
+    {
+        ICondition unitHpGreaterThanCertainPercentage = new UnitHpGreaterThanCertainPercentage(0.25);
+        ICondition rivalBeginAsAttackerCondition = new RivalBeginAsAttacker();
+        ICondition andCondition = new AndCondition(unitHpGreaterThanCertainPercentage, rivalBeginAsAttackerCondition);
+        MultiEffect multiEffect = ConditionalEffectBuilder.BuildRivalNeutralizationBonusEffects(andCondition,
+            StatType.Atk, StatType.Spd, StatType.Def, StatType.Res);
+        IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalFollowUpGuaranteeEffect = new ConditionalEffect(andCondition, followUpGuaranteeEffect);
+        IEnumerable<IEffect> allEffects = multiEffect.Concat(new IEffect[]
+            { conditionalFollowUpGuaranteeEffect });
+        MultiEffect finalMultiEffect = new MultiEffect(allEffects);
+        return new Skill("Wily Fighter", finalMultiEffect);
+    }
+
+    public static Skill CreateFlowForceSkill()
+    {
+        ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
+        IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
+        IEffect atkNeutralizationPenaltyEffect = new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Atk);
+        IEffect spdNeutralizationPenaltyEffect = new NeutralizationPenaltyEffect(EffectTarget.Unit, StatType.Spd);
+        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = new ConditionalEffect(unitBeginAsAttackerCondition, denialOfDenialFollowUpEffect);
+        ConditionalEffect conditionalAtkNeutralizationPenaltyEffect = new ConditionalEffect(unitBeginAsAttackerCondition, atkNeutralizationPenaltyEffect);
+        ConditionalEffect conditionalSpdNeutralizationPenaltyEffect = new ConditionalEffect(unitBeginAsAttackerCondition, spdNeutralizationPenaltyEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalDenialOfDenialFollowUpEffect,
+            conditionalAtkNeutralizationPenaltyEffect,
+            conditionalSpdNeutralizationPenaltyEffect
+        });
+        return new Skill("Flow Force", multiEffect);
+    }
+
+    public static Skill CreateFlowRefreshSkill()
+    {
+        ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
+        IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
+        IEffect afterCombatHealingEffect = new AfterCombatAbsoluteHealingEffect(10, EffectTarget.Unit);
+        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = new ConditionalEffect(unitBeginAsAttackerCondition, denialOfDenialFollowUpEffect);
+        ConditionalEffect conditionalAfterCombatHealingEffect = new ConditionalEffect(unitBeginAsAttackerCondition, afterCombatHealingEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalDenialOfDenialFollowUpEffect,
+            conditionalAfterCombatHealingEffect
+        });
+        return new Skill("Flow Refresh", multiEffect);
+    }
+    
+    public static Skill CreateNullFollowUpSkill()
+    {
+        ICondition trueCondition = new TrueCondition();
+        IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
+        IEffect denialFollowUpGuaranteeEffect = new DenialFollowUpGuaranteeEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = new ConditionalEffect(trueCondition, denialOfDenialFollowUpEffect);
+        ConditionalEffect conditionalDenialFollowUpGuaranteeEffect = new ConditionalEffect(trueCondition, denialFollowUpGuaranteeEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalDenialOfDenialFollowUpEffect,
+            conditionalDenialFollowUpGuaranteeEffect
+        });
+        return new Skill("Null Follow-Up", multiEffect);
+    }
 }
+
