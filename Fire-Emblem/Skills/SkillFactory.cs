@@ -296,6 +296,8 @@ public class SkillFactory
                 return SkillBuilder.CreateFlowRefreshSkill();
             case "Null Follow-Up":
                 return SkillBuilder.CreateNullFollowUpSkill();
+            // case "Black Eagle Rule":
+            //     return SkillBuilder.CreateBlackEagleRuleSkill();
             default:
                 throw new NotImplementedSkillException();
         }
