@@ -2,7 +2,7 @@ using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction;
 
-public class FirstAttackPercentageDamageReductionEffect : IEffect
+public class FirstAttackPercentageDamageReductionEffect : IFirstAttackPercentageDamageReductionEffect
 {
     private readonly EffectTarget _target;
     private readonly double _percentage;

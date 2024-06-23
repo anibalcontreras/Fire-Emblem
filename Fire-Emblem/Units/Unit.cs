@@ -28,14 +28,14 @@ public class Unit
     public void AddSkill(Skill skill)
         => _skills.Add(skill);
     
-    private readonly List<Unit> _allies = new();
+    public readonly List<Unit> Allies = new();
     public void AddAlly(Unit ally)
-        => _allies.Add(ally);
+        => Allies.Add(ally);
     
     public void RemoveAllAllies()
-        => _allies.Clear();
+        => Allies.Clear();
     
-    public bool HaveAllies => _allies.Count > 0;
+    public bool HaveAllies => Allies.Count > 0;
         
     
 

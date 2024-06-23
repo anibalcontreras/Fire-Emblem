@@ -1263,11 +1263,26 @@ public static class SkillBuilder
     //     
     // }
 
-    // public static Skill TrueDragonWallSkill()
-    // {
-    //     ICondition resCondition = new StatComparisionCondition(StatType.Res);
-    //     
-    // }
+    public static Skill CreateTrueDragonWallSkill()
+    {
+        ICondition resCondition = new StatComparisionCondition(StatType.Res);
+        IEffect firstAttackComparisionDamageReductionEffect = 
+            new FirstAttackPercentageComparisionDamageReductionEffect(StatType.Res, StatType.Res, EffectTarget.Unit);
+        IEffect followUpComparisionDamageReductionEffect = 
+            new FollowUpPercentageComparisionDamageReductionEffect(StatType.Res, StatType.Res, EffectTarget.Unit);
+        ConditionalEffect conditionalFirstAttackComparisionDamageReductionEffect = new ConditionalEffect(resCondition, firstAttackComparisionDamageReductionEffect);
+        ConditionalEffect conditionalFollowUpComparisionDamageReductionEffect = new ConditionalEffect(resCondition, followUpComparisionDamageReductionEffect);
+        ICondition allyCondition = new UnitAllyUseMagicCondition();
+        IEffect healingAfterCombatEffect = new AfterCombatAbsoluteHealingEffect(7, EffectTarget.Unit);
+        ConditionalEffect conditionalHealingAfterCombatEffect = new ConditionalEffect(allyCondition, healingAfterCombatEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalFirstAttackComparisionDamageReductionEffect,
+            conditionalFollowUpComparisionDamageReductionEffect, 
+            conditionalHealingAfterCombatEffect
+        });
+        return new Skill("True Dragon Wall", multiEffect);
+    }
 
     public static Skill CreateQuickRiposteSkill()
     {
@@ -1345,7 +1360,7 @@ public static class SkillBuilder
         return new Skill("Range Breaker", multiEffect);
     }
 
-    public static Skill CreateImpactSkill(string name, StatType statType1, StatType statType2)
+    private static Skill CreateImpactSkill(string name, StatType statType1, StatType statType2)
     {
         ICondition unitBeginAsAttackerCondition = new UnitBeginAsAttackerCondition();
         IEffect firstBonusEffect = new BonusEffect(statType1, 6, EffectTarget.Unit);
