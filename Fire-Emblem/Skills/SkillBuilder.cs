@@ -1259,6 +1259,14 @@ public static class SkillBuilder
     //     IEffect firstAttackPercentageDamageReductionEffect =
     //         new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
     //     IEffect healingAfterCombatEffect = new AfterCombatAbsoluteHealingEffect(7, EffectTarget.Unit);
+    //     
+    //     
+    // }
+
+    // public static Skill TrueDragonWallSkill()
+    // {
+    //     ICondition resCondition = new StatComparisionCondition(StatType.Res);
+    //     
     // }
 
     public static Skill CreateQuickRiposteSkill()

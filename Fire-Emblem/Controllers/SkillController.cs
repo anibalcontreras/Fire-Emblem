@@ -20,6 +20,7 @@ public class SkillController
     {
         ApplySkills(combat.Attacker, combat.Defender);
         AnnounceEffects(combat);
+        AnnounceBeforeCombatEffects(combat);
     }
 
     private void ApplySkills(Unit activator, Unit opponent)
@@ -66,7 +67,7 @@ public class SkillController
         _consoleGameView.AnnounceHealingEffect(combat.Attacker);
         _consoleGameView.AnnounceCounterattackDenialEffect(combat.Attacker);
         _consoleGameView.AnnounceCounterattackDenialDenialEffect(combat.Attacker);
-        _consoleGameView.AnnounceDamageBeforeCombatEffect(combat.Attacker);
+        // _consoleGameView.AnnounceDamageBeforeCombatEffect(combat.Attacker);
         _consoleGameView.AnnounceFollowUpGuarantee(combat.Attacker);
         _consoleGameView.AnnounceDenialFollowUp(combat.Attacker);
         _consoleGameView.AnnounceDenialOfDenialFollowUp(combat.Attacker);
@@ -85,11 +86,27 @@ public class SkillController
         _consoleGameView.AnnounceHealingEffect(combat.Defender);
         _consoleGameView.AnnounceCounterattackDenialEffect(combat.Defender);
         _consoleGameView.AnnounceCounterattackDenialDenialEffect(combat.Defender);
-        _consoleGameView.AnnounceDamageBeforeCombatEffect(combat.Defender);
+        // _consoleGameView.AnnounceDamageBeforeCombatEffect(combat.Defender);
         _consoleGameView.AnnounceFollowUpGuarantee(combat.Defender);
         _consoleGameView.AnnounceDenialFollowUp(combat.Defender);
         _consoleGameView.AnnounceDenialOfDenialFollowUp(combat.Defender);
         _consoleGameView.AnnounceDenialFollowUpGuaranteed(combat.Defender);
+    }
+    
+    private void AnnounceBeforeCombatEffects(Combat combat)
+    {
+        AnnounceAttackerBeforeCombatSkills(combat.Attacker);
+        AnnounceDefenderBeforeCombatSkills(combat.Defender);
+    }
+    
+    private void AnnounceAttackerBeforeCombatSkills(Unit attacker)
+    {
+        _consoleGameView.AnnounceDamageBeforeCombatEffect(attacker);
+    }
+    
+    private void AnnounceDefenderBeforeCombatSkills(Unit defender)
+    {
+        _consoleGameView.AnnounceDamageBeforeCombatEffect(defender);
     }
     
     public void ActivateAfterCombatSkills(Unit attacker, Unit defender)

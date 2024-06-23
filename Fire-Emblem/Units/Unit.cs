@@ -61,32 +61,32 @@ public class Unit
 
     public int AtkBonus { get; private set; }
     public int AtkPenalty { get; private set; }
-    private int AtkBonusNeutralization { get; set; }
-    private int AtkPenaltyNeutralization { get; set; }
+    public int AtkBonusNeutralization { get; set; }
+    public int AtkPenaltyNeutralization { get; set; }
 
     private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty -
         AtkBonusNeutralization + AtkPenaltyNeutralization;
-
+    
     public int SpdBonus { get; private set; }
     public int SpdPenalty { get; private set; }
-    private int SpdBonusNeutralization { get; set; }
-    private int SpdPenaltyNeutralization { get; set; }
+    public int SpdBonusNeutralization { get; set; }
+    public int SpdPenaltyNeutralization { get; set; }
 
     private int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty -
         SpdBonusNeutralization + SpdPenaltyNeutralization;
 
     public int DefBonus { get; private set; }
     public int DefPenalty { get; private set; }
-    private int DefBonusNeutralization { get; set; }
-    private int DefPenaltyNeutralization { get; set; }
+    public int DefBonusNeutralization { get; set; }
+    public int DefPenaltyNeutralization { get; set; }
 
     private int CurrentDef => BaseDef + DefBonus - DefPenalty -
         DefBonusNeutralization + DefPenaltyNeutralization;
 
     public int ResBonus { get; private set; }
     public int ResPenalty { get; private set; }
-    private int ResBonusNeutralization { get; set; }
-    private int ResPenaltyNeutralization { get; set; }
+    public int ResBonusNeutralization { get; set; }
+    public int ResPenaltyNeutralization { get; set; }
 
     private int CurrentRes => BaseRes + ResBonus - ResPenalty -
         ResBonusNeutralization + ResPenaltyNeutralization;
@@ -444,6 +444,7 @@ public class Unit
     public int FinalCausedDamage { get; private set; }
 
     public void SetFinalCausedDamage(int damage)
+    // TODO: Este es el que tengo que usar en Bewitching Tome
         => FinalCausedDamage = damage;
 
     public void ResetFinalCausedDamage()
@@ -488,14 +489,14 @@ public class Unit
 
     public void ApplyHealingAfterCombat(int amount)
     {
+        _currentHP = Math.Min(BaseHp, _currentHP + amount);
         HealingAfterCombat += amount;
-        _currentHP = Math.Min(BaseHp, _currentHP + HealingAfterCombat);
     }
     
     public void ApplyDamageAfterCombat(int amount)
     {
+        _currentHP = Math.Max(1, _currentHP - amount);
         DamageAfterCombat += amount;
-        _currentHP = Math.Max(1, _currentHP - DamageAfterCombat);
     }
 
     public void ResetStatOutOfCombat()
@@ -508,8 +509,8 @@ public class Unit
     
     public void ApplyDamageBeforeCombat(int amount)
     {
+        _currentHP = Math.Max(1, _currentHP - amount);
         DamageBeforeCombat += amount;
-        _currentHP = Math.Max(1, _currentHP - DamageBeforeCombat);
     }
     public void ResetDamageBeforeCombat()
         => DamageBeforeCombat = 0;
@@ -558,6 +559,4 @@ public class Unit
     public int StartOfCombatHp { get; private set; }
     public void SetStartOfCombatHp()
         => StartOfCombatHp = _currentHP;
-    // public void ResetStartOfCombatHp()
-    //     => StartOfCombatHp = 0;
 }

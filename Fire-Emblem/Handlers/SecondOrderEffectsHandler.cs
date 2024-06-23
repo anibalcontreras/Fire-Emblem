@@ -28,15 +28,15 @@ public class SecondOrderEffectsHandler : EffectsHandler
             typeof(AbsoluteDamageReductionEffect),
             typeof(IPercentageDamageReductionEffect),
             typeof(FirstAttackPercentageDamageReductionEffect),
-            typeof(FollowUpPercentageDamageReductionEffect),
+            typeof(IFollowUpPercentageDamageReductionEffect),
             typeof(IHealingEffect),
             typeof(CounterattackDenialEffect),
             typeof(CounterattackDenialDenialEffect),
-            typeof(DamageBeforeCombatEffect),
             typeof(FollowUpGuaranteeEffect),
             typeof(DenialFollowUpEffect),
             typeof(DenialFollowUpGuaranteeEffect),
-            typeof(DenialOfDenialFollowUpEffect)
+            typeof(DenialOfDenialFollowUpEffect),
+            typeof(DamageBeforeCombatEffect),
         };
     }
 }

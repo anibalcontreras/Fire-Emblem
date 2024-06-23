@@ -1,8 +1,9 @@
+using Fire_Emblem.Effects.Damage.DamageOutOfCombat;
 using Fire_Emblem.Units;
 
 namespace Fire_Emblem.Effects.Healing;
 
-public class AfterCombatAbsoluteHealingEffect : IEffect
+public class AfterCombatAbsoluteHealingEffect : IEffectAfterCombat
 {
     private readonly int _amount;
     private EffectTarget Target { get; }

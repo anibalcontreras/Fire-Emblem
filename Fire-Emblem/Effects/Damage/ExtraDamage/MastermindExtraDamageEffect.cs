@@ -17,10 +17,13 @@ public class MastermindExtraDamageEffect : IExtraDamageEffect
     public void ApplyEffect(Unit activator, Unit opponent)
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
-        // TODO: Tengo que incluir acá la neutralización de bonus
-        int unitTotalBonus = targetUnit.AtkBonus + targetUnit.SpdBonus + targetUnit.DefBonus + targetUnit.ResBonus;
-        int opponentTotalPenalty = opponent.AtkPenalty + opponent.SpdPenalty + opponent.DefPenalty + opponent.ResPenalty;
-        
+
+        int unitTotalBonus = targetUnit.AtkBonus + targetUnit.SpdBonus + targetUnit.DefBonus + targetUnit.ResBonus -
+                             targetUnit.AtkBonusNeutralization - targetUnit.SpdBonusNeutralization -
+                             targetUnit.DefBonusNeutralization - targetUnit.ResBonusNeutralization;
+        int opponentTotalPenalty = opponent.AtkPenalty + opponent.SpdPenalty + opponent.DefPenalty + opponent.ResPenalty -
+                                   opponent.AtkPenaltyNeutralization - opponent.SpdPenaltyNeutralization -
+                                   opponent.DefPenaltyNeutralization - opponent.ResPenaltyNeutralization;
         int x = (int)(unitTotalBonus * _xPercentage);
         int y = (int)(opponentTotalPenalty * _yPercentage);
         int extraDamage = x + y;
