@@ -555,4 +555,9 @@ public class Unit
 
     public void ResetDenialOfDenialFollowUp()
         => HasDenialOfDenialFollowUp = false;
+    public int StartOfCombatHp { get; private set; }
+    public void SetStartOfCombatHp()
+        => StartOfCombatHp = _currentHP;
+    // public void ResetStartOfCombatHp()
+    //     => StartOfCombatHp = 0;
 }

@@ -1006,7 +1006,7 @@ public static class SkillBuilder
             new RivalWeaponCondition(typeof(Lance)),
             new RivalWeaponCondition(typeof(Axe)));
         ICondition spdCondition = new LawsOfSacaeCondition(StatType.Spd, StatType.Spd);
-        ICondition mixedCondition = new AndCondition(weaponConditions, spdCondition);
+        ICondition mixedCondition = new AndCondition(weaponConditions, spdCondition, condition);
         IEffect counterattackDenialEffect = new CounterattackDenialEffect(EffectTarget.Rival);
         ConditionalEffect conditionalCounterattackDenialEffect = 
             new ConditionalEffect(mixedCondition, counterattackDenialEffect);
@@ -1071,14 +1071,14 @@ public static class SkillBuilder
         int statBonus = 7;
         double hpThreshold = 0.25;
         int damageAfterCombat = 5;
-        ICondition hpThresholdCondition = new UnitHpGreaterThanCertainPercentage(hpThreshold);
+        ICondition hpThresholdCondition = new UnitHpStartOfCombatGreaterThanCondition(0.25);
         IEffect statBonusEffect1 = new BonusEffect(statType1, statBonus, EffectTarget.Unit);
         IEffect statBonusEffect2 = new BonusEffect(statType2, statBonus, EffectTarget.Unit);
         ConditionalEffect conditionalStatBonusEffect1 = new ConditionalEffect(hpThresholdCondition, statBonusEffect1);
         ConditionalEffect conditionalStatBonusEffect2 = new ConditionalEffect(hpThresholdCondition, statBonusEffect2);
         ICondition unitIsAliveCondition = new IsUnitAliveCondition();
         ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
-        ICondition unitAndCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition);
+        ICondition unitAndCondition = new AndCondition(unitIsAliveCondition, unitHasAttackedCondition, hpThresholdCondition);
         IEffect damageOutOfCombatEffect = new DamageAfterCombatEffect(damageAfterCombat, EffectTarget.Unit);
         ConditionalEffect conditionalDamageOutOfCombatEffect = new ConditionalEffect(unitAndCondition, damageOutOfCombatEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]

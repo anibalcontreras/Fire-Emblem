@@ -80,6 +80,8 @@ namespace Fire_Emblem.Controllers
             foreach (Unit unit in opponentTeam.Units)
                 if (unit != defender)
                     defender.AddAlly(unit);
+            attacker.SetStartOfCombatHp();
+            defender.SetStartOfCombatHp();
             Combat combat = new Combat(attacker, defender);
             attacker.SetIsAttacker();
             return combat;
