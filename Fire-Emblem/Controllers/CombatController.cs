@@ -190,11 +190,13 @@ namespace Fire_Emblem.Controllers
             {
                 PerformDefenderFollowUp(combat.Attacker, combat.Defender);
             }
-            if (combat.Attacker.HasFollowUpGuaranteed && (combat.CanAttackerPerformFollowUp() == false))
+            if (combat.Attacker.HasFollowUpGuaranteed && (combat.CanAttackerPerformFollowUp() == false) 
+                && (!combat.Attacker.HasDenialFollowUpGuaranteed))
             {
                 PerformAttackerFollowUp(combat.Attacker, combat.Defender);
             }
-            else if (combat.Defender.HasFollowUpGuaranteed && (combat.CanDefenderPerformFollowUp() == false))
+            else if (combat.Defender.HasFollowUpGuaranteed && (combat.CanDefenderPerformFollowUp() == false)
+                     && (!combat.Defender.HasDenialFollowUpGuaranteed))
             {
                 PerformDefenderFollowUp(combat.Attacker, combat.Defender);
             }
@@ -208,11 +210,11 @@ namespace Fire_Emblem.Controllers
             }
             else
             {
-                if (combat.Attacker.HasFollowUpGuaranteed)
+                if (combat.Attacker.HasFollowUpGuaranteed && !combat.Attacker.HasDenialFollowUpGuaranteed)
                 {
                     PerformAttackerFollowUp(combat.Attacker, combat.Defender);
                 }
-                else if (combat.Defender.HasFollowUpGuaranteed)
+                else if (combat.Defender.HasFollowUpGuaranteed && !combat.Defender.HasDenialFollowUpGuaranteed)
                 {
                     PerformDefenderFollowUp(combat.Attacker, combat.Defender);
                 }
@@ -288,6 +290,8 @@ namespace Fire_Emblem.Controllers
             attacker.ResetDamageBeforeCombat();
             attacker.ResetFollowUpGuaranteed();
             attacker.ResetDenialFollowUp();
+            attacker.ResetDenialFollowUpGuaranteed();
+            attacker.ResetDenialOfDenialFollowUp();
         }
 
         private void DeactivateDefenderSkills(Unit defender)
@@ -306,6 +310,8 @@ namespace Fire_Emblem.Controllers
             defender.ResetDamageBeforeCombat();
             defender.ResetFollowUpGuaranteed();
             defender.ResetDenialFollowUp();
+            defender.ResetDenialFollowUpGuaranteed();
+            defender.ResetDenialOfDenialFollowUp();
         }
     }
 }

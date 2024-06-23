@@ -541,8 +541,18 @@ public class Unit
     }
     
     public bool HasDenialFollowUpGuaranteed { get; private set;  }
+
+    public void SetDenialFollowUpGuaranteed()
+        => HasDenialFollowUpGuaranteed = true;
+
+    public void ResetDenialFollowUpGuaranteed()
+        => HasDenialFollowUpGuaranteed = false;
     
-    
-    
-    
+    public bool HasDenialOfDenialFollowUp { get; private set; }
+
+    public void SetDenialOfDenialFollowUp()
+        => HasDenialOfDenialFollowUp = true;
+
+    public void ResetDenialOfDenialFollowUp()
+        => HasDenialOfDenialFollowUp = false;
 }

@@ -1,3 +1,4 @@
+using Avalonia.Media;
 using Fire_Emblem.Conditions;
 using Fire_Emblem.Conditions.LogicalConditions;
 using Fire_Emblem.Effects;
@@ -13,6 +14,7 @@ using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Skills.TypesCreator;
 using Fire_Emblem.Stats;
 using Fire_Emblem.Weapons;
+using IEffect = Fire_Emblem.Effects.IEffect;
 
 namespace Fire_Emblem.Skills;
 
@@ -1288,6 +1290,24 @@ public static class SkillBuilder
         ConditionalEffect conditionalRivalFollowUpDenialEffect = new ConditionalEffect(unitHpGreaterThanCertainPercentage, rivalFollowUpDenialEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalUnitFollowUpDenialEffect, conditionalRivalFollowUpDenialEffect });
         return new Skill("Wary Fighter", multiEffect);
+    }
+
+    public static Skill CreatePiercingTributeSkill()
+    {
+        ICondition trueCondition = new TrueCondition();
+        IEffect denialFollowUpGuaranteedEffect = new DenialFollowUpGuaranteeEffect(EffectTarget.Rival);
+        ConditionalEffect conditionalEffect = new ConditionalEffect(trueCondition, denialFollowUpGuaranteedEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
+        return new Skill("Piercing Tribute", multiEffect);
+    }
+
+    public static Skill CreateMjolnirSkill()
+    {
+        ICondition trueCondition = new TrueCondition();
+        IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalEffect = new ConditionalEffect(trueCondition, denialOfDenialFollowUpEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[] { conditionalEffect });
+        return new Skill("Mjölnir", multiEffect);
     }
     
 }

@@ -20,6 +20,7 @@ public class SecondOrderEffectsHandler : EffectsHandler
 
     protected override IEnumerable<Type> GetEffectTypesInOrder()
     {
+        // TODO: Esta lista es clave
         return new List<Type>
         {
             typeof(IExtraDamageEffect),
@@ -33,7 +34,9 @@ public class SecondOrderEffectsHandler : EffectsHandler
             typeof(CounterattackDenialDenialEffect),
             typeof(DamageBeforeCombatEffect),
             typeof(FollowUpGuaranteeEffect),
-            typeof(DenialFollowUpEffect)
+            typeof(DenialFollowUpEffect),
+            typeof(DenialFollowUpGuaranteeEffect),
+            typeof(DenialOfDenialFollowUpEffect)
         };
     }
 }

@@ -272,6 +272,24 @@ public class ConsoleGameView : IView
                             $" que neutraliza(n) su follow up activo(s)");
     }
 
+    public void AnnounceDenialFollowUpGuaranteed(Unit unit)
+        => AnnounceDenialFollowUpGuaranteedEffect(unit);
+
+    private void AnnounceDenialFollowUpGuaranteedEffect(Unit unit)
+    {
+        if (unit.HasDenialFollowUpGuaranteed)
+            _view.WriteLine($"{unit.Name} es inmune a los efectos que garantizan su follow up");
+    }
+
+    public void AnnounceDenialOfDenialFollowUp(Unit unit)
+        => AnnounceDenialOfDenialFollowUpEffect(unit);
+    private void AnnounceDenialOfDenialFollowUpEffect(Unit unit)
+    {
+        if (unit.HasDenialOfDenialFollowUp)
+            _view.WriteLine($"{unit.Name} es inmune a los efectos que neutralizan su follow up");
+        
+    }
+
     private void AnnounceNeutralizationAtkPenaltyStat(Unit unit)
         => _view.WriteLine($"Los penalty de Atk de {unit.Name} fueron neutralizados");
 

@@ -270,6 +270,10 @@ public class SkillFactory
                 return SkillBuilder.CreateFollowUpRingSkill();
             case "Wary Fighter":
                 return SkillBuilder.CreateWaryFighterSkill();
+            case "Piercing Tribute":
+                return SkillBuilder.CreatePiercingTributeSkill();
+            case "Mjölnir":
+                return SkillBuilder.CreateMjolnirSkill();
             default:
                 throw new NotImplementedSkillException();
         }

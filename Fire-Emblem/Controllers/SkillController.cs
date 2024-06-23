@@ -69,6 +69,8 @@ public class SkillController
         _consoleGameView.AnnounceDamageBeforeCombatEffect(combat.Attacker);
         _consoleGameView.AnnounceFollowUpGuarantee(combat.Attacker);
         _consoleGameView.AnnounceDenialFollowUp(combat.Attacker);
+        _consoleGameView.AnnounceDenialFollowUpGuaranteed(combat.Attacker);
+        _consoleGameView.AnnounceDenialOfDenialFollowUp(combat.Attacker);
     }
 
     private void AnnounceDefenderSkills(Combat combat)
@@ -86,6 +88,8 @@ public class SkillController
         _consoleGameView.AnnounceDamageBeforeCombatEffect(combat.Defender);
         _consoleGameView.AnnounceFollowUpGuarantee(combat.Defender);
         _consoleGameView.AnnounceDenialFollowUp(combat.Defender);
+        _consoleGameView.AnnounceDenialFollowUpGuaranteed(combat.Defender);
+        _consoleGameView.AnnounceDenialOfDenialFollowUp(combat.Defender);
     }
     
     public void ActivateAfterCombatSkills(Unit attacker, Unit defender)

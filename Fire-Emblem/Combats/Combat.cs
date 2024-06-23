@@ -17,7 +17,7 @@ public class Combat
     
     public bool CanAttackerPerformFollowUp()
     {
-        if (Attacker.HasDenialFollowUp)
+        if (Attacker.HasDenialFollowUp && !Attacker.HasDenialOfDenialFollowUp)
             return false;
         int attackerCurrentStat = Attacker.GetCurrentStat(StatType.Spd);
         int defenderCurrentStat = Defender.GetCurrentStat(StatType.Spd);
@@ -26,7 +26,7 @@ public class Combat
 
     public bool CanDefenderPerformFollowUp()
     {
-        if (Defender.HasDenialFollowUp)
+        if (Defender.HasDenialFollowUp && !Defender.HasDenialOfDenialFollowUp)
             return false;
         int defenderCurrentStat = Defender.GetCurrentStat(StatType.Spd);
         int attackerCurrentStat = Attacker.GetCurrentStat(StatType.Spd);
