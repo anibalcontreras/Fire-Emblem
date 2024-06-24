@@ -1510,20 +1510,20 @@ public static class SkillBuilder
         return new Skill("Null Follow-Up", multiEffect);
     }
 
-    // public static Skill CreateBlackEagleRuleSkill()
-    // {
-    //     ICondition unitHpAboveThreshold = new UnitHpGreaterThanCertainPercentage(0.25);
-    //     ICondition rivalBeginAsAttacker = new RivalBeginAsAttacker();
-    //     ICondition andCondition = new AndCondition(unitHpAboveThreshold, rivalBeginAsAttacker);
-    //     IEffect guaranteedFollowUpEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
-    //     IEffect followUpReductionEffect = new FollowUpPercentageDamageReductionEffect(0.8, EffectTarget.Unit);
-    //     ConditionalEffect conditionalGuaranteedFollowUpEffect = new ConditionalEffect(unitHpAboveThreshold, guaranteedFollowUpEffect);
-    //     ConditionalEffect conditionalFollowUpReductionEffect = new ConditionalEffect(andCondition, followUpReductionEffect);
-    //     MultiEffect multiEffect = new MultiEffect(new IEffect[]
-    //     {
-    //         conditionalGuaranteedFollowUpEffect,
-    //         conditionalFollowUpReductionEffect
-    //     });
-    //     return new Skill("Black Eagle Rule", multiEffect);
-    // }
+    public static Skill CreateBlackEagleRuleSkill()
+    {
+        ICondition unitHpAboveThreshold = new UnitHpGreaterThanCertainPercentage(0.25);
+        ICondition rivalBeginAsAttacker = new RivalBeginAsAttacker();
+        ICondition andCondition = new AndCondition(unitHpAboveThreshold, rivalBeginAsAttacker);
+        IEffect guaranteedFollowUpEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
+        IEffect followUpReductionEffect = new FollowUpPercentageDamageReductionEffect(0.8, EffectTarget.Unit);
+        ConditionalEffect conditionalGuaranteedFollowUpEffect = new ConditionalEffect(unitHpAboveThreshold, guaranteedFollowUpEffect);
+        ConditionalEffect conditionalFollowUpReductionEffect = new ConditionalEffect(andCondition, followUpReductionEffect);
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalGuaranteedFollowUpEffect,
+            conditionalFollowUpReductionEffect
+        });
+        return new Skill("Black Eagle Rule", multiEffect);
+    }
 }

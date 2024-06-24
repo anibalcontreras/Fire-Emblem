@@ -300,8 +300,8 @@ public class SkillFactory
                 return SkillBuilder.CreateTrueDragonWallSkill();
             case "Bewitching Tome":
                 return SkillBuilder.CreateBewitchingTomeSkill();
-            // case "Black Eagle Rule":
-            //     return SkillBuilder.CreateBlackEagleRuleSkill();
+            case "Black Eagle Rule":
+                return SkillBuilder.CreateBlackEagleRuleSkill();
             default:
                 throw new NotImplementedSkillException();
         }

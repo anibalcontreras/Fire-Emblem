@@ -14,6 +14,7 @@ public class StatComparisionIncludingBonus : ICondition
     }
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
+        // TODO: Esto puede ser eliminado e incluir la que se usa siempre
         int activatorStatValue = activator.GetCurrentStat(_statType);
         int opponentStatValue = opponent.GetCurrentStat(_statType);
         return activatorStatValue > opponentStatValue;
