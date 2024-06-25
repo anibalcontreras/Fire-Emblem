@@ -4,6 +4,7 @@ using Fire_Emblem.Conditions.LogicalConditions;
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.AlterBaseStat;
 using Fire_Emblem.Effects.CounterattackDenial;
+using Fire_Emblem.Effects.Damage;
 using Fire_Emblem.Effects.Damage.AbsoluteDamageReduction;
 using Fire_Emblem.Effects.Damage.DamageOutOfCombat;
 using Fire_Emblem.Effects.Damage.ExtraDamage;
@@ -1823,5 +1824,62 @@ public static class SkillBuilder
 
         return new Skill("Wyvern Flight", multiEffect);
     }
+
+    public static Skill CreatePhysNullFollowSkill()
+    {
+        ICondition trueCondition = new TrueCondition();
+        IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival);
+        IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 4, EffectTarget.Rival);
+        IEffect denialFollowUpGuaranteeEffect = new DenialFollowUpGuaranteeEffect(EffectTarget.Rival);
+        IEffect denialDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
+        IEffect percentageDamageReductionReductionEffect =
+            new PercentageDamageReductionReductionEffect(0.5, EffectTarget.Unit);
+        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(trueCondition, spdPenaltyEffect);
+        ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(trueCondition, defPenaltyEffect);
+        ConditionalEffect conditionalDenialFollowUpGuaranteeEffect =
+            new ConditionalEffect(trueCondition, denialFollowUpGuaranteeEffect);
+        ConditionalEffect conditionalDenialDenialFollowUpEffect = new ConditionalEffect(trueCondition, denialDenialFollowUpEffect);
+        ConditionalEffect conditionalPercentageDamageReductionReductionEffect =
+            new ConditionalEffect(trueCondition, percentageDamageReductionReductionEffect);
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalSpdPenaltyEffect,
+            conditionalDefPenaltyEffect,
+            conditionalDenialFollowUpGuaranteeEffect,
+            conditionalDenialDenialFollowUpEffect,
+            conditionalPercentageDamageReductionReductionEffect
+        });
+        
+        return new Skill("Phys. Null Follow-Up", multiEffect);
+    }
+    
+    public static Skill CreateMagNullFollowSkill()
+    {
+        ICondition trueCondition = new TrueCondition();
+        IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival);
+        IEffect resPenaltyEffect = new PenaltyEffect(StatType.Res, 4, EffectTarget.Rival);
+        IEffect denialFollowUpGuaranteeEffect = new DenialFollowUpGuaranteeEffect(EffectTarget.Rival);
+        IEffect denialDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
+        IEffect percentageDamageReductionReductionEffect = new PercentageDamageReductionReductionEffect(0.5, EffectTarget.Rival);
+
+        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(trueCondition, spdPenaltyEffect);
+        ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(trueCondition, resPenaltyEffect);
+        ConditionalEffect conditionalDenialFollowUpGuaranteeEffect = new ConditionalEffect(trueCondition, denialFollowUpGuaranteeEffect);
+        ConditionalEffect conditionalDenialDenialFollowUpEffect = new ConditionalEffect(trueCondition, denialDenialFollowUpEffect);
+        ConditionalEffect conditionalPercentageDamageReductionReductionEffect = new ConditionalEffect(trueCondition, percentageDamageReductionReductionEffect);
+
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalSpdPenaltyEffect,
+            conditionalResPenaltyEffect,
+            conditionalDenialFollowUpGuaranteeEffect,
+            conditionalDenialDenialFollowUpEffect,
+            conditionalPercentageDamageReductionReductionEffect
+        });
+
+        return new Skill("Mag. Null Follow-Up", multiEffect);
+    }
+
 
 }

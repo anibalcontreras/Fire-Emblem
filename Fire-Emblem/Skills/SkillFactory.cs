@@ -322,6 +322,10 @@ public class SkillFactory
                 return SkillBuilder.CreatePegasusFlightSkill();
             case "Wyvern Flight":
                 return SkillBuilder.CreateWyvernFlightSkill();
+            case "Phys. Null Follow":
+                return SkillBuilder.CreatePhysNullFollowSkill();
+            case "Mag. Null Follow":
+                return SkillBuilder.CreateMagNullFollowSkill();
             default:
                 throw new NotImplementedSkillException();
         }

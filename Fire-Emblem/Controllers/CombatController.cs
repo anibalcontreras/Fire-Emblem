@@ -264,6 +264,7 @@ namespace Fire_Emblem.Controllers
             attacker.ResetDenialFollowUp();
             attacker.ResetDenialFollowUpGuaranteed();
             attacker.ResetDenialOfDenialFollowUp();
+            attacker.ResetPercentageDamageReductionReduction();
         }
 
         private void DeactivateDefenderSkills(Unit defender)
@@ -284,6 +285,7 @@ namespace Fire_Emblem.Controllers
             defender.ResetDenialFollowUp();
             defender.ResetDenialFollowUpGuaranteed();
             defender.ResetDenialOfDenialFollowUp();
+            defender.ResetPercentageDamageReductionReduction();
         }
     }
 }

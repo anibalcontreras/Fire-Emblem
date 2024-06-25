@@ -333,20 +333,37 @@ public class Unit
     public void ApplyAbsoluteDamageReduction(int amount)
         => AbsoluteDamageReduction += amount;
 
+    private double PercentageDamageReductionReduction { get; set; } = 1;
+    
+    public void SetPercentageDamageReductionReduction(double percentage)
+        => PercentageDamageReductionReduction = percentage;
+    
+    public void ResetPercentageDamageReductionReduction()
+        => PercentageDamageReductionReduction = 1;
+    
+
     public double PercentageDamageReduction { get; private set; }
 
     public void ApplyPercentageDamageReduction(double percentage)
-        => PercentageDamageReduction = 1 - (1 - PercentageDamageReduction) * (1 - percentage);
-
+    {
+        PercentageDamageReduction = (1 - (1 - PercentageDamageReduction) * (1 - percentage));
+        PercentageDamageReduction *= PercentageDamageReductionReduction;    
+    }
+    
     public double FirstAttackPercentageDamageReduction { get; private set; }
 
     public void ApplyFirstAttackPercentageDamageReduction(double percentage)
-        => FirstAttackPercentageDamageReduction = 1 - (1 - FirstAttackPercentageDamageReduction) * (1 - percentage);
-
+    {
+        FirstAttackPercentageDamageReduction = (1 - (1 - FirstAttackPercentageDamageReduction) * (1 - percentage));
+        FirstAttackPercentageDamageReduction *= PercentageDamageReductionReduction;
+    }
     public double FollowUpPercentageDamageReduction { get; private set; }
 
     public void ApplyFollowUpPercentageDamageReduction(double percentage)
-        => FollowUpPercentageDamageReduction = 1 - (1 - FollowUpPercentageDamageReduction) * (1 - percentage);
+    {
+        FollowUpPercentageDamageReduction = (1 - (1 - FollowUpPercentageDamageReduction) * (1 - percentage));
+        FollowUpPercentageDamageReduction *= PercentageDamageReductionReduction;
+    }
 
     public void ResetEffects()
     {
@@ -569,5 +586,4 @@ public class Unit
 
     public void ResetDenialOfDenialFollowUp()
         => HasDenialOfDenialFollowUp = false;
-    
 }
