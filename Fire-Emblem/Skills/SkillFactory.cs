@@ -318,6 +318,10 @@ public class SkillFactory
                 return SkillBuilder.CreateFlowFeatherSkill();
             case "Flow Flight":
                 return SkillBuilder.CreateFlowFlightSkill();
+            case "Pegasus Flight":
+                return SkillBuilder.CreatePegasusFlightSkill();
+            case "Wyvern Flight":
+                return SkillBuilder.CreateWyvernFlightSkill();
             default:
                 throw new NotImplementedSkillException();
         }

@@ -1762,4 +1762,66 @@ public static class SkillBuilder
         return new Skill("Flow Flight", multiEffect);
     }
 
+    public static Skill CreatePegasusFlightSkill()
+    {
+        ICondition trueCondition = new TrueCondition();
+        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 4, EffectTarget.Rival);
+        IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 4, EffectTarget.Rival);
+        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(trueCondition, atkPenaltyEffect);
+        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(trueCondition, defPenaltyEffect);
+        
+        ICondition baseStatComparisionWithAdjustment = new BaseStatComparisionWithAdjustmentCondition(StatType.Spd, -10);
+        IEffect atkDynamicPenaltyEffect = new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Atk, StatType.Res);
+        IEffect defDynamicPenaltyEffect = new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Def, StatType.Res);
+        ConditionalEffect conditionalAtkDynamicPenaltyEffect = new ConditionalEffect(baseStatComparisionWithAdjustment, atkDynamicPenaltyEffect);
+        ConditionalEffect conditionalDefDynamicPenaltyEffect = new ConditionalEffect(baseStatComparisionWithAdjustment, defDynamicPenaltyEffect);
+        
+        ICondition dualStatComparisionCondition = new DualStatComparisonCondition(StatType.Spd, StatType.Res);
+        ICondition andCondition = new AndCondition(baseStatComparisionWithAdjustment, dualStatComparisionCondition);
+        IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
+        ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(andCondition, denialFollowUpEffect);
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkPenaltyEffect,
+            conditionalSpdPenaltyEffect,
+            conditionalAtkDynamicPenaltyEffect,
+            conditionalDefDynamicPenaltyEffect,
+            conditionalDenialFollowUpEffect
+        });
+        
+        return new Skill("Pegasus Flight", multiEffect);
+    }
+    
+    public static Skill CreateWyvernFlightSkill()
+    {
+        ICondition trueCondition = new TrueCondition();
+        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 4, EffectTarget.Rival);
+        IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 4, EffectTarget.Rival);
+        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(trueCondition, atkPenaltyEffect);
+        ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(trueCondition, defPenaltyEffect);
+
+        ICondition baseStatComparisionWithAdjustment = new BaseStatComparisionWithAdjustmentCondition(StatType.Spd, -10);
+        IEffect atkDynamicPenaltyEffect = new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Atk, StatType.Def);
+        IEffect defDynamicPenaltyEffect = new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Def, StatType.Def);
+        ConditionalEffect conditionalAtkDynamicPenaltyEffect = new ConditionalEffect(baseStatComparisionWithAdjustment, atkDynamicPenaltyEffect);
+        ConditionalEffect conditionalDefDynamicPenaltyEffect = new ConditionalEffect(baseStatComparisionWithAdjustment, defDynamicPenaltyEffect);
+
+        ICondition dualStatComparisionCondition = new DualStatComparisonCondition(StatType.Spd, StatType.Def);
+        ICondition andCondition = new AndCondition(baseStatComparisionWithAdjustment, dualStatComparisionCondition);
+        IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
+        ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(andCondition, denialFollowUpEffect);
+
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalAtkPenaltyEffect,
+            conditionalDefPenaltyEffect,
+            conditionalAtkDynamicPenaltyEffect,
+            conditionalDefDynamicPenaltyEffect,
+            conditionalDenialFollowUpEffect
+        });
+
+        return new Skill("Wyvern Flight", multiEffect);
+    }
+
 }
