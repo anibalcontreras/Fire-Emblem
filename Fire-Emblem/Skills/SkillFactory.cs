@@ -314,6 +314,10 @@ public class SkillFactory
                 return SkillBuilder.CreateSavvyFighterSkill();
             case "Binding Shield":
                 return SkillBuilder.CreateBindingShieldSkill();
+            case "Flow Feather":
+                return SkillBuilder.CreateFlowFeatherSkill();
+            case "Flow Flight":
+                return SkillBuilder.CreateFlowFlightSkill();
             default:
                 throw new NotImplementedSkillException();
         }

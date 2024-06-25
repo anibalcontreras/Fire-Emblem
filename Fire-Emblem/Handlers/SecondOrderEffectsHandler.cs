@@ -25,7 +25,7 @@ public class SecondOrderEffectsHandler : EffectsHandler
         {
             typeof(IExtraDamageEffect),
             typeof(FirstAttackExtraDamageEffect),
-            typeof(AbsoluteDamageReductionEffect),
+            typeof(IAbsoluteDamageReductionEffect),
             typeof(IPercentageDamageReductionEffect),
             typeof(IFirstAttackPercentageDamageReductionEffect),
             typeof(IFollowUpPercentageDamageReductionEffect),

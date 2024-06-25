@@ -1714,4 +1714,52 @@ public static class SkillBuilder
         
         return new Skill("Binding Shield", multiEffect);
     }
+
+    public static Skill CreateFlowFeatherSkill()
+    {
+        ICondition unitBeginAsAttacker = new UnitBeginAsAttackerCondition();
+        IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = new ConditionalEffect(unitBeginAsAttacker, denialOfDenialFollowUpEffect);
+        
+        ICondition statComparisionWithAdjustment = new StatComparisionWithAdjustmentCondition(StatType.Spd, -10);
+        ICondition andCondition = new AndCondition(unitBeginAsAttacker, statComparisionWithAdjustment);
+        IEffect extraDamagePerStatDifference = new ExtraDamagePerStatDifferenceEffect(StatType.Res, EffectTarget.Unit);
+        IEffect statDifferenceDamageReductionEffect =
+            new StatDifferenceDamageReductionEffect(StatType.Res, EffectTarget.Unit);
+        ConditionalEffect conditionalExtraDamagePerStatDifference = new ConditionalEffect(andCondition, extraDamagePerStatDifference);
+        ConditionalEffect conditionalStatDifferenceDamageReductionEffect = new ConditionalEffect(andCondition, statDifferenceDamageReductionEffect);
+        
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalDenialOfDenialFollowUpEffect,
+            conditionalExtraDamagePerStatDifference,
+            conditionalStatDifferenceDamageReductionEffect
+        });
+        
+        return new Skill("Flow Feather", multiEffect);
+    }
+    
+    public static Skill CreateFlowFlightSkill()
+    {
+        ICondition unitBeginAsAttacker = new UnitBeginAsAttackerCondition();
+        IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
+        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = new ConditionalEffect(unitBeginAsAttacker, denialOfDenialFollowUpEffect);
+    
+        ICondition statComparisionWithAdjustment = new StatComparisionWithAdjustmentCondition(StatType.Spd, -10);
+        ICondition andCondition = new AndCondition(unitBeginAsAttacker, statComparisionWithAdjustment);
+        IEffect extraDamagePerStatDifference = new ExtraDamagePerStatDifferenceEffect(StatType.Def, EffectTarget.Unit);
+        IEffect statDifferenceDamageReductionEffect = new StatDifferenceDamageReductionEffect(StatType.Def, EffectTarget.Unit);
+        ConditionalEffect conditionalExtraDamagePerStatDifference = new ConditionalEffect(andCondition, extraDamagePerStatDifference);
+        ConditionalEffect conditionalStatDifferenceDamageReductionEffect = new ConditionalEffect(andCondition, statDifferenceDamageReductionEffect);
+    
+        MultiEffect multiEffect = new MultiEffect(new IEffect[]
+        {
+            conditionalDenialOfDenialFollowUpEffect,
+            conditionalExtraDamagePerStatDifference,
+            conditionalStatDifferenceDamageReductionEffect
+        });
+    
+        return new Skill("Flow Flight", multiEffect);
+    }
+
 }

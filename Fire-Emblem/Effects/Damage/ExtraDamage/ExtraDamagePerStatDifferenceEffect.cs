@@ -9,15 +9,19 @@ public class ExtraDamagePerStatDifferenceEffect : IExtraDamageEffect
     private readonly int _minExtraDamage = 0;
     private readonly int _maxExtraDamage = 7;
     private readonly StatType _statType;
+    private EffectTarget _target;
 
-    public ExtraDamagePerStatDifferenceEffect(StatType statType)
+    public ExtraDamagePerStatDifferenceEffect(StatType statType, EffectTarget effectTarget)
     {
         _statType = statType;
+        _target = effectTarget;
     }
 
     public void ApplyEffect(Unit activator, Unit opponent)
     {
-        int activatorStatValue = activator.GetCurrentStat(_statType);
+        
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
+        int activatorStatValue = targetUnit.GetCurrentStat(_statType);
         int opponentStatValue = opponent.GetCurrentStat(_statType);
         int statDifference = activatorStatValue - opponentStatValue;
 
@@ -26,9 +30,9 @@ public class ExtraDamagePerStatDifferenceEffect : IExtraDamageEffect
 
         if (extraDamage > 0)
         {
-            opponent.ApplyExtraDamageEffect(extraDamage);
+            targetUnit.ApplyExtraDamageEffect(extraDamage);
         }
 
-        activator.AddActiveEffect(this);
+        targetUnit.AddActiveEffect(this);
     }
 }
