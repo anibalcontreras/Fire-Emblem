@@ -181,7 +181,7 @@ namespace Fire_Emblem.Controllers
             else
             {
                 // Acá va la lógica para cuando no se puede hacer un follow up bajo un caso normal de la mecánica de combate
-                // Pero si se puede hacer un follow up bajo una garantización de follow up
+                // Pero si se puede hacer un follow up bajo una garantización de follxow up
                 if (combat.Attacker.HasFollowUpGuaranteed && !combat.Attacker.HasDenialFollowUpGuaranteed)
                 {
                     PerformAttackerFollowUp(combat.Attacker, combat.Defender);

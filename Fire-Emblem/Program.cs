@@ -5,7 +5,7 @@ using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
 using Fire_Emblem.Skills;
 
-bool useGui = true;
+bool useGui = false;
 
 if (useGui)
 {

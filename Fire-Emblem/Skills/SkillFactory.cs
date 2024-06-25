@@ -302,6 +302,18 @@ public class SkillFactory
                 return SkillBuilder.CreateBewitchingTomeSkill();
             case "Black Eagle Rule":
                 return SkillBuilder.CreateBlackEagleRuleSkill();
+            case "Blue Lion Rule":
+                return SkillBuilder.CreateBlueLionRuleSkill();
+            case "New Divinity":
+                return SkillBuilder.CreateNewDivinitySkill();
+            case "Sun-Twin Wing":
+                return SkillBuilder.CreateSunTwinWingSkill();
+            case "Dragon's Ire":
+                return SkillBuilder.CreateDragonsIreSkill();
+            case "Savvy Fighter":
+                return SkillBuilder.CreateSavvyFighterSkill();
+            case "Binding Shield":
+                return SkillBuilder.CreateBindingShieldSkill();
             default:
                 throw new NotImplementedSkillException();
         }
