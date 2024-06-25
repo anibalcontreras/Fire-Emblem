@@ -1,34 +1,38 @@
 ﻿using Fire_Emblem;
 using Fire_Emblem_View;
 using Fire_Emblem_GUI;
+using Fire_Emblem.Units;
+using Fire_Emblem.Weapons;
+using Fire_Emblem.Skills;
 
-/* 
- * Este código permite replicar un test case. Primero pregunta por el grupo de test
- * case a replicar. Luego pregunta por el test case específico que se quiere replicar.
- * 
- * Por ejemplo, si tu programa está fallando el test case:
- *      "data/E1-BasicCombat-Tests/006.txt"
- * ... puedes ver qué está ocurriendo mediante correr este programa y decir que quieres
- * replicar del grupo "E1-BasicCombat-Tests" el test case 6.
- * 
- * Al presionar enter, se ingresa el input del test case en forma automática. Si el
- * color es azúl significa que el output de tu programa es el esperado. Si es rojo
- * significa que el output de tu programa es distinto al esperado (i.e., el test falló).
- *
- * Si, por algún motivo, quieres ejecutar tu programa de modo manual (sin replicar un
- * test case específico), puedes cambiar la línea:
- *      var view = View.BuildManualTestingView(test);
- * por:
- *      var view = View.BuildConsoleView();
- */
-
-bool useGui = false;
+bool useGui = true;
 
 if (useGui)
 {
     FireEmblemWindow window = new FireEmblemWindow();
     window.Start(Main);
-    void Main() { }
+
+    void Main()
+    {
+        string team1Data = window.GetTeam1();
+        string team2Data = window.GetTeam2();
+        // Unit[] team1 = [new Unit("Marth", "Sword", 54, 62, 53, 43, 37)];
+        // Unit [] team2 = [
+        //     new Unit("Seliph", "Sword", 55, 68, 27, 48, 39),
+        // new Unit("Soren", "Magic", 49, 63, 41, 25, 53)]; window.UpdateTeams(team1, team2);
+        // int idSelectedUnitTeam1 = window.SelectUnitTeam1();
+        // Unit unitTeam1 = team1[idSelectedUnitTeam1];
+        // int idSelectedUnitTeam2 = window.SelectUnitTeam2();
+        // Unit unitTeam2 = team2[idSelectedUnitTeam2];
+        // window.UpdateUnitsStatsDuringBattle(unitTeam1 , unitTeam2); window.ShowAttackFromTeam1(unitTeam1 , unitTeam2);
+        // unitTeam2.Hp -= 20;
+        // window.UpdateUnitsStatsDuringBattle(unitTeam1 , unitTeam2); window.ShowAttackFromTeam2(unitTeam1 , unitTeam2);
+        // unitTeam1.Hp -= 15;
+        // window.UpdateUnitsStatsDuringBattle(unitTeam1 , unitTeam2);
+        // window.UpdateTeams(team1, team2); idSelectedUnitTeam2 = window.SelectUnitTeam2();
+        // unitTeam2 = team2[idSelectedUnitTeam2]; idSelectedUnitTeam1 = window.SelectUnitTeam1();
+        // unitTeam1 = team1[idSelectedUnitTeam1];
+    }
 }
 else
 {

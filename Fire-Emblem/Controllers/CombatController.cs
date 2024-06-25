@@ -133,35 +133,38 @@ namespace Fire_Emblem.Controllers
         private void HandleFollowUp(Combat combat)
         {
             if (CanAnyUnitPerformFollowUp(combat))
-            {
                 HandleGuaranteedFollowUp(combat);
-            }
             else
-            {
                 HandleNoFollowUpScenario(combat);
-            }
         }
 
+        // Este método retorne true si alguna unidad puede hacer un follow up bajo un caso normal de la mecánica de combate
         private bool CanAnyUnitPerformFollowUp(Combat combat)
         {
             return combat.CanAttackerPerformFollowUp() || combat.CanDefenderPerformFollowUp();
         }
 
         private void HandleGuaranteedFollowUp(Combat combat)
-        {
+        { 
+            // Si el atacante puede hacer follow up, acá lo ejecuta
             if (combat.CanAttackerPerformFollowUp())
             {
                 PerformAttackerFollowUp(combat.Attacker, combat.Defender);
             }
+            // Si el defensor puede hacer follow up, acá lo ejecuta
             else if (combat.CanDefenderPerformFollowUp())
             {
                 PerformDefenderFollowUp(combat.Attacker, combat.Defender);
             }
+            // Si el atacante tiene un follow up garantizado, pero bajo caso normal no puede hacerlo, además que no tiene
+            // una negación  de garantización de follow up activa, entonces el atacante hace el follow up
             if (combat.Attacker.HasFollowUpGuaranteed && (combat.CanAttackerPerformFollowUp() == false) 
                 && (!combat.Attacker.HasDenialFollowUpGuaranteed))
             {
                 PerformAttackerFollowUp(combat.Attacker, combat.Defender);
             }
+            // Si el defensor tiene un follow up garantizado, pero bajo caso normal no puede hacerlo, además que no tiene
+            // una negación  de garantización de follow up activa, entonces el defensor hace el follow up
             else if (combat.Defender.HasFollowUpGuaranteed && (combat.CanDefenderPerformFollowUp() == false)
                      && (!combat.Defender.HasDenialFollowUpGuaranteed))
             {
@@ -177,6 +180,8 @@ namespace Fire_Emblem.Controllers
             }
             else
             {
+                // Acá va la lógica para cuando no se puede hacer un follow up bajo un caso normal de la mecánica de combate
+                // Pero si se puede hacer un follow up bajo una garantización de follow up
                 if (combat.Attacker.HasFollowUpGuaranteed && !combat.Attacker.HasDenialFollowUpGuaranteed)
                 {
                     PerformAttackerFollowUp(combat.Attacker, combat.Defender);

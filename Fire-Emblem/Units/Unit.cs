@@ -58,6 +58,10 @@ public class Unit
 
     public void InitializeCurrentHp()
         => _currentHP = BaseHp;
+    
+    public int StartOfCombatHp { get; private set; }
+    public void SetStartOfCombatHp()
+        => StartOfCombatHp = _currentHP;
 
     public int AtkBonus { get; private set; }
     public int AtkPenalty { get; private set; }
@@ -525,7 +529,11 @@ public class Unit
     }
     public void ResetDamageBeforeCombat()
         => DamageBeforeCombat = 0;
-
+    
+    public int QuantityOfActiveGuaranteeFollowUpEffects
+    {
+        get { return Effects.Count(effect => effect is FollowUpGuaranteeEffect); }
+    }
     public bool HasFollowUpGuaranteed { get; private set; }
     
     public void SetFollowUpGuaranteed()
@@ -533,24 +541,6 @@ public class Unit
     
     public void ResetFollowUpGuaranteed()
         => HasFollowUpGuaranteed = false;
-    
-    public int QuantityOfActiveGuaranteeFollowUpEffects
-    {
-        get { return Effects.Count(effect => effect is FollowUpGuaranteeEffect); }
-    }
-    
-    public bool HasDenialFollowUp { get; private set; }
-    
-    public void SetDenialFollowUp()
-        => HasDenialFollowUp = true;
-    
-    public void ResetDenialFollowUp()
-        => HasDenialFollowUp = false;
-    
-    public int QuantityOfActiveDenialFollowUpEffects
-    {
-        get { return Effects.Count(effect => effect is DenialFollowUpEffect); }
-    }
     
     public bool HasDenialFollowUpGuaranteed { get; private set;  }
 
@@ -560,6 +550,18 @@ public class Unit
     public void ResetDenialFollowUpGuaranteed()
         => HasDenialFollowUpGuaranteed = false;
     
+    public int QuantityOfActiveDenialFollowUpEffects
+    {
+        get { return Effects.Count(effect => effect is DenialFollowUpEffect); }
+    }
+    public bool HasDenialFollowUp { get; private set; }
+    
+    public void SetDenialFollowUp()
+        => HasDenialFollowUp = true;
+    
+    public void ResetDenialFollowUp()
+        => HasDenialFollowUp = false;
+    
     public bool HasDenialOfDenialFollowUp { get; private set; }
 
     public void SetDenialOfDenialFollowUp()
@@ -567,7 +569,5 @@ public class Unit
 
     public void ResetDenialOfDenialFollowUp()
         => HasDenialOfDenialFollowUp = false;
-    public int StartOfCombatHp { get; private set; }
-    public void SetStartOfCombatHp()
-        => StartOfCombatHp = _currentHP;
+    
 }
