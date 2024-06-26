@@ -67,15 +67,14 @@ public abstract class Damage
         return Math.Max(0, damage - absoluteDamageReduction);
     }
 
+    // TODO: Refactor this method
     private int UpdateOpponentHpDueTheDamage(double finalDamage)
     {
         int finalDamageInt = Convert.ToInt32(Math.Floor(finalDamage));
-        // TODO: Cambiar estos metodos a privados para manejar la vida y el daño de los jugadores.
         Defender.CurrentHP -= finalDamageInt;
         Attacker.SetFinalCausedDamage(finalDamageInt);
-        Attacker.CurrentHP += Convert.ToInt32(Math.Floor(finalDamage * Attacker.HealingPercentage));
-        if (Attacker.CurrentHP > Attacker.BaseHp)
-            Attacker.CurrentHP = Attacker.BaseHp;
+        int attackerHealing = Convert.ToInt32(Math.Floor(finalDamage * Attacker.HealingPercentage));
+        Attacker.IncreaseCurrentHpDueHealing(attackerHealing);
         return finalDamageInt;
     }
 }

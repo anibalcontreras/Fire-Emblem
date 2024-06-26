@@ -15,7 +15,7 @@ public class FollowUpDamage : Damage
 
     protected override int CalculateDefenseValue()
     {
-        return AttackerWeapon is Magic ? Defender.FollowUpRes : Defender.FollowUpDef;
+        return AttackerWeapon is Magic ? Defender._followUpRes : Defender._followUpDef;
     }
 
     protected override double CalculateTotalPercentageReduction()

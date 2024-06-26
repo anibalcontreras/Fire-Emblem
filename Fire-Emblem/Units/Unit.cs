@@ -36,11 +36,9 @@ public class Unit
         => Allies.Clear();
     
     public bool HaveAllies => Allies.Count > 0;
-        
     
-
     private readonly List<IEffect> _effects = new();
-    private IEnumerable<IEffect> Effects => _effects.AsReadOnly();
+    private IEnumerable<IEffect> _enumerableEffects => _effects.AsReadOnly();
 
     public void AddActiveEffect(IEffect effect)
         => _effects.Add(effect);
@@ -68,7 +66,7 @@ public class Unit
     public int AtkBonusNeutralization { get; set; }
     public int AtkPenaltyNeutralization { get; set; }
 
-    private int CurrentAtk => BaseAtk + AtkBonus - AtkPenalty -
+    private int _currentAtk => BaseAtk + AtkBonus - AtkPenalty -
         AtkBonusNeutralization + AtkPenaltyNeutralization;
     
     public int SpdBonus { get; private set; }
@@ -76,7 +74,7 @@ public class Unit
     public int SpdBonusNeutralization { get; set; }
     public int SpdPenaltyNeutralization { get; set; }
 
-    private int CurrentSpd => BaseSpd + SpdBonus - SpdPenalty -
+    private int _currentSpd => BaseSpd + SpdBonus - SpdPenalty -
         SpdBonusNeutralization + SpdPenaltyNeutralization;
 
     public int DefBonus { get; private set; }
@@ -84,7 +82,7 @@ public class Unit
     public int DefBonusNeutralization { get; set; }
     public int DefPenaltyNeutralization { get; set; }
 
-    private int CurrentDef => BaseDef + DefBonus - DefPenalty -
+    private int _currentDef => BaseDef + DefBonus - DefPenalty -
         DefBonusNeutralization + DefPenaltyNeutralization;
 
     public int ResBonus { get; private set; }
@@ -92,7 +90,7 @@ public class Unit
     public int ResBonusNeutralization { get; set; }
     public int ResPenaltyNeutralization { get; set; }
 
-    private int CurrentRes => BaseRes + ResBonus - ResPenalty -
+    private int _currentRes => BaseRes + ResBonus - ResPenalty -
         ResBonusNeutralization + ResPenaltyNeutralization;
 
     public int FirstAttackAtkBonus { get; private set; }
@@ -100,7 +98,7 @@ public class Unit
     private int FirstAttackAtkBonusNeutralization { get; set; }
     private int FirstAttackAtkPenaltyNeutralization { get; set; }
 
-    private int FirstAttackAtk => CurrentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty -
+    private int _firstAttackAtk => _currentAtk + FirstAttackAtkBonus - FirstAttackAtkPenalty -
         FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
 
     public int FirstAttackDefBonus { get; private set; }
@@ -108,7 +106,7 @@ public class Unit
     private int FirstAttackDefBonusNeutralization { get; set; }
     private int FirstAttackDefPenaltyNeutralization { get; set; }
 
-    private int FirstAttackDef => CurrentDef + FirstAttackDefBonus - FirstAttackDefPenalty -
+    private int _firstAttackDef => _currentDef + FirstAttackDefBonus - FirstAttackDefPenalty -
         FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
 
     public int FirstAttackResBonus { get; private set; }
@@ -116,30 +114,30 @@ public class Unit
     private int FirstAttackResBonusNeutralization { get; set; }
     private int FirstAttackResPenaltyNeutralization { get; set; }
 
-    private int FirstAttackRes => CurrentRes + FirstAttackResBonus - FirstAttackResPenalty -
+    private int _firstAttackRes => _currentRes + FirstAttackResBonus - FirstAttackResPenalty -
         FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
 
     private int FollowUpAtkBonus { get; set; }
     private int FollowUpAtkPenalty { get; set; }
-    private int FollowUpAtk => CurrentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
+    private int _followUpAtk => _currentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
 
     private int FollowUpDefBonus { get; set; }
     private int FollowUpDefPenalty { get; set; }
-    public int FollowUpDef => CurrentDef + FollowUpDefBonus - FollowUpDefPenalty;
+    public int _followUpDef => _currentDef + FollowUpDefBonus - FollowUpDefPenalty;
 
     private int FollowUpResBonus { get; set; }
     private int FollowUpResPenalty { get; set; }
-    public int FollowUpRes => CurrentRes + FollowUpResBonus - FollowUpResPenalty;
+    public int _followUpRes => _currentRes + FollowUpResBonus - FollowUpResPenalty;
 
     public bool HasActiveNeutralizationBonus(StatType statType)
     {
-        return Effects.Any(effect => effect is NeutralizationBonusEffect
+        return _enumerableEffects.Any(effect => effect is NeutralizationBonusEffect
             bonus && bonus.StatType == statType);
     }
 
     public bool HasActiveNeutralizationPenalty(StatType statType)
     {
-        return Effects.Any(effect => effect is NeutralizationPenaltyEffect
+        return _enumerableEffects.Any(effect => effect is NeutralizationPenaltyEffect
             penalty && penalty.StatType == statType);
     }
     
@@ -147,9 +145,9 @@ public class Unit
     {
         switch (statType)
         {
-            case StatType.Atk: return FirstAttackAtk;
-            case StatType.Def: return FirstAttackDef;
-            case StatType.Res: return FirstAttackRes;
+            case StatType.Atk: return _firstAttackAtk;
+            case StatType.Def: return _firstAttackDef;
+            case StatType.Res: return _firstAttackRes;
             default: throw new StatNotRecognizedException();
         }
     }
@@ -158,9 +156,9 @@ public class Unit
     {
         switch (statType)
         {
-            case StatType.Atk: return FollowUpAtk;
-            case StatType.Def: return FollowUpDef;
-            case StatType.Res: return FollowUpRes;
+            case StatType.Atk: return _followUpAtk;
+            case StatType.Def: return _followUpDef;
+            case StatType.Res: return _followUpRes;
             default: throw new StatNotRecognizedException();
         }
     }
@@ -181,26 +179,14 @@ public class Unit
     {
         switch (statType)
         {
-            case StatType.Atk: return CurrentAtk;
-            case StatType.Spd: return CurrentSpd;
-            case StatType.Def: return CurrentDef;
-            case StatType.Res: return CurrentRes;
+            case StatType.Atk: return _currentAtk;
+            case StatType.Spd: return _currentSpd;
+            case StatType.Def: return _currentDef;
+            case StatType.Res: return _currentRes;
             default: throw new StatNotRecognizedException();
         }
     }
     
-    public int GetBonusStat(StatType statType)
-    {
-        switch (statType)
-        {
-            case StatType.Atk: return AtkBonus;
-            case StatType.Spd: return SpdBonus;
-            case StatType.Def: return DefBonus;
-            case StatType.Res: return ResBonus;
-            default: throw new StatNotRecognizedException();
-        }
-    }
-
     public void ApplyStatBonus(StatType statType, int bonusAmount)
     {
         switch (statType)
@@ -549,7 +535,7 @@ public class Unit
     
     public int QuantityOfActiveGuaranteeFollowUpEffects
     {
-        get { return Effects.Count(effect => effect is FollowUpGuaranteeEffect); }
+        get { return _enumerableEffects.Count(effect => effect is FollowUpGuaranteeEffect); }
     }
     public bool HasFollowUpGuaranteed { get; private set; }
     
@@ -569,7 +555,7 @@ public class Unit
     
     public int QuantityOfActiveDenialFollowUpEffects
     {
-        get { return Effects.Count(effect => effect is DenialFollowUpEffect); }
+        get { return _enumerableEffects.Count(effect => effect is DenialFollowUpEffect); }
     }
     public bool HasDenialFollowUp { get; private set; }
     
@@ -586,4 +572,11 @@ public class Unit
 
     public void ResetDenialOfDenialFollowUp()
         => HasDenialOfDenialFollowUp = false;
+    
+    public void IncreaseCurrentHpDueHealing(int healing)
+    {
+        _currentHP += healing;
+        if (_currentHP > BaseHp)
+            _currentHP = BaseHp;
+    }
 }

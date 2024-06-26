@@ -6,7 +6,7 @@ namespace Fire_Emblem.Views;
 
 public interface IView
 {
-    public void ShowCurrentHealth(Unit attacker, Unit defender);
+    public void AnnounceCurrentHealth(Unit attacker, Unit defender);
     public Unit SelectUnit(Team team, int playerNumber);
     public void AnnounceAdvantage(Unit attacker, Unit defender, AdvantageState advantage);
     public void AnnounceRoundStart(int round, Unit activeUnit, int currentPlayer);
@@ -15,8 +15,8 @@ public interface IView
     public void AnnounceAttack(Unit attacker, Unit defender, int damage);
     public void AnnounceCounterattack(Unit defender, Unit attacker, int damage);
     public void AnnounceWinner(int winnerTeamNumber);
-    public void ShowMessageForInvalidTeam();
-    public void ShowMessageForNoFollowUpAttack();
+    public void AnnounceMessageForInvalidTeam();
+    public void AnnounceMessageForNoFollowUpAttack();
     public void AnnounceAttackerBonusEffect(Unit unit);
     public void AnnounceDefenderBonusEffect(Unit rival);
     public void AnnounceAttackerPenaltyEffect(Unit unit);

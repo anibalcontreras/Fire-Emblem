@@ -17,20 +17,20 @@ public class ConsoleGameView : IView
         _teamsFolder = teamsFolder;
     }
 
-    public void ShowCurrentHealth(Unit attacker, Unit defender)
+    public void AnnounceCurrentHealth(Unit attacker, Unit defender)
         => _view.WriteLine(
             $"{attacker.Name} ({attacker.CurrentHP}) : {defender.Name} ({defender.CurrentHP})");
 
     public Unit SelectUnit(Team team, int playerNumber)
     {
         _view.WriteLine($"Player {playerNumber} selecciona una opción");
-        ShowUnitOptions(team);
+        AnnounceUnitOptions(team);
         List<Unit> units = team.Units;
         int selectedOption = AskUserToSelectNumber(0, units.Count - 1);
         return team.Units[selectedOption];
     }
 
-    private void ShowUnitOptions(Team team)
+    private void AnnounceUnitOptions(Team team)
     {
         for (int i = 0; i < team.Units.Count; i++)
         {
@@ -44,11 +44,11 @@ public class ConsoleGameView : IView
         _view.WriteLine("Elige un archivo para cargar los equipos");
         string[] files = Directory.GetFiles(_teamsFolder, "*.txt");
         Array.Sort(files);
-        ShowArrayOfOptions(files);
+        AnnounceArrayOfOptions(files);
         return files;
     }
 
-    private void ShowArrayOfOptions(string[] options)
+    private void AnnounceArrayOfOptions(string[] options)
     {
         for (int i = 0; i < options.Length; i++)
         {
@@ -112,13 +112,13 @@ public class ConsoleGameView : IView
     private bool IsValueOutsideTheValidRange(int minValue, int value, int maxValue)
         => value < minValue || value > maxValue;
 
-    public void ShowMessageForInvalidTeam()
+    public void AnnounceMessageForInvalidTeam()
         => _view.WriteLine("Archivo de equipos no válido");
 
-    public void ShowMessageForNoFollowUpAttack()
+    public void AnnounceMessageForNoFollowUpAttack()
         => _view.WriteLine("Ninguna unidad puede hacer un follow up");
     
-    public void ShowMessageForNoFollowUpAttackDueNullifiedCounterattack(Unit unit)
+    public void AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(Unit unit)
         => _view.WriteLine($"{unit.Name} no puede hacer un follow up");
 
     public void AnnounceAttackerBonusEffect(Unit unit)

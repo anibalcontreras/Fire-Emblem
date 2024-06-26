@@ -176,7 +176,7 @@ namespace Fire_Emblem.Controllers
         {
             if (combat.Defender.HasNullifiedCounterattack)
             {
-                _consoleGameView.ShowMessageForNoFollowUpAttackDueNullifiedCounterattack(combat.Attacker);
+                _consoleGameView.AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(combat.Attacker);
             }
             else
             {
@@ -191,7 +191,7 @@ namespace Fire_Emblem.Controllers
                     PerformDefenderFollowUp(combat.Attacker, combat.Defender);
                 }
                 else
-                    _consoleGameView.ShowMessageForNoFollowUpAttack();
+                    _consoleGameView.AnnounceMessageForNoFollowUpAttack();
             }
         }
 
@@ -207,7 +207,7 @@ namespace Fire_Emblem.Controllers
         {
             if (defender.HasNullifiedCounterattack && !defender.HasNullifiedNullifiedCounterattack)
             {
-                _consoleGameView.ShowMessageForNoFollowUpAttackDueNullifiedCounterattack(attacker);
+                _consoleGameView.AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(attacker);
                 defender.ResetFollowUpStats();
                 return;
             }
@@ -238,7 +238,7 @@ namespace Fire_Emblem.Controllers
         private void ManageEndOfCombat(Unit attacker, Unit defender)
         { 
             _skillController.ActivateAfterCombatSkills(attacker, defender);
-            _consoleGameView.ShowCurrentHealth(attacker, defender);
+            _consoleGameView.AnnounceCurrentHealth(attacker, defender);
             attacker.SetLastUnitFaced(defender);
             defender.SetLastUnitFaced(attacker);
             DeactivateAttackerSkills(attacker);

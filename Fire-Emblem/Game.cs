@@ -74,7 +74,7 @@ public class Game
         return teams.All(team => team.IsValidTeam());
     }
     
-    private void ShowInvalidTeamMessage() => _consoleGameView.ShowMessageForInvalidTeam();
+    private void ShowInvalidTeamMessage() => _consoleGameView.AnnounceMessageForInvalidTeam();
     
     private void StartGameDevelopment(List<Team> teams) => _matchController.ManageGame(teams, _combats);
 }
