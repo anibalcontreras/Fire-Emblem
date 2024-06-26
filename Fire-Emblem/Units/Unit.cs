@@ -148,7 +148,7 @@ public class Unit
             case StatType.Atk: return _firstAttackAtk;
             case StatType.Def: return _firstAttackDef;
             case StatType.Res: return _firstAttackRes;
-            default: throw new StatNotRecognizedException();
+            default: throw new StatNotRecognizedForRetrieveException(statType);
         }
     }
 
@@ -159,7 +159,7 @@ public class Unit
             case StatType.Atk: return _followUpAtk;
             case StatType.Def: return _followUpDef;
             case StatType.Res: return _followUpRes;
-            default: throw new StatNotRecognizedException();
+            default: throw new StatNotRecognizedForRetrieveException(statType);
         }
     }
 
@@ -171,7 +171,7 @@ public class Unit
             case StatType.Spd: return BaseSpd;
             case StatType.Def: return BaseDef;
             case StatType.Res: return BaseRes;
-            default: throw new StatNotRecognizedException();
+            default: throw new StatNotRecognizedForRetrieveException(statType);
         }
     }
 
@@ -183,7 +183,7 @@ public class Unit
             case StatType.Spd: return _currentSpd;
             case StatType.Def: return _currentDef;
             case StatType.Res: return _currentRes;
-            default: throw new StatNotRecognizedException();
+            default: throw new StatNotRecognizedForRetrieveException(statType);
         }
     }
     

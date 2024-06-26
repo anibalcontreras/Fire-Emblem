@@ -21,4 +21,5 @@ public class TeamCollection
     {
         return _teams.All(team => team.IsValidTeam());
     }
+    
 }

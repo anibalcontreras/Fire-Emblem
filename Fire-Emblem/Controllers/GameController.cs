@@ -3,11 +3,11 @@ using Fire_Emblem.Views;
 
 namespace Fire_Emblem.Controllers;
 
-public class MatchController
+public class GameController
 {
     private readonly ConsoleGameView _consoleGameView;
     private readonly CombatController _combatController;
-    public MatchController(ConsoleGameView consoleGameView)
+    public GameController(ConsoleGameView consoleGameView)
     {
         _consoleGameView = consoleGameView;
         _combatController = new CombatController(_consoleGameView);

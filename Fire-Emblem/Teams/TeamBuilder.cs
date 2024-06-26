@@ -31,12 +31,12 @@ public class TeamBuilder
         Player currentPlayer = new Player("");
         foreach (string line in lines)
         {
-            currentPlayer = ProcessLine(line, currentPlayer);
+            currentPlayer = ProcessFileLine(line, currentPlayer);
         }
         return _playerTeams.Values.ToList();
     }
 
-    private Player ProcessLine(string line, Player currentPlayer)
+    private Player ProcessFileLine(string line, Player currentPlayer)
     {
         string trimmedLine = line.Trim();
         if (trimmedLine.StartsWith("Player"))
