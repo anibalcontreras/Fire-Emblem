@@ -1,9 +1,9 @@
 using Fire_Emblem_View;
+using Fire_Emblem.Exception;
 using Fire_Emblem.Stats;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
-
 namespace Fire_Emblem.Views;
 
 public class ConsoleGameView : IView
@@ -68,14 +68,33 @@ public class ConsoleGameView : IView
     private int AskUserToSelectNumber(int minValue, int maxValue)
     {
         Console.WriteLine($"(Ingresa un número entre {minValue} y {maxValue})");
-        int value;
-        bool wasParsePossible;
-        do
-        {
-            string? userInput = _view.ReadLine();
-            wasParsePossible = int.TryParse(userInput, out value);
-        } while (!wasParsePossible || IsValueOutsideTheValidRange(minValue, value, maxValue));
+        return ValidateSelectedNumberByUser(minValue, maxValue);
+    }
 
+    private int ValidateSelectedNumberByUser(int minValue, int maxValue)
+    {
+        int value = 0;
+        bool isValid = false;
+        while (!isValid)
+        {
+            try
+            {
+                value = RetrieveOnlyValidatedNumbers(minValue, maxValue, out isValid);
+            }
+            catch (ValueOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        return value;
+    }
+
+    private int RetrieveOnlyValidatedNumbers(int minValue, int maxValue, out bool isValid)
+    {
+        int value;
+        value = int.Parse(_view.ReadLine());
+        ValidateValueInRange(minValue, value, maxValue);
+        isValid = true;
         return value;
     }
 
@@ -108,10 +127,14 @@ public class ConsoleGameView : IView
 
     public void AnnounceWinner(int winnerTeamNumber)
         => _view.WriteLine($"Player {winnerTeamNumber} ganó");
-
-    private bool IsValueOutsideTheValidRange(int minValue, int value, int maxValue)
-        => value < minValue || value > maxValue;
-
+    
+    private void ValidateValueInRange(int minValue, int value, int maxValue)
+    {
+        if (value < minValue || value > maxValue)
+        {
+            throw new ValueOutOfRangeException(minValue, maxValue, value);
+        }
+    }
     public void AnnounceMessageForInvalidTeam()
         => _view.WriteLine("Archivo de equipos no válido");
 
