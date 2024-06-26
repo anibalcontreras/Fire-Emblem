@@ -32,19 +32,24 @@ public class Game
 
     private void StartGame()
     {
-        List<Team> teams = BuildTeamsFromScratch();
-        if (TeamsAreValid(teams))
+        TeamCollection teams = BuildTeamsFromScratch();
+        if (teams.AreTeamsValid())
             StartGameDevelopment(teams);
         else
-            ShowInvalidTeamMessage();
+            AnnounceInvalidTeamMessage();
     }
     
-    private List<Team> BuildTeamsFromScratch()
+    private TeamCollection BuildTeamsFromScratch()
     {
         string[] files = GetFileOptions();
         string selectedFile = SelectFile(files);
         string fileContent = ReadFileContent(selectedFile);
-        List<Team> teams = BuildTeamsFromContent(fileContent);
+        List<Team> teamsList = BuildTeamsFromContent(fileContent);
+        TeamCollection teams = new TeamCollection();
+        foreach (Team team in teamsList)
+        {
+            teams.AddTeam(team);
+        }
         return teams;
     }
     
@@ -69,12 +74,7 @@ public class Game
         return teamBuilder.BuildTeams(content);
     }
     
-    private bool TeamsAreValid(List<Team> teams)
-    {
-        return teams.All(team => team.IsValidTeam());
-    }
+    private void AnnounceInvalidTeamMessage() => _consoleGameView.AnnounceMessageForInvalidTeam();
     
-    private void ShowInvalidTeamMessage() => _consoleGameView.AnnounceMessageForInvalidTeam();
-    
-    private void StartGameDevelopment(List<Team> teams) => _matchController.ManageGame(teams, _combats);
+    private void StartGameDevelopment(TeamCollection teams) => _matchController.ManageGame(teams.GetTeams(), _combats);
 }
