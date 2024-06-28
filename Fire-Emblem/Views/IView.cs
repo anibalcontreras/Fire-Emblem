@@ -1,3 +1,4 @@
+using Fire_Emblem_GUI;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
@@ -41,4 +42,5 @@ public interface IView
     public string GetTeam1();
     public string GetTeam2();
     public void ShowInvalidTeamMessage();
+    public void UpdateTeams(IUnit[] unit1, IUnit[] unit2);
 }

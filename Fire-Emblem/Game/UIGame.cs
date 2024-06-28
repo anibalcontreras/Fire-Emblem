@@ -1,3 +1,4 @@
+using Fire_Emblem_GUI;
 using Fire_Emblem_View;
 using Fire_Emblem.Controllers;
 using Fire_Emblem.Teams;
@@ -38,7 +39,10 @@ public class UIGame
         if (teams.AreTeamsValid())
         {
             // _gameController.ManageGame(teams.GetTeams(), _combats.GetCombats());
-            Console.WriteLine(teams);
+            IUnit[] adaptedTeam1 = teams.GetTeams()[0].Units.Select(unit => new UnitAdapter(unit)).ToArray();
+            IUnit[] adaptedTeam2 = teams.GetTeams()[1].Units.Select(unit => new UnitAdapter(unit)).ToArray();
+            
+            _view.UpdateTeams(adaptedTeam1, adaptedTeam2);
         }
         else
             _view.ShowInvalidTeamMessage();

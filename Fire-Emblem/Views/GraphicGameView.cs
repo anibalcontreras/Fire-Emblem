@@ -26,9 +26,8 @@ public class GraphicGameView : BaseGameView
     {
         _window.ShowInvalidTeamMessage();
     }
-
-
-    public void UpdateTeams(IUnit[] unit1, IUnit[] unit2)
+    
+    public override void UpdateTeams(IUnit[] unit1, IUnit[] unit2)
     {
         _window.UpdateTeams(unit1, unit2);
     }

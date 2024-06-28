@@ -16,22 +16,7 @@ if (useGui)
         GraphicGameView graphicGameView = new GraphicGameView(window);
         UIGame uiGame = new UIGame(graphicGameView);
         uiGame.Play();
-        
-        
-        // string team1Data = window.GetTeam1();
-        // string team2Data = window.GetTeam2();
-        //
-        // string formattedTeam1 = "Player 1 Team\n" + team1Data + "\n";
-        // string formattedTeam2 = "Player 2 Team\n" + team2Data;
-        // string formattedTeams = formattedTeam1 + formattedTeam2;
-        // Console.WriteLine(formattedTeams);
-        //
-        //
-        
-        
-        
-        
-        
+
         // Unit[] team1 = [new Unit("Marth", "Sword", 54, 62, 53, 43, 37)];
         // Unit [] team2 = [
         //     new Unit("Seliph", "Sword", 55, 68, 27, 48, 39),
