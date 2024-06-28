@@ -6,16 +6,16 @@ namespace Fire_Emblem;
 
 public class GameInitializer
 {
-    private readonly ConsoleGameView _consoleGameView;
+    private readonly IView _view;
     private readonly GameController _gameController;
     private readonly CombatController _combatController;
     private readonly FileManager _fileManager;
     private readonly TeamBuilder _teamBuilder;
 
-    public GameInitializer(ConsoleGameView consoleGameView, GameController gameController, 
+    public GameInitializer(IView view, GameController gameController, 
         CombatController combatController, FileManager fileManager, TeamBuilder teamBuilder)
     {
-        _consoleGameView = consoleGameView;
+        _view = view;
         _gameController = gameController;
         _combatController = combatController;
         _fileManager = fileManager;
@@ -28,7 +28,10 @@ public class GameInitializer
         if (teams.AreTeamsValid())
             _gameController.ManageGame(teams.GetTeams(), combats.GetCombats());
         else
-            _consoleGameView.AnnounceMessageForInvalidTeam();
+        {
+            _gameController.AnnounceInvalidTeam();
+        }
+            
     }
 
     private TeamCollection BuildTeamsFromScratch()

@@ -48,4 +48,9 @@ public class GameController
         else if (!teamOneHasLivingUnits && teamTwoHasLivingUnits)
             _consoleGameView.AnnounceWinner(2);
     }
+    
+    public void AnnounceInvalidTeam()
+    {
+        _consoleGameView.AnnounceMessageForInvalidTeam();
+    }
 }
