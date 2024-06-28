@@ -12,7 +12,8 @@ public class GameInitializer
     private readonly FileManager _fileManager;
     private readonly TeamBuilder _teamBuilder;
 
-    public GameInitializer(ConsoleGameView consoleGameView, GameController gameController, CombatController combatController, FileManager fileManager, TeamBuilder teamBuilder)
+    public GameInitializer(ConsoleGameView consoleGameView, GameController gameController, 
+        CombatController combatController, FileManager fileManager, TeamBuilder teamBuilder)
     {
         _consoleGameView = consoleGameView;
         _gameController = gameController;
