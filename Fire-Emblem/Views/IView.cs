@@ -31,4 +31,14 @@ public interface IView
     public void AnnounceHpHealingInEachAttack(Unit unit);
     public void AnnounceCounterattackDenialDenialEffect(Unit unit);
     public void AnnounceDamageOutOfCombatEffect(Unit unit);
+    public void AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(Unit unit);
+    public void AnnounceFollowUpGuarantee(Unit unit);
+    public void AnnounceDenialFollowUp(Unit unit);
+    public void AnnounceDenialOfDenialFollowUp(Unit unit);
+    public void AnnounceDenialFollowUpGuaranteed(Unit unit);
+    public void AnnounceCounterattackDenialEffect(Unit unit);
+    public void AnnounceDamageBeforeCombatEffect(Unit unit);
+    public string GetTeam1();
+    public string GetTeam2();
+    public void ShowInvalidTeamMessage();
 }

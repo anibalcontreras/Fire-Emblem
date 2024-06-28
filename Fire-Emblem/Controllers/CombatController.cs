@@ -8,13 +8,13 @@ namespace Fire_Emblem.Controllers
 {
     public class CombatController
     {
-        private readonly ConsoleGameView _consoleGameView;
+        private readonly IView _view;
         private readonly SkillController _skillController;
 
-        public CombatController(ConsoleGameView consoleGameView)
+        public CombatController(IView view)
         {
-            _consoleGameView = consoleGameView;
-            _skillController = new SkillController(consoleGameView);
+            _view = view;
+            _skillController = new SkillController(view);
         }
         
         public Combat ConductCombat(List<Team> teams, int round, int currentPlayer)
@@ -22,7 +22,7 @@ namespace Fire_Emblem.Controllers
             Combat combat = CreateCombat(teams, currentPlayer);
             Unit attacker = combat.Attacker;
             Unit defender = combat.Defender;
-            _consoleGameView.AnnounceRoundStart(round, attacker, currentPlayer);
+            _view.AnnounceRoundStart(round, attacker, currentPlayer);
             AnnounceWeaponAdvantage(combat);
             ActivateSkills(combat);
             ExecuteCombatProcess(attacker, defender, combat);
@@ -35,8 +35,8 @@ namespace Fire_Emblem.Controllers
             Team opponentTeam = teams[(currentPlayer + 1) % 2];
             int attackerPlayerNumber = currentPlayer + 1;
             int defenderPlayerNumber = (currentPlayer + 1) % 2 + 1;
-            Unit attacker = _consoleGameView.SelectUnit(activeTeam, attackerPlayerNumber);
-            Unit defender = _consoleGameView.SelectUnit(opponentTeam, defenderPlayerNumber);
+            Unit attacker = _view.SelectUnit(activeTeam, attackerPlayerNumber);
+            Unit defender = _view.SelectUnit(opponentTeam, defenderPlayerNumber);
             attacker.RemoveAllAllies();
             defender.RemoveAllAllies();
             foreach (Unit unit in activeTeam.Units)
@@ -58,7 +58,7 @@ namespace Fire_Emblem.Controllers
             Unit defender = combat.Defender;
             Weapon selectedWeapon = attacker.Weapon;
             AdvantageState weaponAdvantage = selectedWeapon.CalculateAdvantage(defender);
-            _consoleGameView.AnnounceAdvantage(attacker, defender, weaponAdvantage);
+            _view.AnnounceAdvantage(attacker, defender, weaponAdvantage);
         }
 
         private void ActivateSkills(Combat combat)
@@ -84,8 +84,8 @@ namespace Fire_Emblem.Controllers
             attacker.SetUnitExecuteAStrike();
             attacker.ResetFirstAttackBonusStats();
             defender.ResetFirstAttackPenaltyStats();
-            _consoleGameView.AnnounceAttack(attacker, defender, damage);
-            _consoleGameView.AnnounceHpHealingInEachAttack(attacker);
+            _view.AnnounceAttack(attacker, defender, damage);
+            _view.AnnounceHpHealingInEachAttack(attacker);
         }
 
         private bool CheckIfUnitDefeated(Unit attacker, Unit defender, Unit unitToCheck)
@@ -114,8 +114,8 @@ namespace Fire_Emblem.Controllers
             }
             int damage = CalculateFirstAttackDamage(defender, attacker);
             defender.SetUnitExecuteAStrike();
-            _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
-            _consoleGameView.AnnounceHpHealingInEachAttack(defender);
+            _view.AnnounceCounterattack(defender, attacker, damage);
+            _view.AnnounceHpHealingInEachAttack(defender);
         }
 
         private int CalculateFirstAttackDamage(Unit attacker, Unit defender)
@@ -176,7 +176,7 @@ namespace Fire_Emblem.Controllers
         {
             if (combat.Defender.HasNullifiedCounterattack)
             {
-                _consoleGameView.AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(combat.Attacker);
+                _view.AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(combat.Attacker);
             }
             else
             {
@@ -191,7 +191,7 @@ namespace Fire_Emblem.Controllers
                     PerformDefenderFollowUp(combat.Attacker, combat.Defender);
                 }
                 else
-                    _consoleGameView.AnnounceMessageForNoFollowUpAttack();
+                    _view.AnnounceMessageForNoFollowUpAttack();
             }
         }
 
@@ -207,7 +207,7 @@ namespace Fire_Emblem.Controllers
         {
             if (defender.HasNullifiedCounterattack && !defender.HasNullifiedNullifiedCounterattack)
             {
-                _consoleGameView.AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(attacker);
+                _view.AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(attacker);
                 defender.ResetFollowUpStats();
                 return;
             }
@@ -219,14 +219,14 @@ namespace Fire_Emblem.Controllers
 
         private void AnnounceAttack(Unit attacker, Unit defender, int damage)
         {
-            _consoleGameView.AnnounceAttack(attacker, defender, damage);
-            _consoleGameView.AnnounceHpHealingInEachAttack(attacker);
+            _view.AnnounceAttack(attacker, defender, damage);
+            _view.AnnounceHpHealingInEachAttack(attacker);
         }
 
         private void AnnounceCounterattack(Unit defender, Unit attacker, int damage)
         {
-            _consoleGameView.AnnounceCounterattack(defender, attacker, damage);
-            _consoleGameView.AnnounceHpHealingInEachAttack(defender);
+            _view.AnnounceCounterattack(defender, attacker, damage);
+            _view.AnnounceHpHealingInEachAttack(defender);
         }
 
 
@@ -238,7 +238,7 @@ namespace Fire_Emblem.Controllers
         private void ManageEndOfCombat(Unit attacker, Unit defender)
         { 
             _skillController.ActivateAfterCombatSkills(attacker, defender);
-            _consoleGameView.AnnounceCurrentHealth(attacker, defender);
+            _view.AnnounceCurrentHealth(attacker, defender);
             attacker.SetLastUnitFaced(defender);
             defender.SetLastUnitFaced(attacker);
             DeactivateAttackerSkills(attacker);

@@ -28,9 +28,7 @@ public class GameInitializer
         if (teams.AreTeamsValid())
             _gameController.ManageGame(teams.GetTeams(), combats.GetCombats());
         else
-        {
             _gameController.AnnounceInvalidTeam();
-        }
             
     }
 

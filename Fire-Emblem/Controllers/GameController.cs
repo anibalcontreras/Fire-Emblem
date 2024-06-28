@@ -5,12 +5,12 @@ namespace Fire_Emblem.Controllers;
 
 public class GameController
 {
-    private readonly ConsoleGameView _consoleGameView;
+    private readonly IView _view;
     private readonly CombatController _combatController;
-    public GameController(ConsoleGameView consoleGameView)
+    public GameController(IView view)
     {
-        _consoleGameView = consoleGameView;
-        _combatController = new CombatController(_consoleGameView);
+        _view = view;
+        _combatController = new CombatController(_view);
     }
     
     public void ManageGame(List<Team> teams, List<Combat> combats)
@@ -44,13 +44,13 @@ public class GameController
         bool teamTwoHasLivingUnits = teams[1].HasLivingUnits();
 
         if (teamOneHasLivingUnits && !teamTwoHasLivingUnits)
-            _consoleGameView.AnnounceWinner(1);
+            _view.AnnounceWinner(1);
         else if (!teamOneHasLivingUnits && teamTwoHasLivingUnits)
-            _consoleGameView.AnnounceWinner(2);
+            _view.AnnounceWinner(2);
     }
     
     public void AnnounceInvalidTeam()
     {
-        _consoleGameView.AnnounceMessageForInvalidTeam();
+        _view.AnnounceMessageForInvalidTeam();
     }
 }

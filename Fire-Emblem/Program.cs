@@ -1,6 +1,7 @@
 ﻿using Fire_Emblem;
 using Fire_Emblem_View;
 using Fire_Emblem_GUI;
+using Fire_Emblem.Views;
 
 bool useGui = true;
 
@@ -11,13 +12,21 @@ if (useGui)
 
     void Main()
     {
-        string team1Data = window.GetTeam1();
-        string team2Data = window.GetTeam2();
+
+        GraphicGameView graphicGameView = new GraphicGameView(window);
+        UIGame uiGame = new UIGame(graphicGameView);
+        uiGame.Play();
         
-        string formattedTeam1 = "Player 1 Team\n" + team1Data + "\n";
-        string formattedTeam2 = "Player 2 Team\n" + team2Data;
-        string formattedTeams = formattedTeam1 + formattedTeam2;
-        Console.WriteLine(formattedTeams);
+        
+        // string team1Data = window.GetTeam1();
+        // string team2Data = window.GetTeam2();
+        //
+        // string formattedTeam1 = "Player 1 Team\n" + team1Data + "\n";
+        // string formattedTeam2 = "Player 2 Team\n" + team2Data;
+        // string formattedTeams = formattedTeam1 + formattedTeam2;
+        // Console.WriteLine(formattedTeams);
+        //
+        //
         
         
         

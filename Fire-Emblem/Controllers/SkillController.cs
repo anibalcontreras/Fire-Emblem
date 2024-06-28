@@ -7,13 +7,13 @@ namespace Fire_Emblem.Controllers;
 
 public class SkillController
 {
-    private readonly ConsoleGameView _consoleGameView;
+    private readonly IView _view;
     private FirstOrderEffectsHandler? _firstOrderEffectsHandler;
     private SecondOrderEffectsHandler? _secondOrderEffectsHandler;
 
-    public SkillController(ConsoleGameView consoleGameView)
+    public SkillController(IView view)
     {
-        _consoleGameView = consoleGameView;
+        _view = view;
     }
 
     public void ActivateSkills(Combat combat)
@@ -57,38 +57,38 @@ public class SkillController
 
     private void AnnounceAttackerSkills(Combat combat)
     {
-        _consoleGameView.AnnounceAttackerBonusEffect(combat.Attacker);
-        _consoleGameView.AnnounceAttackerPenaltyEffect(combat.Attacker);
-        _consoleGameView.AnnounceNeutralizationBonusEffect(combat.Attacker);
-        _consoleGameView.AnnounceNeutralizationPenaltyEffect(combat.Attacker);
-        _consoleGameView.AnnounceExtraDamage(combat.Attacker);
-        _consoleGameView.AnnouncePercentageReductionEffect(combat.Attacker);
-        _consoleGameView.AnnounceAbsoluteDamageReduction(combat.Attacker);
-        _consoleGameView.AnnounceHealingEffect(combat.Attacker);
-        _consoleGameView.AnnounceCounterattackDenialEffect(combat.Attacker);
-        _consoleGameView.AnnounceCounterattackDenialDenialEffect(combat.Attacker);
-        _consoleGameView.AnnounceFollowUpGuarantee(combat.Attacker);
-        _consoleGameView.AnnounceDenialFollowUp(combat.Attacker);
-        _consoleGameView.AnnounceDenialOfDenialFollowUp(combat.Attacker);
-        _consoleGameView.AnnounceDenialFollowUpGuaranteed(combat.Attacker);
+        _view.AnnounceAttackerBonusEffect(combat.Attacker);
+        _view.AnnounceAttackerPenaltyEffect(combat.Attacker);
+        _view.AnnounceNeutralizationBonusEffect(combat.Attacker);
+        _view.AnnounceNeutralizationPenaltyEffect(combat.Attacker);
+        _view.AnnounceExtraDamage(combat.Attacker);
+        _view.AnnouncePercentageReductionEffect(combat.Attacker);
+        _view.AnnounceAbsoluteDamageReduction(combat.Attacker);
+        _view.AnnounceHealingEffect(combat.Attacker);
+        _view.AnnounceCounterattackDenialEffect(combat.Attacker);
+        _view.AnnounceCounterattackDenialDenialEffect(combat.Attacker);
+        _view.AnnounceFollowUpGuarantee(combat.Attacker);
+        _view.AnnounceDenialFollowUp(combat.Attacker);
+        _view.AnnounceDenialOfDenialFollowUp(combat.Attacker);
+        _view.AnnounceDenialFollowUpGuaranteed(combat.Attacker);
     }
 
     private void AnnounceDefenderSkills(Combat combat)
     {
-        _consoleGameView.AnnounceDefenderBonusEffect(combat.Defender);
-        _consoleGameView.AnnounceDefenderPenaltyEffect(combat.Defender);
-        _consoleGameView.AnnounceNeutralizationBonusEffect(combat.Defender);
-        _consoleGameView.AnnounceNeutralizationPenaltyEffect(combat.Defender);
-        _consoleGameView.AnnounceExtraDamage(combat.Defender);
-        _consoleGameView.AnnouncePercentageReductionEffect(combat.Defender);
-        _consoleGameView.AnnounceAbsoluteDamageReduction(combat.Defender);
-        _consoleGameView.AnnounceHealingEffect(combat.Defender);
-        _consoleGameView.AnnounceCounterattackDenialEffect(combat.Defender);
-        _consoleGameView.AnnounceCounterattackDenialDenialEffect(combat.Defender);
-        _consoleGameView.AnnounceFollowUpGuarantee(combat.Defender);
-        _consoleGameView.AnnounceDenialFollowUp(combat.Defender);
-        _consoleGameView.AnnounceDenialOfDenialFollowUp(combat.Defender);
-        _consoleGameView.AnnounceDenialFollowUpGuaranteed(combat.Defender);
+        _view.AnnounceDefenderBonusEffect(combat.Defender);
+        _view.AnnounceDefenderPenaltyEffect(combat.Defender);
+        _view.AnnounceNeutralizationBonusEffect(combat.Defender);
+        _view.AnnounceNeutralizationPenaltyEffect(combat.Defender);
+        _view.AnnounceExtraDamage(combat.Defender);
+        _view.AnnouncePercentageReductionEffect(combat.Defender);
+        _view.AnnounceAbsoluteDamageReduction(combat.Defender);
+        _view.AnnounceHealingEffect(combat.Defender);
+        _view.AnnounceCounterattackDenialEffect(combat.Defender);
+        _view.AnnounceCounterattackDenialDenialEffect(combat.Defender);
+        _view.AnnounceFollowUpGuarantee(combat.Defender);
+        _view.AnnounceDenialFollowUp(combat.Defender);
+        _view.AnnounceDenialOfDenialFollowUp(combat.Defender);
+        _view.AnnounceDenialFollowUpGuaranteed(combat.Defender);
     }
     
     private void AnnounceBeforeCombatEffects(Combat combat)
@@ -99,12 +99,12 @@ public class SkillController
     
     private void AnnounceAttackerBeforeCombatSkills(Unit attacker)
     {
-        _consoleGameView.AnnounceDamageBeforeCombatEffect(attacker);
+        _view.AnnounceDamageBeforeCombatEffect(attacker);
     }
     
     private void AnnounceDefenderBeforeCombatSkills(Unit defender)
     {
-        _consoleGameView.AnnounceDamageBeforeCombatEffect(defender);
+        _view.AnnounceDamageBeforeCombatEffect(defender);
     }
     
     public void ActivateAfterCombatSkills(Unit attacker, Unit defender)
@@ -131,11 +131,11 @@ public class SkillController
 
     private void AnnounceAttackerAfterCombatSkills(Unit attacker)
     {
-        _consoleGameView.AnnounceDamageOutOfCombatEffect(attacker);
+        _view.AnnounceDamageOutOfCombatEffect(attacker);
     }
     
     private void AnnounceDefenderAfterCombatSkills(Unit defender)
     {
-        _consoleGameView.AnnounceDamageOutOfCombatEffect(defender);
+        _view.AnnounceDamageOutOfCombatEffect(defender);
     }
 }

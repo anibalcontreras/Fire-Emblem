@@ -4,9 +4,9 @@ namespace Fire_Emblem;
 
 public class FileManager
 {
-    private readonly ConsoleGameView _consoleGameView;
+    private readonly IView _consoleGameView;
 
-    public FileManager(ConsoleGameView consoleGameView)
+    public FileManager(IView consoleGameView)
     {
         _consoleGameView = consoleGameView;
     }
