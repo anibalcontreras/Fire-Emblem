@@ -1,6 +1,5 @@
 using Fire_Emblem.Effects;
 using Fire_Emblem.Effects.FollowUp;
-using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Exception;
 using Fire_Emblem.Skills;
 using Fire_Emblem.Stats;
@@ -340,7 +339,9 @@ public class Unit
     public void ResetStatEffects()
     {
         ResetBonuses();
+        ResetFirstAttackBonusStats();
         ResetPenalties();
+        ResetFirstAttackPenaltyStats();
         ResetDamageModifiers();
     }
 
@@ -377,7 +378,7 @@ public class Unit
         FollowUpPercentageDamageReduction = 0;
     }
 
-    public void ResetFirstAttackBonusStats()
+    private void ResetFirstAttackBonusStats()
     {
         FirstAttackAtkBonus = 0;
         FirstAttackDefBonus = 0;
@@ -388,7 +389,7 @@ public class Unit
         FirstAttackExtraDamage = 0;
     }
 
-    public void ResetFirstAttackPenaltyStats()
+    private void ResetFirstAttackPenaltyStats()
     {
         FirstAttackAtkPenalty = 0;
         FirstAttackDefPenalty = 0;
@@ -407,16 +408,14 @@ public class Unit
         FollowUpDefPenalty = 0;
         FollowUpResPenalty = 0;
     }
-
     
     public void SetLastUnitFaced(Unit unit)
         => LastUnitFaced = unit;
     
     public void SetIsAttacker()
         => IsAttacker = true;
-
-
-    public void ResetSomeKindOfEffects()
+    
+    public void ResetGameConditions()
     {
         ResetFinalCausedDamage();
         ResetHealingPercentage();
@@ -499,7 +498,7 @@ public class Unit
         _currentHP = Math.Max(1, _currentHP - amount);
         _damageBeforeCombat += amount;
     }
-    public void ResetDamageBeforeCombat()
+    private void ResetDamageBeforeCombat()
         => _damageBeforeCombat = 0;
     
     public void SetFollowUpGuaranteed()

@@ -66,8 +66,7 @@ public abstract class Damage
         int absoluteDamageReduction = Defender.AbsoluteDamageReduction;
         return Math.Max(0, damage - absoluteDamageReduction);
     }
-
-    // TODO: Refactor this method
+    
     private int UpdateOpponentHpDueTheDamage(double finalDamage)
     {
         int finalDamageInt = Convert.ToInt32(Math.Floor(finalDamage));

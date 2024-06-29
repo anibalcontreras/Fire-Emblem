@@ -10,7 +10,8 @@ public class FirstAttackPercentageComparisionDamageReductionEffect : IFirstAttac
     private readonly StatType _firstStat;
     private readonly StatType _secondStat;
     
-    public FirstAttackPercentageComparisionDamageReductionEffect(StatType firstStat, StatType secondStat, EffectTarget target)
+    public FirstAttackPercentageComparisionDamageReductionEffect(StatType firstStat, 
+        StatType secondStat, EffectTarget target)
     {
         _target = target;
         _firstStat = firstStat;

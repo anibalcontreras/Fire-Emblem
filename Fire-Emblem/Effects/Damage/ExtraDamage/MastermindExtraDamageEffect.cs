@@ -18,10 +18,12 @@ public class MastermindExtraDamageEffect : IExtraDamageEffect
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
 
-        int unitTotalBonus = targetUnit.AtkBonus + targetUnit.SpdBonus + targetUnit.DefBonus + targetUnit.ResBonus -
+        int unitTotalBonus = targetUnit.AtkBonus + targetUnit.SpdBonus + targetUnit.DefBonus 
+                             + targetUnit.ResBonus -
                              targetUnit.AtkBonusNeutralization - targetUnit.SpdBonusNeutralization -
                              targetUnit.DefBonusNeutralization - targetUnit.ResBonusNeutralization;
-        int opponentTotalPenalty = opponent.AtkPenalty + opponent.SpdPenalty + opponent.DefPenalty + opponent.ResPenalty -
+        int opponentTotalPenalty = opponent.AtkPenalty + opponent.SpdPenalty + 
+                                   opponent.DefPenalty + opponent.ResPenalty -
                                    opponent.AtkPenaltyNeutralization - opponent.SpdPenaltyNeutralization -
                                    opponent.DefPenaltyNeutralization - opponent.ResPenaltyNeutralization;
         int x = (int)(unitTotalBonus * _xPercentage);

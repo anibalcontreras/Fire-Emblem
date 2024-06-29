@@ -10,7 +10,8 @@ public class FollowUpPercentageComparisionDamageReductionEffect : IFollowUpPerce
         private readonly StatType _firstStat;
         private readonly StatType _secondStat;
         
-        public FollowUpPercentageComparisionDamageReductionEffect(StatType firstStat, StatType secondStat, EffectTarget target)
+        public FollowUpPercentageComparisionDamageReductionEffect(StatType firstStat, StatType secondStat, 
+            EffectTarget target)
         {
             _target = target;
             _firstStat = firstStat;
