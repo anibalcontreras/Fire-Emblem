@@ -16,7 +16,7 @@ namespace Fire_Emblem.Controllers
         {
             _view = view;
             _skillController = new SkillController(view);
-            _followUpController = new FollowUpController();
+            _followUpController = new FollowUpController(view);
         }
         
         public Combat ConductCombat(List<Team> teams, int round, int currentPlayer)
@@ -64,7 +64,7 @@ namespace Fire_Emblem.Controllers
         {
             if (HasAttackerCompleteTheAttack(attacker, defender)) return;
             if (HasDefenderCompleteCounterAttack(attacker, defender)) return;
-            HandleFollowUp(combat);
+            _followUpController.HandleFollowUp(combat);
             EndCombat(attacker, defender);
         }
 
@@ -119,129 +119,7 @@ namespace Fire_Emblem.Controllers
             FirstAttackDamage damage = new FirstAttackDamage(attacker, defender);
             return damage.CalculateDamage();
         }
-
-        private int CalculateFollowUpDamage(Unit attacker, Unit defender)
-        {
-            FollowUpDamage damage = new FollowUpDamage(attacker, defender);
-            return damage.CalculateDamage();
-        }
-
-        private void HandleFollowUp(Combat combat)
-        {
-            if (CanAnyUnitPerformFollowUp(combat))
-                HandleGuaranteedFollowUp(combat);
-            else
-                HandleNoFollowUpScenario(combat);
-        }
-
-        private bool CanAnyUnitPerformFollowUp(Combat combat)
-        {
-            return _followUpController.CanAttackerPerformFollowUp(combat.Attacker, combat.Defender) || _followUpController.CanDefenderPerformFollowUp(combat.Attacker, combat.Defender);
-        }
-
-        private void HandleGuaranteedFollowUp(Combat combat)
-        {
-            if (CanAttackerPerformFollowUp(combat))
-            {
-                PerformAttackerFollowUp(combat.Attacker, combat.Defender);
-            }
-            else if (CanDefenderPerformFollowUp(combat))
-            {
-                PerformDefenderFollowUp(combat.Attacker, combat.Defender);
-            }
-            if (ShouldPerformGuaranteedAttackerFollowUp(combat))
-            {
-                PerformAttackerFollowUp(combat.Attacker, combat.Defender);
-            }
-            else if (ShouldPerformGuaranteedDefenderFollowUp(combat))
-            {
-                PerformDefenderFollowUp(combat.Attacker, combat.Defender);
-            }
-        }
-
-        private bool CanAttackerPerformFollowUp(Combat combat)
-        {
-            return _followUpController.CanAttackerPerformFollowUp(combat.Attacker, combat.Defender);
-        }
-
-        private bool CanDefenderPerformFollowUp(Combat combat)
-        {
-            return _followUpController.CanDefenderPerformFollowUp(combat.Attacker, combat.Defender);
-        }
-
-        private bool ShouldPerformGuaranteedAttackerFollowUp(Combat combat)
-        {
-            return combat.Attacker.HasFollowUpGuaranteed && !_followUpController.CanAttackerPerformFollowUp(combat.Attacker, combat.Defender) && !combat.Attacker.HasDenialFollowUpGuaranteed;
-        }
-
-        private bool ShouldPerformGuaranteedDefenderFollowUp(Combat combat)
-        {
-            return combat.Defender.HasFollowUpGuaranteed && !_followUpController.CanDefenderPerformFollowUp(combat.Attacker, combat.Defender) && !combat.Defender.HasDenialFollowUpGuaranteed;
-        }
-
-        private void HandleNoFollowUpScenario(Combat combat)
-        {
-            if (combat.Defender.HasNullifiedCounterattack)
-            {
-                _view.AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(combat.Attacker);
-            }
-            else
-            {
-                HandlePotentialFollowUp(combat);
-            }
-        }
-
-        private void HandlePotentialFollowUp(Combat combat)
-        {
-            if (ShouldPerformGuaranteedAttackerFollowUp(combat))
-            {
-                PerformAttackerFollowUp(combat.Attacker, combat.Defender);
-            }
-            else if (ShouldPerformGuaranteedDefenderFollowUp(combat))
-            {
-                PerformDefenderFollowUp(combat.Attacker, combat.Defender);
-            }
-            else
-            {
-                _view.AnnounceMessageForNoFollowUpAttack();
-            }
-        }
         
-        private void PerformAttackerFollowUp(Unit attacker, Unit defender)
-        {
-            int damage = CalculateFollowUpDamage(attacker, defender);
-            attacker.SetUnitExecuteAStrike();
-            AnnounceAttack(attacker, defender, damage);
-            attacker.ResetFollowUpStats();
-        }
-
-        private void PerformDefenderFollowUp(Unit attacker, Unit defender)
-        {
-            if (defender.HasNullifiedCounterattack && !defender.HasNullifiedNullifiedCounterattack)
-            {
-                _view.AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(attacker);
-                defender.ResetFollowUpStats();
-                return;
-            }
-            int damage = CalculateFollowUpDamage(defender, attacker);
-            defender.SetUnitExecuteAStrike();
-            AnnounceCounterattack(defender, attacker, damage);
-            defender.ResetFollowUpStats();
-        }
-
-        private void AnnounceAttack(Unit attacker, Unit defender, int damage)
-        {
-            _view.AnnounceAttack(attacker, defender, damage);
-            _view.AnnounceHpHealingInEachAttack(attacker);
-        }
-
-        private void AnnounceCounterattack(Unit defender, Unit attacker, int damage)
-        {
-            _view.AnnounceCounterattack(defender, attacker, damage);
-            _view.AnnounceHpHealingInEachAttack(defender);
-        }
-
-
         private void EndCombat(Unit attacker, Unit defender)
         {
             ManageEndOfCombat(attacker, defender);
