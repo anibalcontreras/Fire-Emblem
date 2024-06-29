@@ -241,7 +241,7 @@ namespace Fire_Emblem.Controllers
 
         private void DeactivateAttackerSkills(Unit attacker)
         {
-            attacker.ResetEffects();
+            attacker.ResetStatEffects();
             attacker.ResetFirstAttackBonusStats();
             attacker.ResetFirstAttackPenaltyStats();
             attacker.Effects.ClearEffects();
@@ -263,7 +263,7 @@ namespace Fire_Emblem.Controllers
 
         private void DeactivateDefenderSkills(Unit defender)
         {
-            defender.ResetEffects();
+            defender.ResetStatEffects();
             defender.ResetFirstAttackBonusStats();
             defender.ResetFirstAttackPenaltyStats();
             defender.Effects.ClearEffects();

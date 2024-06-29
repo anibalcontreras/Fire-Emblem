@@ -21,9 +21,4 @@ public static class EffectBuilder
     {
         return new NeutralizationPenaltyEffect(target, statType);
     }
-    
-    public static IEffect BuildPercentagePenaltyEffect(StatType statType, double penalty, EffectTarget target)
-    {
-        return new PercentagePenaltyEffect(statType, penalty, target);
-    }
 }

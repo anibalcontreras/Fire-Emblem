@@ -23,6 +23,5 @@ public static class EffectUtils
     {
         return effect.Effect is DamageAfterCombatEffect
             || effect.Effect is AfterCombatAbsoluteHealingEffect;
-        
     }
 }

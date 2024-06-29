@@ -1,4 +1,5 @@
 using Fire_Emblem_View;
+using Fire_Emblem.Effects;
 using Fire_Emblem.Exception;
 using Fire_Emblem.Stats;
 using Fire_Emblem.Teams;
@@ -59,34 +60,34 @@ public class ConsoleGameView : IView
 
     public string AskUserToSelectAnOption(string[] options)
     {
-        int minValue = 0;
-        int maxValue = options.Length - 1;
-        int selectedOption = AskUserToSelectNumber(minValue, maxValue);
+        int minOptionValue = 0;
+        int maxOptionValue = options.Length - 1;
+        int selectedOption = AskUserToSelectNumber(minOptionValue, maxOptionValue);
         return options[selectedOption];
     }
 
-    private int AskUserToSelectNumber(int minValue, int maxValue)
+    private int AskUserToSelectNumber(int minOptionValue, int maxOptionValue)
     {
-        Console.WriteLine($"(Ingresa un número entre {minValue} y {maxValue})");
-        return ValidateSelectedNumberByUser(minValue, maxValue);
+        Console.WriteLine($"(Ingresa un número entre {minOptionValue} y {maxOptionValue})");
+        return ValidateSelectedNumberByUser(minOptionValue, maxOptionValue);
     }
 
-    private int ValidateSelectedNumberByUser(int minValue, int maxValue)
+    private int ValidateSelectedNumberByUser(int minOptionValue, int maxOptionValue)
     {
-        int value = 0;
+        int defaultValueSelected = 0;
         bool isValid = false;
         while (!isValid)
         {
             try
             {
-                value = RetrieveOnlyValidatedNumbers(minValue, maxValue, out isValid);
+                defaultValueSelected = RetrieveOnlyValidatedNumbers(minOptionValue, maxOptionValue, out isValid);
             }
-            catch (ValueOutOfRangeException ex)
+            catch (MenuOptionValueOutOfRangeException ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
-        return value;
+        return defaultValueSelected;
     }
 
     private int RetrieveOnlyValidatedNumbers(int minValue, int maxValue, out bool isValid)
@@ -132,7 +133,7 @@ public class ConsoleGameView : IView
     {
         if (value < minValue || value > maxValue)
         {
-            throw new ValueOutOfRangeException(minValue, maxValue, value);
+            throw new MenuOptionValueOutOfRangeException(minValue, maxValue, value);
         }
     }
     public void AnnounceMessageForInvalidTeam()
@@ -246,10 +247,11 @@ public class ConsoleGameView : IView
 
     private void AnnounceBonusNeutralizationStat(Unit unit)
     {
-        if (unit.HasActiveNeutralizationBonus(StatType.Atk)) AnnounceNeutralizationAtkBonusStat(unit);
-        if (unit.HasActiveNeutralizationBonus(StatType.Spd)) AnnounceNeutralizationSpdBonusStat(unit);
-        if (unit.HasActiveNeutralizationBonus(StatType.Def)) AnnounceNeutralizationDefBonusStat(unit);
-        if (unit.HasActiveNeutralizationBonus(StatType.Res)) AnnounceNeutralizationResBonusStat(unit);
+        EffectsList effects = unit.Effects;
+        if (effects.HasActiveNeutralizationBonus(StatType.Atk)) AnnounceNeutralizationAtkBonusStat(unit);
+        if (effects.HasActiveNeutralizationBonus(StatType.Spd)) AnnounceNeutralizationSpdBonusStat(unit);
+        if (effects.HasActiveNeutralizationBonus(StatType.Def)) AnnounceNeutralizationDefBonusStat(unit);
+        if (effects.HasActiveNeutralizationBonus(StatType.Res)) AnnounceNeutralizationResBonusStat(unit);
     }
 
     private void AnnounceNeutralizationAtkBonusStat(Unit unit)
@@ -269,10 +271,11 @@ public class ConsoleGameView : IView
 
     private void AnnouncePenaltyNeutralizationStat(Unit unit)
     {
-        if (unit.HasActiveNeutralizationPenalty(StatType.Atk)) AnnounceNeutralizationAtkPenaltyStat(unit);
-        if (unit.HasActiveNeutralizationPenalty(StatType.Spd)) AnnounceNeutralizationSpdPenaltyStat(unit);
-        if (unit.HasActiveNeutralizationPenalty(StatType.Def)) AnnounceNeutralizationDefPenaltyStat(unit);
-        if (unit.HasActiveNeutralizationPenalty(StatType.Res)) AnnounceNeutralizationResPenaltyStat(unit);
+        EffectsList effects = unit.Effects;
+        if (effects.HasActiveNeutralizationPenalty(StatType.Atk)) AnnounceNeutralizationAtkPenaltyStat(unit);
+        if (effects.HasActiveNeutralizationPenalty(StatType.Spd)) AnnounceNeutralizationSpdPenaltyStat(unit);
+        if (effects.HasActiveNeutralizationPenalty(StatType.Def)) AnnounceNeutralizationDefPenaltyStat(unit);
+        if (effects.HasActiveNeutralizationPenalty(StatType.Res)) AnnounceNeutralizationResPenaltyStat(unit);
     }
 
 

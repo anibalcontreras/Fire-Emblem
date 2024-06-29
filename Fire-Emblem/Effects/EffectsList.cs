@@ -1,3 +1,7 @@
+using Fire_Emblem.Effects.FollowUp;
+using Fire_Emblem.Effects.Neutralization;
+using Fire_Emblem.Stats;
+
 namespace Fire_Emblem.Effects;
 
 public class EffectsList
@@ -11,4 +15,24 @@ public class EffectsList
     
     public void ClearEffects()
         => _effects.Clear();
+    
+    public int QuantityOfActiveDenialFollowUpEffects()
+    {
+        return Items.Count(effect => effect is DenialFollowUpEffect);
+    }
+    
+    public int QuantityOfActiveGuaranteeFollowUpEffects()
+    {
+        return Items.Count(effect => effect is FollowUpGuaranteeEffect);
+    }
+    
+    public bool HasActiveNeutralizationBonus(StatType statType)
+    {
+        return _effects.Any(effect => effect is NeutralizationBonusEffect bonus && bonus.StatType == statType);
+    }
+    
+    public bool HasActiveNeutralizationPenalty(StatType statType)
+    {
+        return _effects.Any(effect => effect is NeutralizationPenaltyEffect penalty && penalty.StatType == statType);
+    }
 }

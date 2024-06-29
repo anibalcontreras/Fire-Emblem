@@ -11,11 +11,12 @@ public class TeamBuilder
 {
 
     private readonly DataLoader _dataLoader;
-    private readonly Dictionary<string, Team> _playerTeams = new ();
+    private readonly PlayerTeams _playerTeams;
     
     public TeamBuilder()
     {
         _dataLoader = new DataLoader();
+        _playerTeams = new PlayerTeams();
     }
     
     public List<Team> BuildTeams(string fileContent)
@@ -33,7 +34,8 @@ public class TeamBuilder
         {
             currentPlayer = ProcessFileLine(line, currentPlayer);
         }
-        return _playerTeams.Values.ToList();
+
+        return _playerTeams.GetTeams();
     }
 
     private Player ProcessFileLine(string line, Player currentPlayer)
@@ -50,7 +52,7 @@ public class TeamBuilder
     {
         string playerName = string.Join(" ", playerLine.Split().Take(2));
         Player player = new Player(playerName);
-        _playerTeams[playerLine] = player.Team;
+        _playerTeams.AddTeam(playerLine, player.Team);
         return player;
     }
     

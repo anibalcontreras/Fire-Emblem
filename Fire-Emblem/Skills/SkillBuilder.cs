@@ -1258,7 +1258,7 @@ public static class SkillBuilder
         ICondition firstOrCondition = new OrCondition(unitBeginAsAttackerCondition, weaponCondition);
 
         ICondition unitWeaponAdvantageCondition = new UnitWeaponAdvantageCondition();
-        ICondition spdCondition = new StatComparisionIncludingBonus(StatType.Spd);
+        ICondition spdCondition = new StatComparisionCondition(StatType.Spd);
         ICondition secondOrCondition = new OrCondition(unitWeaponAdvantageCondition, spdCondition);
 
         ICondition finalFirstCondition = new AndCondition(firstOrCondition, secondOrCondition);
