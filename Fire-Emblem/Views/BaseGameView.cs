@@ -156,6 +156,34 @@ public class BaseGameView : IView
     public virtual void UpdateTeams(IUnit[] unit1, IUnit[] unit2)
     {
         throw new NotImplementedException();
-}
+    }
+    
+    public virtual int SelectUnitFirstTeam()
+    {
+        throw new NotImplementedException();
+    }
+    
+    public virtual int SelectUnitSecondTeam()
+    {
+        throw new NotImplementedException();
+    }
+    
+    public virtual void UpdateUnitsStatsDuringBattle(IUnit unitTeam1, IUnit unitTeam2)
+    {
+        throw new NotImplementedException();
+    }
+    
+    public virtual void ShowAttackFromTeam1(IUnit unitTeam1, IUnit unitTeam2)
+    {
+        throw new NotImplementedException();
+    }
+    
+    public virtual void ShowAttackFromTeam2(IUnit unitTeam1, IUnit unitTeam2)
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void CongratulateTeam1(IUnit[] winnerTeam) { throw new NotImplementedException(); }
+    public virtual void CongratulateTeam2(IUnit[] winnerTeam) { throw new NotImplementedException(); }
 
 }

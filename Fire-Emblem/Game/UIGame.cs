@@ -43,6 +43,22 @@ public class UIGame
             IUnit[] adaptedTeam2 = teams.GetTeams()[1].Units.Select(unit => new UnitAdapter(unit)).ToArray();
             
             _view.UpdateTeams(adaptedTeam1, adaptedTeam2);
+            
+            int idSelectedUnitTeam1 = _view.SelectUnitFirstTeam();
+            IUnit adaptedUnitTeam1 = adaptedTeam1[idSelectedUnitTeam1];
+            int idSelectedUnitTeam2 = _view.SelectUnitSecondTeam();
+            IUnit adaptedUnitTeam2 = adaptedTeam2[idSelectedUnitTeam2];
+            _view.UpdateUnitsStatsDuringBattle(adaptedUnitTeam1, adaptedUnitTeam2);
+            
+            _view.ShowAttackFromTeam1(adaptedUnitTeam1, adaptedUnitTeam2);
+            _view.UpdateUnitsStatsDuringBattle(adaptedUnitTeam1, adaptedUnitTeam2);
+            
+            _view.ShowAttackFromTeam2(adaptedUnitTeam1, adaptedUnitTeam2);
+            _view.UpdateUnitsStatsDuringBattle(adaptedUnitTeam1, adaptedUnitTeam2);
+            
+            _view.UpdateTeams(adaptedTeam1, adaptedTeam2);
+            
+            _view.CongratulateTeam1(adaptedTeam1);
         }
         else
             _view.ShowInvalidTeamMessage();

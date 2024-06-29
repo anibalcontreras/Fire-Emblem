@@ -31,4 +31,35 @@ public class GraphicGameView : BaseGameView
     {
         _window.UpdateTeams(unit1, unit2);
     }
+    
+    public override int SelectUnitFirstTeam()
+    {
+        return _window.SelectUnitTeam1();
+    }
+    
+    public override int SelectUnitSecondTeam()
+    {
+        return _window.SelectUnitTeam2();
+    }
+    
+    public override void ShowAttackFromTeam1(IUnit unit1, IUnit unit2)
+    {
+        _window.ShowAttackFromTeam1(unit1, unit2);
+    }
+    
+    public override void ShowAttackFromTeam2(IUnit unit1, IUnit unit2)
+    {
+        _window.ShowAttackFromTeam2(unit1, unit2);
+    }
+    
+    public override void UpdateUnitsStatsDuringBattle(IUnit unit1, IUnit unit2)
+    {
+        _window.UpdateUnitsStatsDuringBattle(unit1, unit2);
+    }
+    
+    public override void CongratulateTeam1(IUnit[] winnerTeam)
+    {
+        _window.CongratulateTeam1(winnerTeam);
+    }
+    
 }

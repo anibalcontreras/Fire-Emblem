@@ -16,7 +16,7 @@ if (useGui)
         GraphicGameView graphicGameView = new GraphicGameView(window);
         UIGame uiGame = new UIGame(graphicGameView);
         uiGame.Play();
-
+        //
         // Unit[] team1 = [new Unit("Marth", "Sword", 54, 62, 53, 43, 37)];
         // Unit [] team2 = [
         //     new Unit("Seliph", "Sword", 55, 68, 27, 48, 39),
@@ -25,9 +25,11 @@ if (useGui)
         // Unit unitTeam1 = team1[idSelectedUnitTeam1];
         // int idSelectedUnitTeam2 = window.SelectUnitTeam2();
         // Unit unitTeam2 = team2[idSelectedUnitTeam2];
-        // window.UpdateUnitsStatsDuringBattle(unitTeam1 , unitTeam2); window.ShowAttackFromTeam1(unitTeam1 , unitTeam2);
+        // window.UpdateUnitsStatsDuringBattle(unitTeam1 , unitTeam2); 
+        // window.ShowAttackFromTeam1(unitTeam1 , unitTeam2);
         // unitTeam2.Hp -= 20;
-        // window.UpdateUnitsStatsDuringBattle(unitTeam1 , unitTeam2); window.ShowAttackFromTeam2(unitTeam1 , unitTeam2);
+        // window.UpdateUnitsStatsDuringBattle(unitTeam1 , unitTeam2); 
+        // window.ShowAttackFromTeam2(unitTeam1 , unitTeam2);
         // unitTeam1.Hp -= 15;
         // window.UpdateUnitsStatsDuringBattle(unitTeam1 , unitTeam2);
         // window.UpdateTeams(team1, team2); idSelectedUnitTeam2 = window.SelectUnitTeam2();
