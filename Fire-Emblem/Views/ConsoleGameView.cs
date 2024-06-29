@@ -426,7 +426,8 @@ public class ConsoleGameView : IView
     }
 
     public void AnnounceHpHealing(Unit unit, int healingAmount)
-        => _view.WriteLine($"{unit.Name} recupera {healingAmount} HP luego de atacar y queda con {unit.CurrentHP} HP.");
+        => _view.WriteLine($"{unit.Name} recupera {healingAmount} HP luego de atacar y " +
+                           $"queda con {unit.CurrentHP} HP.");
 
     public void AnnounceHpHealingInEachAttack(Unit unit)
     {
@@ -434,7 +435,8 @@ public class ConsoleGameView : IView
         int finalDamage = unit.FinalCausedDamage;
         int healingAmount = Convert.ToInt32(Math.Floor(finalDamage * unitHealingPercentage));
         if (healingAmount > 0)
-            _view.WriteLine($"{unit.Name} recupera {healingAmount} HP luego de atacar y queda con {unit.CurrentHP} HP.");
+            _view.WriteLine($"{unit.Name} recupera {healingAmount} HP luego de atacar y " +
+                            $"queda con {unit.CurrentHP} HP.");
     }
 
     public void AnnounceCounterattackDenialEffect(Unit unit)
@@ -474,8 +476,8 @@ public class ConsoleGameView : IView
     {
         if (unit.DamageBeforeCombat > 0)
         {
-            _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.DamageBeforeCombat)} de daño antes de iniciar el " +
-                            $"combate y queda con {unit.CurrentHP} HP");
+            _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.DamageBeforeCombat)} de daño " +
+                            $"antes de iniciar el combate y queda con {unit.CurrentHP} HP");
         }
     }
 }

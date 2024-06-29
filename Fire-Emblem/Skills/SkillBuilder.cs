@@ -1126,7 +1126,8 @@ public static class SkillBuilder
     public static Skill CreateFlareSkill()
     {
         ICondition magicWeaponCondition = new UnitWeaponCondition(typeof(Magic));
-        IEffect resPenaltyEffect = new PercentagePenaltyEffect(StatType.Res, 0.2, EffectTarget.Rival);
+        IEffect resPenaltyEffect = 
+            new PercentagePenaltyEffect(StatType.Res, 0.2, EffectTarget.Rival);
         IEffect healingEffect = new PercentageHealingEffect(0.5, EffectTarget.Unit);
         ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(magicWeaponCondition, resPenaltyEffect);
         ConditionalEffect conditionalHealingEffect = new ConditionalEffect(magicWeaponCondition, healingEffect);
@@ -1206,7 +1207,8 @@ public static class SkillBuilder
         IEffect damageBeforeCombatEffect = new DamageBeforeCombatEffect(1, EffectTarget.Unit);
         IEffect extraDamageEffect = new ExtraDamageEffect(3, EffectTarget.Unit);
 
-        ICondition andCondition = new AndCondition(magicWeaponCondition, unitHpGreaterEqualThanCertainInteger);
+        ICondition andCondition = 
+            new AndCondition(magicWeaponCondition, unitHpGreaterEqualThanCertainInteger);
 
         ConditionalEffect conditionalDamageBeforeCombatEffect =
             new ConditionalEffect(andCondition, damageBeforeCombatEffect);
@@ -1263,7 +1265,8 @@ public static class SkillBuilder
         ConditionalEffect conditionalEffect = new ConditionalEffect(finalFirstCondition,
             new BewitchingTomeBeforeCombatEffect(0.4, EffectTarget.Rival));
 
-        ICondition finalSecondCondition = new AndCondition(firstOrCondition, new NotCondition(secondOrCondition));
+        ICondition finalSecondCondition = 
+            new AndCondition(firstOrCondition, new NotCondition(secondOrCondition));
         ConditionalEffect conditionalEffect2 = new ConditionalEffect(finalSecondCondition,
             new BewitchingTomeBeforeCombatEffect(0.2, EffectTarget.Rival));
 
@@ -1314,9 +1317,11 @@ public static class SkillBuilder
     {
         ICondition resCondition = new StatComparisionCondition(StatType.Res);
         IEffect firstAttackComparisionDamageReductionEffect =
-            new FirstAttackPercentageComparisionDamageReductionEffect(StatType.Res, StatType.Res, EffectTarget.Unit);
+            new FirstAttackPercentageComparisionDamageReductionEffect(StatType.Res, 
+                StatType.Res, EffectTarget.Unit);
         IEffect followUpComparisionDamageReductionEffect =
-            new FollowUpPercentageComparisionDamageReductionEffect(StatType.Res, StatType.Res, EffectTarget.Unit);
+            new FollowUpPercentageComparisionDamageReductionEffect(StatType.Res,
+                StatType.Res, EffectTarget.Unit);
         ConditionalEffect conditionalFirstAttackComparisionDamageReductionEffect =
             new ConditionalEffect(resCondition, firstAttackComparisionDamageReductionEffect);
         ConditionalEffect conditionalFollowUpComparisionDamageReductionEffect =
@@ -1464,7 +1469,8 @@ public static class SkillBuilder
     {
         ICondition unitHpGreaterThanCertainPercentage = new UnitHpGreaterThanCertainPercentage(0.25);
         ICondition rivalBeginAsAttackerCondition = new RivalBeginAsAttacker();
-        ICondition andCondition = new AndCondition(unitHpGreaterThanCertainPercentage, rivalBeginAsAttackerCondition);
+        ICondition andCondition = 
+            new AndCondition(unitHpGreaterThanCertainPercentage, rivalBeginAsAttackerCondition);
         MultiEffect multiEffect = ConditionalEffectBuilder.BuildNeutralizationPenaltyEffect(andCondition,
             StatType.Atk, StatType.Spd, StatType.Def, StatType.Res);
         IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
@@ -1480,7 +1486,8 @@ public static class SkillBuilder
     {
         ICondition unitHpGreaterThanCertainPercentage = new UnitHpGreaterThanCertainPercentage(0.25);
         ICondition rivalBeginAsAttackerCondition = new RivalBeginAsAttacker();
-        ICondition andCondition = new AndCondition(unitHpGreaterThanCertainPercentage, rivalBeginAsAttackerCondition);
+        ICondition andCondition = 
+            new AndCondition(unitHpGreaterThanCertainPercentage, rivalBeginAsAttackerCondition);
         MultiEffect multiEffect = ConditionalEffectBuilder.BuildRivalNeutralizationBonusEffects(andCondition,
             StatType.Atk, StatType.Spd, StatType.Def, StatType.Res);
         IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
@@ -1572,7 +1579,8 @@ public static class SkillBuilder
     {
         ICondition statComparisionCondition = new StatComparisionCondition(StatType.Def);
         IEffect damageReductionEffect =
-            new PercentageComparisionDamageReductionEffect(StatType.Def, StatType.Def, EffectTarget.Unit);
+            new PercentageComparisionDamageReductionEffect(StatType.Def, 
+                StatType.Def, EffectTarget.Unit);
         ConditionalEffect conditionalDamageReductionEffect =
             new ConditionalEffect(statComparisionCondition, damageReductionEffect);
 
@@ -1602,12 +1610,15 @@ public static class SkillBuilder
         ICondition statComparisionCondition = new StatComparisionCondition(StatType.Res);
         ICondition andCondition = new AndCondition(unitHpAboveThreshold, statComparisionCondition);
         IEffect damageReductionEffect =
-            new PercentageComparisionDamageReductionEffect(StatType.Res, StatType.Res, EffectTarget.Unit);
-        ConditionalEffect conditionalDamageReductionEffect = new ConditionalEffect(andCondition, damageReductionEffect);
+            new PercentageComparisionDamageReductionEffect(StatType.Res, 
+                StatType.Res, EffectTarget.Unit);
+        ConditionalEffect conditionalDamageReductionEffect = 
+            new ConditionalEffect(andCondition, damageReductionEffect);
         
         ICondition unitHpAboveThreshold2 = new UnitHpGreaterThanCertainPercentage(0.4);
         IEffect rivalDenialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
-        ConditionalEffect conditionalRivalDenialFollowUpEffect = new ConditionalEffect(unitHpAboveThreshold2, rivalDenialFollowUpEffect);
+        ConditionalEffect conditionalRivalDenialFollowUpEffect = 
+            new ConditionalEffect(unitHpAboveThreshold2, rivalDenialFollowUpEffect);
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1630,8 +1641,10 @@ public static class SkillBuilder
         
         ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(unitHpAboveThreshold, spdPenaltyEffect);
         ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(unitHpAboveThreshold, defPenaltyEffect);
-        ConditionalEffect conditionalDenialGuaranteeEffect = new ConditionalEffect(unitHpAboveThreshold, denialOfDenialFollowUpEffect);
-        ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(unitHpAboveThreshold, denialFollowUpGuaranteeEffect);
+        ConditionalEffect conditionalDenialGuaranteeEffect = 
+            new ConditionalEffect(unitHpAboveThreshold, denialOfDenialFollowUpEffect);
+        ConditionalEffect conditionalDenialFollowUpEffect = 
+            new ConditionalEffect(unitHpAboveThreshold, denialFollowUpGuaranteeEffect);
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1652,12 +1665,14 @@ public static class SkillBuilder
         IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
         ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(unitHpAboveThreshold, atkPenaltyEffect);
         ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(unitHpAboveThreshold, resPenaltyEffect);
-        ConditionalEffect conditionalFollowUpGuaranteeEffect = new ConditionalEffect(unitHpAboveThreshold, followUpGuaranteeEffect);
+        ConditionalEffect conditionalFollowUpGuaranteeEffect = 
+            new ConditionalEffect(unitHpAboveThreshold, followUpGuaranteeEffect);
         
         ICondition rivalBeginAsAttacker = new RivalBeginAsAttacker();
         ICondition andCondition = new AndCondition(unitHpAboveThreshold, rivalBeginAsAttacker);
         IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
-        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = new ConditionalEffect(andCondition, denialOfDenialFollowUpEffect);
+        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = 
+            new ConditionalEffect(andCondition, denialOfDenialFollowUpEffect);
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1675,13 +1690,18 @@ public static class SkillBuilder
         ICondition rivalBeginAsAttacker = new RivalBeginAsAttacker();
         IEffect denialFollowUpGuaranteeEffect = new DenialFollowUpGuaranteeEffect(EffectTarget.Rival);
         IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
-        ConditionalEffect conditionalDenialFollowUpGuaranteeEffect = new ConditionalEffect(rivalBeginAsAttacker, denialFollowUpGuaranteeEffect);
-        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = new ConditionalEffect(rivalBeginAsAttacker, denialOfDenialFollowUpEffect);
+        ConditionalEffect conditionalDenialFollowUpGuaranteeEffect = 
+            new ConditionalEffect(rivalBeginAsAttacker, denialFollowUpGuaranteeEffect);
+        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = 
+            new ConditionalEffect(rivalBeginAsAttacker, denialOfDenialFollowUpEffect);
         
-        ICondition statComparisionWithAdjustment = new StatComparisionWithAdjustmentCondition(StatType.Spd, -4);
+        ICondition statComparisionWithAdjustment = 
+            new StatComparisionWithAdjustmentCondition(StatType.Spd, -4);
         ICondition andCondition = new AndCondition(rivalBeginAsAttacker, statComparisionWithAdjustment);
-        IEffect firstAttackDamageReductionEffect = new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
-        ConditionalEffect conditionalFirstAttackDamageReductionEffect = new ConditionalEffect(andCondition, firstAttackDamageReductionEffect);
+        IEffect firstAttackDamageReductionEffect = 
+            new FirstAttackPercentageDamageReductionEffect(0.3, EffectTarget.Unit);
+        ConditionalEffect conditionalFirstAttackDamageReductionEffect = 
+            new ConditionalEffect(andCondition, firstAttackDamageReductionEffect);
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1695,16 +1715,20 @@ public static class SkillBuilder
 
     public static Skill CreateBindingShieldSkill()
     {
-        ICondition statComparisionWithAdjustment = new StatComparisionWithAdjustmentCondition(StatType.Spd, 5);
+        ICondition statComparisionWithAdjustment = 
+            new StatComparisionWithAdjustmentCondition(StatType.Spd, 5);
         IEffect unitGuaranteedFollowUpEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
         IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
-        ConditionalEffect conditionalUnitGuaranteedFollowUpEffect = new ConditionalEffect(statComparisionWithAdjustment, unitGuaranteedFollowUpEffect);
-        ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(statComparisionWithAdjustment, denialFollowUpEffect);
+        ConditionalEffect conditionalUnitGuaranteedFollowUpEffect = 
+            new ConditionalEffect(statComparisionWithAdjustment, unitGuaranteedFollowUpEffect);
+        ConditionalEffect conditionalDenialFollowUpEffect = 
+            new ConditionalEffect(statComparisionWithAdjustment, denialFollowUpEffect);
         
         ICondition unitBeginAsAttacker = new UnitBeginAsAttackerCondition();
         ICondition andCondition = new AndCondition(unitBeginAsAttacker, statComparisionWithAdjustment);
         IEffect counterattackDenialEffect = new CounterattackDenialEffect(EffectTarget.Rival);
-        ConditionalEffect conditionalCounterattackDenialEffect = new ConditionalEffect(andCondition, counterattackDenialEffect);
+        ConditionalEffect conditionalCounterattackDenialEffect = 
+            new ConditionalEffect(andCondition, counterattackDenialEffect);
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1720,15 +1744,19 @@ public static class SkillBuilder
     {
         ICondition unitBeginAsAttacker = new UnitBeginAsAttackerCondition();
         IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
-        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = new ConditionalEffect(unitBeginAsAttacker, denialOfDenialFollowUpEffect);
+        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = 
+            new ConditionalEffect(unitBeginAsAttacker, denialOfDenialFollowUpEffect);
         
-        ICondition statComparisionWithAdjustment = new StatComparisionWithAdjustmentCondition(StatType.Spd, -10);
+        ICondition statComparisionWithAdjustment = 
+            new StatComparisionWithAdjustmentCondition(StatType.Spd, -10);
         ICondition andCondition = new AndCondition(unitBeginAsAttacker, statComparisionWithAdjustment);
         IEffect extraDamagePerStatDifference = new ExtraDamagePerStatDifferenceEffect(StatType.Res, EffectTarget.Unit);
         IEffect statDifferenceDamageReductionEffect =
             new StatDifferenceDamageReductionEffect(StatType.Res, EffectTarget.Unit);
-        ConditionalEffect conditionalExtraDamagePerStatDifference = new ConditionalEffect(andCondition, extraDamagePerStatDifference);
-        ConditionalEffect conditionalStatDifferenceDamageReductionEffect = new ConditionalEffect(andCondition, statDifferenceDamageReductionEffect);
+        ConditionalEffect conditionalExtraDamagePerStatDifference = 
+            new ConditionalEffect(andCondition, extraDamagePerStatDifference);
+        ConditionalEffect conditionalStatDifferenceDamageReductionEffect = 
+            new ConditionalEffect(andCondition, statDifferenceDamageReductionEffect);
         
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1744,14 +1772,19 @@ public static class SkillBuilder
     {
         ICondition unitBeginAsAttacker = new UnitBeginAsAttackerCondition();
         IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
-        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = new ConditionalEffect(unitBeginAsAttacker, denialOfDenialFollowUpEffect);
+        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = 
+            new ConditionalEffect(unitBeginAsAttacker, denialOfDenialFollowUpEffect);
     
-        ICondition statComparisionWithAdjustment = new StatComparisionWithAdjustmentCondition(StatType.Spd, -10);
+        ICondition statComparisionWithAdjustment = 
+            new StatComparisionWithAdjustmentCondition(StatType.Spd, -10);
         ICondition andCondition = new AndCondition(unitBeginAsAttacker, statComparisionWithAdjustment);
         IEffect extraDamagePerStatDifference = new ExtraDamagePerStatDifferenceEffect(StatType.Def, EffectTarget.Unit);
-        IEffect statDifferenceDamageReductionEffect = new StatDifferenceDamageReductionEffect(StatType.Def, EffectTarget.Unit);
-        ConditionalEffect conditionalExtraDamagePerStatDifference = new ConditionalEffect(andCondition, extraDamagePerStatDifference);
-        ConditionalEffect conditionalStatDifferenceDamageReductionEffect = new ConditionalEffect(andCondition, statDifferenceDamageReductionEffect);
+        IEffect statDifferenceDamageReductionEffect = 
+            new StatDifferenceDamageReductionEffect(StatType.Def, EffectTarget.Unit);
+        ConditionalEffect conditionalExtraDamagePerStatDifference = 
+            new ConditionalEffect(andCondition, extraDamagePerStatDifference);
+        ConditionalEffect conditionalStatDifferenceDamageReductionEffect = 
+            new ConditionalEffect(andCondition, statDifferenceDamageReductionEffect);
     
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1771,14 +1804,20 @@ public static class SkillBuilder
         ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(trueCondition, atkPenaltyEffect);
         ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(trueCondition, defPenaltyEffect);
         
-        ICondition baseStatComparisionWithAdjustment = new BaseStatComparisionWithAdjustmentCondition(StatType.Spd, -10);
-        IEffect atkDynamicPenaltyEffect = new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Atk, StatType.Res);
-        IEffect defDynamicPenaltyEffect = new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Def, StatType.Res);
-        ConditionalEffect conditionalAtkDynamicPenaltyEffect = new ConditionalEffect(baseStatComparisionWithAdjustment, atkDynamicPenaltyEffect);
-        ConditionalEffect conditionalDefDynamicPenaltyEffect = new ConditionalEffect(baseStatComparisionWithAdjustment, defDynamicPenaltyEffect);
+        ICondition baseStatComparisionWithAdjustment = 
+            new BaseStatComparisionWithAdjustmentCondition(StatType.Spd, -10);
+        IEffect atkDynamicPenaltyEffect = 
+            new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Atk, StatType.Res);
+        IEffect defDynamicPenaltyEffect = 
+            new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Def, StatType.Res);
+        ConditionalEffect conditionalAtkDynamicPenaltyEffect = 
+            new ConditionalEffect(baseStatComparisionWithAdjustment, atkDynamicPenaltyEffect);
+        ConditionalEffect conditionalDefDynamicPenaltyEffect = 
+            new ConditionalEffect(baseStatComparisionWithAdjustment, defDynamicPenaltyEffect);
         
         ICondition dualStatComparisionCondition = new DualStatComparisonCondition(StatType.Spd, StatType.Res);
-        ICondition andCondition = new AndCondition(baseStatComparisionWithAdjustment, dualStatComparisionCondition);
+        ICondition andCondition = 
+            new AndCondition(baseStatComparisionWithAdjustment, dualStatComparisionCondition);
         IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
         ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(andCondition, denialFollowUpEffect);
         
@@ -1802,14 +1841,20 @@ public static class SkillBuilder
         ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(trueCondition, atkPenaltyEffect);
         ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(trueCondition, defPenaltyEffect);
 
-        ICondition baseStatComparisionWithAdjustment = new BaseStatComparisionWithAdjustmentCondition(StatType.Spd, -10);
-        IEffect atkDynamicPenaltyEffect = new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Atk, StatType.Def);
-        IEffect defDynamicPenaltyEffect = new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Def, StatType.Def);
-        ConditionalEffect conditionalAtkDynamicPenaltyEffect = new ConditionalEffect(baseStatComparisionWithAdjustment, atkDynamicPenaltyEffect);
-        ConditionalEffect conditionalDefDynamicPenaltyEffect = new ConditionalEffect(baseStatComparisionWithAdjustment, defDynamicPenaltyEffect);
+        ICondition baseStatComparisionWithAdjustment = 
+            new BaseStatComparisionWithAdjustmentCondition(StatType.Spd, -10);
+        IEffect atkDynamicPenaltyEffect = 
+            new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Atk, StatType.Def);
+        IEffect defDynamicPenaltyEffect = 
+            new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Def, StatType.Def);
+        ConditionalEffect conditionalAtkDynamicPenaltyEffect = 
+            new ConditionalEffect(baseStatComparisionWithAdjustment, atkDynamicPenaltyEffect);
+        ConditionalEffect conditionalDefDynamicPenaltyEffect = 
+            new ConditionalEffect(baseStatComparisionWithAdjustment, defDynamicPenaltyEffect);
 
         ICondition dualStatComparisionCondition = new DualStatComparisonCondition(StatType.Spd, StatType.Def);
-        ICondition andCondition = new AndCondition(baseStatComparisionWithAdjustment, dualStatComparisionCondition);
+        ICondition andCondition = 
+            new AndCondition(baseStatComparisionWithAdjustment, dualStatComparisionCondition);
         IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
         ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(andCondition, denialFollowUpEffect);
 
@@ -1838,7 +1883,8 @@ public static class SkillBuilder
         ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(trueCondition, defPenaltyEffect);
         ConditionalEffect conditionalDenialFollowUpGuaranteeEffect =
             new ConditionalEffect(trueCondition, denialFollowUpGuaranteeEffect);
-        ConditionalEffect conditionalDenialDenialFollowUpEffect = new ConditionalEffect(trueCondition, denialDenialFollowUpEffect);
+        ConditionalEffect conditionalDenialDenialFollowUpEffect = 
+            new ConditionalEffect(trueCondition, denialDenialFollowUpEffect);
         ConditionalEffect conditionalPercentageDamageReductionReductionEffect =
             new ConditionalEffect(trueCondition, percentageDamageReductionReductionEffect);
         
@@ -1861,13 +1907,17 @@ public static class SkillBuilder
         IEffect resPenaltyEffect = new PenaltyEffect(StatType.Res, 4, EffectTarget.Rival);
         IEffect denialFollowUpGuaranteeEffect = new DenialFollowUpGuaranteeEffect(EffectTarget.Rival);
         IEffect denialDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
-        IEffect percentageDamageReductionReductionEffect = new PercentageDamageReductionReductionEffect(0.5, EffectTarget.Rival);
+        IEffect percentageDamageReductionReductionEffect = 
+            new PercentageDamageReductionReductionEffect(0.5, EffectTarget.Rival);
 
         ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(trueCondition, spdPenaltyEffect);
         ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(trueCondition, resPenaltyEffect);
-        ConditionalEffect conditionalDenialFollowUpGuaranteeEffect = new ConditionalEffect(trueCondition, denialFollowUpGuaranteeEffect);
-        ConditionalEffect conditionalDenialDenialFollowUpEffect = new ConditionalEffect(trueCondition, denialDenialFollowUpEffect);
-        ConditionalEffect conditionalPercentageDamageReductionReductionEffect = new ConditionalEffect(trueCondition, percentageDamageReductionReductionEffect);
+        ConditionalEffect conditionalDenialFollowUpGuaranteeEffect = 
+            new ConditionalEffect(trueCondition, denialFollowUpGuaranteeEffect);
+        ConditionalEffect conditionalDenialDenialFollowUpEffect = 
+            new ConditionalEffect(trueCondition, denialDenialFollowUpEffect);
+        ConditionalEffect conditionalPercentageDamageReductionReductionEffect = 
+            new ConditionalEffect(trueCondition, percentageDamageReductionReductionEffect);
 
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
         {
@@ -1880,6 +1930,4 @@ public static class SkillBuilder
 
         return new Skill("Mag. Null Follow-Up", multiEffect);
     }
-
-
 }

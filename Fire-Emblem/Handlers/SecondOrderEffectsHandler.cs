@@ -21,7 +21,6 @@ public class SecondOrderEffectsHandler : EffectsHandler
 
     protected override IEnumerable<Type> GetEffectTypesInOrder()
     {
-        // TODO: Esta lista es clave
         return new List<Type>
         {
             typeof(IExtraDamageEffect),
