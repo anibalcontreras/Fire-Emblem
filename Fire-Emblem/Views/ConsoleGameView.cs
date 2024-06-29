@@ -473,7 +473,7 @@ public class ConsoleGameView : IView
     }
     
     public void AnnounceDamageBeforeCombatEffect(Unit unit)
-    => AnnounceDamageBeforeCombat(unit);
+        => AnnounceDamageBeforeCombat(unit);
     
     private void AnnounceDamageBeforeCombat(Unit unit)
     {

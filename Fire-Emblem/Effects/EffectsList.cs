@@ -13,18 +13,7 @@ public class EffectsList
     public void AddEffect(IEffect effect)
         => _effects.Add(effect);
     
-    public void ClearEffects()
-        => _effects.Clear();
-    
-    public int QuantityOfActiveDenialFollowUpEffects()
-    {
-        return Items.Count(effect => effect is DenialFollowUpEffect);
-    }
-    
-    public int QuantityOfActiveGuaranteeFollowUpEffects()
-    {
-        return Items.Count(effect => effect is FollowUpGuaranteeEffect);
-    }
+    public void ClearEffects() => _effects.Clear();
     
     public bool HasActiveNeutralizationBonus(StatType statType)
     {

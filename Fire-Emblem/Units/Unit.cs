@@ -496,11 +496,6 @@ public class Unit
     public void ResetDamageBeforeCombat()
         => DamageBeforeCombat = 0;
     
-    public int QuantityOfActiveGuaranteeFollowUpEffects
-    {
-        get { return Effects.Items.Count(effect => effect is FollowUpGuaranteeEffect); }
-    }
-    
     public void SetFollowUpGuaranteed()
         => HasFollowUpGuaranteed = true;
     
@@ -514,6 +509,10 @@ public class Unit
     public void ResetDenialFollowUpGuaranteed()
         => HasDenialFollowUpGuaranteed = false;
     
+    public int QuantityOfActiveGuaranteeFollowUpEffects
+    {
+        get { return Effects.Items.Count(effect => effect is FollowUpGuaranteeEffect); }
+    }
     public int QuantityOfActiveDenialFollowUpEffects
     {
         get { return Effects.Items.Count(effect => effect is DenialFollowUpEffect); }
