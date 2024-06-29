@@ -10,11 +10,13 @@ namespace Fire_Emblem.Controllers
     {
         private readonly IView _view;
         private readonly SkillController _skillController;
+        private readonly FollowUpController _followUpController;
 
         public CombatController(IView view)
         {
             _view = view;
             _skillController = new SkillController(view);
+            _followUpController = new FollowUpController();
         }
         
         public Combat ConductCombat(List<Team> teams, int round, int currentPlayer)
@@ -134,7 +136,7 @@ namespace Fire_Emblem.Controllers
 
         private bool CanAnyUnitPerformFollowUp(Combat combat)
         {
-            return combat.CanAttackerPerformFollowUp() || combat.CanDefenderPerformFollowUp();
+            return _followUpController.CanAttackerPerformFollowUp(combat.Attacker, combat.Defender) || _followUpController.CanDefenderPerformFollowUp(combat.Attacker, combat.Defender);
         }
 
         private void HandleGuaranteedFollowUp(Combat combat)
@@ -159,22 +161,22 @@ namespace Fire_Emblem.Controllers
 
         private bool CanAttackerPerformFollowUp(Combat combat)
         {
-            return combat.CanAttackerPerformFollowUp();
+            return _followUpController.CanAttackerPerformFollowUp(combat.Attacker, combat.Defender);
         }
 
         private bool CanDefenderPerformFollowUp(Combat combat)
         {
-            return combat.CanDefenderPerformFollowUp();
+            return _followUpController.CanDefenderPerformFollowUp(combat.Attacker, combat.Defender);
         }
 
         private bool ShouldPerformGuaranteedAttackerFollowUp(Combat combat)
         {
-            return combat.Attacker.HasFollowUpGuaranteed && !combat.CanAttackerPerformFollowUp() && !combat.Attacker.HasDenialFollowUpGuaranteed;
+            return combat.Attacker.HasFollowUpGuaranteed && !_followUpController.CanAttackerPerformFollowUp(combat.Attacker, combat.Defender) && !combat.Attacker.HasDenialFollowUpGuaranteed;
         }
 
         private bool ShouldPerformGuaranteedDefenderFollowUp(Combat combat)
         {
-            return combat.Defender.HasFollowUpGuaranteed && !combat.CanDefenderPerformFollowUp() && !combat.Defender.HasDenialFollowUpGuaranteed;
+            return combat.Defender.HasFollowUpGuaranteed && !_followUpController.CanDefenderPerformFollowUp(combat.Attacker, combat.Defender) && !combat.Defender.HasDenialFollowUpGuaranteed;
         }
 
         private void HandleNoFollowUpScenario(Combat combat)
