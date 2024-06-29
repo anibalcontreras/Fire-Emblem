@@ -1,6 +1,7 @@
 using Fire_Emblem.Teams;
 using Fire_Emblem.Views;
 using Fire_Emblem.Damage;
+using Fire_Emblem.Effects;
 using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
 
@@ -43,8 +44,8 @@ namespace Fire_Emblem.Controllers
             opponentTeam.AddAllies(defender);
             attacker.SetStartOfCombatHp();
             defender.SetStartOfCombatHp();
-            Combat combat = new Combat(attacker, defender);
             attacker.SetIsAttacker();
+            Combat combat = new Combat(attacker, defender);
             return combat;
         }
         
@@ -78,8 +79,6 @@ namespace Fire_Emblem.Controllers
         {
             int damage = CalculateFirstAttackDamage(attacker, defender);
             attacker.SetUnitExecuteAStrike();
-            attacker.ResetFirstAttackBonusStats();
-            defender.ResetFirstAttackPenaltyStats();
             _view.AnnounceAttack(attacker, defender, damage);
             _view.AnnounceHpHealingInEachAttack(attacker);
         }
@@ -103,11 +102,7 @@ namespace Fire_Emblem.Controllers
         private void PerformCounterAttack(Unit attacker, Unit defender)
         {
             if (defender.HasNullifiedCounterattack && !defender.HasNullifiedNullifiedCounterattack)
-            {
-                defender.ResetFirstAttackBonusStats();
-                attacker.ResetFirstAttackPenaltyStats();
                 return;
-            }
             int damage = CalculateFirstAttackDamage(defender, attacker);
             defender.SetUnitExecuteAStrike();
             _view.AnnounceCounterattack(defender, attacker, damage);
@@ -131,31 +126,27 @@ namespace Fire_Emblem.Controllers
             _view.AnnounceCurrentHealth(attacker, defender);
             attacker.SetLastUnitFaced(defender);
             defender.SetLastUnitFaced(attacker);
+            ClearUnitsEffects(attacker, defender);
             DeactivateAttackerSkills(attacker);
             DeactivateDefenderSkills(defender);
         }
-
+        
+        private void ClearUnitsEffects(Unit attacker, Unit defender)
+        {
+            EffectsList attackerEffects = attacker.Effects;
+            EffectsList defenderEffects = defender.Effects;
+            attackerEffects.ClearEffects();
+            defenderEffects.ClearEffects();
+        }
+        
         private void DeactivateAttackerSkills(Unit attacker)
         {
             attacker.ResetStatEffects();
             attacker.ResetFirstAttackBonusStats();
             attacker.ResetFirstAttackPenaltyStats();
-            // TODO: CAMBIAR ESTO
-            attacker.Effects.ClearEffects();
             attacker.SetHasBeenAttackerBefore();
             attacker.ResetIsAttacker();
-            attacker.ResetNullifyCounterattack();
-            attacker.ResetNullifyNullifiedCounterattack();
-            attacker.ResetFinalCausedDamage();
-            attacker.ResetHealingPercentage();
-            attacker.ResetUnitExecuteAStrike();
-            attacker.ResetStatOutOfCombat();
-            attacker.ResetDamageBeforeCombat();
-            attacker.ResetFollowUpGuaranteed();
-            attacker.ResetDenialFollowUp();
-            attacker.ResetDenialFollowUpGuaranteed();
-            attacker.ResetDenialOfDenialFollowUp();
-            attacker.ResetPercentageDamageReductionReduction();
+            attacker.ResetSomeKindOfEffects();
         }
 
         private void DeactivateDefenderSkills(Unit defender)
@@ -163,21 +154,9 @@ namespace Fire_Emblem.Controllers
             defender.ResetStatEffects();
             defender.ResetFirstAttackBonusStats();
             defender.ResetFirstAttackPenaltyStats();
-            // TODO: Cambiar esto
-            defender.Effects.ClearEffects();
             defender.SetHasBeenDefenderBefore();
-            defender.ResetNullifyCounterattack();
-            defender.ResetNullifyNullifiedCounterattack();
-            defender.ResetFinalCausedDamage();
-            defender.ResetHealingPercentage();
-            defender.ResetUnitExecuteAStrike();
-            defender.ResetStatOutOfCombat();
-            defender.ResetDamageBeforeCombat();
-            defender.ResetFollowUpGuaranteed();
-            defender.ResetDenialFollowUp();
-            defender.ResetDenialFollowUpGuaranteed();
-            defender.ResetDenialOfDenialFollowUp();
-            defender.ResetPercentageDamageReductionReduction();
+            defender.ResetSomeKindOfEffects();
         }
+        
     }
 }

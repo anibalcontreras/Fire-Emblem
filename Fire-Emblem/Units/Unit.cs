@@ -100,9 +100,9 @@ public class Unit
     public bool HasNullifiedCounterattack { get; private set; }
     public bool HasNullifiedNullifiedCounterattack { get; private set; }
     public bool HasUnitExecutedAStrike { get; private set; }
-    private int HealingAfterCombat { get; set; }
-    private int DamageAfterCombat { get; set; }
-    public int DamageBeforeCombat { get; private set; }
+    private int _healingAfterCombat { get; set; }
+    private int _damageAfterCombat { get; set; }
+    public int _damageBeforeCombat { get; private set; }
     public bool HasFollowUpGuaranteed { get; private set; }
     public bool HasDenialFollowUpGuaranteed { get; private set; }
     public bool HasDenialFollowUp { get; private set; }
@@ -341,8 +341,6 @@ public class Unit
     {
         ResetBonuses();
         ResetPenalties();
-        ResetBonusNeutralization();
-        ResetPenaltyNeutralization();
         ResetDamageModifiers();
     }
 
@@ -352,6 +350,10 @@ public class Unit
         SpdBonus = 0;
         DefBonus = 0;
         ResBonus = 0;
+        AtkBonusNeutralization = 0;
+        SpdBonusNeutralization = 0;
+        DefBonusNeutralization = 0;
+        ResBonusNeutralization = 0;
     }
 
     private void ResetPenalties()
@@ -360,24 +362,12 @@ public class Unit
         SpdPenalty = 0;
         DefPenalty = 0;
         ResPenalty = 0;
-    }
-
-    private void ResetBonusNeutralization()
-    {
-        AtkBonusNeutralization = 0;
-        SpdBonusNeutralization = 0;
-        DefBonusNeutralization = 0;
-        ResBonusNeutralization = 0;
-    }
-
-    private void ResetPenaltyNeutralization()
-    {
         AtkPenaltyNeutralization = 0;
         SpdPenaltyNeutralization = 0;
         DefPenaltyNeutralization = 0;
         ResPenaltyNeutralization = 0;
     }
-
+    
     private void ResetDamageModifiers()
     {
         ExtraDamage = 0;
@@ -425,6 +415,22 @@ public class Unit
     public void SetIsAttacker()
         => IsAttacker = true;
 
+
+    public void ResetSomeKindOfEffects()
+    {
+        ResetFinalCausedDamage();
+        ResetHealingPercentage();
+        ResetNullifyCounterattack();
+        ResetNullifyNullifiedCounterattack();
+        ResetUnitExecuteAStrike();
+        ResetStatOutOfCombat();
+        ResetDamageBeforeCombat();
+        ResetFollowUpGuaranteed();
+        ResetDenialFollowUp();
+        ResetDenialFollowUpGuaranteed();
+        ResetDenialOfDenialFollowUp();
+    }
+
     public void ResetIsAttacker()
         => IsAttacker = false;
 
@@ -453,60 +459,60 @@ public class Unit
     public void SetNullifyCounterattack()
         => HasNullifiedCounterattack = true;
 
-    public void ResetNullifyCounterattack()
+    private void ResetNullifyCounterattack()
         => HasNullifiedCounterattack = false;
 
     public void SetNullifyNullifiedCounterattack()
         => HasNullifiedNullifiedCounterattack = true;
 
-    public void ResetNullifyNullifiedCounterattack()
+    private void ResetNullifyNullifiedCounterattack()
         => HasNullifiedNullifiedCounterattack = false;
     
     public void SetUnitExecuteAStrike()
         => HasUnitExecutedAStrike = true;
 
-    public void ResetUnitExecuteAStrike()
+    private void ResetUnitExecuteAStrike()
         => HasUnitExecutedAStrike = false;
     
-    public int StatAfterCombat => HealingAfterCombat - DamageAfterCombat;
+    public int StatAfterCombat => _healingAfterCombat - _damageAfterCombat;
 
     public void ApplyHealingAfterCombat(int amount)
     {
         _currentHP = Math.Min(BaseHp, _currentHP + amount);
-        HealingAfterCombat += amount;
+        _healingAfterCombat += amount;
     }
     
     public void ApplyDamageAfterCombat(int amount)
     {
         _currentHP = Math.Max(1, _currentHP - amount);
-        DamageAfterCombat += amount;
+        _damageAfterCombat += amount;
     }
 
-    public void ResetStatOutOfCombat()
+    private void ResetStatOutOfCombat()
     {
-        HealingAfterCombat = 0;
-        DamageAfterCombat = 0;
+        _healingAfterCombat = 0;
+        _damageAfterCombat = 0;
     }
     
     public void ApplyDamageBeforeCombat(int amount)
     {
         _currentHP = Math.Max(1, _currentHP - amount);
-        DamageBeforeCombat += amount;
+        _damageBeforeCombat += amount;
     }
     public void ResetDamageBeforeCombat()
-        => DamageBeforeCombat = 0;
+        => _damageBeforeCombat = 0;
     
     public void SetFollowUpGuaranteed()
         => HasFollowUpGuaranteed = true;
     
-    public void ResetFollowUpGuaranteed()
+    private void ResetFollowUpGuaranteed()
         => HasFollowUpGuaranteed = false;
     
 
     public void SetDenialFollowUpGuaranteed()
         => HasDenialFollowUpGuaranteed = true;
 
-    public void ResetDenialFollowUpGuaranteed()
+    private void ResetDenialFollowUpGuaranteed()
         => HasDenialFollowUpGuaranteed = false;
     
     public int QuantityOfActiveGuaranteeFollowUpEffects
@@ -521,13 +527,13 @@ public class Unit
     public void SetDenialFollowUp()
         => HasDenialFollowUp = true;
     
-    public void ResetDenialFollowUp()
+    private void ResetDenialFollowUp()
         => HasDenialFollowUp = false;
     
     public void SetDenialOfDenialFollowUp()
         => HasDenialOfDenialFollowUp = true;
 
-    public void ResetDenialOfDenialFollowUp()
+    private void ResetDenialOfDenialFollowUp()
         => HasDenialOfDenialFollowUp = false;
     
     public void IncreaseCurrentHpDueHealing(int healing)

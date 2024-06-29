@@ -477,9 +477,9 @@ public class ConsoleGameView : IView
     
     private void AnnounceDamageBeforeCombat(Unit unit)
     {
-        if (unit.DamageBeforeCombat > 0)
+        if (unit._damageBeforeCombat > 0)
         {
-            _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit.DamageBeforeCombat)} de daño " +
+            _view.WriteLine($"{unit.Name} recibe {Math.Abs(unit._damageBeforeCombat)} de daño " +
                             $"antes de iniciar el combate y queda con {unit.CurrentHP} HP");
         }
     }

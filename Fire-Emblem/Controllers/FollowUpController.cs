@@ -49,22 +49,24 @@ public class FollowUpController
 
         private void HandleGuaranteedFollowUp(Combat combat)
         {
-            if (CanAttackerPerformFollowUp(combat.Attacker, combat.Defender))
-            {
-                PerformAttackerFollowUp(combat.Attacker, combat.Defender);
-            }
-            else if (CanDefenderPerformFollowUp(combat.Attacker, combat.Defender))
-            {
-                PerformDefenderFollowUp(combat.Attacker, combat.Defender);
-            }
+            PerformFirstGroupOfFollowUp(combat);
+            PerformSecondGroupOfFollowUp(combat);
+        }
+
+        private void PerformSecondGroupOfFollowUp(Combat combat)
+        {
             if (ShouldPerformGuaranteedAttackerFollowUp(combat))
-            {
                 PerformAttackerFollowUp(combat.Attacker, combat.Defender);
-            }
             else if (ShouldPerformGuaranteedDefenderFollowUp(combat))
-            {
                 PerformDefenderFollowUp(combat.Attacker, combat.Defender);
-            }
+        }
+
+        private void PerformFirstGroupOfFollowUp(Combat combat)
+        {
+            if (CanAttackerPerformFollowUp(combat.Attacker, combat.Defender))
+                PerformAttackerFollowUp(combat.Attacker, combat.Defender);
+            else if (CanDefenderPerformFollowUp(combat.Attacker, combat.Defender))
+                PerformDefenderFollowUp(combat.Attacker, combat.Defender);
         }
 
         private bool ShouldPerformGuaranteedAttackerFollowUp(Combat combat)
@@ -84,13 +86,9 @@ public class FollowUpController
         private void HandleNoFollowUpScenario(Combat combat)
         {
             if (combat.Defender.HasNullifiedCounterattack)
-            {
                 _view.AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(combat.Attacker);
-            }
             else
-            {
                 HandlePotentialGuaranteedFollowUp(combat);
-            }
         }
 
         private void HandlePotentialGuaranteedFollowUp(Combat combat)
