@@ -6,7 +6,7 @@ using Fire_Emblem.Units;
 using Fire_Emblem.Weapons;
 namespace Fire_Emblem.Views;
 
-public class ConsoleGameView : BaseGameView
+public class ConsoleGameView : IView
 {
     private readonly View _view;
     private readonly string _teamsFolder;
@@ -17,11 +17,11 @@ public class ConsoleGameView : BaseGameView
         _teamsFolder = teamsFolder;
     }
 
-    public override void AnnounceCurrentHealth(Unit attacker, Unit defender)
+    public void AnnounceCurrentHealth(Unit attacker, Unit defender)
         => _view.WriteLine(
             $"{attacker.Name} ({attacker.CurrentHP}) : {defender.Name} ({defender.CurrentHP})");
 
-    public override Unit SelectUnit(Team team, int playerNumber)
+    public Unit SelectUnit(Team team, int playerNumber)
     {
         _view.WriteLine($"Player {playerNumber} selecciona una opción");
         AnnounceUnitOptions(team);
@@ -39,7 +39,7 @@ public class ConsoleGameView : BaseGameView
         }
     }
 
-    public override string[] DisplayFiles()
+    public string[] DisplayFiles()
     {
         _view.WriteLine("Elige un archivo para cargar los equipos");
         string[] files = Directory.GetFiles(_teamsFolder, "*.txt");
@@ -57,7 +57,7 @@ public class ConsoleGameView : BaseGameView
         }
     }
 
-    public override string AskUserToSelectAnOption(string[] options)
+    public string AskUserToSelectAnOption(string[] options)
     {
         int minValue = 0;
         int maxValue = options.Length - 1;
@@ -98,10 +98,10 @@ public class ConsoleGameView : BaseGameView
         return value;
     }
 
-    public override void AnnounceRoundStart(int round, Unit activeUnit, int currentPlayer)
+    public void AnnounceRoundStart(int round, Unit activeUnit, int currentPlayer)
         => _view.WriteLine($"Round {round}: {activeUnit.Name} (Player {currentPlayer + 1}) comienza");
 
-    public override void AnnounceAdvantage(Unit attacker, Unit defender, AdvantageState advantage)
+    public void AnnounceAdvantage(Unit attacker, Unit defender, AdvantageState advantage)
     {
         Weapon attackerWeapon = attacker.Weapon;
         Weapon defenderWeapon = defender.Weapon;
@@ -119,13 +119,13 @@ public class ConsoleGameView : BaseGameView
         _view.WriteLine(message);
     }
 
-    public override void AnnounceAttack(Unit attacker, Unit defender, int damage)
+    public void AnnounceAttack(Unit attacker, Unit defender, int damage)
         => _view.WriteLine($"{attacker.Name} ataca a {defender.Name} con {damage} de daño");
 
-    public override void AnnounceCounterattack(Unit defender, Unit attacker, int damage)
+    public void AnnounceCounterattack(Unit defender, Unit attacker, int damage)
         => _view.WriteLine($"{defender.Name} ataca a {attacker.Name} con {damage} de daño");
 
-    public override void AnnounceWinner(int winnerTeamNumber)
+    public void AnnounceWinner(int winnerTeamNumber)
         => _view.WriteLine($"Player {winnerTeamNumber} ganó");
     
     private void ValidateValueInRange(int minValue, int value, int maxValue)
@@ -135,22 +135,22 @@ public class ConsoleGameView : BaseGameView
             throw new ValueOutOfRangeException(minValue, maxValue, value);
         }
     }
-    public override void AnnounceMessageForInvalidTeam()
+    public void AnnounceMessageForInvalidTeam()
         => _view.WriteLine("Archivo de equipos no válido");
 
-    public override void AnnounceMessageForNoFollowUpAttack()
+    public void AnnounceMessageForNoFollowUpAttack()
         => _view.WriteLine("Ninguna unidad puede hacer un follow up");
     
-    public override void AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(Unit unit)
+    public void AnnounceMessageForNoFollowUpAttackDueNullifiedCounterattack(Unit unit)
         => _view.WriteLine($"{unit.Name} no puede hacer un follow up");
 
-    public override void AnnounceAttackerBonusEffect(Unit unit)
+    public void AnnounceAttackerBonusEffect(Unit unit)
     {
         AnnounceIfPositiveBonus(unit);
         AnnounceIfPositiveFirstAttackBonus(unit);
     }
 
-    public override void AnnounceDefenderBonusEffect(Unit rival)
+    public void AnnounceDefenderBonusEffect(Unit rival)
     {
         AnnounceIfPositiveBonus(rival);
         AnnounceIfPositiveFirstAttackBonus(rival);
@@ -193,13 +193,13 @@ public class ConsoleGameView : BaseGameView
         => _view.WriteLine($"{unit.Name} obtiene Res+{unit.FirstAttackResBonus} en su primer ataque");
 
 
-    public override void AnnounceAttackerPenaltyEffect(Unit unit)
+    public void AnnounceAttackerPenaltyEffect(Unit unit)
     {
         AnnounceIfPositivePenalty(unit);
         AnnounceIfPositiveFirstAttackPenalty(unit);
     }
 
-    public override void AnnounceDefenderPenaltyEffect(Unit rival)
+    public void AnnounceDefenderPenaltyEffect(Unit rival)
     {
         AnnounceIfPositivePenalty(rival);
         AnnounceIfPositiveFirstAttackPenalty(rival);
@@ -241,7 +241,7 @@ public class ConsoleGameView : BaseGameView
     private void AnnounceFirstAttackResPenaltyStat(Unit unit)
         => _view.WriteLine($"{unit.Name} obtiene Res-{unit.FirstAttackResPenalty} en su primer ataque");
 
-    public override void AnnounceNeutralizationBonusEffect(Unit unit)
+    public void AnnounceNeutralizationBonusEffect(Unit unit)
         => AnnounceBonusNeutralizationStat(unit);
 
     private void AnnounceBonusNeutralizationStat(Unit unit)
@@ -264,7 +264,7 @@ public class ConsoleGameView : BaseGameView
     private void AnnounceNeutralizationResBonusStat(Unit unit)
         => _view.WriteLine($"Los bonus de Res de {unit.Name} fueron neutralizados");
 
-    public override void AnnounceNeutralizationPenaltyEffect(Unit unit)
+    public void AnnounceNeutralizationPenaltyEffect(Unit unit)
         => AnnouncePenaltyNeutralizationStat(unit);
 
     private void AnnouncePenaltyNeutralizationStat(Unit unit)
@@ -276,7 +276,7 @@ public class ConsoleGameView : BaseGameView
     }
 
 
-    public override void AnnounceFollowUpGuarantee(Unit unit)
+    public void AnnounceFollowUpGuarantee(Unit unit)
         => AnnounceFollowUpGuaranteeEffect(unit);
     private void AnnounceFollowUpGuaranteeEffect(Unit unit)
     {
@@ -285,7 +285,7 @@ public class ConsoleGameView : BaseGameView
                             $" que garantiza(n) su follow up activo(s)");
     }
 
-    public override void AnnounceDenialFollowUp(Unit unit)
+    public void AnnounceDenialFollowUp(Unit unit)
         => AnnounceDenialFollowUpEffect(unit);
     
     private void AnnounceDenialFollowUpEffect(Unit unit)
@@ -295,7 +295,7 @@ public class ConsoleGameView : BaseGameView
                             $" que neutraliza(n) su follow up activo(s)");
     }
 
-    public override void AnnounceDenialFollowUpGuaranteed(Unit unit)
+    public void AnnounceDenialFollowUpGuaranteed(Unit unit)
         => AnnounceDenialFollowUpGuaranteedEffect(unit);
 
     private void AnnounceDenialFollowUpGuaranteedEffect(Unit unit)
@@ -304,7 +304,7 @@ public class ConsoleGameView : BaseGameView
             _view.WriteLine($"{unit.Name} es inmune a los efectos que garantizan su follow up");
     }
 
-    public override void AnnounceDenialOfDenialFollowUp(Unit unit)
+    public void AnnounceDenialOfDenialFollowUp(Unit unit)
         => AnnounceDenialOfDenialFollowUpEffect(unit);
     private void AnnounceDenialOfDenialFollowUpEffect(Unit unit)
     {
@@ -325,7 +325,7 @@ public class ConsoleGameView : BaseGameView
     private void AnnounceNeutralizationResPenaltyStat(Unit unit)
         => _view.WriteLine($"Los penalty de Res de {unit.Name} fueron neutralizados");
 
-    public override void AnnounceExtraDamage(Unit unit)
+    public void AnnounceExtraDamage(Unit unit)
         => AnnounceIfActiveExtraDamageEffect(unit);
 
     private void AnnounceIfActiveExtraDamageEffect(Unit unit)
@@ -347,7 +347,7 @@ public class ConsoleGameView : BaseGameView
                             $"daño extra en su primer ataque");
     }
 
-    public override void AnnounceAbsoluteDamageReduction(Unit unit)
+    public void AnnounceAbsoluteDamageReduction(Unit unit)
         => AnnounceAbsoluteDamageReductionEffect(unit);
 
     private void AnnounceAbsoluteDamageReductionEffect(Unit unit)
@@ -359,7 +359,7 @@ public class ConsoleGameView : BaseGameView
         => _view.WriteLine($"{unit.Name} recibirá -{unit.AbsoluteDamageReduction} daño en cada ataque");
 
 
-    public override void AnnouncePercentageReductionEffect(Unit unit)
+    public void AnnouncePercentageReductionEffect(Unit unit)
     {
         AnnounceEachAttackPercentageReductionEffect(unit);
         AnnounceFirstAttackPercentageReductionEffect(unit);
@@ -407,7 +407,7 @@ public class ConsoleGameView : BaseGameView
             _view.WriteLine($"{unit.Name} reducirá el daño del Follow-Up del rival en un {percentage}%");
     }
 
-    public override void AnnounceHealingEffect(Unit unit)
+    public void AnnounceHealingEffect(Unit unit)
         => AnnounceHealing(unit);
 
     private void AnnounceHealing(Unit unit)
@@ -425,10 +425,10 @@ public class ConsoleGameView : BaseGameView
                             $"del daño realizado en cada ataque");
     }
 
-    public override void AnnounceHpHealing(Unit unit, int healingAmount)
+    public void AnnounceHpHealing(Unit unit, int healingAmount)
         => _view.WriteLine($"{unit.Name} recupera {healingAmount} HP luego de atacar y queda con {unit.CurrentHP} HP.");
 
-    public override void AnnounceHpHealingInEachAttack(Unit unit)
+    public void AnnounceHpHealingInEachAttack(Unit unit)
     {
         double unitHealingPercentage = unit.HealingPercentage;
         int finalDamage = unit.FinalCausedDamage;
@@ -437,7 +437,7 @@ public class ConsoleGameView : BaseGameView
             _view.WriteLine($"{unit.Name} recupera {healingAmount} HP luego de atacar y queda con {unit.CurrentHP} HP.");
     }
 
-    public override void AnnounceCounterattackDenialEffect(Unit unit)
+    public void AnnounceCounterattackDenialEffect(Unit unit)
         => AnnounceCounterattackDenial(unit);
 
     private void AnnounceCounterattackDenial(Unit unit)
@@ -446,7 +446,7 @@ public class ConsoleGameView : BaseGameView
             _view.WriteLine($"{unit.Name} no podrá contraatacar");
     }
     
-    public override void AnnounceCounterattackDenialDenialEffect(Unit unit)
+    public void AnnounceCounterattackDenialDenialEffect(Unit unit)
         => AnnounceCounterattackDenialDenial(unit);
     
     private void AnnounceCounterattackDenialDenial(Unit unit)
@@ -455,7 +455,7 @@ public class ConsoleGameView : BaseGameView
             _view.WriteLine($"{unit.Name} neutraliza los efectos que previenen sus contraataques");
     }
     
-    public override void AnnounceDamageOutOfCombatEffect(Unit unit)
+    public void AnnounceDamageOutOfCombatEffect(Unit unit)
         => AnnounceDamageOutOfCombat(unit);
     
     
@@ -467,7 +467,7 @@ public class ConsoleGameView : BaseGameView
             _view.WriteLine($"{unit.Name} recupera {unit.StatAfterCombat} HP despues del combate");
     }
     
-    public override void AnnounceDamageBeforeCombatEffect(Unit unit)
+    public void AnnounceDamageBeforeCombatEffect(Unit unit)
     => AnnounceDamageBeforeCombat(unit);
     
     private void AnnounceDamageBeforeCombat(Unit unit)

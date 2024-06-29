@@ -3,7 +3,7 @@ using Fire_Emblem_View;
 using Fire_Emblem_GUI;
 using Fire_Emblem.Views;
 
-bool useGui = true;
+bool useGui = false;
 
 if (useGui)
 {
@@ -13,9 +13,9 @@ if (useGui)
     void Main()
     {
 
-        GraphicGameView graphicGameView = new GraphicGameView(window);
-        UIGame uiGame = new UIGame(graphicGameView);
-        uiGame.Play();
+        // GraphicGameView graphicGameView = new GraphicGameView(window);
+        // UIGame uiGame = new UIGame(graphicGameView);
+        // uiGame.Play();
         //
         // Unit[] team1 = [new Unit("Marth", "Sword", 54, 62, 53, 43, 37)];
         // Unit [] team2 = [
