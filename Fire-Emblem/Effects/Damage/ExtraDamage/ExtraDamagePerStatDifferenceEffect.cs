@@ -33,6 +33,7 @@ public class ExtraDamagePerStatDifferenceEffect : IExtraDamageEffect
             targetUnit.ApplyExtraDamageEffect(extraDamage);
         }
 
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

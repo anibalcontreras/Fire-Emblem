@@ -11,5 +11,4 @@ public class SkillsList
     
     public int Count()
         => _skills.Count;
-    
 }

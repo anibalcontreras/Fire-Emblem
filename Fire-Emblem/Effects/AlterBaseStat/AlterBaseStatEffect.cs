@@ -20,7 +20,8 @@ public class AlterBaseStatEffect : IEffect
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyStatBonus(_statToIncrease, _amount);
         targetUnit.SetActivatedAlterStatBase();
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }
     

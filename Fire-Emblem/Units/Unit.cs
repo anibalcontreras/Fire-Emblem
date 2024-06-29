@@ -23,15 +23,18 @@ public class Unit
     public SkillsList Skills { get; } = new();
     
     public Allies Allies { get; } = new();
-    
-    private readonly List<IEffect> _effects = new();
-    private IEnumerable<IEffect> _enumerableEffects => _effects.AsReadOnly();
+    public EffectsList Effects { get; } = new();
+    public bool HasActiveNeutralizationBonus(StatType statType)
+    {
+        return Effects.Items.Any(effect => effect is NeutralizationBonusEffect
+            bonus && bonus.StatType == statType);
+    }
 
-    public void AddActiveEffect(IEffect effect)
-        => _effects.Add(effect);
-
-    public void ClearActiveEffects()
-        => _effects.Clear();
+    public bool HasActiveNeutralizationPenalty(StatType statType)
+    {
+        return Effects.Items.Any(effect => effect is NeutralizationPenaltyEffect
+            penalty && penalty.StatType == statType);
+    }
 
     private int _currentHP;
 
@@ -115,18 +118,6 @@ public class Unit
     private int FollowUpResBonus { get; set; }
     private int FollowUpResPenalty { get; set; }
     public int _followUpRes => _currentRes + FollowUpResBonus - FollowUpResPenalty;
-
-    public bool HasActiveNeutralizationBonus(StatType statType)
-    {
-        return _enumerableEffects.Any(effect => effect is NeutralizationBonusEffect
-            bonus && bonus.StatType == statType);
-    }
-
-    public bool HasActiveNeutralizationPenalty(StatType statType)
-    {
-        return _enumerableEffects.Any(effect => effect is NeutralizationPenaltyEffect
-            penalty && penalty.StatType == statType);
-    }
     
     public int GetFirstAttackStat(StatType statType)
     {
@@ -522,7 +513,7 @@ public class Unit
     
     public int QuantityOfActiveGuaranteeFollowUpEffects
     {
-        get { return _enumerableEffects.Count(effect => effect is FollowUpGuaranteeEffect); }
+        get { return Effects.Items.Count(effect => effect is FollowUpGuaranteeEffect); }
     }
     public bool HasFollowUpGuaranteed { get; private set; }
     
@@ -542,7 +533,7 @@ public class Unit
     
     public int QuantityOfActiveDenialFollowUpEffects
     {
-        get { return _enumerableEffects.Count(effect => effect is DenialFollowUpEffect); }
+        get { return Effects.Items.Count(effect => effect is DenialFollowUpEffect); }
     }
     public bool HasDenialFollowUp { get; private set; }
     

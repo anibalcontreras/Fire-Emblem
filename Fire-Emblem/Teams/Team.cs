@@ -63,7 +63,6 @@ public class Team
     private IEnumerable<string> GetUniqueSkillNames(SkillsList equippedSkills)
     {
         List<string> skillNames = new List<string>();
-        
         IEnumerable<Skill> skills = equippedSkills.Items; 
         foreach (Skill skill in skills)
         {

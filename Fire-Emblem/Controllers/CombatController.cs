@@ -244,7 +244,7 @@ namespace Fire_Emblem.Controllers
             attacker.ResetEffects();
             attacker.ResetFirstAttackBonusStats();
             attacker.ResetFirstAttackPenaltyStats();
-            attacker.ClearActiveEffects();
+            attacker.Effects.ClearEffects();
             attacker.SetHasBeenAttackerBefore();
             attacker.ResetIsAttacker();
             attacker.ResetNullifyCounterattack();
@@ -266,7 +266,7 @@ namespace Fire_Emblem.Controllers
             defender.ResetEffects();
             defender.ResetFirstAttackBonusStats();
             defender.ResetFirstAttackPenaltyStats();
-            defender.ClearActiveEffects();
+            defender.Effects.ClearEffects();
             defender.SetHasBeenDefenderBefore();
             defender.ResetNullifyCounterattack();
             defender.ResetNullifyNullifiedCounterattack();

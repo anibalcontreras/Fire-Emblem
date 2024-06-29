@@ -15,6 +15,7 @@ public class CounterattackDenialEffect : IEffect
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         targetUnit.SetNullifyCounterattack();
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

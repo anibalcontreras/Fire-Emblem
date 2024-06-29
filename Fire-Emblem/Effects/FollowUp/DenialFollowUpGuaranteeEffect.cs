@@ -15,6 +15,7 @@ public class DenialFollowUpGuaranteeEffect : IEffect
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         targetUnit.SetDenialFollowUpGuaranteed();
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

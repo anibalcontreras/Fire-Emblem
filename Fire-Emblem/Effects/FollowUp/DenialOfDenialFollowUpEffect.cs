@@ -15,6 +15,7 @@ public class DenialOfDenialFollowUpEffect : IEffect
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         targetUnit.SetDenialOfDenialFollowUp();
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

@@ -17,6 +17,7 @@ public class PercentageDamageReductionEffect : IPercentageDamageReductionEffect
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyPercentageDamageReduction(_percentage);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

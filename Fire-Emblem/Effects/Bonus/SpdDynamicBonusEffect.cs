@@ -21,6 +21,7 @@ public class SpdDynamicBonusEffect : IBonusEffect
         
         int bonusAmount = (int)(_percentage * targetUnit.GetBaseStat(StatType.Spd));
         targetUnit.ApplyStatBonus(_statType, bonusAmount);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

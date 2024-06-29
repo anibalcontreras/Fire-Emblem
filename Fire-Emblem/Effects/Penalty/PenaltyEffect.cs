@@ -20,6 +20,7 @@ public class PenaltyEffect : IPenaltyEffect
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyStatPenalty(_statToDecrease, _amount);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

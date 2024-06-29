@@ -28,6 +28,7 @@ public class MastermindExtraDamageEffect : IExtraDamageEffect
         int y = (int)(opponentTotalPenalty * _yPercentage);
         int extraDamage = x + y;
         targetUnit.ApplyExtraDamageEffect(extraDamage);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

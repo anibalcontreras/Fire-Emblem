@@ -17,6 +17,7 @@ public class FollowUpPercentageDamageReductionEffect : IFollowUpPercentageDamage
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyFollowUpPercentageDamageReduction(_percentage);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

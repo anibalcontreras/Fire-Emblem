@@ -16,6 +16,7 @@ public class ExtraDamageEffect : IExtraDamageEffect
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyExtraDamageEffect(_amount);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

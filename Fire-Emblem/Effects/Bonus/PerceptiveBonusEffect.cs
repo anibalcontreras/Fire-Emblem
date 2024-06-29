@@ -21,6 +21,7 @@ public class PerceptiveBonusEffect: IBonusEffect
         int additionalBonus = baseSpd / _spdIncrementFactor;
         spdBonus += additionalBonus;
         targetUnit.ApplyStatBonus(StatType.Spd, spdBonus);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

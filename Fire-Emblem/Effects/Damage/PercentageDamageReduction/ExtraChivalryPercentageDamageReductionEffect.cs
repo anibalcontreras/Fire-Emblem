@@ -17,7 +17,8 @@ public class ExtraChivalryPercentageDamageReductionEffect : IPercentageDamageRed
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         double damageReductionPercentage = CalculateDamageReductionPercentage(opponent);
         targetUnit.ApplyPercentageDamageReduction(damageReductionPercentage);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 
     private double CalculateDamageReductionPercentage(Unit opponent)

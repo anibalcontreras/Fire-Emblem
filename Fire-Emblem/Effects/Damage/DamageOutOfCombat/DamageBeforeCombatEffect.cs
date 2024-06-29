@@ -18,6 +18,7 @@ public class DamageBeforeCombatEffect : IDamageBeforeCombatEffect
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyDamageBeforeCombat(_amount);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

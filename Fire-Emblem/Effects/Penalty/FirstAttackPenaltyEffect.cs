@@ -22,6 +22,7 @@ public class FirstAttackPenaltyEffect : IEffect
         int baseStat = targetUnit.GetBaseStat(_statToDecrease);
         _calculatedPenaltyAmount = (int)(baseStat * (_percentage / 100.0));
         targetUnit.ApplyFirstAttackStatPenalty(_statToDecrease, _calculatedPenaltyAmount.Value);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }

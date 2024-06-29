@@ -17,6 +17,7 @@ public class FirstAttackPercentageDamageReductionEffect : IFirstAttackPercentage
     {
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyFirstAttackPercentageDamageReduction(_percentage);
-        targetUnit.AddActiveEffect(this);
+        EffectsList targetUnitEffects = targetUnit.Effects;
+        targetUnitEffects.AddEffect(this);
     }
 }
