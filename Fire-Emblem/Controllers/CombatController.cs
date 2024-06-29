@@ -37,21 +37,15 @@ namespace Fire_Emblem.Controllers
             int defenderPlayerNumber = (currentPlayer + 1) % 2 + 1;
             Unit attacker = _view.SelectUnit(activeTeam, attackerPlayerNumber);
             Unit defender = _view.SelectUnit(opponentTeam, defenderPlayerNumber);
-            attacker.RemoveAllAllies();
-            defender.RemoveAllAllies();
-            foreach (Unit unit in activeTeam.Units)
-                if (unit != attacker)
-                    attacker.AddAlly(unit);
-            foreach (Unit unit in opponentTeam.Units)
-                if (unit != defender)
-                    defender.AddAlly(unit);
+            activeTeam.AddAllies(attacker);
+            opponentTeam.AddAllies(defender);
             attacker.SetStartOfCombatHp();
             defender.SetStartOfCombatHp();
             Combat combat = new Combat(attacker, defender);
             attacker.SetIsAttacker();
             return combat;
         }
-
+        
         private void AnnounceWeaponAdvantage(Combat combat)
         {
             Unit attacker = combat.Attacker;

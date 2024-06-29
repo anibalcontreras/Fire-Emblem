@@ -7,7 +7,10 @@ public class UnitAllyUseMagicCondition : ICondition
 {
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        foreach (Unit ally in activator.Allies)
+        Allies activatorAllies = activator.Allies;
+        
+        IEnumerable<Unit> allies = activatorAllies.Items;
+        foreach (Unit ally in allies)
         {
             if (ally.Weapon.GetType() == typeof(Magic))
                 return true;

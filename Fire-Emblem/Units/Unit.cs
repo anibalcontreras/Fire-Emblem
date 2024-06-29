@@ -19,23 +19,10 @@ public class Unit
     public int BaseDef { get; init; }
     public int BaseRes { get; init; }
     public Weapon Weapon { get; init; }
-
-    private readonly List<Skill> _skills = new();
-
-    public IEnumerable<Skill> Skills
-        => _skills.AsReadOnly();
-
-    public void AddSkill(Skill skill)
-        => _skills.Add(skill);
     
-    public readonly List<Unit> Allies = new();
-    public void AddAlly(Unit ally)
-        => Allies.Add(ally);
+    public SkillsList Skills { get; } = new();
     
-    public void RemoveAllAllies()
-        => Allies.Clear();
-    
-    public bool HaveAllies => Allies.Count > 0;
+    public Allies Allies { get; } = new();
     
     private readonly List<IEffect> _effects = new();
     private IEnumerable<IEffect> _enumerableEffects => _effects.AsReadOnly();

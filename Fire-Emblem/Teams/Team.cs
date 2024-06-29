@@ -49,21 +49,23 @@ public class Team
 
     private bool HasValidNumberOfSkills(Unit unit)
     {
-        IEnumerable<Skill> unitSkills = unit.Skills;
-        return unitSkills.Count() <= _maxAmountOfSkills;
+        SkillsList skills = unit.Skills;
+        return skills.Count() <= _maxAmountOfSkills;
     }
 
     private bool HasUniqueSkills(Unit unit)
     {
-        IEnumerable<Skill> unitSkills = unit.Skills;
+        SkillsList unitSkills = unit.Skills;
         IEnumerable<string> uniqueSkillNames = GetUniqueSkillNames(unitSkills);
         return uniqueSkillNames.Count() == unitSkills.Count();
     }
     
-    private IEnumerable<string> GetUniqueSkillNames(IEnumerable<Skill> equippedSkills)
+    private IEnumerable<string> GetUniqueSkillNames(SkillsList equippedSkills)
     {
         List<string> skillNames = new List<string>();
-        foreach (Skill skill in equippedSkills)
+        
+        IEnumerable<Skill> skills = equippedSkills.Items; 
+        foreach (Skill skill in skills)
         {
             string skillName = skill.Name;
             skillNames.Add(skillName);
@@ -78,5 +80,20 @@ public class Team
     public bool HasLivingUnits()
     {
         return Units.Any(unit => unit.CurrentHP > _currentHpBoundary);
+    }
+    
+    public void AddAllies(Unit unit)
+    {
+        Allies allies = unit.Allies;
+        allies.RemoveAllAlies();
+        foreach (Unit ally in Units)
+            AddTheRightUnitToAllies(unit, ally);
+    }
+
+    private void AddTheRightUnitToAllies(Unit unit, Unit ally)
+    {
+        Allies allies = unit.Allies;
+        if (ally != unit)
+            allies.AddAlly(ally);    
     }
 }

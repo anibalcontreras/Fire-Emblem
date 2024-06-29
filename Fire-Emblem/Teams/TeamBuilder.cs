@@ -46,27 +46,27 @@ public class TeamBuilder
         return currentPlayer;
     }
 
-    private Player CreatePlayerIfNecessary(string line)
+    private Player CreatePlayerIfNecessary(string playerLine)
     {
-        string playerName = string.Join(" ", line.Split().Take(2));
+        string playerName = string.Join(" ", playerLine.Split().Take(2));
         Player player = new Player(playerName);
-        _playerTeams[line] = player.Team;
+        _playerTeams[playerLine] = player.Team;
         return player;
     }
     
-    private void AddUnitToCurrentPlayer(string line, ref Player currentPlayer)
+    private void AddUnitToCurrentPlayer(string playerLine, ref Player currentPlayer)
     {
-        if (string.IsNullOrWhiteSpace(line))
+        if (string.IsNullOrWhiteSpace(playerLine))
             return;
-        string unitName = ExtractUnitName(line);
+        string unitName = ExtractUnitName(playerLine);
         Unit originalUnit = FindUnitByName(unitName);
         Unit clonedUnit = CloneUnit(originalUnit);
-        AddUnitToPlayer(clonedUnit, line, ref currentPlayer);
+        AddUnitToPlayer(clonedUnit, playerLine, ref currentPlayer);
     }
 
-    private string ExtractUnitName(string line)
+    private string ExtractUnitName(string unitLine)
     {
-        string[] parts = line.Split('(');
+        string[] parts = unitLine.Split('(');
         return parts[0].Trim();
     }
 
@@ -105,11 +105,11 @@ public class TeamBuilder
         };
     }
 
-    private void AddUnitToPlayer(Unit clonedUnit, string line, ref Player currentPlayer)
+    private void AddUnitToPlayer(Unit clonedUnit, string unitLine, ref Player currentPlayer)
     {
         clonedUnit.InitializeCurrentHp();
         Unit unit = clonedUnit;
-        ProcessUnitSkills(line.Split('('), unit);
+        ProcessUnitSkills(unitLine.Split('('), unit);
         currentPlayer.Team.AddUnit(unit);
     }
     
@@ -147,8 +147,9 @@ public class TeamBuilder
         {
             skill = FindSkillByName(skillName);
         }
+        SkillsList unitSkills = unit.Skills;
         Skill clonedSkill = new Skill(skill.Name, skill.Effect);
-        unit.AddSkill(clonedSkill);
+        unitSkills.AddSkill(clonedSkill);
     }
 
     private Skill FindSkillByName(string skillName)

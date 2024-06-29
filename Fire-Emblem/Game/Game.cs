@@ -23,7 +23,8 @@ public class Game
         CombatController combatController = new CombatController(_consoleGameView);
         FileManager fileManager = new FileManager(_consoleGameView);
         TeamBuilder teamBuilder = new TeamBuilder();
-        _gameInitializer = new GameInitializer(_consoleGameView, gameController, combatController, fileManager, teamBuilder);
+        _gameInitializer = new GameInitializer(_consoleGameView, gameController, 
+            combatController, fileManager, teamBuilder);
         _combats = new CombatCollection();
     }
 

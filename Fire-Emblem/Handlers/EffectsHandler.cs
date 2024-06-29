@@ -7,18 +7,20 @@ namespace Fire_Emblem.Handlers;
 
 public abstract class EffectsHandler
 {
-    private Unit Activator { get; }
-    private Unit Opponent { get; }
+    private Unit _activator { get; }
+    private Unit _opponent { get; }
     
     protected EffectsHandler(Unit activator, Unit opponent)
     {
-        Activator = activator;
-        Opponent = opponent;
+        _activator = activator;
+        _opponent = opponent;
     }
 
     public void CollectConditionMetEffects(List<(Unit, IEffect)> effectsToApply)
     {
-        foreach (Skill skill in Activator.Skills)
+        SkillsList activatorSkills = _activator.Skills;
+        IEnumerable<Skill> skills = activatorSkills.Items;
+        foreach (Skill skill in skills)
         {
             AddConditionalEffects(skill, effectsToApply);
         }
@@ -48,8 +50,8 @@ public abstract class EffectsHandler
     private void AddEffectIfConditionMet(ConditionalEffect conditionalEffect, List<(Unit, IEffect)> effectsToApply)
     {
         ICondition condition = conditionalEffect.Condition;
-        if (condition.IsConditionMet(Activator, Opponent))
-            effectsToApply.Add((Activator, conditionalEffect));
+        if (condition.IsConditionMet(_activator, _opponent))
+            effectsToApply.Add((_activator, conditionalEffect));
     }
 
     public void ApplyEffectsInOrder(List<(Unit, IEffect)> effectsToApply)
@@ -84,7 +86,7 @@ public abstract class EffectsHandler
 
     private void ApplySpecificEffect(Unit unit, IEffect specificEffect)
     {
-        Unit targetUnit = unit == Activator ? Opponent : Activator;
+        Unit targetUnit = unit == _activator ? _opponent : _activator;
         specificEffect.ApplyEffect(unit, targetUnit);
     }
 

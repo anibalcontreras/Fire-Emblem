@@ -24,9 +24,9 @@ public class GameInitializer
 
     public void InitializeGame(CombatCollection combats)
     {
-        TeamCollection teams = BuildTeamsFromScratch();
-        if (teams.AreTeamsValid())
-            _gameController.ManageGame(teams.GetTeams(), combats.GetCombats());
+        TeamCollection teamsCollection = BuildTeamsFromScratch();
+        if (teamsCollection.AreTeamsValid())
+            _gameController.ManageGame(teamsCollection.GetTeams(), combats.GetCombats());
         else
             _gameController.AnnounceInvalidTeam();
             
