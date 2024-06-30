@@ -45,7 +45,6 @@ public static class CreateStance
 
     private static IEffect CreateDamageReductionEffect(ICondition condition)
     {
-        
         IEffect reductionEffect = new FollowUpPercentageDamageReductionEffect(_damageReduction, EffectTarget.Unit);
         return new ConditionalEffect(condition, reductionEffect);
     }

@@ -1,4 +1,3 @@
-using Avalonia.Media;
 using Fire_Emblem.Conditions;
 using Fire_Emblem.Conditions.LogicalConditions;
 using Fire_Emblem.Effects;
@@ -637,9 +636,7 @@ public static class SkillBuilder
         ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(condition, defPenaltyEffect);
         ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(condition, resPenaltyEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalDefPenaltyEffect, conditionalResPenaltyEffect
-        });
+        { conditionalDefPenaltyEffect, conditionalResPenaltyEffect });
         return new Skill("Luna", multiEffect);
     }
 
@@ -675,9 +672,7 @@ public static class SkillBuilder
     public static Skill CreateSympatheticSkill()
     {
         ICondition condition = new AndCondition(
-            new RivalBeginAsAttacker(),
-            new UnitHpThresholdCondition(0.5)
-        );
+            new RivalBeginAsAttacker(), new UnitHpThresholdCondition(0.5));
         IEffect absoluteDamageReductionEffect = new AbsoluteDamageReductionEffect(5, EffectTarget.Unit);
         ConditionalEffect conditionalAbsoluteDamageReductionEffect = new ConditionalEffect(condition,
             absoluteDamageReductionEffect);
@@ -694,9 +689,7 @@ public static class SkillBuilder
             absoluteDamageReductionEffect);
         ConditionalEffect conditionalExtraDamageEffect = new ConditionalEffect(condition, extraDamageEffect);
         MultiEffect effects = new MultiEffect(new IEffect[]
-        {
-            conditionalAbsoluteDamageReductionEffect, conditionalExtraDamageEffect
-        });
+        { conditionalAbsoluteDamageReductionEffect, conditionalExtraDamageEffect });
         return new Skill("Blue Skies", effects);
     }
 
@@ -1066,61 +1059,36 @@ public static class SkillBuilder
         });
         return new Skill("Eclipse Brace", multiEffect);
     }
-
-    private static Skill CreatePushSkill(string skillName, StatType statType1, StatType statType2)
-    {
-        int statBonus = 7;
-        int damageAfterCombat = 5;
-        double hpThreshold = 0.25;
-        ICondition hpThresholdCondition = new UnitHpStartOfCombatGreaterThanCondition(hpThreshold);
-        IEffect statBonusEffect1 = new BonusEffect(statType1, statBonus, EffectTarget.Unit);
-        IEffect statBonusEffect2 = new BonusEffect(statType2, statBonus, EffectTarget.Unit);
-        ConditionalEffect conditionalStatBonusEffect1 = new ConditionalEffect(hpThresholdCondition, statBonusEffect1);
-        ConditionalEffect conditionalStatBonusEffect2 = new ConditionalEffect(hpThresholdCondition, statBonusEffect2);
-        ICondition unitIsAliveCondition = new IsUnitAliveCondition();
-        ICondition unitHasAttackedCondition = new HasUnitAttackedCondition();
-        ICondition unitAndCondition =
-            new AndCondition(unitIsAliveCondition, unitHasAttackedCondition, hpThresholdCondition);
-        IEffect damageOutOfCombatEffect = new DamageAfterCombatEffect(damageAfterCombat, EffectTarget.Unit);
-        ConditionalEffect conditionalDamageOutOfCombatEffect =
-            new ConditionalEffect(unitAndCondition, damageOutOfCombatEffect);
-        MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalStatBonusEffect1,
-            conditionalStatBonusEffect2,
-            conditionalDamageOutOfCombatEffect
-        });
-        return new Skill(skillName, multiEffect);
-    }
-
+    
     public static Skill CreateAtkSpdPushSkill()
     {
-        return CreatePushSkill("Atk/Spd Push", StatType.Atk, StatType.Spd);
+        return CreatePush.CreatePushSkill("Atk/Spd Push", StatType.Atk, StatType.Spd);
+        
     }
 
     public static Skill CreateAtkDefPushSkill()
     {
-        return CreatePushSkill("Atk/Def Push", StatType.Atk, StatType.Def);
+        return CreatePush.CreatePushSkill("Atk/Def Push", StatType.Atk, StatType.Def);
     }
 
     public static Skill CreateAtkResPushSkill()
     {
-        return CreatePushSkill("Atk/Res Push", StatType.Atk, StatType.Res);
+        return CreatePush.CreatePushSkill("Atk/Res Push", StatType.Atk, StatType.Res);
     }
 
     public static Skill CreateSpdDefPushSkill()
     {
-        return CreatePushSkill("Spd/Def Push", StatType.Spd, StatType.Def);
+        return CreatePush.CreatePushSkill("Spd/Def Push", StatType.Spd, StatType.Def);
     }
 
     public static Skill CreateSpdResPushSkill()
     {
-        return CreatePushSkill("Spd/Res Push", StatType.Spd, StatType.Res);
+        return CreatePush.CreatePushSkill("Spd/Res Push", StatType.Spd, StatType.Res);
     }
 
     public static Skill CreateDefResPushSkill()
     {
-        return CreatePushSkill("Def/Res Push", StatType.Def, StatType.Res);
+        return CreatePush.CreatePushSkill("Def/Res Push", StatType.Def, StatType.Res);
     }
 
     public static Skill CreateFlareSkill()
@@ -1132,11 +1100,7 @@ public static class SkillBuilder
         ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(magicWeaponCondition, resPenaltyEffect);
         ConditionalEffect conditionalHealingEffect = new ConditionalEffect(magicWeaponCondition, healingEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalResPenaltyEffect,
-            conditionalHealingEffect
-        });
-
+        { conditionalResPenaltyEffect, conditionalHealingEffect });
         return new Skill("Flare", multiEffect);
     }
 
@@ -1149,10 +1113,7 @@ public static class SkillBuilder
         ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(trueCondition, atkPenaltyEffect);
         ConditionalEffect conditionalHealingEffect = new ConditionalEffect(unitAliveCondition, healingEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalAtkPenaltyEffect,
-            conditionalHealingEffect
-        });
+        { conditionalAtkPenaltyEffect, conditionalHealingEffect });
         return new Skill("Mystic Boost", multiEffect);
     }
 
@@ -1568,10 +1529,7 @@ public static class SkillBuilder
         ConditionalEffect conditionalFollowUpReductionEffect =
             new ConditionalEffect(andCondition, followUpReductionEffect);
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalGuaranteedFollowUpEffect,
-            conditionalFollowUpReductionEffect
-        });
+        { conditionalGuaranteedFollowUpEffect, conditionalFollowUpReductionEffect });
         return new Skill("Black Eagle Rule", multiEffect);
     }
 
@@ -1583,19 +1541,12 @@ public static class SkillBuilder
                 StatType.Def, EffectTarget.Unit);
         ConditionalEffect conditionalDamageReductionEffect =
             new ConditionalEffect(statComparisionCondition, damageReductionEffect);
-
         ICondition rivalBeginAsAttacker = new RivalBeginAsAttacker();
         IEffect followUpGuaranteeEffect = new FollowUpGuaranteeEffect(EffectTarget.Unit);
         ConditionalEffect conditionalFollowUpGuaranteeEffect =
             new ConditionalEffect(rivalBeginAsAttacker, followUpGuaranteeEffect);
-
-
         MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalDamageReductionEffect,
-            conditionalFollowUpGuaranteeEffect
-        });
-
+        { conditionalDamageReductionEffect, conditionalFollowUpGuaranteeEffect });
         return new Skill("Blue Lion Rule", multiEffect);
     }
 
@@ -1742,192 +1693,31 @@ public static class SkillBuilder
 
     public static Skill CreateFlowFeatherSkill()
     {
-        ICondition unitBeginAsAttacker = new UnitBeginAsAttackerCondition();
-        IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
-        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = 
-            new ConditionalEffect(unitBeginAsAttacker, denialOfDenialFollowUpEffect);
-        
-        ICondition statComparisionWithAdjustment = 
-            new StatComparisionWithAdjustmentCondition(StatType.Spd, -10);
-        ICondition andCondition = new AndCondition(unitBeginAsAttacker, statComparisionWithAdjustment);
-        IEffect extraDamagePerStatDifference = new ExtraDamagePerStatDifferenceEffect(StatType.Res, EffectTarget.Unit);
-        IEffect statDifferenceDamageReductionEffect =
-            new StatDifferenceDamageReductionEffect(StatType.Res, EffectTarget.Unit);
-        ConditionalEffect conditionalExtraDamagePerStatDifference = 
-            new ConditionalEffect(andCondition, extraDamagePerStatDifference);
-        ConditionalEffect conditionalStatDifferenceDamageReductionEffect = 
-            new ConditionalEffect(andCondition, statDifferenceDamageReductionEffect);
-        
-        MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalDenialOfDenialFollowUpEffect,
-            conditionalExtraDamagePerStatDifference,
-            conditionalStatDifferenceDamageReductionEffect
-        });
-        
-        return new Skill("Flow Feather", multiEffect);
+        return CreateComplexFlow.CreateComplexFlowSkill("Flow Feather", StatType.Res);
     }
     
     public static Skill CreateFlowFlightSkill()
     {
-        ICondition unitBeginAsAttacker = new UnitBeginAsAttackerCondition();
-        IEffect denialOfDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
-        ConditionalEffect conditionalDenialOfDenialFollowUpEffect = 
-            new ConditionalEffect(unitBeginAsAttacker, denialOfDenialFollowUpEffect);
-    
-        ICondition statComparisionWithAdjustment = 
-            new StatComparisionWithAdjustmentCondition(StatType.Spd, -10);
-        ICondition andCondition = new AndCondition(unitBeginAsAttacker, statComparisionWithAdjustment);
-        IEffect extraDamagePerStatDifference = new ExtraDamagePerStatDifferenceEffect(StatType.Def, EffectTarget.Unit);
-        IEffect statDifferenceDamageReductionEffect = 
-            new StatDifferenceDamageReductionEffect(StatType.Def, EffectTarget.Unit);
-        ConditionalEffect conditionalExtraDamagePerStatDifference = 
-            new ConditionalEffect(andCondition, extraDamagePerStatDifference);
-        ConditionalEffect conditionalStatDifferenceDamageReductionEffect = 
-            new ConditionalEffect(andCondition, statDifferenceDamageReductionEffect);
-    
-        MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalDenialOfDenialFollowUpEffect,
-            conditionalExtraDamagePerStatDifference,
-            conditionalStatDifferenceDamageReductionEffect
-        });
-    
-        return new Skill("Flow Flight", multiEffect);
+        return CreateComplexFlow.CreateComplexFlowSkill("Flow Flight", StatType.Def);
     }
 
     public static Skill CreatePegasusFlightSkill()
     {
-        ICondition trueCondition = new TrueCondition();
-        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 4, EffectTarget.Rival);
-        IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 4, EffectTarget.Rival);
-        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(trueCondition, atkPenaltyEffect);
-        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(trueCondition, defPenaltyEffect);
-        
-        ICondition baseStatComparisionWithAdjustment = 
-            new BaseStatComparisionWithAdjustmentCondition(StatType.Spd, -10);
-        IEffect atkDynamicPenaltyEffect = 
-            new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Atk, StatType.Res);
-        IEffect defDynamicPenaltyEffect = 
-            new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Def, StatType.Res);
-        ConditionalEffect conditionalAtkDynamicPenaltyEffect = 
-            new ConditionalEffect(baseStatComparisionWithAdjustment, atkDynamicPenaltyEffect);
-        ConditionalEffect conditionalDefDynamicPenaltyEffect = 
-            new ConditionalEffect(baseStatComparisionWithAdjustment, defDynamicPenaltyEffect);
-        
-        ICondition dualStatComparisionCondition = new DualStatComparisonCondition(StatType.Spd, StatType.Res);
-        ICondition andCondition = 
-            new AndCondition(baseStatComparisionWithAdjustment, dualStatComparisionCondition);
-        IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
-        ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(andCondition, denialFollowUpEffect);
-        
-        MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalAtkPenaltyEffect,
-            conditionalSpdPenaltyEffect,
-            conditionalAtkDynamicPenaltyEffect,
-            conditionalDefDynamicPenaltyEffect,
-            conditionalDenialFollowUpEffect
-        });
-        
-        return new Skill("Pegasus Flight", multiEffect);
+        return CreateSimpleFlow.CreateSimpleFlowSkill("Pegasus Flight", StatType.Res);
     }
-    
+
     public static Skill CreateWyvernFlightSkill()
     {
-        ICondition trueCondition = new TrueCondition();
-        IEffect atkPenaltyEffect = new PenaltyEffect(StatType.Atk, 4, EffectTarget.Rival);
-        IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 4, EffectTarget.Rival);
-        ConditionalEffect conditionalAtkPenaltyEffect = new ConditionalEffect(trueCondition, atkPenaltyEffect);
-        ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(trueCondition, defPenaltyEffect);
-
-        ICondition baseStatComparisionWithAdjustment = 
-            new BaseStatComparisionWithAdjustmentCondition(StatType.Spd, -10);
-        IEffect atkDynamicPenaltyEffect = 
-            new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Atk, StatType.Def);
-        IEffect defDynamicPenaltyEffect = 
-            new DynamicPenaltyEffect(EffectTarget.Rival, StatType.Def, StatType.Def);
-        ConditionalEffect conditionalAtkDynamicPenaltyEffect = 
-            new ConditionalEffect(baseStatComparisionWithAdjustment, atkDynamicPenaltyEffect);
-        ConditionalEffect conditionalDefDynamicPenaltyEffect = 
-            new ConditionalEffect(baseStatComparisionWithAdjustment, defDynamicPenaltyEffect);
-
-        ICondition dualStatComparisionCondition = new DualStatComparisonCondition(StatType.Spd, StatType.Def);
-        ICondition andCondition = 
-            new AndCondition(baseStatComparisionWithAdjustment, dualStatComparisionCondition);
-        IEffect denialFollowUpEffect = new DenialFollowUpEffect(EffectTarget.Rival);
-        ConditionalEffect conditionalDenialFollowUpEffect = new ConditionalEffect(andCondition, denialFollowUpEffect);
-
-        MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalAtkPenaltyEffect,
-            conditionalDefPenaltyEffect,
-            conditionalAtkDynamicPenaltyEffect,
-            conditionalDefDynamicPenaltyEffect,
-            conditionalDenialFollowUpEffect
-        });
-
-        return new Skill("Wyvern Flight", multiEffect);
+        return CreateSimpleFlow.CreateSimpleFlowSkill("Wyvern Flight", StatType.Def);
     }
 
     public static Skill CreatePhysNullFollowSkill()
     {
-        ICondition trueCondition = new TrueCondition();
-        IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival);
-        IEffect defPenaltyEffect = new PenaltyEffect(StatType.Def, 4, EffectTarget.Rival);
-        IEffect denialFollowUpGuaranteeEffect = new DenialFollowUpGuaranteeEffect(EffectTarget.Rival);
-        IEffect denialDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
-        IEffect percentageDamageReductionReductionEffect =
-            new PercentageDamageReductionReductionEffect(0.5, EffectTarget.Unit);
-        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(trueCondition, spdPenaltyEffect);
-        ConditionalEffect conditionalDefPenaltyEffect = new ConditionalEffect(trueCondition, defPenaltyEffect);
-        ConditionalEffect conditionalDenialFollowUpGuaranteeEffect =
-            new ConditionalEffect(trueCondition, denialFollowUpGuaranteeEffect);
-        ConditionalEffect conditionalDenialDenialFollowUpEffect = 
-            new ConditionalEffect(trueCondition, denialDenialFollowUpEffect);
-        ConditionalEffect conditionalPercentageDamageReductionReductionEffect =
-            new ConditionalEffect(trueCondition, percentageDamageReductionReductionEffect);
-        
-        MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalSpdPenaltyEffect,
-            conditionalDefPenaltyEffect,
-            conditionalDenialFollowUpGuaranteeEffect,
-            conditionalDenialDenialFollowUpEffect,
-            conditionalPercentageDamageReductionReductionEffect
-        });
-        
-        return new Skill("Phys. Null Follow-Up", multiEffect);
+        return CreateNullFollow.CreateNullFollowSkill("Phys. Null Follow-Up", StatType.Def, EffectTarget.Rival);
     }
     
     public static Skill CreateMagNullFollowSkill()
     {
-        ICondition trueCondition = new TrueCondition();
-        IEffect spdPenaltyEffect = new PenaltyEffect(StatType.Spd, 4, EffectTarget.Rival);
-        IEffect resPenaltyEffect = new PenaltyEffect(StatType.Res, 4, EffectTarget.Rival);
-        IEffect denialFollowUpGuaranteeEffect = new DenialFollowUpGuaranteeEffect(EffectTarget.Rival);
-        IEffect denialDenialFollowUpEffect = new DenialOfDenialFollowUpEffect(EffectTarget.Unit);
-        IEffect percentageDamageReductionReductionEffect = 
-            new PercentageDamageReductionReductionEffect(0.5, EffectTarget.Rival);
-
-        ConditionalEffect conditionalSpdPenaltyEffect = new ConditionalEffect(trueCondition, spdPenaltyEffect);
-        ConditionalEffect conditionalResPenaltyEffect = new ConditionalEffect(trueCondition, resPenaltyEffect);
-        ConditionalEffect conditionalDenialFollowUpGuaranteeEffect = 
-            new ConditionalEffect(trueCondition, denialFollowUpGuaranteeEffect);
-        ConditionalEffect conditionalDenialDenialFollowUpEffect = 
-            new ConditionalEffect(trueCondition, denialDenialFollowUpEffect);
-        ConditionalEffect conditionalPercentageDamageReductionReductionEffect = 
-            new ConditionalEffect(trueCondition, percentageDamageReductionReductionEffect);
-
-        MultiEffect multiEffect = new MultiEffect(new IEffect[]
-        {
-            conditionalSpdPenaltyEffect,
-            conditionalResPenaltyEffect,
-            conditionalDenialFollowUpGuaranteeEffect,
-            conditionalDenialDenialFollowUpEffect,
-            conditionalPercentageDamageReductionReductionEffect
-        });
-
-        return new Skill("Mag. Null Follow-Up", multiEffect);
+        return CreateNullFollow.CreateNullFollowSkill("Mag. Null Follow-Up", StatType.Res, EffectTarget.Rival);
     }
 }
