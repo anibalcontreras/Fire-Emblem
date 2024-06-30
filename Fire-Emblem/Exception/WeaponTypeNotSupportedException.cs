@@ -2,7 +2,7 @@ namespace Fire_Emblem.Exception;
 
 public class WeaponTypeNotSupportedException : ApplicationException
 {
-    private static readonly string DefaultMessage = "Weapon type not supported.";
+    private static readonly string _defaultMessage = "Weapon type not supported.";
     
-    public WeaponTypeNotSupportedException() : base(DefaultMessage) {}
+    public WeaponTypeNotSupportedException() : base(_defaultMessage) {}
 }
