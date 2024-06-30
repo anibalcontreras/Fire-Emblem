@@ -1,5 +1,3 @@
-using Fire_Emblem.Exception;
-
 namespace Fire_Emblem.Teams;
 
 public class TeamCollection

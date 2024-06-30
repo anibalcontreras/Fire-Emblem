@@ -7,29 +7,31 @@ public class GameController
 {
     private readonly IView _view;
     private readonly CombatController _combatController;
+    
     public GameController(IView view)
     {
         _view = view;
         _combatController = new CombatController(_view);
     }
     
-    public void ManageGame(List<Team> teams, List<Combat> combats)
+    public void ManageGame(TeamCollection teams, List<Combat> combats)
     {
         int currentPlayer = 0;
         int round = 1;
         while (CheckIfBothTeamsHaveLivingUnits(teams))
         {
             Combat combat = _combatController.ConductCombat(teams, round++, currentPlayer);
-            RemoveDefeatedUnits(teams);
+            RemoveDefeatedUnits(teams.GetTeams());
             combats.Add(combat);
             currentPlayer = (currentPlayer + 1) % 2;
         }
         AnnounceWinner(teams);
     }
     
-    private bool CheckIfBothTeamsHaveLivingUnits(List<Team> teams)
+    private bool CheckIfBothTeamsHaveLivingUnits(TeamCollection teams)
     {
-        return teams[0].HasLivingUnits() && teams[1].HasLivingUnits();
+        List<Team> teamList = teams.GetTeams();
+        return teamList[0].HasLivingUnits() && teamList[1].HasLivingUnits();
     }
     
     private void RemoveDefeatedUnits(List<Team> teams)
@@ -37,11 +39,11 @@ public class GameController
         foreach (Team team in teams) team.RemoveDefeatedUnits();
     }
     
-    
-    private void AnnounceWinner(List<Team> teams)
+    private void AnnounceWinner(TeamCollection teams)
     {
-        bool teamOneHasLivingUnits = teams[0].HasLivingUnits();
-        bool teamTwoHasLivingUnits = teams[1].HasLivingUnits();
+        List<Team> teamList = teams.GetTeams();
+        bool teamOneHasLivingUnits = teamList[0].HasLivingUnits();
+        bool teamTwoHasLivingUnits = teamList[1].HasLivingUnits();
 
         if (teamOneHasLivingUnits && !teamTwoHasLivingUnits)
             _view.AnnounceWinner(1);

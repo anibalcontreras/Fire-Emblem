@@ -28,9 +28,8 @@ public class GameInitializer
         TeamCollection teamsCollection = BuildTeamsFromScratch();
         try
         {
-            foreach (Team team in teamsCollection.GetTeams())
-                team.ValidateTeam();
-            _gameController.ManageGame(teamsCollection.GetTeams(), combats.GetCombats());
+            foreach (Team team in teamsCollection.GetTeams()) team.ValidateTeam();
+            _gameController.ManageGame(teamsCollection, combats.GetCombats());
         }
         catch (InvalidTeamException)
         {

@@ -19,7 +19,7 @@ public class CombatController
         _followUpController = new FollowUpController(view);
     }
     
-    public Combat ConductCombat(List<Team> teams, int round, int currentPlayer)
+    public Combat ConductCombat(TeamCollection teams, int round, int currentPlayer)
     {
         Combat combat = CreateCombat(teams, currentPlayer);
         Unit attacker = combat.Attacker;
@@ -31,10 +31,11 @@ public class CombatController
         return combat;
     }
 
-    private Combat CreateCombat(List<Team> teams, int currentPlayer)
+    private Combat CreateCombat(TeamCollection teams, int currentPlayer)
     {
-        Team activeTeam = teams[currentPlayer];
-        Team opponentTeam = teams[(currentPlayer + 1) % 2];
+        List<Team> teamList = teams.GetTeams();
+        Team activeTeam = teamList[currentPlayer];
+        Team opponentTeam = teamList[(currentPlayer + 1) % 2];
         int attackerPlayerNumber = currentPlayer + 1;
         int defenderPlayerNumber = (currentPlayer + 1) % 2 + 1;
         Unit attacker = _view.SelectUnit(activeTeam, attackerPlayerNumber);
