@@ -1,4 +1,5 @@
 using Fire_Emblem.Controllers;
+using Fire_Emblem.Exception;
 using Fire_Emblem.Teams;
 using Fire_Emblem.Views;
 
@@ -25,11 +26,16 @@ public class GameInitializer
     public void InitializeGame(CombatCollection combats)
     {
         TeamCollection teamsCollection = BuildTeamsFromScratch();
-        if (teamsCollection.AreTeamsValid())
+        try
+        {
+            foreach (Team team in teamsCollection.GetTeams())
+                team.ValidateTeam();
             _gameController.ManageGame(teamsCollection.GetTeams(), combats.GetCombats());
-        else
+        }
+        catch (InvalidTeamException)
+        {
             _gameController.AnnounceInvalidTeam();
-            
+        }
     }
 
     private TeamCollection BuildTeamsFromScratch()
@@ -46,9 +52,7 @@ public class GameInitializer
     {
         TeamCollection teams = new TeamCollection();
         foreach (Team team in teamsList)
-        {
             teams.AddTeam(team);
-        }
         return teams;
     }
 }

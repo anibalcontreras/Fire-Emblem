@@ -1,3 +1,4 @@
+using Fire_Emblem.Exception;
 using Fire_Emblem.Skills;
 using Fire_Emblem.Units;
 
@@ -9,90 +10,97 @@ public class Team
     private readonly int _maxAmountOfSkills = 2;
     private readonly int _currentHpBoundary = 0;
     public List<Unit> Units { get; } = new();
-    private string _name;
-    
-    public Team(string name)
-    {
-        _name = name;
-    }
     
     public void AddUnit(Unit unit)
-        =>Units.Add(unit);
-    
-    public bool IsValidTeam()
+        => Units.Add(unit);
+
+    public void ValidateTeam()
     {
-        return HasValidUnitCount() && HasUniqueUnits() && UnitsHaveValidSkills();
+        ValidateUnitCount();
+        ValidateUniqueUnits();
+        ValidateUnitSkills();
     }
-    
-    private bool HasValidUnitCount()
+
+    private void ValidateUnitCount()
     {
-        return Units.Count >= _minAmountOfUnits && Units.Count <= _maxAmountOfUnits;
+        if (Units.Count < _minAmountOfUnits || Units.Count > _maxAmountOfUnits)
+        {
+            throw new InvalidUnitCountException(_minAmountOfUnits, _maxAmountOfUnits, Units.Count);
+        }
     }
-    
-    private bool HasUniqueUnits()
+
+    private void ValidateUniqueUnits()
     {
         IEnumerable<string> unitNames = Units.Select(unit => unit.Name);
         IEnumerable<string> distinctUnitNames = unitNames.Distinct();
-        bool hasUniqueUnits = distinctUnitNames.Count() == unitNames.Count();
-        return hasUniqueUnits;
+        if (distinctUnitNames.Count() != unitNames.Count())
+        { throw new NonUniqueUnitsException(); }
     }
-    
-    private bool UnitsHaveValidSkills()
+
+    private void ValidateUnitSkills()
     {
         foreach (Unit unit in Units)
         {
-            if (!HasValidNumberOfSkills(unit) || !HasUniqueSkills(unit))
-                return false;
+            ValidateNumberOfSkills(unit);
+            ValidateUniqueSkills(unit);
         }
-        return true;
     }
 
-    private bool HasValidNumberOfSkills(Unit unit)
+    private void ValidateNumberOfSkills(Unit unit)
     {
         SkillsList skills = unit.Skills;
-        return skills.Count() <= _maxAmountOfSkills;
+        if (skills.Count() > _maxAmountOfSkills)
+        {
+            throw new TooManySkillsException(unit.Name, _maxAmountOfSkills, skills.Count());
+        }
     }
 
-    private bool HasUniqueSkills(Unit unit)
+    private void ValidateUniqueSkills(Unit unit)
     {
         SkillsList unitSkills = unit.Skills;
         IEnumerable<string> uniqueSkillNames = GetUniqueSkillNames(unitSkills);
-        return uniqueSkillNames.Count() == unitSkills.Count();
+        if (uniqueSkillNames.Count() != unitSkills.Count())
+        {
+            throw new NonUniqueSkillsException(unit.Name);
+        }
     }
-    
+
     private IEnumerable<string> GetUniqueSkillNames(SkillsList equippedSkills)
     {
         List<string> skillNames = new List<string>();
-        IEnumerable<Skill> skills = equippedSkills.Items; 
+        IEnumerable<Skill> skills = equippedSkills.Items;
         foreach (Skill skill in skills)
         {
             string skillName = skill.Name;
             skillNames.Add(skillName);
         }
-        IEnumerable<string> uniqueSkillNames = skillNames.Distinct();
-        return uniqueSkillNames;
+        return skillNames.Distinct();
     }
-    
+
     public void RemoveDefeatedUnits()
         => Units.RemoveAll(unit => unit.CurrentHP <= _currentHpBoundary);
-    
+
     public bool HasLivingUnits()
     {
         return Units.Any(unit => unit.CurrentHP > _currentHpBoundary);
     }
-    
+
     public void AddAllies(Unit unit)
     {
         Allies allies = unit.Allies;
         allies.RemoveAllAlies();
         foreach (Unit ally in Units)
+        {
             AddTheRightUnitToAllies(unit, ally);
+        }
     }
 
     private void AddTheRightUnitToAllies(Unit unit, Unit ally)
     {
         Allies allies = unit.Allies;
         if (ally != unit)
-            allies.AddAlly(ally);    
+        {
+            allies.AddAlly(ally);
+        }
     }
 }

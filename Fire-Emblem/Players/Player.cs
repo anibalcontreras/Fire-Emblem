@@ -4,8 +4,8 @@ namespace Fire_Emblem.Players;
 public class Player
 {
     public Team Team { get; }
-    public Player(string name)
+    public Player()
     {
-        Team = new Team(name);
+        Team = new Team();
     }
 }

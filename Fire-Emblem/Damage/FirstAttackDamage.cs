@@ -15,12 +15,12 @@ public class FirstAttackDamage : Damage
 
     protected override int CalculateDefenseValue()
     {
-        return AttackerWeapon is Magic ? 
-            Defender.GetFirstAttackStat(StatType.Res) : Defender.GetFirstAttackStat(StatType.Def);
+        return _attackerWeapon is Magic ? 
+            _defender.GetFirstAttackStat(StatType.Res) : _defender.GetFirstAttackStat(StatType.Def);
     }
 
     protected override double CalculateTotalPercentageReduction()
     {
-        return 1 - ((1 - Defender.PercentageDamageReduction) * (1 - Defender.FirstAttackPercentageDamageReduction));
+        return 1 - ((1 - _defender.PercentageDamageReduction) * (1 - _defender.FirstAttackPercentageDamageReduction));
     }
 }

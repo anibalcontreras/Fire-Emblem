@@ -29,7 +29,7 @@ public class TeamBuilder
     private List<Team> BuildPlayerTeamsFromFileTxt(string[] lines)
     {
         _playerTeams.Clear();
-        Player currentPlayer = new Player("");
+        Player currentPlayer = new Player();
         foreach (string line in lines)
         {
             currentPlayer = ProcessFileLine(line, currentPlayer);
@@ -50,8 +50,7 @@ public class TeamBuilder
 
     private Player CreatePlayerIfNecessary(string playerLine)
     {
-        string playerName = string.Join(" ", playerLine.Split().Take(2));
-        Player player = new Player(playerName);
+        Player player = new Player();
         _playerTeams.AddTeam(playerLine, player.Team);
         return player;
     }
