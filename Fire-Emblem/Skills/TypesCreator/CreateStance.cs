@@ -7,10 +7,32 @@ namespace Fire_Emblem.Skills.TypesCreator;
 
 public static class CreateStance
 {
+    private static readonly double _damageReduction = 0.1;
     public static Skill CreateStanceSkill(string skillName, StatType[] stats, int[] statValues)
     {
-        const double damageReduction = 0.1;
-        ICondition condition = new RivalBeginAsAttacker();
+        ICondition condition = CreateCondition();
+        IEffect[] effects = CreateEffects(condition, stats, statValues);
+        MultiEffect multiEffect = new MultiEffect(effects);
+
+        return new Skill(skillName, multiEffect);
+    }
+
+    private static ICondition CreateCondition()
+    {
+        return new RivalBeginAsAttacker();
+    }
+
+    private static IEffect[] CreateEffects(ICondition condition, StatType[] stats, int[] statValues)
+    {
+        List<IEffect> effects = CreateBonusEffects(condition, stats, statValues);
+        IEffect damageReductionEffect = CreateDamageReductionEffect(condition);
+        effects.Add(damageReductionEffect);
+
+        return effects.ToArray();
+    }
+
+    private static List<IEffect> CreateBonusEffects(ICondition condition, StatType[] stats, int[] statValues)
+    {
         List<IEffect> effects = new List<IEffect>();
         for (int i = 0; i < stats.Length; i++)
         {
@@ -18,12 +40,13 @@ public static class CreateStance
             ConditionalEffect conditionalBonusEffect = new ConditionalEffect(condition, bonusEffect);
             effects.Add(conditionalBonusEffect);
         }
-        IEffect damageReductionEffect = 
-            new FollowUpPercentageDamageReductionEffect(damageReduction, EffectTarget.Unit);
-        ConditionalEffect conditionalDamageReductionEffect = 
-            new ConditionalEffect(condition, damageReductionEffect);
-        effects.Add(conditionalDamageReductionEffect);
-        MultiEffect multiEffect = new MultiEffect(effects);
-        return new Skill(skillName, multiEffect);
+        return effects;
+    }
+
+    private static IEffect CreateDamageReductionEffect(ICondition condition)
+    {
+        
+        IEffect reductionEffect = new FollowUpPercentageDamageReductionEffect(_damageReduction, EffectTarget.Unit);
+        return new ConditionalEffect(condition, reductionEffect);
     }
 }

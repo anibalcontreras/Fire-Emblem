@@ -57,22 +57,22 @@ public class Unit
     
     public int FirstAttackDefBonus { get; private set; }
     public int FirstAttackDefPenalty { get; private set; }
-    private int FirstAttackDefBonusNeutralization { get; set; }
-    private int FirstAttackDefPenaltyNeutralization { get; set; }
+    private int _firstAttackDefBonusNeutralization { get; set; }
+    private int _firstAttackDefPenaltyNeutralization { get; set; }
     
     public int FirstAttackResBonus { get; private set; }
     public int FirstAttackResPenalty { get; private set; }
-    private int FirstAttackResBonusNeutralization { get; set; }
-    private int FirstAttackResPenaltyNeutralization { get; set; }
+    private int _firstAttackResBonusNeutralization { get; set; }
+    private int _firstAttackResPenaltyNeutralization { get; set; }
     
-    private int FollowUpAtkBonus { get; set; }
-    private int FollowUpAtkPenalty { get; set; }
+    private int _followUpAtkBonus { get; set; }
+    private int _followUpAtkPenalty { get; set; }
     
-    private int FollowUpDefBonus { get; set; }
-    private int FollowUpDefPenalty { get; set; }
+    private int _followUpDefBonus { get; set; }
+    private int _followUpDefPenalty { get; set; }
     
-    private int FollowUpResBonus { get; set; }
-    private int FollowUpResPenalty { get; set; }
+    private int _followUpResBonus { get; set; }
+    private int _followUpResPenalty { get; set; }
     
     public int ExtraDamage { get; private set; }
     
@@ -99,9 +99,9 @@ public class Unit
     public bool HasNullifiedCounterattack { get; private set; }
     public bool HasNullifiedNullifiedCounterattack { get; private set; }
     public bool HasUnitExecutedAStrike { get; private set; }
-    private int _healingAfterCombat { get; set; }
-    private int _damageAfterCombat { get; set; }
-    public int _damageBeforeCombat { get; private set; }
+    private int _healingAfterCombat;
+    private int _damageAfterCombat;
+    public int DamageBeforeCombat { get; private set; }
     public bool HasFollowUpGuaranteed { get; private set; }
     public bool HasDenialFollowUpGuaranteed { get; private set; }
     public bool HasDenialFollowUp { get; private set; }
@@ -129,16 +129,16 @@ public class Unit
         FirstAttackAtkBonusNeutralization + FirstAttackAtkPenaltyNeutralization;
     
     private int _firstAttackDef => _currentDef + FirstAttackDefBonus - FirstAttackDefPenalty -
-        FirstAttackDefBonusNeutralization + FirstAttackDefPenaltyNeutralization;
+        _firstAttackDefBonusNeutralization + _firstAttackDefPenaltyNeutralization;
     
     private int _firstAttackRes => _currentRes + FirstAttackResBonus - FirstAttackResPenalty -
-        FirstAttackResBonusNeutralization + FirstAttackResPenaltyNeutralization;
+        _firstAttackResBonusNeutralization + _firstAttackResPenaltyNeutralization;
     
-    private int _followUpAtk => _currentAtk + FollowUpAtkBonus - FollowUpAtkPenalty;
+    private int _followUpAtk => _currentAtk + _followUpAtkBonus - _followUpAtkPenalty;
     
-    public int _followUpDef => _currentDef + FollowUpDefBonus - FollowUpDefPenalty;
+    private int _followUpDef => _currentDef + _followUpDefBonus - _followUpDefPenalty;
     
-    public int _followUpRes => _currentRes + FollowUpResBonus - FollowUpResPenalty;
+    private int _followUpRes => _currentRes + _followUpResBonus - _followUpResPenalty;
     
     public int GetFirstAttackStat(StatType statType)
     {
@@ -240,11 +240,11 @@ public class Unit
                 break;
             case StatType.Def:
                 DefBonusNeutralization = DefBonus;
-                FirstAttackDefBonusNeutralization = FirstAttackDefBonus;
+                _firstAttackDefBonusNeutralization = FirstAttackDefBonus;
                 break;
             case StatType.Res:
                 ResBonusNeutralization = ResBonus;
-                FirstAttackResBonusNeutralization = FirstAttackResBonus;
+                _firstAttackResBonusNeutralization = FirstAttackResBonus;
                 break;
         }
     }
@@ -262,11 +262,11 @@ public class Unit
                 break;
             case StatType.Def:
                 DefPenaltyNeutralization = DefPenalty;
-                FirstAttackDefPenaltyNeutralization = FirstAttackDefPenalty;
+                _firstAttackDefPenaltyNeutralization = FirstAttackDefPenalty;
                 break;
             case StatType.Res:
                 ResPenaltyNeutralization = ResPenalty;
-                FirstAttackResPenaltyNeutralization = FirstAttackResPenalty;
+                _firstAttackResPenaltyNeutralization = FirstAttackResPenalty;
                 break;
         }
     }
@@ -384,8 +384,8 @@ public class Unit
         FirstAttackDefBonus = 0;
         FirstAttackResBonus = 0;
         FirstAttackAtkBonusNeutralization = 0;
-        FirstAttackDefBonusNeutralization = 0;
-        FirstAttackResBonusNeutralization = 0;
+        _firstAttackDefBonusNeutralization = 0;
+        _firstAttackResBonusNeutralization = 0;
         FirstAttackExtraDamage = 0;
     }
 
@@ -395,18 +395,18 @@ public class Unit
         FirstAttackDefPenalty = 0;
         FirstAttackResPenalty = 0;
         FirstAttackAtkPenaltyNeutralization = 0;
-        FirstAttackDefPenaltyNeutralization = 0;
-        FirstAttackResPenaltyNeutralization = 0;
+        _firstAttackDefPenaltyNeutralization = 0;
+        _firstAttackResPenaltyNeutralization = 0;
     }
 
     public void ResetFollowUpStats()
     {
-        FollowUpAtkBonus = 0;
-        FollowUpDefBonus = 0;
-        FollowUpResBonus = 0;
-        FollowUpAtkPenalty = 0;
-        FollowUpDefPenalty = 0;
-        FollowUpResPenalty = 0;
+        _followUpAtkBonus = 0;
+        _followUpDefBonus = 0;
+        _followUpResBonus = 0;
+        _followUpAtkPenalty = 0;
+        _followUpDefPenalty = 0;
+        _followUpResPenalty = 0;
     }
     
     public void SetLastUnitFaced(Unit unit)
@@ -432,7 +432,6 @@ public class Unit
 
     public void ResetIsAttacker()
         => IsAttacker = false;
-
     
     public void SetActivatedAlterStatBase()
         => HasActivatedAlterStatBase = true;
@@ -496,10 +495,10 @@ public class Unit
     public void ApplyDamageBeforeCombat(int amount)
     {
         _currentHP = Math.Max(1, _currentHP - amount);
-        _damageBeforeCombat += amount;
+        DamageBeforeCombat += amount;
     }
     private void ResetDamageBeforeCombat()
-        => _damageBeforeCombat = 0;
+        => DamageBeforeCombat = 0;
     
     public void SetFollowUpGuaranteed()
         => HasFollowUpGuaranteed = true;
@@ -507,7 +506,6 @@ public class Unit
     private void ResetFollowUpGuaranteed()
         => HasFollowUpGuaranteed = false;
     
-
     public void SetDenialFollowUpGuaranteed()
         => HasDenialFollowUpGuaranteed = true;
 
