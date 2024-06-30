@@ -27,7 +27,12 @@ public class Unit
     public int CurrentHP
     {
         get { return _currentHP; }
-        set { _currentHP = Math.Max(0, value); }
+        private set { _currentHP = value; }
+    }
+
+    public void DecreaseCurrentHpDueDamage(int value)
+    {
+        CurrentHP = Math.Max(0, _currentHP - value);
     }
     
     public int AtkBonus { get; private set; }

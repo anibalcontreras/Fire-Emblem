@@ -70,7 +70,7 @@ public abstract class Damage
     private int UpdateOpponentHpDueTheDamage(double finalDamage)
     {
         int finalDamageInt = Convert.ToInt32(Math.Floor(finalDamage));
-        Defender.CurrentHP -= finalDamageInt;
+        Defender.DecreaseCurrentHpDueDamage(finalDamageInt);
         Attacker.SetFinalCausedDamage(finalDamageInt);
         int attackerHealing = Convert.ToInt32(Math.Floor(finalDamage * Attacker.HealingPercentage));
         Attacker.IncreaseCurrentHpDueHealing(attackerHealing);
