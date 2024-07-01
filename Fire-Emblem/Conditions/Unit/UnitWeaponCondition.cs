@@ -1,4 +1,5 @@
 using Fire_Emblem.Units;
+using Fire_Emblem.Weapons;
 
 namespace Fire_Emblem.Conditions;
 
@@ -13,7 +14,8 @@ public class UnitWeaponCondition : ICondition
 
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        return activator.Weapon.GetType() == _requiredWeaponType;
+        Weapon activatorWeapon = activator.Weapon;
+        return activatorWeapon.GetType() == _requiredWeaponType;
     }
 }
 

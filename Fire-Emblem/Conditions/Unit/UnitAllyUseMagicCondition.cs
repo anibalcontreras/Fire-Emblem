@@ -12,7 +12,8 @@ public class UnitAllyUseMagicCondition : ICondition
         IEnumerable<Unit> allies = activatorAllies.Items;
         foreach (Unit ally in allies)
         {
-            if (ally.Weapon.GetType() == typeof(Magic))
+            Weapon allyWeapon = ally.Weapon;
+            if (allyWeapon.GetType() == typeof(Magic))
                 return true;
         }
         return false;

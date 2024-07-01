@@ -14,6 +14,7 @@ public class RivalWeaponCondition : ICondition
 
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        return _requiredWeaponTypes.Contains(opponent.Weapon.GetType());
+        Weapon opponentWeapon = opponent.Weapon;
+        return _requiredWeaponTypes.Contains(opponentWeapon.GetType());
     }
 }

@@ -7,6 +7,7 @@ public class UnitWeaponAdvantageCondition : ICondition
 {
     public bool IsConditionMet(Unit activator, Unit opponent)
     {
-        return activator.Weapon.CalculateAdvantage(opponent) == AdvantageState.Advantage;
+        Weapon activatorWeapon = activator.Weapon;
+        return activatorWeapon.CalculateAdvantage(opponent) == AdvantageState.Advantage;
     }
 }
