@@ -51,5 +51,4 @@ public static class ConditionalEffectBuilder
         ).ToArray();
         return new MultiEffect(conditionalEffects);
     }
-    
 }

@@ -33,7 +33,8 @@ public class ConsoleGameView : BaseGameView
 
     private void AnnounceUnitOptions(Team team)
     {
-        for (int i = 0; i < team.Units.Count; i++)
+        List<Unit> units = team.Units;
+        for (int i = 0; i < units.Count; i++)
         {
             if (team.Units[i].CurrentHP > 0)
                 _view.WriteLine($"{i}: {team.Units[i].Name}");

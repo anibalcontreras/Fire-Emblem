@@ -5,18 +5,18 @@ namespace Fire_Emblem.Effects.Healing;
 public class PercentageHealingEffect : IHealingEffect
 {
     private readonly double _percentage;
-    
-    private EffectTarget Target { get; }
+
+    private readonly EffectTarget _target;
     
     public PercentageHealingEffect(double percentage, EffectTarget target)
     {
         _percentage = percentage;
-        Target = target;
+        _target = target;
     }
     
     public void ApplyEffect(Unit activator, Unit opponent)
     {
-        Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyPercentageHealing(_percentage);
         EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);

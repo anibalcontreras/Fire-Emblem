@@ -5,8 +5,8 @@ namespace Fire_Emblem.Effects.Neutralization;
 
 public class NeutralizationPenaltyEffect: IEffect
 {
-    private EffectTarget _target { get; }
-    public StatType StatType { get; }
+    private readonly EffectTarget _target;
+    public readonly StatType StatType;
     
     public NeutralizationPenaltyEffect(EffectTarget target, StatType statType)
     {

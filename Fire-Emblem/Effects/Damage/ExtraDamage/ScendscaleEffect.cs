@@ -7,18 +7,18 @@ public class ScendscaleEffect : IExtraDamageEffect
 {
     private readonly double _percentage;
     private readonly StatType _statType;
-    private EffectTarget Target { get; }
+    private readonly EffectTarget _target;
         
     public ScendscaleEffect(double percentage, StatType statType, EffectTarget target)
     {
         _percentage = percentage;
         _statType = statType;
-        Target = target;
+        _target = target;
     }
         
     public void ApplyEffect(Unit activator, Unit opponent)
     {
-        Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         int extraDamage = (int)(activator.GetCurrentStat(_statType) * _percentage);
         targetUnit.ApplyExtraDamageEffect(extraDamage);
         EffectCollection targetUnitEffects = targetUnit.Effects;

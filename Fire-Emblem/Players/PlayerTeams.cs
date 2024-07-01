@@ -18,7 +18,8 @@ public class PlayerTeams
 
     public List<Team> GetTeams()
     {
-        return _playerTeams.Values.ToList();
+        var playerTeamsValues = _playerTeams.Values;
+        return playerTeamsValues.ToList();
     }
     
 }

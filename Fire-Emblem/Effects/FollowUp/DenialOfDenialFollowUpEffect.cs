@@ -4,7 +4,7 @@ namespace Fire_Emblem.Effects.FollowUp;
 
 public class DenialOfDenialFollowUpEffect : IEffect
 {
-    private EffectTarget _target;
+    private readonly EffectTarget _target;
 
     public DenialOfDenialFollowUpEffect(EffectTarget target)
     {

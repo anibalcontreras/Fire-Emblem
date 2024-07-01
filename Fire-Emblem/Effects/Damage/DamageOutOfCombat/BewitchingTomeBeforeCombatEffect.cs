@@ -7,17 +7,17 @@ public class BewitchingTomeBeforeCombatEffect : IDamageBeforeCombatEffect
 {
     private readonly double _percentage;
     
-    private EffectTarget Target { get; }
+    private EffectTarget _target { get; }
     
     public BewitchingTomeBeforeCombatEffect(double percentage, EffectTarget target)
     {
         _percentage = percentage;
-        Target = target;
+        _target = target;
     }
     
     public void ApplyEffect(Unit activator, Unit opponent)
     {
-        Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         int damage = (int)(targetUnit.GetCurrentStat(StatType.Atk) * _percentage);
         targetUnit.ApplyDamageBeforeCombat(damage);
         EffectCollection targetUnitEffects = targetUnit.Effects;

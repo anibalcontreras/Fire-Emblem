@@ -7,16 +7,16 @@ public class BonusEffect : IBonusEffect
 {
     private readonly StatType _statToIncrease;
     private readonly int _amount;
-    private EffectTarget Target { get; }
+    private readonly EffectTarget _target;
     public BonusEffect(StatType statToIncrease, int amount, EffectTarget target)
     {
         _statToIncrease = statToIncrease;
         _amount = amount;
-        Target = target;
+        _target = target;
     }
     public void ApplyEffect(Unit activator, Unit opponent)
     {
-        Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
+        Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyStatBonus(_statToIncrease, _amount);
         EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);

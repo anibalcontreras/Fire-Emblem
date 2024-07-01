@@ -4,7 +4,7 @@ namespace Fire_Emblem.Effects.FollowUp;
 
 public class FollowUpGuaranteeEffect : IEffect
 {
-    private EffectTarget _target;
+    private readonly EffectTarget _target;
     
     public FollowUpGuaranteeEffect(EffectTarget target)
     {

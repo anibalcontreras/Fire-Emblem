@@ -24,15 +24,12 @@ public class ExtraDamagePerStatDifferenceEffect : IExtraDamageEffect
         int activatorStatValue = targetUnit.GetCurrentStat(_statType);
         int opponentStatValue = opponent.GetCurrentStat(_statType);
         int statDifference = activatorStatValue - opponentStatValue;
-
         int extraDamage = (int)(statDifference * _percentage);
         extraDamage = Math.Clamp(extraDamage, _minExtraDamage, _maxExtraDamage);
-
         if (extraDamage > 0)
         {
             targetUnit.ApplyExtraDamageEffect(extraDamage);
         }
-
         EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }

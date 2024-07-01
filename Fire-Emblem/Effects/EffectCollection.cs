@@ -1,4 +1,3 @@
-using Fire_Emblem.Effects.FollowUp;
 using Fire_Emblem.Effects.Neutralization;
 using Fire_Emblem.Stats;
 

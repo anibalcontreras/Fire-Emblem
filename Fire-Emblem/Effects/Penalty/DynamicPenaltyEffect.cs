@@ -5,11 +5,11 @@ namespace Fire_Emblem.Effects;
 
 public class DynamicPenaltyEffect : IPenaltyEffect
 {
-    private EffectTarget _target { get; }
-    private StatType _statType { get; }
-    private StatType _statTypeCondition { get; }
-    private double _percentage = 0.8;
-    private int _maxPenalty = 8;
+    private readonly EffectTarget _target;
+    private readonly StatType _statType;
+    private readonly StatType _statTypeCondition;
+    private readonly double _percentage = 0.8;
+    private readonly int _maxPenalty = 8;
     
     public DynamicPenaltyEffect(EffectTarget target, StatType statType, StatType statTypeCondition)
     {
