@@ -22,7 +22,7 @@ namespace Fire_Emblem.Effects.Damage.PercentageDamageReduction
             Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
             double percentageReduction = CalculatePercentageReduction(targetUnit, opponent);
             targetUnit.ApplyPercentageDamageReduction(percentageReduction);
-            EffectsList targetUnitEffects = targetUnit.Effects;
+            EffectCollection targetUnitEffects = targetUnit.Effects;
             targetUnitEffects.AddEffect(this);
         }
 

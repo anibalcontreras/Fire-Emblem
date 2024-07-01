@@ -21,7 +21,7 @@ public class ExtraDamagePerStatTypeEffect : IExtraDamageEffect
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         int extraDamage = (int)(opponent.GetCurrentStat(_statType) * _percentage);
         targetUnit.ApplyExtraDamageEffect(extraDamage);
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 }

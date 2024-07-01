@@ -57,7 +57,7 @@ public class MastermindExtraDamageEffect : IExtraDamageEffect
 
     private void AddEffectToTargetUnit(Unit targetUnit)
     {
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 }

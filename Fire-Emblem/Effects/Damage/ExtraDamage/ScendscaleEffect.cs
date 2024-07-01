@@ -21,7 +21,7 @@ public class ScendscaleEffect : IExtraDamageEffect
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         int extraDamage = (int)(activator.GetCurrentStat(_statType) * _percentage);
         targetUnit.ApplyExtraDamageEffect(extraDamage);
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 }

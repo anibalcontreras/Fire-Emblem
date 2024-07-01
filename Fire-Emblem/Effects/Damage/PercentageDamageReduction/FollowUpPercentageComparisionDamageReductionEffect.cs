@@ -23,7 +23,7 @@ public class FollowUpPercentageComparisionDamageReductionEffect : IFollowUpPerce
             Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
             double percentageReduction = CalculatePercentageReduction(targetUnit, opponent);
             targetUnit.ApplyFollowUpPercentageDamageReduction(percentageReduction);
-            EffectsList targetUnitEffects = targetUnit.Effects;
+            EffectCollection targetUnitEffects = targetUnit.Effects;
             targetUnitEffects.AddEffect(this);
         }
 

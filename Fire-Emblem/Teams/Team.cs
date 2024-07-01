@@ -48,7 +48,7 @@ public class Team
 
     private void ValidateNumberOfSkills(Unit unit)
     {
-        SkillsList skills = unit.Skills;
+        SkillCollection skills = unit.Skills;
         if (skills.Count() > _maxAmountOfSkills)
         {
             throw new TooManySkillsException(unit.Name, _maxAmountOfSkills, skills.Count());
@@ -57,7 +57,7 @@ public class Team
 
     private void ValidateUniqueSkills(Unit unit)
     {
-        SkillsList unitSkills = unit.Skills;
+        SkillCollection unitSkills = unit.Skills;
         IEnumerable<string> uniqueSkillNames = GetUniqueSkillNames(unitSkills);
         if (uniqueSkillNames.Count() != unitSkills.Count())
         {
@@ -65,7 +65,7 @@ public class Team
         }
     }
 
-    private IEnumerable<string> GetUniqueSkillNames(SkillsList equippedSkills)
+    private IEnumerable<string> GetUniqueSkillNames(SkillCollection equippedSkills)
     {
         List<string> skillNames = new List<string>();
         IEnumerable<Skill> skills = equippedSkills.Items;

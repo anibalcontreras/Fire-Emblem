@@ -18,7 +18,7 @@ public class FirstAttackExtraDamageEffect : IEffect
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         int amount = CalculateExtraDamage(activator, opponent);
         targetUnit.ApplyFirstAttackExtraDamageEffect(amount);
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 

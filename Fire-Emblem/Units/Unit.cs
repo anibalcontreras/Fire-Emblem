@@ -18,9 +18,9 @@ public class Unit
     public int BaseDef { get; init; }
     public int BaseRes { get; init; }
     public Weapon Weapon { get; init; }
-    public SkillsList Skills { get; } = new();
+    public SkillCollection Skills { get; } = new();
     public Allies Allies { get; } = new();
-    public EffectsList Effects { get; } = new();
+    public EffectCollection Effects { get; } = new();
     private int _currentHP;
     public int AtkBonus { get; private set; }
     public int AtkPenalty { get; private set; }

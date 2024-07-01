@@ -136,8 +136,8 @@ public class CombatController
     
     private void ClearUnitsEffects(Unit attacker, Unit defender)
     {
-        EffectsList attackerEffects = attacker.Effects;
-        EffectsList defenderEffects = defender.Effects;
+        EffectCollection attackerEffects = attacker.Effects;
+        EffectCollection defenderEffects = defender.Effects;
         attackerEffects.ClearEffects();
         defenderEffects.ClearEffects();
     }

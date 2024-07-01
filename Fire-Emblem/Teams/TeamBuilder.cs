@@ -148,7 +148,7 @@ public class TeamBuilder
         {
             skill = FindSkillByName(skillName);
         }
-        SkillsList unitSkills = unit.Skills;
+        SkillCollection unitSkills = unit.Skills;
         Skill clonedSkill = new Skill(skill.Name, skill.Effect);
         unitSkills.AddSkill(clonedSkill);
     }

@@ -1,6 +1,6 @@
 namespace Fire_Emblem.Skills;
 
-public class SkillsList
+public class SkillCollection
 {
     private readonly List<Skill> _skills = new();
 

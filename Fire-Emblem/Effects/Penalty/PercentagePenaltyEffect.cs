@@ -23,7 +23,7 @@ public class PercentagePenaltyEffect : IPenaltyEffect
         int baseStatValue = targetUnit.GetBaseStat(_statToDecrease);
         _penaltyAmount = (int)(baseStatValue * _percentage);
         targetUnit.ApplyStatPenalty(_statToDecrease, _penaltyAmount);
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 }

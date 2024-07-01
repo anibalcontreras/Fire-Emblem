@@ -4,7 +4,7 @@ using Fire_Emblem.Stats;
 
 namespace Fire_Emblem.Effects;
 
-public class EffectsList
+public class EffectCollection
 {
     private readonly List<IEffect> _effects = new();
     

@@ -18,7 +18,7 @@ public abstract class EffectsHandler
 
     public void CollectConditionMetEffects(List<(Unit, IEffect)> effectsToApply)
     {
-        SkillsList activatorSkills = _activator.Skills;
+        SkillCollection activatorSkills = _activator.Skills;
         IEnumerable<Skill> skills = activatorSkills.Items;
         foreach (Skill skill in skills)
         {

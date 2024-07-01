@@ -16,7 +16,7 @@ public class BackAtYouEffect : IExtraDamageEffect
         Unit targetUnit = _target == EffectTarget.Unit ? activator : opponent;
         int extraDamage = (activator.BaseHp - activator.CurrentHP) / 2;
         targetUnit.ApplyExtraDamageEffect(extraDamage);
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Fire_Emblem;
 using Fire_Emblem_View;
 using Fire_Emblem_GUI;
+using Fire_Emblem.Views;
 
-bool useGui = false;
+bool useGui = true;
 
 if (useGui)
 {
@@ -11,7 +12,9 @@ if (useGui)
 
     void Main()
     {
-        
+        GraphicGameView graphicGameView = new GraphicGameView(window);
+        UIGame uiGame = new UIGame(graphicGameView);
+        uiGame.Play();
     }
 }
 else

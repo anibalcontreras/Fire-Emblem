@@ -39,4 +39,11 @@ public interface IView
     public void AnnounceDenialFollowUpGuaranteed(Unit unit);
     public void AnnounceCounterattackDenialEffect(Unit unit);
     public void AnnounceDamageBeforeCombatEffect(Unit unit);
+    public string GetTeam1();
+    public string GetTeam2();
+    public void ShowInvalidTeamMessage();
+    public void UpdateTeams(IUnit[] firstUnit, IUnit[] secondUnit);
+    public int SelectUnitFirstTeam();
+    public int SelectUnitSecondTeam();
+    public void UpdateUnitsStatsDuringBattle(IUnit firstUnit, IUnit secondUnit);
 }

@@ -28,7 +28,7 @@ public class StatDifferenceDamageReductionEffect : IAbsoluteDamageReductionEffec
         reductionValue = Math.Clamp(reductionValue, _minReduction, _maxReduction);
 
         targetUnit.ApplyAbsoluteDamageReduction(reductionValue);
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 }

@@ -20,7 +20,7 @@ public class BewitchingTomeBeforeCombatEffect : IDamageBeforeCombatEffect
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         int damage = (int)(targetUnit.GetCurrentStat(StatType.Atk) * _percentage);
         targetUnit.ApplyDamageBeforeCombat(damage);
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 }

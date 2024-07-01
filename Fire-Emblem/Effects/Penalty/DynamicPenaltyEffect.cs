@@ -30,7 +30,7 @@ public class DynamicPenaltyEffect : IPenaltyEffect
         else
             penaltyAmount = Math.Min(Math.Max(penaltyAmount, 0), 8);
         targetUnit.ApplyStatPenalty(_statType, penaltyAmount);
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 }

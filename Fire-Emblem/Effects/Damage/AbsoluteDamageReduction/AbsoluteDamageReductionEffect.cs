@@ -17,7 +17,7 @@ public class AbsoluteDamageReductionEffect : IAbsoluteDamageReductionEffect
     {
         Unit targetUnit = Target == EffectTarget.Unit ? activator : opponent;
         targetUnit.ApplyAbsoluteDamageReduction(_amount);
-        EffectsList targetUnitEffects = targetUnit.Effects;
+        EffectCollection targetUnitEffects = targetUnit.Effects;
         targetUnitEffects.AddEffect(this);
     }
 }
