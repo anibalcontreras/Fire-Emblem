@@ -1,5 +1,6 @@
 Player 1 Team
-Chrom (Still Water)
+Camilla
+Veronica (Still Water)
 Player 2 Team
-Alm (Still Water)
-Chrom (Still Water)
+Tiki (Still Water)
+Claude

@@ -1,7 +1,5 @@
 Player 1 Team
-Ephraim
-Camilla (Attack +6)
-Dimitri
+Roy (Attack +6)
 Player 2 Team
-Roy
-Byleth
+Micaiah
+Ike (Attack +6)

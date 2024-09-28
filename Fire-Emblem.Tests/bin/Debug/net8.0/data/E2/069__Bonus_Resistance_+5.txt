@@ -1,4 +1,7 @@
 Player 1 Team
-Alm
+Alm (Resistance +5)
+Eliwood
+Byleth
 Player 2 Team
-Edelgard (Resistance +5)
+Chrom
+Corrin

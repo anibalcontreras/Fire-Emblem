@@ -1,6 +1,4 @@
 Player 1 Team
-Chrom
-Alm (Still Water)
-Lyn
+Ike (Still Water)
 Player 2 Team
-Veronica (Still Water)
+Soren (Still Water)

@@ -1,5 +1,6 @@
 Player 1 Team
-Leif (Speed +5)
+Seliph (Speed +5)
 Player 2 Team
-Eirika (Speed +5)
+Sigurd
+Seliph
 Edelgard (Speed +5)

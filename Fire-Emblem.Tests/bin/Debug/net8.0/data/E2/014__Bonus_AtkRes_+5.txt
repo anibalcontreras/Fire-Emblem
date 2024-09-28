@@ -1,8 +1,7 @@
 Player 1 Team
-Shez
-Chrom (Atk/Res +5)
-Claude (Atk/Res +5)
+Robin
+Tiki
+Soren (Atk/Res +5)
 Player 2 Team
-Celica (Atk/Res +5)
-Hector (Atk/Res +5)
-Veronica
+Shez
+Roy

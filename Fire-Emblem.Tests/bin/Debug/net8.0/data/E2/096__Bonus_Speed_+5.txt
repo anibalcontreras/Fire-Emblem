@@ -1,6 +1,6 @@
 Player 1 Team
-Roy (Speed +5)
-Chrom
+Leif (Speed +5)
 Player 2 Team
-Eliwood (Speed +5)
-Lucina (Speed +5)
+Hector
+Edelgard
+Tiki

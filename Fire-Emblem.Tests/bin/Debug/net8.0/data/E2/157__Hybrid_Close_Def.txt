@@ -1,6 +1,5 @@
 Player 1 Team
-Camilla
-Roy
-Ephraim
+Micaiah
+Chrom
 Player 2 Team
 Edelgard (Close Def)

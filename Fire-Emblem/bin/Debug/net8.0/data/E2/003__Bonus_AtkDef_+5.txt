@@ -1,5 +1,7 @@
 Player 1 Team
-Alm (Atk/Def +5)
+Veronica (Atk/Def +5)
+Chrom (Atk/Def +5)
 Player 2 Team
-Roy
-Seliph
+Sigurd (Atk/Def +5)
+Roy (Atk/Def +5)
+Alear

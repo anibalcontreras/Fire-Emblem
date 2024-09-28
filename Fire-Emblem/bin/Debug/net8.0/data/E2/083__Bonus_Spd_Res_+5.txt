@@ -1,4 +1,7 @@
 Player 1 Team
-Claude
+Ike
+Sigurd
 Player 2 Team
-Celica (Spd/Res +5)
+Alm
+Dimitri
+Veronica

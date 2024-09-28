@@ -1,4 +1,6 @@
 Player 1 Team
-Lyn (Fort. Def/Res)
+Celica (Fort. Def/Res)
+Lyn
 Player 2 Team
-Claude
+Hector (Fort. Def/Res)
+Marth

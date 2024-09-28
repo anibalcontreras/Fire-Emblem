@@ -1,6 +1,6 @@
 Player 1 Team
-Seliph (Brazen Def/Res)
-Sigurd
+Ike (Brazen Def/Res)
+Robin
 Player 2 Team
-Shez
-Soren
+Marth
+Camilla (Brazen Def/Res)

@@ -1,6 +1,8 @@
 Player 1 Team
-Camilla (Attack +6)
-Leif (Attack +6)
+Shez
+Marth
+Chrom (Attack +6)
 Player 2 Team
-Robin
+Roy (Attack +6)
+Marth (Attack +6)
 Shez

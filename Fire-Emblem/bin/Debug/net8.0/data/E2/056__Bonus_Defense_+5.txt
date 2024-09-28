@@ -1,6 +1,7 @@
 Player 1 Team
-Byleth (Defense +5)
-Lyn
-Veronica
+Celica
+Alear (Defense +5)
+Alm
 Player 2 Team
-Eliwood
+Roy (Defense +5)
+Claude (Defense +5)

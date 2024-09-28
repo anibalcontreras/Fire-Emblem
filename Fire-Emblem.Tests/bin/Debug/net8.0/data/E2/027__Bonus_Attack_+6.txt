@@ -1,5 +1,4 @@
 Player 1 Team
-Roy (Attack +6)
+Ike
 Player 2 Team
-Ike (Attack +6)
-Robin (Attack +6)
+Alear (Attack +6)

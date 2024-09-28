@@ -12,4 +12,14 @@
       <ProjectReference Include="..\Fire-Emblem-View\Fire-Emblem-View.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Effects\Damage\ExtraDamage\FollowUpExtraDamageEffect.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Fire-Emblem-GUI">
+        <HintPath>GuiLib\Fire-Emblem-GUI.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

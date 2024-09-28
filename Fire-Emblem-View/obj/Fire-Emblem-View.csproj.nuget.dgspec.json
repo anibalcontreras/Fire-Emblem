@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj": {}
+    "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj": {}
   },
   "projects": {
-    "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj": {
+    "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj",
+        "projectUniqueName": "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj",
         "projectName": "Fire-Emblem-View",
-        "projectPath": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj",
+        "projectPath": "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/Fire-Emblem-View.csproj",
         "packagesPath": "/Users/anibal/.nuget/packages/",
-        "outputPath": "/Users/anibal/Documents/2024-1/DDS/Proyecto/Fire-Emblem/Fire-Emblem-View/obj/",
+        "outputPath": "/Users/anibal/code/Fire-Emblem/Fire-Emblem-View/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/anibal/.nuget/NuGet/NuGet.Config"
@@ -42,6 +42,16 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Avalonia": {
+              "target": "Package",
+              "version": "[11.1.0-rc1, )"
+            },
+            "Avalonia.Desktop": {
+              "target": "Package",
+              "version": "[11.1.0-rc1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
